@@ -25,11 +25,11 @@ function Fn_Setup_jllutils_In_PATH()
     fi
     if [ -e "${JLLPATH}/.___jllrepoconf" ]; then
         cp -rvf ${JLLPATH}/.___jllrepoconf ${JLLPATH}/../.jllrepoconf
+        ${JLLPATH}/jll.repo.sh init
     fi
-    ${JLLPATH}/jll.repo.sh init
 
     GvTargetLines=""
-    if [ -e "$(realpath ~)/.bashrc" ]; then
+    if [ -e "${HOME}/.bashrc" ]; then
         JLLP=$(echo "${JLLPATH}" | sed 's:\/:\\\/:g')
         GvTargetLines=$(sed -n "/^[ -t]*PATH\=${JLLP}/=" ~/.bashrc)
     fi

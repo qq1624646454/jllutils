@@ -1,3 +1,4 @@
+
 Host         gerrit
 Hostname     172.20.30.2
 Port         29419
@@ -22,16 +23,28 @@ Port         29418
 User         jielong.lin
 IdentityFile ~/.ssh/id_rsa
 
-Host         url_xm
-Hostname     172.20.30.2 
-Port         29420 
-User         jielong.lin
-IdentityFile ~/.ssh/id_rsa
+
+
+
+
  
-Host         url
-Hostname     172.16.112.71 
-Port         29418
-User         jielong.lin
+Host url
+HostName 172.20.30.2
+User jielong.lin 
+Port 29420
 IdentityFile ~/.ssh/id_rsa
- 
+
+Host url-xm
+HostName 172.20.30.2
+User jielong.lin 
+Port 29420
+IdentityFile ~/.ssh/id_rsa
+
+Host url-tpemaster
+HostName 172.16.112.71
+User jielong.lin 
+Port 29418
+IdentityFile ~/.ssh/id_rsa
+
+
  

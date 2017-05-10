@@ -116,19 +116,20 @@ if [ x"${GvRootPath}" = x -o ! -e "${GvRootPath}" ]; then
     if [ x"$1" = x"init" ]; then
         read -p "Create $(pwd)/.jllrepoconf if press [y], or exit" GvChoice
         if [ x"$GvChoice}" = x"y" ]; then 
-            if [ ! -e "$(pwd)/.jllrepoconf" ]; then
-                echo "#!/bin/bash"                                                > $(pwd)/.jllrepoconf
-                echo "#copyright(c) 2016-2100, jielong_lin, All rights reserved." >> $(pwd)/.jllrepoconf
-                echo "declare -a GitRepositoryTable=( "                           >> $(pwd)/.jllrepoconf
-                echo "    \"git@code.csdn.net:x13015851932/jllutils.git\""        >> $(pwd)/.jllrepoconf
-                echo ")"                                                          >> $(pwd)/.jllrepoconf
-                echo                                                              >> $(pwd)/.jllrepoconf
-            fi
-            vim $(pwd)/.jllrepoconf
-            GvRootPath=$(pwd)/.jllrepoconf
+          if [ ! -e "$(pwd)/.jllrepoconf" ]; then
+            echo "#!/bin/bash"                                                > $(pwd)/.jllrepoconf
+            echo "#copyright(c) 2016-2100, jielong_lin, All rights reserved." >> $(pwd)/.jllrepoconf
+            echo                                                              >> $(pwd)/.jllrepoconf
+            echo "declare -a GitRepositoryTable=( "                           >> $(pwd)/.jllrepoconf
+            echo "    \"git@github.com:qq1624646454/philipstv_tpv.git\""      >> $(pwd)/.jllrepoconf
+            echo ")"                                                          >> $(pwd)/.jllrepoconf
+            echo                                                              >> $(pwd)/.jllrepoconf
+          fi
+          vim $(pwd)/.jllrepoconf
+          GvRootPath=$(pwd)/.jllrepoconf
         else
-            echo "JLL-REPO: Error and Exit due to lack of .jllrepoconf"
-            exit 0 
+          echo "JLL-REPO: Error and Exit due to lack of .jllrepoconf"
+          exit 0 
         fi
     else
         echo "JLL-REPO: Error and Exit due to lack of .jllrepoconf"
@@ -250,8 +251,10 @@ x"sync" | x"forall")
         fi
         cd ${GvPath} 1>/dev/null 2>/dev/null
         if [ -e "${GvPath}/desktop.ini" ]; then
-            #echo "${GvPath}/desktop.ini" > .igitignore
-	    mv -vf ${GvPath}/desktop.ini ${GvPath}/../desktop.ini.git_by_csdn
+            __Chk_gitignore=$(cat .gitignore | grep "desktop.ini")
+            if [ x"${__Chk_gitignore}" = x ]; then
+                echo "desktop.ini" >> .gitignore
+            fi
         fi
         if [ x"${GvCmd}" = x ]; then #repo sync
             GvCmd=$(git status -s)
@@ -268,9 +271,6 @@ x"sync" | x"forall")
             GvCmd=""
         else
             eval ${GvCmd}
-        fi
-        if [ -e "${GvPath}/../desktop.ini.git_by_csdn" ]; then
-            mv -vf ${GvPath}/../desktop.ini.git_by_csdn  ${GvPath}/desktop.ini
         fi
         cd -  1>/dev/null 2>/dev/null
     }

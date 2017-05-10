@@ -1,0 +1,43 @@
+
+Host url
+HostName 172.20.30.2
+User xianmei.liao
+Port 29420
+IdentityFile ~/.ssh/id_rsa
+
+Host url-tpemaster
+HostName 172.16.112.71
+User xianmei.liao
+Port 29418
+IdentityFile ~/.ssh/id_rsa
+
+
+#Host gerritxmic
+    # Hostname 172.20.30.2
+     #Port 29418
+     #User xianmei.liao
+      #dentityFile ~/.ssh/id_rsa
+
+Host gerrit-xm
+     Hostname 172.20.30.2
+     Port 29419
+     User xianmei.liao
+     IdentityFile ~/.ssh/id_rsa
+
+Host gerrit
+     Hostname inblrgit001.tpvision.com
+     Port 29418
+     User xianmei.liao
+     IdentityFile ~/.ssh/id_rsa
+
+Host gerrit-master
+     Hostname inblrgit001.tpvision.com
+     Port 29418
+     User xianmei.liao
+     IdentityFile ~/.ssh/id_rsa
+
+Host gerrit-blr
+     Hostname inblrgit002.tpvision.com
+     Port 29418
+     User xianmei.liao
+     IdentityFile ~/.ssh/id_rsa
