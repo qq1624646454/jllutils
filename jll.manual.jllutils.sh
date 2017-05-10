@@ -11,11 +11,19 @@ if [ x"\$(dpkg --get-selections | grep git)" = x ]; then \\
     aptitude install -y git git-svn git-doc git-email git-gui gitk gitweb \\
 fi
 
-mkdir -pv /home/\$(whoami)/Vanquisher
-cd /home/\$(whoami)/Vanquisher
+mkdir -pv ~/github
 
-git clone git@code.csdn.net:x13015851932/jllutils.git
+# For a User, please do the follows:
+cd ~/github
+git clone https://github.com/qq1624646454/jllutils.git
+cd - >/dev/null
 
+
+
+# For a developer, please next to do the follows:
+cd ~/github/jllutils
+./jll.sshconf
+cd - >/dev/null
 
 
 EOF
