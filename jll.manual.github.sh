@@ -5,11 +5,11 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-05-10 20:22:49
+#   ModifiedTime: 2017-05-11 11:14:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -22,6 +22,7 @@ more >&1 <<EOF
 =============================================================================================
 github project to use or developping
 
+${AC}${Fseablue}
   How to select HTTPS or SSH for Clone or Download, such as:
       https://github.com/qq1624646454/jllutils.git
       git@github.com:qq1624646454/jllutils.git
@@ -32,11 +33,13 @@ github project to use or developping
   | (2).Using ssh with providing ~/.ssh/id_rsa, maybe and the password associated with   |
   |     ~/.ssh/id_rsa. This case is mostly for developer.                                |
   ---------------------------------------------------------------------------------------- 
+${AC}
 
 SUGGESTION FOR jielong.lin which is a common user and then is also a developer
 
   1).Using https to download the project:
 
+${AC}${Fyellow}
 jielong.lin@TpvServer:~/github$ git clone https://github.com/qq1624646454/jllutils.git
 Cloning into 'jllutils'...
 remote: Counting objects: 203, done.
@@ -44,9 +47,10 @@ remote: Compressing objects: 100% (164/164), done.
 remote: Total 203 (delta 37), reused 203 (delta 37), pack-reused 0
 Receiving objects: 100% (203/203), 5.31 MiB | 1.46 MiB/s, done.
 Resolving deltas: 100% (37/37), done.
-
+${AC}
 
   2).Change .git for push over ssh, namely using ~/.ssh/id_rsa
+${AC}${Fyellow}
 jielong.lin@TpvServer:~/github$ cd jllutils
 jielong.lin@TpvServer:~/github/jllutils$
 jielong.lin@TpvServer:~/github/jllutils$ git remote show
@@ -67,8 +71,9 @@ jielong.lin@TpvServer:~/github/jllutils$ git remote show origin
 
 jielong.lin@TpvServer:~/github/jllutils$
 jielong.lin@TpvServer:~/github/jllutils$ ./jll.sshconf.sh
-  <Or git remote set-url --push origin YOUR_GIT_URL>
   ...
+${AC}
+<Or ${AC}${Fgreen}git remote set-url --push origin YOUR_GIT_URL${AC}>
 
   3).Now commit your change by 'git push -u origin master' will use SSH with ~/.ssh/id_rsa
 
