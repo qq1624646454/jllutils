@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 10:19:56
-#   ModifiedTime: 2017-05-11 10:46:24
+#   ModifiedTime: 2017-05-11 10:47:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -32,7 +32,7 @@ Color Format:  [AC][FC][BC]text[AC]
   BG:   Background Color
 
 Suggestion as follows:
-  ESC=
+  ESC=^[
   AC=$ESC[0m
   Fblack=$ESC[30m
   Fred=$ESC[31m
