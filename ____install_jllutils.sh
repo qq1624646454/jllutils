@@ -43,6 +43,26 @@ function Fn_Setup_jllutils_In_PATH()
         echo "Success to write \"${JLLPATH}\" to ~/.bashrc"
     fi
 
+    __chk_if_exist="$(crontab -l)"
+    if [ x"${__chk_if_exist}" != x \
+        -a -e "${JLLPATH}/._______audo_sync_by_git_pull__in_crontab.sh" ]; then
+        crontab -l > tsk.crontab
+        __chk_if_exist=$(cat tsk.crontab | grep -E "._______audo_sync_by_git_pull__in_crontab.sh")
+        if [ x"${__chk_if_exist}" = x ]; then
+cat >>tsk.crontab<<EOF
+
+# m  h    dom mon dow command
+  *  */3  *   *   *   ${JLLPATH}/._______audo_sync_by_git_pull__in_crontab.sh
+
+EOF
+            crontab tsk.crontab
+        fi
+        rm -rf tsk.crontab
+        echo
+        crontab -l 
+        echo
+    fi
+
     unset GvTargetLines
 }
 
