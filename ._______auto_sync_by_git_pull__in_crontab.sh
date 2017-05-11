@@ -1,11 +1,11 @@
 #!/bin/bash
 # Copyright(c) 2016-2100.  jielong.lin.  All rights reserved.
 #
-#   FileName:     ._______audo_sync_by_git_pull__in_crontab.sh
+#   FileName:     ._______auto_sync_by_git_pull__in_crontab.sh
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-11 14:47:21
+#   ModifiedTime: 2017-05-11 14:55:37
 
 JLLPATH="$(/usr/bin/which $0)"
 JLLSELF="$(/usr/bin/basename ${JLLPATH})"
@@ -23,6 +23,6 @@ if [ -e "${JLLPATH}/.git" ]; then
 fi
 cd ${JLLPATH}
 /usr/bin/git pull
-/bin/echo "updated by git pull @${__DT}" > _______audo_sync_by_git_pull__in_crontab.log
+/bin/echo "updated by git pull @${__DT}" > _______auto_sync_by_git_pull__in_crontab.log
 cd - >/dev/null
 
