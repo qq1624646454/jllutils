@@ -158,8 +158,8 @@ function Lfn_Sys_GetAllUsers()
   # 海蓝:SeaBlue
   # 白:White
 
+# adapt to echo -e
 CvAccOff="\033[0m"
-
 CvFgBlack="\033[30m"
 CvFgRed="\033[31m"
 CvFgGreen="\033[32m"
@@ -168,7 +168,6 @@ CvFgBlue="\033[34m"
 CvFgPink="\033[35m"
 CvFgSeaBule="\033[36m"
 CvFgWhite="\033[37m"
-
 CvBgBlack="\033[40m"
 CvBgRed="\033[41m"
 CvBgGreen="\033[42m"
@@ -177,6 +176,29 @@ CvBgBlue="\033[44m"
 CvBgPink="\033[45m"
 CvBgSeaBule="\033[46m"
 CvBgWhite="\033[47m"
+
+# adapt to more/echo/less and so on
+  ESC=
+  AC=$ESC[0m
+  Fblack=$ESC[30m
+  Fred=$ESC[31m
+  Fgreen=$ESC[32m
+  Fyellow=$ESC[33m
+  Fblue=$ESC[34m
+  Fpink=$ESC[35m
+  Fseablue=$ESC[36m
+  Fwhite=$ESC[37m
+  Bblack=$ESC[40m
+  Bred=$ESC[41m
+  Bgreen=$ESC[42m
+  Byellow=$ESC[43m
+  Bblue=$ESC[44m
+  Bpink=$ESC[45m
+  Bseablue=$ESC[46m
+  Bwhite=$ESC[47m
+
+
+
 
 
 ## Usage:
