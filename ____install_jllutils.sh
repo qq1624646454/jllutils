@@ -43,14 +43,7 @@ function Fn_Setup_jllutils_In_PATH()
         echo "Success to write \"${JLLPATH}\" to ~/.bashrc"
     fi
 
-    __chk_if_exist=$(crontab -l | grep -E "no crontab for")
-    if [ x"${__chk_if_exist}" = x ]; then
-        crontab -l > tsk.crontab
-    else
-        touch tsk.crontab
-    fi
-    unset __chk_if_exist
-
+    crontab -l  > tsk.crontab  2>/dev/null
     if [ -e "${JLLPATH}/._______auto_sync_by_git_pull__in_crontab.sh" ]; then
         __chk_if_exist=$(cat tsk.crontab | grep -E "._______auto_sync_by_git_pull__in_crontab.sh")
         if [ x"${__chk_if_exist}" = x ]; then
