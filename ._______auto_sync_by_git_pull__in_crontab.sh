@@ -5,19 +5,26 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-11 14:55:37
+#   ModifiedTime: 2017-05-11 22:09:33
 
 JLLPATH="$(/usr/bin/which $0)"
-JLLSELF="$(/usr/bin/basename ${JLLPATH})"
 JLLPATH="$(/usr/bin/dirname ${JLLPATH})"
+JLLPATH=$(cd ${JLLPATH} >/dev/null;pwd)
+JLLSELF="$(/usr/bin/basename ${JLLPATH})"
+if [ x"${JLLSELF}" = x ]; then
+    JLLSELF=$(/bin/pwd)
+    JLLSELF="$(/usr/bin/basename ${JLLSELF})"
+    [ x"${JLLSELF}" = x ] && JLLSELF=unknown
+fi
 
 __DT=$(/bin/date +%Y-%m-%d_%H:%M:%S)
 
-if [ -e "${JLLPATH}/.git" ]; then
+if [ ! -e "${JLLPATH}/.git" ]; then
     echo
     /bin/rm -rf ${HOME}/cron.*.log
     echo
     echo "JLL: Error because not present \"${JLLPATH}/.git\"" > ${HOME}/cron.${JLLSELF}@${__DT}.log 
+    echo "JLL: FOR ${JLLSELF}" >> ${HOME}/cron.${JLLSELF}@${__DT}.log 
     echo
     exit 0
 fi
