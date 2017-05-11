@@ -179,23 +179,24 @@ CvBgWhite="\033[47m"
 
 # adapt to more/echo/less and so on
   ESC=
-  AC=$ESC[0m
-  Fblack=$ESC[30m
-  Fred=$ESC[31m
-  Fgreen=$ESC[32m
-  Fyellow=$ESC[33m
-  Fblue=$ESC[34m
-  Fpink=$ESC[35m
-  Fseablue=$ESC[36m
-  Fwhite=$ESC[37m
-  Bblack=$ESC[40m
-  Bred=$ESC[41m
-  Bgreen=$ESC[42m
-  Byellow=$ESC[43m
-  Bblue=$ESC[44m
-  Bpink=$ESC[45m
-  Bseablue=$ESC[46m
-  Bwhite=$ESC[47m
+  AC=${ESC}[0m
+  Fblack=${ESC}[30m
+  Fred=${ESC}[31m
+  Fgreen=${ESC}[32m
+  Fyellow=${ESC}[33m
+  Fblue=${ESC}[34m
+  Fpink=${ESC}[35m
+  Fseablue=${ESC}[36m
+  Fwhite=${ESC}[37m
+  Bblack=${ESC}[40m
+  Bred=${ESC}[41m
+  Bgreen=${ESC}[42m
+  Byellow=${ESC}[43m
+  Bblue=${ESC}[44m
+  Bpink=${ESC}[45m
+  Bseablue=${ESC}[46m
+  Bwhite=${ESC}[47m
+
 
 
 

@@ -5,26 +5,23 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 10:19:56
-#   ModifiedTime: 2017-05-11 10:47:49
+#   ModifiedTime: 2017-05-11 11:08:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-more >&1<<GEOF
-
-more \>\&1\<\<EOF
+more >&1<<EOF
 
 [ESC] should be expressed to ^[ by [Ctrl]+[v]+[ESC] rather than \033
 
 Example For: [0m[31m[43m world [0m
   ERROR:  \033[0m\033[31m\033[43m world \033[0m
   GOOD:   ^[[0m^[[31m^[[43m world ^[[0m
-
 
 Color Format:  [AC][FC][BC]text[AC]
   AC: Ansi Control Code Close
@@ -33,27 +30,25 @@ Color Format:  [AC][FC][BC]text[AC]
 
 Suggestion as follows:
   ESC=^[
-  AC=$ESC[0m
-  Fblack=$ESC[30m
-  Fred=$ESC[31m
-  Fgreen=$ESC[32m
-  Fyellow=$ESC[33m
-  Fblue=$ESC[34m
-  Fpink=$ESC[35m
-  Fseablue=$ESC[36m
-  Fwhite=$ESC[37m
-  Bblack=$ESC[40m
-  Bred=$ESC[41m
-  Bgreen=$ESC[42m
-  Byellow=$ESC[43m
-  Bblue=$ESC[44m
-  Bpink=$ESC[45m
-  Bseablue=$ESC[46m
-  Bwhite=$ESC[47m
+  AC=\$ESC[0m
+  Fblack=\$ESC[30m     ${AC}${Fblack}Fblack${AC}
+  Fred=\$ESC[31m       ${AC}${Fred}Fred${AC}
+  Fgreen=\$ESC[32m     ${AC}${Fgreen}Fgreen${AC}
+  Fyellow=\$ESC[33m    ${AC}${Fyellow}Fyellow${AC}
+  Fblue=\$ESC[34m      ${AC}${Fblue}Fblue${AC}
+  Fpink=\$ESC[35m      ${AC}${Fpink}Fpink${AC}
+  Fseablue=\$ESC[36m   ${AC}${Fseablue}Fseablue${AC}
+  Fwhite=\$ESC[37m     ${AC}${Fwhite}Fwhite${AC}
+  Bblack=\$ESC[40m     ${AC}${Bblack}Bblack${AC}
+  Bred=\$ESC[41m       ${AC}${Bred}Bred${AC}
+  Bgreen=\$ESC[42m     ${AC}${Bgreen}Bgreen${AC}
+  Byellow=\$ESC[43m    ${AC}${Byellow}Byellow${AC}
+  Bblue=\$ESC[44m      ${AC}${Bblue}Bblue${AC}
+  Bpink=\$ESC[45m      ${AC}${Bpink}Bpink${AC}
+  Bseablue=\$ESC[46m   ${AC}${Bseablue}Bseablue${AC}
+  Bwhite=\$ESC[47m     ${AC}${Bwhite}Bwhite${AC}
 
-The above definitions are defined in BashShellLibrary
-
-
+${AC}${Fseablue}${Bred}The above definitions are defined in BashShellLibrary${AC}
 
 
   #-----------------------------------------------------
@@ -80,11 +75,6 @@ The above definitions are defined in BashShellLibrary
   #   \033[?25h 显示光标
   #-----------------------------------
 
-
-
-
 EOF
-
-GEOF
 
 
