@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-05-11 11:14:49
+#   ModifiedTime: 2017-05-11 17:41:00
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -38,20 +38,16 @@ ${AC}
 SUGGESTION FOR jielong.lin which is a common user and then is also a developer
 
   1).Using https to download the project:
-
-${AC}${Fyellow}
-jielong.lin@TpvServer:~/github$ git clone https://github.com/qq1624646454/jllutils.git
+${AC}${Fyellow}jielong.lin@TpvServer:~/github$ git clone https://github.com/qq1624646454/jllutils.git
 Cloning into 'jllutils'...
 remote: Counting objects: 203, done.
 remote: Compressing objects: 100% (164/164), done.
 remote: Total 203 (delta 37), reused 203 (delta 37), pack-reused 0
 Receiving objects: 100% (203/203), 5.31 MiB | 1.46 MiB/s, done.
-Resolving deltas: 100% (37/37), done.
-${AC}
+Resolving deltas: 100% (37/37), done.${AC}
 
   2).Change .git for push over ssh, namely using ~/.ssh/id_rsa
-${AC}${Fyellow}
-jielong.lin@TpvServer:~/github$ cd jllutils
+${AC}${Fyellow}jielong.lin@TpvServer:~/github$ cd jllutils
 jielong.lin@TpvServer:~/github/jllutils$
 jielong.lin@TpvServer:~/github/jllutils$ git remote show
 origin
@@ -71,13 +67,74 @@ jielong.lin@TpvServer:~/github/jllutils$ git remote show origin
 
 jielong.lin@TpvServer:~/github/jllutils$
 jielong.lin@TpvServer:~/github/jllutils$ ./jll.sshconf.sh
-  ...
-${AC}
-<Or ${AC}${Fgreen}git remote set-url --push origin YOUR_GIT_URL${AC}>
+  ...${AC}<Or ${AC}${Fgreen}git remote set-url --push origin YOUR_GIT_URL${AC}>
 
   3).Now commit your change by 'git push -u origin master' will use SSH with ~/.ssh/id_rsa
 
 
+
+
+
+
+=============================================================================== ${AC}${Fseablue}
+
+   |                      |                   |
+   |---------commit -a --------------------->|_|
+   |                      |                   |
+   |----- add (-u)a ---->|_|----- commit --->|_|
+   |                      |                   |
+   |                      |                   |------- push --->|_|
+   |                      |                   |                  |
+.............         ...............   ..............      ..............
+. workspace .         . index/stage .   .  local     .      .  remote    .
+.           .         .             .   . repository .      . repository .
+.............         ...............   ..............      ..............
+   |                      |                   |                  |
+  |_|<---------------------- pull or rebase ---------------------|
+   |                      |                   |                  |
+   |                      |                  |_|<--- fetch ------| 
+  |_|<---- checkout HEAD ---------------------|
+   |                      |                   |              
+  |_|<---- checkout ------|                   |
+   |                      |                   |
+   |-------- diff HEAD -----------------------|
+   |--- diff -------------|                   |
+   |                      |                   |
+${AC}
+
+
+=============================================================================================
+${AC}${Fseablue}
+    -------------------------------------------------------------------------
+    |  The Books folder which contains the large files have been removed.   |
+    |  The Error will be met when any changes are committed by git push     |
+    -------------------------------------------------------------------------${AC}
+...
+Compressing objects: 100% (27/27), done.
+Writing objects: 100% (27/27), 399.01 MiB | 2.98 MiB/s, done.
+Total 27 (delta 8), reused 0 (delta 0)
+remote: Resolving deltas: 100% (8/8), completed with 1 local object.
+remote: warning: File Books/Head First Java(中文版).pdf is 57.15 MB; this is larger than GitHub's recomm
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs
+remote: error: Trace: 9ca0db6112b313bc03dcdda2f206cfa0
+remote: error: See http://git.io/iEPt8g for more information.
+remote: error: File Books/深入理解Android(卷2).pdf is 175.20 MB; this exceeds GitHub's file size limit o
+remote: error: File Books/深度探索Linux操作系统 系统构建和原理解析.pdf is 168.25 MB; this exceeds GitHub
+To git@github.com:qq1624646454/philipstv_tpv.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'git@github.com:qq1624646454/philipstv_tpv.git'
+jielong.lin@TpvServer:~/github/philipstv_tpv$
+jielong.lin@TpvServer:~/github/philipstv_tpv$
+${AC}${Fyellow}---------------------------
+分析：
+    超过50M的文件，提交时会被警告，而超过100M的文件，会被拒绝提交
+${AC} ${AC}${Fgreen}
+(1).查看.git大小,它确实挺大的, index/stage可能很大，包含了超过50MB文件和超过100MB文件${AC}
+jielong.lin@TpvServer:~/github/philipstv_tpv$ du -h -d 1
+575M    ./.git
+117M    ./DRM_OpenSource
+767M    .${AC}${Fgreen}
+(2).查看workspace和index/stage状态：${AC}
 
 
 
