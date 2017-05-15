@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 10:03:53
-#   ModifiedTime: 2017-05-11 13:35:31
+#   ModifiedTime: 2017-05-15 19:33:50
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -63,6 +63,9 @@ ${AC}
 
      # remove all tasks belonged to the user jl 
      jl@S:~$ ${AC}${Fpink}crontab -r ${AC}
+
+     # change the default editor
+     jl@S:~$ ${AC}${Fpink}select-editor ${AC}
 
 EOF
 
