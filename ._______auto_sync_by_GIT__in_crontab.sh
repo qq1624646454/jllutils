@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-15 12:03:47
+#   ModifiedTime: 2017-05-15 13:57:08
 
 
 __ssh_package=.__ssh_R$(/bin/date +%Y_%m_%d__%H_%M_%S)
@@ -73,6 +73,36 @@ function __SSHCONF_Switching_End()
     fi
 }
 
+function __IsGIT()
+{
+    if [ $# -ne 1 ]; then
+        echo
+        echo "JLL: Exit due to function prototype error! - __IsGIT <parameter>"
+        echo
+        exit 0
+    fi
+
+    # Push  URL: https://github.com/qq1624646454/jllutils.git
+    # Push  URL: git@github.com:qq1624646454/jllutils.git
+    __RawCTX=$(git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL:[ ]{0,}https:")
+    if [ x"${__RawCTX}" = x ]; then
+        __RawCTX=$(git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL:[ ]{0,}git@")
+        if [ x"${__RawCTX}" = x ]; then
+            echo
+            echo "JLL: Exit due to unknown scheme such as git@ or https://"
+            echo
+            exit 0 
+        fi
+        # start with git@
+        eval $1=1
+        return
+    fi
+    # start with https:// 
+    eval $1=0
+    return
+}
+
+
 
 JLLPATH="$(/usr/bin/which $0)"
 JLLPATH="$(/usr/bin/dirname ${JLLPATH})"
@@ -104,6 +134,8 @@ cd ${JLLPATH}
 /bin/echo "synchronizing with ${__RemoteRepository} @${__DT}"        >  _______auto_sync_by_GIT__in_crontab.log
 __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
+  __IsGIT __IsEnter
+  if [ ${__IsEnter} -eq 1 ]; then
     __SSHCONF_Switching_Start__qq1624646454
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git add    -A                                           >> _______auto_sync_by_GIT__in_crontab.log
@@ -120,6 +152,7 @@ ${__GitCHANGE}
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git log | /usr/bin/head -n 4                            >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
+  fi
 fi
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo "Pull Changes from '${__RemoteRepository}' by git pull "   >> _______auto_sync_by_GIT__in_crontab.log
