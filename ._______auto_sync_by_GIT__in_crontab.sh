@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-15 11:39:44
+#   ModifiedTime: 2017-05-15 11:43:44
 
 JLLPATH="$(/usr/bin/which $0)"
 JLLPATH="$(/usr/bin/dirname ${JLLPATH})"
@@ -48,13 +48,13 @@ Changes as follows:
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git push                                                >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
-    /usr/bin/git log                                                 >> _______auto_sync_by_GIT__in_crontab.log
+    /usr/bin/git log | /usr/bin/head -n 4                            >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
 fi
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo "Pull Changes from '${__RemoteRepository}' by git pull "   >> _______auto_sync_by_GIT__in_crontab.log
-/usr/bin/git pull                                                    >> _______auto_sync_by_GIT__in_crontab.log
-/usr/bin/git log                                                     >> _______auto_sync_by_GIT__in_crontab.log
+/usr/bin/git pull -u origin master                                   >> _______auto_sync_by_GIT__in_crontab.log
+/usr/bin/git log | /usr/bin/head -n 4                                >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 cd - >/dev/null
 
