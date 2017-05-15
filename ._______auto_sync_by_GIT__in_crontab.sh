@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-15 13:57:08
+#   ModifiedTime: 2017-05-15 14:03:58
 
 
 __ssh_package=.__ssh_R$(/bin/date +%Y_%m_%d__%H_%M_%S)
@@ -136,7 +136,6 @@ __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
   __IsGIT __IsEnter
   if [ ${__IsEnter} -eq 1 ]; then
-    __SSHCONF_Switching_Start__qq1624646454
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git add    -A                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git commit -m \
