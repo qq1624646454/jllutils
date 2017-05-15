@@ -104,7 +104,7 @@ ${AC}
 
 
 =============================================================================================
-${AC}${Fseablue}  没有解决，建议重新建立项目
+${AC}${Fseablue}  没有解决，建议重新建立项目 (注意今后提交的文件不要超过50M)
     -------------------------------------------------------------------------
     |  The Books folder which contains the large files have been removed.   |
     |  The Error will be met when any changes are committed by git push     |

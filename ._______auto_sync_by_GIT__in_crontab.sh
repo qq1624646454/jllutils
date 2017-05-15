@@ -42,7 +42,7 @@ if [ x"${__GitCHANGE}" != x ]; then
     /usr/bin/git commit -m \
 "
 Changes as follows: 
-  ${__GitCHANGE}
+${__GitCHANGE}
 "    >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
@@ -53,7 +53,7 @@ Changes as follows:
 fi
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo "Pull Changes from '${__RemoteRepository}' by git pull "   >> _______auto_sync_by_GIT__in_crontab.log
-/usr/bin/git pull -u origin master                                   >> _______auto_sync_by_GIT__in_crontab.log
+/usr/bin/git pull -f -u origin master                                >> _______auto_sync_by_GIT__in_crontab.log
 /usr/bin/git log | /usr/bin/head -n 4                                >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 cd - >/dev/null
