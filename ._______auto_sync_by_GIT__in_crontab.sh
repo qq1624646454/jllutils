@@ -42,7 +42,7 @@ if [ x"${__GitCHANGE}" != x ]; then
     /usr/bin/git commit -m \
 '
   Changes as follows: 
-      ${__GitCHANGE}
+      "${__GitCHANGE}"
 '    >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
