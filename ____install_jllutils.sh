@@ -44,14 +44,14 @@ function Fn_Setup_jllutils_In_PATH()
     fi
 
     crontab -l  > tsk.crontab  2>/dev/null
-    if [ -e "${JLLPATH}/._______auto_sync_by_git_pull__in_crontab.sh" ]; then
+    if [ -e "${JLLPATH}/._______auto_sync_by_GIT__in_crontab.sh" ]; then
         __chk_if_exist=$(cat tsk.crontab \
-                         | grep -E "${JLLPATH}/._______auto_sync_by_git_pull__in_crontab.sh")
+                         | grep -E "${JLLPATH}/._______auto_sync_by_GIT__in_crontab.sh")
         if [ x"${__chk_if_exist}" = x ]; then
 cat >>tsk.crontab<<EOF
 
 # m  h    dom mon dow command
-  *  */3  *   *   *   ${JLLPATH}/._______auto_sync_by_git_pull__in_crontab.sh
+  *  */3  *   *   *   ${JLLPATH}/._______auto_sync_by_GIT__in_crontab.sh
 
 EOF
             crontab tsk.crontab

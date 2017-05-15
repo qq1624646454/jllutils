@@ -14,15 +14,15 @@ more >&1 << EOF
 ##
 ## Switch to another U+ version for Asta M
 ##
-$ repo forall -c 'git checkout QM16XE_U_R0.6.0.14'
+\$${AC}${Fyellow} repo forall -c 'git checkout QM16XE_U_R0.6.0.14'${AC}
 
 
 ##
 ## Lookup the tag version from the current project
 ##
-$ cd frameworks/av
-$ git tag -l QM16*
-$ cd -
+\$${AC}${Fyellow} cd frameworks/av ${AC}
+\$${AC}${Fyellow} git tag -l QM16* ${AC}
+\$${AC}${Fyellow} cd - ${AC}
 
 
 ## 
@@ -35,9 +35,10 @@ $ cd -
 ## If you have mucked up your working directory, and need to get it
 ## back in order  I would do this
 ##
-$ repo sync -d
-$ repo forall -c 'git reset --hard HEAD' # Remove all working directory (and staged) changes.
-$ repo forall -c 'git clean -dfx'        # Clean untracked files
+\$${AC}${Fyellow} repo sync -d ${AC}
+\$${AC}${Fyellow} repo forall -c 'git reset --hard HEAD' ${AC}\
+# Remove all working directory (and staged) changes.
+\$${AC}${Fyellow} repo forall -c 'git clean -dfx' ${AC}# Clean untracked files
 
 
 ## Loop up the commit detail for the only file
@@ -45,66 +46,79 @@ $ repo forall -c 'git clean -dfx'        # Clean untracked files
 ##       device/tpvision/common/plf/mediaplayer\$
 ##       device/tpvision/common/plf/mediaplayer\$ git log -p av/comps/drm/Android.mk 
 ##
-$ git log -p filename
+\$${AC}${Fyellow} git log -p filename ${AC}
 
 
 ## Ignore list
 ##
-$ vim .gitignore
+\$${AC}${Fyellow} vim .gitignore ${Fgreen}
 desktop.ini
-:w
+${Fpink}:w${AC}
 
-EOF
+##
+## Push your changes into master repository"
+##
+\$${AC}${Fyellow} repo info . ${Fgreen}
+Project: ${Fred}platform/vendor/widevine${Fgreen}
+Mount path: /home/jielong.lin/aosp_6.0.1_r10_selinux/vendor/widevine
+Current revision: ${Fseablue}tpvision/androidm_mprep_selinux${Fgreen}
+Local Branches: 0
+\$${Fyellow} git push  ssh://gerrit-master/${Fred}platform/vendor/widevine${Fyellow} \\
+                HEAD:refs/for/${Fseablue}tpvision/androidm_mprep_selinux${AC}
 
-echo  -e "##"
-echo  -e "## Push your changes into master repository"
-echo  -e "##"
-echo  -e "$ repo info ."
-echo  -e "Project: \033[0m\033[35m\033[47mplatform/vendor/widevine\033[0m"
-echo  -e "Mount path: /home/jielong.lin/aosp_6.0.1_r10_selinux/vendor/widevine"
-echo  -e "Current revision: \033[0m\033[31m\033[43mtpvision/androidm_mprep_selinux\033[0m"
-echo  -e "Local Branches: 0"
-echo  -e "$ git push  ssh://gerrit-master/\033[0m\033[35m\033[47mplatform/vendor/widevine\033[0m HEAD:refs/for/\033[0m\033[31m\033[43mtpvision/androidm_mprep_selinux\033[0m" 
-echo
 
-more >&1 <<EOF
-
-    ##
-    ## Lookup the Server from where the data is downloaded
-    ##
-    ssh gerrit
-    ssh gerrit-master 
+##
+## Lookup the Server from where the data is downloaded
+##
+\$${AC}${Fyellow} ssh gerrit ${AC}
+\$${AC}${Fyellow} ssh gerrit-master ${AC}
 
 
 
-    ##
-    ## Repo sync and then compile error
-    ##
-    please switch to another source server inblrgit004.tpvision.com
+##
+## Repo sync and then compile error
+##
+# please switch to another source server inblrgit004.tpvision.com
+
+
+
+##
+## line feed character in comment by git commit -m 
+##
+\$${AC}${Fyellow} git commit -m '
+  line1
+  line2
+'${AC}
+\$${AC}${Fyellow} git commit --amend${Fgreen} 
+  line1
+  line2
+${AC}
+
 
 
 *******************
 ** Install Git
 *******************
-    aptitude show git
-    aptitude install git
-    aptitude install git-svn
-    aptitude install git-doc
-    aptitude install git-email
-    aptitude install git-gui
-    aptitude install gitk 
-    aptitude install gitweb
+${AC}${Fyellow}
+aptitude show git
+aptitude install git
+aptitude install git-svn
+aptitude install git-doc
+aptitude install git-email
+aptitude install git-gui
+aptitude install gitk 
+aptitude install gitweb
+${AC}
 
 
-
-ERROR
+${AC}${Bred} ERROR ${AC}
 =====================================
 Agent admitted failure to sign using 
 the key. Permission denied 
 (publickey,keyboard-interactive). 
 =====================================
-$ cd ~
-$ ssh-add
+\$${AC}${Fyellow} cd ~ ${AC}
+\$${AC}${Fyellow} ssh-add ${AC}
 
 EOF
 
