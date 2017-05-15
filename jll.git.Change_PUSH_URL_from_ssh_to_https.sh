@@ -42,6 +42,7 @@ JLLPATH="$(dirname ${JLLPATH})"
       fi
       echo
       git remote set-url --push origin ${__RawCTX}
+      chmod 0555 -R *
     fi
     echo
     git remote show origin
