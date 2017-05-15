@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-05-15 11:31:18
+#   ModifiedTime: 2017-05-15 11:34:06
 
 JLLPATH="$(/usr/bin/which $0)"
 JLLPATH="$(/usr/bin/dirname ${JLLPATH})"
@@ -39,7 +39,11 @@ __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git add    -A                                           >> _______auto_sync_by_GIT__in_crontab.log
-    /usr/bin/git commit -m "Changes as follows: \n${__GitCHANGE}"    >> _______auto_sync_by_GIT__in_crontab.log
+    /usr/bin/git commit -m \
+'
+  Changes as follows: 
+      ${__GitCHANGE}
+'    >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git push                                                >> _______auto_sync_by_GIT__in_crontab.log
