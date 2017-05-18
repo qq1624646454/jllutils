@@ -68,7 +68,7 @@ more >&1<<EOF
 EOF
     if [ x"${__Choice}" != x"y" ]; then
         echo "* JLL: rebuild the above if press [y], or skip ?"
-        read __Choice_
+        read -n 1 __Choice_
     fi
     if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
         rm -rvf ${JLLCONF_build}
@@ -102,7 +102,7 @@ EOF
 
 if [ ! -e "${CROSS_TOOL}/bin/i686-none-linux-gnu-as" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing binutils if press [y]?  "  __Choice_
+      read -n 1 -p "* JLL: installing binutils if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
     [ x"$(ls ${JLLCONF_build}/binutils-2.23.1 2>/dev/null)" != x ] \
@@ -145,7 +145,7 @@ EOF
 
 if [ ! -e "$CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing gcc if press [y]?  "  __Choice_
+      read -n 1 -p "* JLL: installing gcc if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
     [ x"$(ls ${JLLCONF_build}/gcc-4.7.2 2>/dev/null)" != x ] \
@@ -206,7 +206,7 @@ EOF
 
 if [ ! -e "$SYSROOT/usr/include" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing kernel headers if press [y]?  "  __Choice_
+      read -n 1 -p "* JLL: installing kernel headers if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
     [ x"$(ls ${JLLCONF_build}/linux-3.7.4 2>/dev/null)" != x ] \
@@ -250,7 +250,7 @@ EOF
 
 if [ x"$(ls ${SYSROOT}/lib 2>/dev/null)" = x ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing glic is made by freestanding c compiler if press [y]?  "  __Choice_
+    read -n 1 -p "* JLL: installing glic is made by freestanding c compiler if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
     [ x"$(ls ${JLLCONF_build}/glibc-2.15 2>/dev/null)" != x ] && rm -rvf ${JLLCONF_build}/glibc-2.15
@@ -288,3 +288,48 @@ if [ x"$(ls ${SYSROOT}/lib 2>/dev/null)" = x ]; then
   echo
   exit 0
 fi
+
+
+
+
+
+more >&1<<EOF
+
+**********
+********** ${AC}${Fred} Now Building complete cross-compiler ${AC}
+**********
+*
+* JLL: Checking if ${AC}${Fyellow}${CROSS_TOOL}/bin/i686-none-linux-gnu-gcc${AC} is present
+*
+EOF
+
+if [ x"$(ls ${CROSS_TOOL}/bin/i686-none-linux-gnu-gcc 2>/dev/null)" = x ]; then
+  if [ x"${__Choice}" != x"y" ]; then
+      read -n 1 -p "* JLL: installing complete cross-compiler if press [y]?  "  __Choice_
+  fi
+  if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
+    [ x"$(ls ${JLLCONF_build}/gcc-build 2>/dev/null)" != x ] && rm -rvf ${JLLCONF_build}/gcc-build
+    [ ! -e "${JLLCONF_build}/gcc-build" ] && mkdir -pv ${JLLCONF_build}/gcc-build
+
+    cd ${JLLCONF_build}/gcc-build
+    ../gcc-4.7.2/configure \
+        --prefix=$CROSS_TOOL \
+        --target=$TARGET  \
+        --with-sysroot=$SYSROOT \
+        --with-mpfr-include=$JLLCONF_build/gcc-4.7.2/mpfr/src \
+        --with-mpfr-lib=$JLLCONF_build/gcc-build/mpfr/src/.libs \
+        --enable-languages=c,c++ \
+        --enable-threads=posix
+ 
+    make
+    make install
+  fi
+fi 
+
+if [ x"$(ls ${CROSS_TOOL}/bin/i686-none-linux-gnu-gcc 2>/dev/null)" = x ]; then
+  echo
+  echo  "JLL: exit due to Failure - not found $CROSS_TOOL/bin/i686-none-linux-gnu-gcc"
+  echo
+  exit 0
+fi
+
