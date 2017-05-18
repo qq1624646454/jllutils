@@ -8,6 +8,13 @@
 #   ModifiedTime: 2017-05-15 14:03:58
 
 
+
+
+#The below variables are set by __SSHCONF_GetCommiter
+__JLLCONF_Committer_Author=jielong.lin
+__JLLCONF_Committer_Email=493164984@qq.com
+
+
 __ssh_package=.__ssh_R$(/bin/date +%Y_%m_%d__%H_%M_%S)
 function __SSHCONF_Switching_Start__qq1624646454()
 {
@@ -136,6 +143,8 @@ __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
   __IsGIT __IsEnter
   if [ ${__IsEnter} -eq 1 ]; then
+    /usr/bin/git config --global user.email ${__JLLCONF_Committer_Email}
+    /usr/bin/git config --global user.name  ${__JLLCONF_Committer_Author}
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git add    -A                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git commit -m \

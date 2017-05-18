@@ -20,6 +20,7 @@
   Bseablue=${ESC}[46m
   Bwhite=${ESC}[47m
 
+JLLCONF_source=/vita/source
 JLLCONF_build=/vita/build
 JLLCONF_cross_tool=/vita/cross-tool
 JLLCONF_cross_gcc_tmp=/vita/cross-gcc-tmp
@@ -101,9 +102,13 @@ EOF
 
 if [ ! -e "${CROSS_TOOL}/bin/i686-none-linux-gnu-as" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing binutils"  __Choice_
+      read -p "* JLL: installing binutils if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
+    [ x"$(ls ${JLLCONF_build}/binutils-2.23.1 2>/dev/null)" != x ] \
+        && rm -rvf ${JLLCONF_build}/binutils-2.23.1
+    [ x"$(ls ${JLLCONF_build}/binutils-build 2>/dev/null)" != x ] \
+        && rm -rvf ${JLLCONF_build}/binutils-build
     cd /vita/build
     tar xvf ../source/binutils-2.23.1.tar.bz2
     mkdir -pv binutils-build
@@ -116,7 +121,7 @@ fi
 
 if [ ! -e "${CROSS_TOOL}/bin/i686-none-linux-gnu-as" ]; then
   echo
-  echo  "JLL: exit due to Failure - ${CROSS_TOOL}/bin/i686-none-linux-gnu-as"
+  echo  "JLL: exit due to Failure - not found ${CROSS_TOOL}/bin/i686-none-linux-gnu-as"
   echo
   exit 0
 fi
@@ -140,9 +145,14 @@ EOF
 
 if [ ! -e "$CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing gcc"  __Choice_
+      read -p "* JLL: installing gcc if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
+    [ x"$(ls ${JLLCONF_build}/gcc-4.7.2 2>/dev/null)" != x ] \
+        && rm -rvf ${JLLCONF_build}/gcc-4.7.2
+    [ x"$(ls ${JLLCONF_build}/gcc-build 2>/dev/null)" != x ] \
+        && rm -rvf ${JLLCONF_build}/gcc-build
+ 
     cd /vita/build
     tar xvf ../source/gcc-4.7.2.tar.bz2
     cd gcc-4.7.2/
@@ -158,12 +168,21 @@ if [ ! -e "$CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc" ]; then
     ../gcc-4.7.2/configure --prefix=$CROSS_GCC_TMP --target=$TARGET --with-sysroot=$SYSROOT --with-newlib --enable-languages=c --with-mpfr-include=/vita/build/gcc-4.7.2/mpfr/src --with-mpfr-lib=/vita/build/gcc-build/mpfr/src/.libs --disable-shared --disable-threads --disable-decimal-float --disable-libquadmath --disable-libmudflap --disable-libgomp --disable-nls --disable-libssp
     make
     make install
+    if [ ! -e "$CROSS_GCC_TMP/lib/gcc/i686-none-linux-gnu/4.7.2/libgcc.a" ]; then
+        echo
+        echo "JLL: exit because not found $CROSS_GCC_TMP/lib/gcc/i686-none-linux-gnu/4.7.2/libgcc.a" 
+        echo
+        exit 0
+    fi
+    if [ ! -e "$CROSS_GCC_TMP/lib/gcc/i686-none-linux-gnu/4.7.2/libgcc_eh.a" ]; then
+        ln -s libgcc.a $CROSS_GCC_TMP/lib/gcc/i686-none-linux-gnu/4.7.2/libgcc_eh.a
+    fi
   fi
 fi
 
 if [ ! -e "$CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc" ]; then
   echo
-  echo  "JLL: exit due to Failure - $CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc"
+  echo  "JLL: exit due to Failure - not found $CROSS_GCC_TMP/bin/i686-none-linux-gnu-gcc"
   echo
   exit 0
 fi
@@ -187,9 +206,12 @@ EOF
 
 if [ ! -e "$SYSROOT/usr/include" ]; then
   if [ x"${__Choice}" != x"y" ]; then
-      read -p "* JLL: installing kernel headers"  __Choice_
+      read -p "* JLL: installing kernel headers if press [y]?  "  __Choice_
   fi
   if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
+    [ x"$(ls ${JLLCONF_build}/linux-3.7.4 2>/dev/null)" != x ] \
+        && rm -rvf ${JLLCONF_build}/linux-3.7.4
+
     cd /vita/build
     tar xvf ../source/linux-3.7.4.tar.xz
     cd linux-3.7.4/
@@ -201,7 +223,7 @@ fi
 
 if [ ! -e "$SYSROOT/usr/include" ]; then
   echo
-  echo  "JLL: exit due to Failure - $SYSROOT/usr/include"
+  echo  "JLL: exit due to Failure - not found $SYSROOT/usr/include"
   echo
   exit 0
 fi
@@ -209,3 +231,60 @@ fi
 
 
 
+
+
+
+if [ x"$(dpkg --get-selections | grep gawk)" = x ]; then
+    sudo apt-get install -y gawk
+fi
+
+more >&1<<EOF
+
+**********
+********** ${AC}${Fred} glibc is made by freestanding c compiler ${AC}
+**********
+*
+* JLL: Checking if ${AC}${Fyellow}${SYSROOT}/lib${AC} is present
+*
+EOF
+
+if [ x"$(ls ${SYSROOT}/lib 2>/dev/null)" = x ]; then
+  if [ x"${__Choice}" != x"y" ]; then
+      read -p "* JLL: installing glic is made by freestanding c compiler if press [y]?  "  __Choice_
+  fi
+  if [ x"${__Choice}" = x"y" -o x"${__Choice_}" = x"y" ]; then
+    [ x"$(ls ${JLLCONF_build}/glibc-2.15 2>/dev/null)" != x ] && rm -rvf ${JLLCONF_build}/glibc-2.15
+    [ x"$(ls ${JLLCONF_build}/glibc-build 2>/dev/null)" != x ] && rm -rvf ${JLLCONF_build}/glibc-build
+
+    cd /vita/build
+    tar xvf ../source/glibc-2.15.tar.xz
+    cd glibc-2.15
+    if [ x"$(ls ${JLLCONF_source}/glibc-2.15-cpuid.patch 2>/dev/null)" != x ]; then
+        patch -p1 < ${JLLCONF_source}/glibc-2.15-cpuid.patch
+    fi
+    if [ x"$(ls ${JLLCONF_source}/glibc-2.15-s_frexp.patch 2>/dev/null)" != x ]; then
+        patch -p1 < ${JLLCONF_source}/glibc-2.15-s_frexp.patch
+    fi
+    cd - >/dev/null
+    mkdir -pv glibc-build
+    cd glibc-build
+    ../glibc-2.15/configure \
+        --prefix=/usr \
+        --host=$TARGET \
+        --enable-kernel=3.7.4 \
+        --enable-add-ons \
+        --with-headers=$SYSROOT/usr/include \
+        libc_cv_forced_unwind=yes \
+        libc_cv_c_cleanup=yes \
+        libc_cv_ctors_header=yes
+    make
+    make install_root=$SYSROOT install
+  fi
+fi
+
+if [ x"$(ls ${SYSROOT}/lib 2>/dev/null)" = x ]; then
+  echo
+  echo  "JLL: exit due to Failure - not found $SYSROOT/lib"
+  echo
+  exit 0
+fi
