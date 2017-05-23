@@ -9,11 +9,7 @@
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
-
-### Color Echo Usage ###
-# Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
-# echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
+source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
@@ -27,7 +23,7 @@ C:\\>netstat -ano
   协议    本地地址                     外部地址               状态                   PID
  
   TCP    127.0.0.1:8700         0.0.0.0:0              LISTENING       3236${Fpink}
-  2.查看指定端口的占用情况
+ 2.查看指定端口的占用情况
 ${Fyellow} 
 C:\\>netstat -aon|findstr "8700"
  
@@ -42,7 +38,7 @@ C:\\>tasklist|findstr "2014"
  映像名称                       PID 会话名              会话#       内存使用
   ========================= ======== ================
    tadb.exe                     2014 Console                 0     16,064 K${Fpink} 
-  4.结束该进程
+ 4.结束该进程
 ${Fyellow} 
 C:\\>taskkill /f /t /im tadb.exe
 ${AC}
