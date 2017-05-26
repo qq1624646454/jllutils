@@ -24,5 +24,46 @@ wget -c -r -np -k --timeout=3  URL
       w3m www.baidu.com/index.html
 
 
+==================================
+jielong.lin@TpvServer:~/test$ wget --no-check-certificate https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip
+--2017-05-26 09:33:09--  https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip
+Resolving developers.tpvision.com (developers.tpvision.com)... 172.27.221.45
+Connecting to developers.tpvision.com (developers.tpvision.com)|172.27.221.45|:443... connected.
+WARNING: cannot verify developers.tpvision.com's certificate, issued by `/C=IN/ST=KARNATAKA/L=BANGALORE/O=TPVISION INDIA PVT LTD/OU=IT/CN=indbrlx023.tpvision.com/emailAddress=sharath.babu@tpvision.com':
+  Self-signed certificate encountered.
+    WARNING: certificate common name `indbrlx023.tpvision.com' doesn't match requested host name `developers.tpvision.com'.
+HTTP request sent, awaiting response... No data received.
+Retrying.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 EOF
 
