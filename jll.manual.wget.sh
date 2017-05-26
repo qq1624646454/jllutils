@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-03-09 15:56:24
-#   ModifiedTime: 2017-05-26 09:43:06
+#   ModifiedTime: 2017-05-26 09:44:21
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -30,17 +30,16 @@ ${AC}
 
 ${AC}${Fwhite}
 ==================================${AC}
-jielong.lin@TpvServer:~/test\$${Fyellow}wget --no-check-certificate https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip${AC}
+jielong.lin@TpvServer:~/test\$${Fyellow}wget --no-check-certificate https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip${Fgreen}
 --2017-05-26 09:33:09--  https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip
 Resolving developers.tpvision.com (developers.tpvision.com)... 172.27.221.45
 Connecting to developers.tpvision.com (developers.tpvision.com)|172.27.221.45|:443... connected.
-WARNING: cannot verify developers.tpvision.com's certificate, issued by `/C=IN/ST=KARNATAKA/L=BANGALORE/O=TPVISION INDIA PVT LTD/OU=IT/CN=indbrlx023.tpvision.com/emailAddress=sharath.babu@tpvision.com':
+WARNING: cannot verify developers.tpvision.com's certificate, issued by '/C=IN/ST=KARNATAKA/L=BANGALORE/O=TPVISION INDIA PVT LTD/OU=IT/CN=indbrlx023.tpvision.com/emailAddress=sharath.babu@tpvision.com':
   Self-signed certificate encountered.
-    WARNING: certificate common name `indbrlx023.tpvision.com' doesn't match requested host name `developers.tpvision.com'.
+    WARNING: certificate common name 'indbrlx023.tpvision.com' doesn't match requested host name 'developers.tpvision.com'.
 HTTP request sent, awaiting response... No data received.
 Retrying.
-
-
+${AC}
 
 
 
