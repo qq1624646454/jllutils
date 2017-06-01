@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:27:01
+#   ModifiedTime: 2017-06-01 21:27:02
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -498,7 +498,7 @@ echo
 #
 # Find the legal SDK packages from the current.
 #
-declare -a __szConsiderFiles 
+declare -a CONF_lstFile 
 case ${__DRM_SCHEME} in
 playready)
     
