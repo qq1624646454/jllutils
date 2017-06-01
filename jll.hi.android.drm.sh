@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:29:54
+#   ModifiedTime: 2017-06-01 21:31:06
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -498,12 +498,16 @@ echo
 #
 # Find the legal SDK packages from the current.
 #
-declare -a CONF_lstFile=(
-    "playready"
-) 
+
 case ${__DRM_SCHEME} in
 playready)
-      
+    declare -a CONF_lstFile=(
+        "playready"
+    )
+    declare -i CONF_szFile=${#CONF_lstFile[@]}
+    for ((i=0;i<CONF_szFile;i++)) {
+
+    }      
     ;;
 widevine)
 
