@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:01:55
+#   ModifiedTime: 2017-06-01 21:02:16
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -50,11 +50,10 @@ if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
     __ListProjects=$(find ${HOME} -maxdepth 4 -type d -a -name .repo)
     for __ListProject in ${__ListProjects}; do
         __ListProject=${__ListProject%%/.repo}
+        echo "XXX: $__ListProject"
     done
 fi
-
-
-
+exit 0
 if [ ! -e "${GvPrjRootPath}" ]; then
     __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
     __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
