@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:08:12
+#   ModifiedTime: 2017-06-01 21:12:03
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -58,9 +58,14 @@ if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
             GvPageMenuUtilsContent[GvMenuID++]="${__ListProject}" 
         fi 
     done
+    if [ ${GvMenuID} -gt 0 ]; then
+        Lfn_PageMenuUtils GvPrjRootPath "Select" 7 4 "***** Using Android Project (q: quit) *****"
+    fi
+    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+    [ x"${GvMenuID}" != x ] && unset GvMenuID
+    [ x"${GvPageUnit}" != x ] && unset GvPageUnit
 fi
-exit 0
-if [ ! -e "${GvPrjRootPath}" ]; then
+if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
     __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
     __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
     exit 0
