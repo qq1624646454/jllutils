@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:24:39
+#   ModifiedTime: 2017-06-01 21:25:58
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -490,12 +490,11 @@ echo
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
     "JLL-Probe: \"${GvPrjRootPath}\" is selected to use"
 echo
-exit 0
+echo
+__Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
+    "JLL-Probe: checking if \"${__DRM_SCHEME}\" is legal or not"
+echo
 
-echo
-echo "JLL-Probe: checking if \"${__DRM_SCHEME}\" is legal or not, starting from current path"
-pwd
-echo
 #
 # Find the legal SDK packages from the current.
 #
