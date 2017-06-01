@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:19:24
+#   ModifiedTime: 2017-06-01 21:20:31
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -27,8 +27,12 @@ if [ x"${__CvPathFileForScript}" != x ]; then
     else
         __CvPathFileForScript="$(cd ${__CvPathFileForScript};pwd)"
     fi
+else
+    echo
+    echo "JLL-Exit: Not recognize the command \"$0\", then exit"
+    echo
+    exit 0
 fi
-__CvPathFileForScript="$(cd ${__CvPathFileForScript};pwd)"
 __CvScriptName="`basename  ${__CvPathFileForScript}`"
 __CvScriptPath="`dirname   ${__CvPathFileForScript}`"
 
