@@ -5,108 +5,13 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:14:16
+#   ModifiedTime: 2017-06-01 21:15:14
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
-
-
-#
-# Recognize DRM scheme  
-#
-__DRM_SCHEME=
-for ac_arg; do
-    case $ac_arg in
-      [pP][lL][aA][yY][rR][eE][aA][dD][yY]|[pP][rR])
-          echo "JLL-Found: maybe drm scheme is playready"
-          __DRM_SCHEME=playready
-          ;;
-      [wW][iI][dD][eE][vV][iI][nN][eE]|[wW][vV])
-          echo "JLL-Found: maybe drm scheme is widevine"
-          __DRM_SCHEME=widevine
-          ;;
-      *)
-          ;;
-    esac
-done
-
-if [ x"${__DRM_SCHEME}" = x ]; then
-    echo
-    echo "JLL-Exit: not found the legal DRM scheme, then exit"
-    echo 
-    exit 0
-fi
-
-echo
-echo "JLL-Probe: collecting the legal Android project under the current path with .repo "
-pwd
-# Find the same level path which contains .repo folder
-Lfn_Sys_GetSameLevelPath  GvPrjRootPath ".repo"
-if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
-    echo "JLL-Probe: not obtain legal Android project from the current path..."
-    echo "JLL-Probe: collecting all the legal Android projects under ${HOME} with .repo "
-    echo
-
-    declare -i GvPageUnit=10
-    declare -i GvMenuID=0
-    declare -a GvPageMenuUtilsContent
-    __ListProjects=$(find ${HOME} -maxdepth 4 -type d -a -name .repo)
-    for __ListProject in ${__ListProjects}; do
-        __ListProject=${__ListProject%%/.repo}
-        if [ x"${__ListProject}" != x -a -e "${__ListProject}" ]; then
-            GvPageMenuUtilsContent[GvMenuID++]="${__ListProject}" 
-        fi 
-    done
-    if [ ${GvMenuID} -gt 0 ]; then
-        Lfn_PageMenuUtils GvPrjRootPath "Select" 7 4 "***** Using Android Project (q: quit) *****"
-    fi
-    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
-    [ x"${GvMenuID}" != x ] && unset GvMenuID
-    [ x"${GvPageUnit}" != x ] && unset GvPageUnit
-fi
-if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
-    __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
-    __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
-    exit 0
-fi
-echo
-__Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
-    "JLL-Probe: \"${GvPrjRootPath}\" is selected to use"
-echo
-
-exit 0
-
-
-echo
-echo "JLL-Probe: checking if \"${__DRM_SCHEME}\" is legal or not, starting from current path"
-pwd
-echo
-#
-# Find the legal SDK packages from the current.
-#
-case ${__DRM_SCHEME} in
-playready)
-    
-    ;;
-widevine)
-
-    ;;
-*)
-    echo
-    echo "JLL-Exit: not support \"${__DRM_SCHEME}\", then exit"
-    echo
-    ;;
-esac
-
-
-
-
-
-
-
 ###############################################################
-#   Library
+#   Library - Start
 ###############################################################
 
 __CvPathFileForScript="`which $0`"
@@ -488,6 +393,108 @@ function Lfn_File_SearchSymbol_EX()
         echo
     fi
 }
+
+###############################################################
+#   Library - End 
+###############################################################
+
+
+
+
+
+
+
+#
+# Recognize DRM scheme  
+#
+__DRM_SCHEME=
+for ac_arg; do
+    case $ac_arg in
+      [pP][lL][aA][yY][rR][eE][aA][dD][yY]|[pP][rR])
+          echo "JLL-Found: maybe drm scheme is playready"
+          __DRM_SCHEME=playready
+          ;;
+      [wW][iI][dD][eE][vV][iI][nN][eE]|[wW][vV])
+          echo "JLL-Found: maybe drm scheme is widevine"
+          __DRM_SCHEME=widevine
+          ;;
+      *)
+          ;;
+    esac
+done
+
+if [ x"${__DRM_SCHEME}" = x ]; then
+    echo
+    echo "JLL-Exit: not found the legal DRM scheme, then exit"
+    echo 
+    exit 0
+fi
+
+echo
+echo "JLL-Probe: collecting the legal Android project under the current path with .repo "
+pwd
+# Find the same level path which contains .repo folder
+Lfn_Sys_GetSameLevelPath  GvPrjRootPath ".repo"
+if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
+    echo "JLL-Probe: not obtain legal Android project from the current path..."
+    echo "JLL-Probe: collecting all the legal Android projects under ${HOME} with .repo "
+    echo
+
+    declare -i GvPageUnit=10
+    declare -i GvMenuID=0
+    declare -a GvPageMenuUtilsContent
+    __ListProjects=$(find ${HOME} -maxdepth 4 -type d -a -name .repo)
+    for __ListProject in ${__ListProjects}; do
+        __ListProject=${__ListProject%%/.repo}
+        if [ x"${__ListProject}" != x -a -e "${__ListProject}" ]; then
+            GvPageMenuUtilsContent[GvMenuID++]="${__ListProject}" 
+        fi 
+    done
+    if [ ${GvMenuID} -gt 0 ]; then
+        Lfn_PageMenuUtils GvPrjRootPath "Select" 7 4 "***** Using Android Project (q: quit) *****"
+    fi
+    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+    [ x"${GvMenuID}" != x ] && unset GvMenuID
+    [ x"${GvPageUnit}" != x ] && unset GvPageUnit
+fi
+if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
+    __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
+    __Lfn_Sys_DbgColorEcho ${__CvBgBlack} ${__CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
+    exit 0
+fi
+echo
+__Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
+    "JLL-Probe: \"${GvPrjRootPath}\" is selected to use"
+echo
+
+exit 0
+
+
+echo
+echo "JLL-Probe: checking if \"${__DRM_SCHEME}\" is legal or not, starting from current path"
+pwd
+echo
+#
+# Find the legal SDK packages from the current.
+#
+case ${__DRM_SCHEME} in
+playready)
+    
+    ;;
+widevine)
+
+    ;;
+*)
+    echo
+    echo "JLL-Exit: not support \"${__DRM_SCHEME}\", then exit"
+    echo
+    ;;
+esac
+
+
+
+
+
 
 
 
