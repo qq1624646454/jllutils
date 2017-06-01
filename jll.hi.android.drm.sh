@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:05:40
+#   ModifiedTime: 2017-06-01 21:07:45
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -47,11 +47,15 @@ if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
     echo "JLL-Probe: not obtain legal Android project from the current path..."
     echo "JLL-Probe: collecting all the legal Android projects under ${HOME} with .repo "
     echo
+
+    declare -i GvPageUnit=10
+    declare -i GvMenuID=0
+    declare -a GvPageMenuUtilsContent
     __ListProjects=$(find ${HOME} -maxdepth 4 -type d -a -name .repo)
     for __ListProject in ${__ListProjects}; do
         __ListProject=${__ListProject%%/.repo}
         if [ x"${__ListProject}" != x -a -e "${__ListProject}" ]; then
-        
+         
         fi 
     done
 fi
