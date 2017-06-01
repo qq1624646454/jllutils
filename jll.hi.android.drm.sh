@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:07:45
+#   ModifiedTime: 2017-06-01 21:08:12
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -55,7 +55,7 @@ if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
     for __ListProject in ${__ListProjects}; do
         __ListProject=${__ListProject%%/.repo}
         if [ x"${__ListProject}" != x -a -e "${__ListProject}" ]; then
-         
+            GvPageMenuUtilsContent[GvMenuID++]="${__ListProject}" 
         fi 
     done
 fi
