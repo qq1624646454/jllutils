@@ -50,7 +50,9 @@ if [ x"${GvPrjRootPath}" = x -o ! -e "${GvPrjRootPath}" ]; then
     __ListProjects=$(find ${HOME} -maxdepth 4 -type d -a -name .repo)
     for __ListProject in ${__ListProjects}; do
         __ListProject=${__ListProject%%/.repo}
-        echo "XXX: $__ListProject"
+        if [ x"${__ListProject}" != x -a -e "${__ListProject}" ]; then
+
+        fi 
     done
 fi
 exit 0
