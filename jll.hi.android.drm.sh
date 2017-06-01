@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:31:06
+#   ModifiedTime: 2017-06-01 21:32:38
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -506,7 +506,7 @@ playready)
     )
     declare -i CONF_szFile=${#CONF_lstFile[@]}
     for ((i=0;i<CONF_szFile;i++)) {
-
+        __listPath=$(find ${GvPrjRootPath} 
     }      
     ;;
 widevine)
