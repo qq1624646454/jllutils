@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:20:31
+#   ModifiedTime: 2017-06-01 21:21:59
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -21,11 +21,12 @@ __CvPathFileForScript="`which $0`"
 # /home/xxx.sh
 # xxx.sh
 if [ x"${__CvPathFileForScript}" != x ]; then
-    __CvPathFileForScript=${__CvPathFileForScript%/*}
-    if [ x"${__CvPathFileForScript}" = x ]; then
-        __CvPathFileForScript="$(pwd)"
+    __CvScriptName=${__CvPathFileForScript##*/}
+    __CvScriptPath=${__CvPathFileForScript%/*}
+    if [ x"${__CvScriptPath}" = x ]; then
+        __CvScriptPath="$(pwd)"
     else
-        __CvPathFileForScript="$(cd ${__CvPathFileForScript};pwd)"
+        __CvScriptPath="$(cd ${__CvPathFileForScript};pwd)"
     fi
 else
     echo
