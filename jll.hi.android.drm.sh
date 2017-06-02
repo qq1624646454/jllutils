@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:46:20
+#   ModifiedTime: 2017-06-02 11:51:45
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -26,7 +26,7 @@ if [ x"${__CvPathFileForScript}" != x ]; then
     if [ x"${__CvScriptPath}" = x ]; then
         __CvScriptPath="$(pwd)"
     else
-        __CvScriptPath="$(cd ${__CvPathFileForScript};pwd)"
+        __CvScriptPath="$(cd ${__CvScriptPath};pwd)"
     fi
     if [ x"${__CvScriptName}" = x ]; then
         echo
@@ -496,7 +496,7 @@ __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
 echo
 
 #
-# Find the legal SDK packages from the current.
+# Find the legal resources 
 #
 declare -a CONF_lstFile=(
         "frameworks/av/drm"
@@ -528,15 +528,51 @@ widevine)
     ;;
 esac
 
-for ((i=0;i<CONF_szFile;i++)) {
-    __=$(find ${GvPrjRootPath} )
+if [ 1 -ne 0 ]; then
+__FIND_PATHS="-path \"${CONF_lstFile[0]}\" -o -path \"*/${CONF_lstFile[0]}\""
+for ((i=1;i<CONF_lstFileSZ;i++)) {
+    __FIND_PATHS="${__FIND_PATHS} -o -path \"${CONF_lstFile[i]}\" -o -path \"*/${CONF_lstFile[i]}\""
 }
+fi
+
 
 # find . -maxdepth 1 \
 #   -a \( -path "./reposity" -o -path "./LogReposity" -o -path "./.*" -o -path "./lost+found" \) \
 #   -prune -o -type d -a -print | sed "1d"
+# TESTing
+if [ 1 -ne 1 ]; then
+    echo -ne "    Progressing For Collecting the legal resources...  "
+    Lfn_Sys_Rotate &
+    __RotateBgPID=$!
+    __lstTargets=$(find ${GvPrjRootPath}  \( -path "*/out" -o -path "out" -o -path "*/.*" \) -prune -o -type d -a \( -path "*/frameworks" -o -path "*/device" \) -print)
+    kill -9 ${__RotateBgPID}
+    clear
+    for __lstT in ${__lstTargets}; do
+        echo ${__lstT}
+    done
+    exit 0
+fi
 
+echo
+echo "find ${GvPrjRootPath} \\"
+echo "\( -path \"*/out\" -o -path \"out\" -o -path \"*/.*\" \) -prune -o -type d -a \( \\"
+echo "${__FIND_PATHS} \\"
+echo "\) -print"
+echo
+echo "${GvPrjRootPath}"
+echo
+echo -ne "    Progressing For Collecting the legal resources...  "
+Lfn_Sys_Rotate &
+__RotateBgPID=$!
+#__lstTargets=$(eval find ${GvPrjRootPath} \\\( -path "*/out" -o -path "out" -o -path "*/.*" \\\) -prune -o -type d -a \\\( ${__FIND_PATHS} \\\) -print)
+__lstTargets=$(eval find "${GvPrjRootPath}" -o -type d -a -name "*/frameworks" -print)
+kill -9 ${__RotateBgPID}
+clear
+for __lstT in ${__lstTargets}; do
+    echo ${__lstT}
+done
 
+exit 0
 
 
 
