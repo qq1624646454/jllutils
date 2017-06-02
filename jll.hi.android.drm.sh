@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:33:34
+#   ModifiedTime: 2017-06-02 09:36:45
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -514,6 +514,7 @@ playready)
         "frameworks/native/include/media"
         "device/tpvision/common/plf/mediaplayer/av/comps"
         "device/tpvision/common/plf/mediaplayer/av/include"
+        "vendor/widevine"
     )
     declare -i CONF_szFile=${#CONF_lstFile[@]}
     for ((i=0;i<CONF_szFile;i++)) {
