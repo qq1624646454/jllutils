@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:17:24
+#   ModifiedTime: 2017-06-02 09:27:06
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -506,6 +506,12 @@ playready)
         "vendor/playready"
         "frameworks/av/media"
         "frameworks/av/services/mediadrm"
+        "frameworks/av/services/mediacodec"
+        "frameworks/av/services/mediaresourcemanager"
+        "frameworks/av/services/mediaextractor"
+        "frameworks/base/drm"
+        "frameworks/base/media"
+        "frameworks/native/include/media"
     )
     declare -i CONF_szFile=${#CONF_lstFile[@]}
     for ((i=0;i<CONF_szFile;i++)) {
