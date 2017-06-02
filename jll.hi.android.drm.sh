@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:58:00
+#   ModifiedTime: 2017-06-02 16:29:15
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -367,13 +367,13 @@ function Lfn_File_SearchSymbol_EX()
         __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
             "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -print"
         __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
-            "---> grep ${LvFssFlags} \"${LvFssSymbol}\""
+            "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
       fi
         __OldIFS=${IFS}
         IFS=$'\n'
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -print`; do
-            LvFssMatch=`grep ${LvFssFlags} "${LvFssSymbol}" "${LvFssLine}" --color=always`
+            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=always`
             if [ x"$?" = x"0" ]; then
                 __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}    " ${LvFssLine} "
                 __Lfn_Sys_ColorEcho  "${LvFssMatch}"
@@ -394,13 +394,13 @@ function Lfn_File_SearchSymbol_EX()
         __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
             "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name \"${LvFssFl}\" -print"
         __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
-            "---> grep ${LvFssFlags} \"${LvFssSymbol}\""
+            "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
       fi
         __OldIFS=${IFS}
         IFS=$'\n'
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`; do
-            LvFssMatch=`grep ${LvFssFlags} "${LvFssSymbol}" "${LvFssLine}" --color=always`
+            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=always`
            if [ x"$?" = x"0" ]; then
                 __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}    " ${LvFssLine} "
                 __Lfn_Sys_ColorEcho  "${LvFssMatch}"
@@ -427,9 +427,10 @@ function Lfn_File_SearchSymbol_EX()
 
 
 #
-# Recognize DRM scheme  
+# Recognize DRM scheme, Key Texts and so on. 
 #
 __DRM_SCHEME=
+__keyTexts=
 for ac_arg; do
     case $ac_arg in
       [pP][lL][aA][yY][rR][eE][aA][dD][yY]|[pP][rR])
@@ -441,9 +442,19 @@ for ac_arg; do
           __DRM_SCHEME=widevine
           ;;
       *)
+          ac_arg=${ac_arg/#0x/}  #trip the head of 0x
+          ac_arg=${ac_arg/#0X/}  #trip the head of 0X
+          __keyTexts="$ac_arg"
           ;;
     esac
 done
+
+if [ x"${__keyTexts}" = x ]; then
+    echo
+    echo "JLL-Exit: not found the Key TEXT, then exit"
+    echo 
+    exit 0
+fi
 
 if [ x"${__DRM_SCHEME}" = x ]; then
     echo
@@ -501,10 +512,6 @@ echo
 declare -a CONF_lstFile=(
         "frameworks/av/drm"
         "frameworks/av/media"
-        "frameworks/av/services/mediadrm"
-        "frameworks/av/services/mediacodec"
-        "frameworks/av/services/mediaresourcemanager"
-        "frameworks/av/services/mediaextractor"
         "frameworks/base/drm"
         "frameworks/base/media"
         "frameworks/native/include/media"
@@ -534,17 +541,33 @@ declare -i __lstResSZ=0
 # Improve the handle speed.
 #
 case ${GvPrjRootPath##*/} in
-2k15_mtk_1446_1_devprod|aosp_6.0.1_r10_selinux)
-  echo "${GvPrjRootPath##*/}..."
+2k15_mtk_1446_1_devprod)
   for((i=0;i<CONF_lstFileSZ;i++)) {
-      echo "${GvPrjRootPath}/${CONF_lstFile[i]}"
       if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
           __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
           continue
       fi
+      echo "JLL-Warning: not found \"${GvPrjRootPath}/${CONF_lstFile[i]}\""
+  }
+  ;;
+aosp_6.0.1_r10_selinux)
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediadrm"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediacodec"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaextractor"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
+  for((i=0;i<CONF_lstFileSZ;i++)) {
+      if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
+          continue
+      fi
+      echo "JLL-Warning: not found \"${GvPrjRootPath}/${CONF_lstFile[i]}\""
   }
   ;;
 androidn_2k16_mtk_mainline)
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediadrm"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediacodec"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaextractor"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
   for((i=0;i<CONF_lstFileSZ;i++)) {
       if [ -e "${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}" ]; then
           __lstRes[__lstResSZ++]="${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}"
@@ -555,8 +578,9 @@ androidn_2k16_mtk_mainline)
 *)
   ;;
 esac
-
+echo "${__lstResSZ} -ne ${CONF_lstFileSZ}"
 if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
+exit 0
     unset __lstRes
     unset __lstResSZ
     declare -a __lstRes
@@ -603,51 +627,52 @@ for((i=0;i<__lstResSZ;i++)) {
     echo " ${__lstRes[i]}"
 }
  
+clear
+echo
 
-
-exit 0
+declare -a CONF_lstFileType=(
+    "*.cpp"
+    "*.java"
+    "*.h"
+    "*.c"
+    "*.aidl"
+    "*.cc"
+    "*.mk"
+    "*.mak"
+    "Makefile"
+    "makefile"
+)
 
 __szConsiderFileType=""
 __nLstConsiderFileType=${#CONF_lstFileType[@]}
 for((i=0; i<__nLstConsiderFileType; i++)) {
     __szConsiderFileType="${__szConsiderFileType} --File=\"${CONF_lstFileType[i]}\""
 }
-
-echo
+[ x"${CONF_lstFileType}" != x ] && unset CONF_lstFileType
 if [ x"${__szConsiderFileType}" = x ]; then
     __szConsiderFileType="*"
 fi
-echo -ne "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-FileType:${__CvAccOff}" 
+
+echo -ne "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-FileTypes:${__CvAccOff}" 
 echo -e "${__szConsiderFileType// --File=/\\n}" | sed "s/\"//g"
 echo
 
-
 echo
-echo -e "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-Search-RootPath:${__CvAccOff}" 
-echo -e "${CONF_szRootPath}"
+echo -e "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-Search-PATHs:${__CvAccOff}" 
+for((i=0;i<__lstResSZ;i++)) {
+    echo " ${__lstRes[i]}"
+}
 echo
 
-if [ x"${CONF_lstIgnorePath}" != x ]; then
-    __nLstIgnorePath=${#CONF_lstIgnorePath[@]}
-    for((i=0; i<__nLstIgnorePath; i++)) {
-        __szIgnorePath="${__szIgnorePath} --Ignore=\"${CONF_lstIgnorePath[i]}\""
-    }
-    echo
-    echo -ne "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-Ignore:${__CvAccOff}" 
-    echo -e "${__szIgnorePath// --Ignore=/\\n}" | sed "s/\"//g"
-    echo
-else
-    __szIgnorePath=""
-fi
+__szIgnorePath=""
 
 
-__nRelatedAPIs=${#CONF_lstRelatedAPIs[@]}
-for((i=0; i<__nRelatedAPIs; i++)) {
+for((i=0;i<__lstResSZ;i++)) {
    Lfn_File_SearchSymbol_EX \
        ${__szConsiderFileType} \
-       --Symbol="${CONF_lstRelatedAPIs[i]}" \
+       --Symbol="${__keyTexts}" \
        --Mode=1 \
-       --Path="${CONF_szRootPath}" \
+       --Path="${__lstRes[i]}" \
        ${__szIgnorePath}
 }
 
