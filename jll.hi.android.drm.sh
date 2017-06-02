@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:36:45
+#   ModifiedTime: 2017-06-02 09:39:58
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -498,12 +498,8 @@ echo
 #
 # Find the legal SDK packages from the current.
 #
-
-case ${__DRM_SCHEME} in
-playready)
-    declare -a CONF_lstFile=(
+declare -a CONF_lstFile=(
         "frameworks/av/drm"
-        "vendor/playready"
         "frameworks/av/media"
         "frameworks/av/services/mediadrm"
         "frameworks/av/services/mediacodec"
@@ -514,6 +510,12 @@ playready)
         "frameworks/native/include/media"
         "device/tpvision/common/plf/mediaplayer/av/comps"
         "device/tpvision/common/plf/mediaplayer/av/include"
+)
+declare -i CONF_lstFileSZ=${#CONF_lstFile[@]}
+ 
+case ${__DRM_SCHEME} in
+playready)
+    CONF_lstFile[CONF_lstFileSZ++]=(
         "vendor/widevine"
     )
     declare -i CONF_szFile=${#CONF_lstFile[@]}
@@ -522,7 +524,9 @@ playready)
     }      
     ;;
 widevine)
-
+    CONF_lstFile[CONF_lstFileSZ++]=(
+        "vendor/widevine"
+    )
     ;;
 *)
     echo
