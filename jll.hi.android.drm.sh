@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:41:50
+#   ModifiedTime: 2017-06-02 09:42:49
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -516,9 +516,6 @@ declare -i CONF_lstFileSZ=${#CONF_lstFile[@]}
 case ${__DRM_SCHEME} in
 playready)
     CONF_lstFile[CONF_lstFileSZ++]="vendor/playready"
-    for ((i=0;i<CONF_szFile;i++)) {
-        __listPath=$(find ${GvPrjRootPath} )
-    }
     ;;
 widevine)
     CONF_lstFile[CONF_lstFileSZ++]="vendor/widevine"
@@ -527,10 +524,14 @@ widevine)
     echo
     echo "JLL-Exit: not support \"${__DRM_SCHEME}\", then exit"
     echo
+    exit 0
     ;;
 esac
 
-
+for ((i=0;i<CONF_szFile;i++)) {
+    __listPath=$(find ${GvPrjRootPath} )
+}
+ 
 
 
 
