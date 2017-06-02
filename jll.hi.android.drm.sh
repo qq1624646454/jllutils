@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 16:29:15
+#   ModifiedTime: 2017-06-02 17:53:34
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -403,6 +403,18 @@ function Lfn_File_SearchSymbol_EX()
             LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=always`
            if [ x"$?" = x"0" ]; then
                 __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}    " ${LvFssLine} "
+#                __Lfn_Sys_ColorEcho  "${LvFssMatch}"
+                LvFssRangeLength=6
+                LvFssRangeStart=${LvFssMatch%%:*}
+echo "$LvFssRangeStart"
+                if [ ${LvFssRangeStart} -le ${LvFssRangeLength} ]; then
+                    LvFssRangeStart=1
+                else
+                    LvFssRangeStart=$((LvFssRangeStart - LvFssRangeLength))
+                fi
+                LvFssRangeContent=$(sed -n \
+                    "${LvFssRangeStart},$((LvFssRangeStart+LvFssRangeLength-1))"p ${LvFssLine})
+                __Lfn_Sys_ColorEcho "${LvFssRangeContent}"
                 __Lfn_Sys_ColorEcho  "${LvFssMatch}"
                 echo
             fi
