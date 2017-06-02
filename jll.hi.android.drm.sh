@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:50:48
+#   ModifiedTime: 2017-06-02 15:55:30
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -595,9 +595,9 @@ fi
 
 clear
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
-    "======== The Legal Resources As Follows ========"
+    "============================ The Legal Resources As Follows =============================="
 for((i=0;i<__lstResSZ;i++)) {
-    echo "  ${__lstRes[i]}"
+    echo " ${__lstRes[i]}"
 }
  
 
