@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:55:30
+#   ModifiedTime: 2017-06-02 15:56:24
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -565,7 +565,8 @@ if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
         __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${CONF_lstFile[i]}\""
     }
 
-    __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune -o -type d -a \\( ${__FIND_PATHS} \\) -print"
+    __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune"
+    __lstCmd="${__lstCmd} -o -type d -a \\( ${__FIND_PATHS} \\) -print"
     echo
     echo ${__lstCmd}
     echo
