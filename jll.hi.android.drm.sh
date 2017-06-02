@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:41:15
+#   ModifiedTime: 2017-06-02 15:42:36
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -562,24 +562,25 @@ if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
 
     __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune"
     __lstCmd="__${__lstCmd} -o -type d -a \\( ${__FIND_PATHS} \\) -print"
-echo
-echo ${__lstCmd}
-echo
-echo -ne "    Progressing For Collecting the legal resources...  "
-Lfn_Sys_Rotate &
-__RotateBgPID=$!
-__lstTargets=$(eval ${__lstCmd})
-kill -9 ${__RotateBgPID}
-sleep 1
-clear
+    echo
+    echo ${__lstCmd}
+    echo
+    echo -ne "    Progressing For Collecting the legal resources...  "
+    Lfn_Sys_Rotate &
+    __RotateBgPID=$!
+    __lstTargets=$(eval ${__lstCmd})
+    kill -9 ${__RotateBgPID}
+    sleep 1
+    clear
 
-[ x"${__lstTargets}" != x ] && \
-__Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
-    "======== The Legal Resources As Follows ========"
-for __lstT in ${__lstTargets}; do
-    echo  "   ${__lstT}"
-    __lstRes[__lstResSZ++]="${__lstT}"
-done
+    [ x"${__lstTargets}" != x ] && \
+        __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
+        "======== The Legal Resources As Follows ========"
+    for __lstT in ${__lstTargets}; do
+        echo  "   ${__lstT}"
+        __lstRes[__lstResSZ++]="${__lstT}"
+    done
+fi
 
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
 [ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
