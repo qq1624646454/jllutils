@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:23:36
+#   ModifiedTime: 2017-06-02 15:24:46
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -562,7 +562,7 @@ done
 [ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
 [ x"${__lstTargets}" != x ] && unset __lstTargets 
  
-
+[ ${__lstResSZ} -lt 1 ] && echo "JLL-Exit: Not found any legal Resources then exit"; exit 0
 
 
 __szConsiderFileType=""
