@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:24:46
+#   ModifiedTime: 2017-06-02 15:25:42
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -547,6 +547,8 @@ clear
 
 declare -a __lstRes
 declare -i __lstResSZ=0
+
+[ x"${__lstTargets}" != x ] && \
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
     "  ======= The Legal Resources As Follows ======"
 for __lstT in ${__lstTargets}; do
