@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:31:29
+#   ModifiedTime: 2017-06-02 15:31:31
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -528,6 +528,11 @@ widevine)
     ;;
 esac
 
+declare -a __lstRes
+declare -i __lstResSZ=0
+
+
+
 __FIND_PATHS="-regex \".*/?${CONF_lstFile[0]}\""
 for ((i=1;i<CONF_lstFileSZ;i++)) {
     __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${CONF_lstFile[i]}\""
@@ -544,9 +549,6 @@ __lstTargets=$(eval ${__lstCmd})
 kill -9 ${__RotateBgPID}
 sleep 1
 clear
-
-declare -a __lstRes
-declare -i __lstResSZ=0
 
 [ x"${__lstTargets}" != x ] && \
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
