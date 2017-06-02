@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:19:52
+#   ModifiedTime: 2017-06-02 15:20:55
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -549,6 +549,10 @@ __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
 for __lstT in ${__lstTargets}; do
     __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} "   ${__lstT}"
 done
+
+[ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
+[ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
+[ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS 
 
 
 
