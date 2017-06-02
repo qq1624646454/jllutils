@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:43:50
+#   ModifiedTime: 2017-06-02 09:46:20
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -532,7 +532,9 @@ for ((i=0;i<CONF_szFile;i++)) {
     __=$(find ${GvPrjRootPath} )
 }
 
-# find . -maxdepth 1 -a \( -path "./reposity" -o -path "./LogReposity" -o -path "     ./.*" -o -path "./lost+found" \)  -prune -o -type d -a -print | sed "1d"
+# find . -maxdepth 1 \
+#   -a \( -path "./reposity" -o -path "./LogReposity" -o -path "./.*" -o -path "./lost+found" \) \
+#   -prune -o -type d -a -print | sed "1d"
 
 
 
