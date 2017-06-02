@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:56:24
+#   ModifiedTime: 2017-06-02 15:57:59
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -535,6 +535,7 @@ declare -i __lstResSZ=0
 #
 case ${GvPrjRootPath##*/} in
 2k15_mtk_1446_1_devprod|aosp_6.0.1_r10_selinux)
+  echo "${GvPrjRootPath##*/}..."
   for((i=0;i<CONF_lstFileSZ;i++)) {
       if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
           __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
