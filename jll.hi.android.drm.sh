@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:37:00
+#   ModifiedTime: 2017-06-02 15:37:28
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -535,6 +535,13 @@ declare -i __lstResSZ=0
 #
 case ${GvPrjRootPath##*/} in
 2k15_mtk_1446_1_devprod|aosp_6.0.1_r10_selinux)
+  for((i=0;i<CONF_lstFileSZ;i++)) {
+      if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
+      fi
+  }
+  ;;
+androidn_2k16_mtk_mainline)
   for((i=0;i<CONF_lstFileSZ;i++)) {
       if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
           __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
