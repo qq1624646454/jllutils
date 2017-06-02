@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 11:51:45
+#   ModifiedTime: 2017-06-02 14:55:50
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -529,9 +529,9 @@ widevine)
 esac
 
 if [ 1 -ne 0 ]; then
-__FIND_PATHS="-path \"${CONF_lstFile[0]}\" -o -path \"*/${CONF_lstFile[0]}\""
+__FIND_PATHS="-regex \".*/?${CONF_lstFile[0]}\""
 for ((i=1;i<CONF_lstFileSZ;i++)) {
-    __FIND_PATHS="${__FIND_PATHS} -o -path \"${CONF_lstFile[i]}\" -o -path \"*/${CONF_lstFile[i]}\""
+    __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${CONF_lstFile[i]}\""
 }
 fi
 
@@ -553,19 +553,15 @@ if [ 1 -ne 1 ]; then
     exit 0
 fi
 
+
+__lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune -o -type d -a \\( ${__FIND_PATHS} \\) -print"
 echo
-echo "find ${GvPrjRootPath} \\"
-echo "\( -path \"*/out\" -o -path \"out\" -o -path \"*/.*\" \) -prune -o -type d -a \( \\"
-echo "${__FIND_PATHS} \\"
-echo "\) -print"
-echo
-echo "${GvPrjRootPath}"
+echo ${__lstCmd}
 echo
 echo -ne "    Progressing For Collecting the legal resources...  "
 Lfn_Sys_Rotate &
 __RotateBgPID=$!
-#__lstTargets=$(eval find ${GvPrjRootPath} \\\( -path "*/out" -o -path "out" -o -path "*/.*" \\\) -prune -o -type d -a \\\( ${__FIND_PATHS} \\\) -print)
-__lstTargets=$(eval find "${GvPrjRootPath}" -o -type d -a -name "*/frameworks" -print)
+__lstTargets=$(eval ${__lstCmd})
 kill -9 ${__RotateBgPID}
 clear
 for __lstT in ${__lstTargets}; do
