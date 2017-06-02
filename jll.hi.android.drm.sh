@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:44:30
+#   ModifiedTime: 2017-06-02 15:45:54
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -575,13 +575,8 @@ if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
     __RotateBgPID=$!
     __lstTargets=$(eval ${__lstCmd})
     kill -9 ${__RotateBgPID}
-    sleep 1
-    clear
 
-    [ x"${__lstTargets}" != x ] && __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
-        "======== The Legal Resources As Follows ========"
     for __lstT in ${__lstTargets}; do
-        echo  "   ${__lstT}"
         __lstRes[__lstResSZ++]="${__lstT}"
     done
     [ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS
@@ -596,6 +591,14 @@ fi
  
 [ ${__lstResSZ} -lt 1 ] && __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
     "JLL-Exit: Not found any legal Resources then exit"; exit 0
+
+[ x"${__lstTargets}" != x ] && __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
+    "======== The Legal Resources As Follows ========"
+for((i=0;i<__lstResSZ;i++)) {
+    echo "  ${__lstRes[i]}"
+}
+ 
+
 
 exit 0
 
