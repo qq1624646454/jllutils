@@ -566,7 +566,7 @@ if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
     }
 
     __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune"
-    __lstCmd="__${__lstCmd} -o -type d -a \\( ${__FIND_PATHS} \\) -print"
+    __lstCmd="${__lstCmd} -o -type d -a \\( ${__FIND_PATHS} \\) -print"
     echo
     echo ${__lstCmd}
     echo
