@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 09:40:50
+#   ModifiedTime: 2017-06-02 09:41:50
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -518,7 +518,7 @@ playready)
     CONF_lstFile[CONF_lstFileSZ++]="vendor/playready"
     for ((i=0;i<CONF_szFile;i++)) {
         __listPath=$(find ${GvPrjRootPath} )
-    }      
+    }
     ;;
 widevine)
     CONF_lstFile[CONF_lstFileSZ++]="vendor/widevine"
