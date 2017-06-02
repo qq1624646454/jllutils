@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:18:32
+#   ModifiedTime: 2017-06-02 15:19:52
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -528,12 +528,10 @@ widevine)
     ;;
 esac
 
-if [ 1 -ne 0 ]; then
 __FIND_PATHS="-regex \".*/?${CONF_lstFile[0]}\""
 for ((i=1;i<CONF_lstFileSZ;i++)) {
     __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${CONF_lstFile[i]}\""
 }
-fi
 
 __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune -o -type d -a \\( ${__FIND_PATHS} \\) -print"
 echo
@@ -549,20 +547,8 @@ clear
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
     "  ======= The Legal Resources As Follows ======"
 for __lstT in ${__lstTargets}; do
-    echo ${__lstT}
+    __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} "   ${__lstT}"
 done
-
-
-
-
-
-echo
-echo -e "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-Symbol:${__CvAccOff}" 
-__nRelatedAPIs=${#CONF_lstRelatedAPIs[@]}
-for((i=0; i<__nRelatedAPIs; i++)) {
-    echo "${CONF_lstRelatedAPIs[i]}"
-}
-
 
 
 
