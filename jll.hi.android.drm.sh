@@ -564,7 +564,8 @@ done
 [ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
 [ x"${__lstTargets}" != x ] && unset __lstTargets 
  
-[ ${__lstResSZ} -lt 1 ] && echo "JLL-Exit: Not found any legal Resources then exit"; exit 0
+[ ${__lstResSZ} -lt 1 ] && __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
+    "JLL-Exit: Not found any legal Resources then exit"; exit 0
 
 
 __szConsiderFileType=""
