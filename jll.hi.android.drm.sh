@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:42:36
+#   ModifiedTime: 2017-06-02 15:43:44
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -573,22 +573,21 @@ if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
     sleep 1
     clear
 
-    [ x"${__lstTargets}" != x ] && \
-        __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
+    [ x"${__lstTargets}" != x ] && __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
         "======== The Legal Resources As Follows ========"
     for __lstT in ${__lstTargets}; do
         echo  "   ${__lstT}"
         __lstRes[__lstResSZ++]="${__lstT}"
     done
+    [ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS
+    [ x"${__lstCmd}" != x ] && unset __lstCmd
+    [ x"${__RotateBgPID}" != x ] && unset __RotateBgPID 
+    [ x"${__lstTargets}" != x ] && unset __lstTargets 
 fi
 
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
 [ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
-[ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS
-[ x"${__lstCmd}" != x ] && unset __lstCmd
-[ x"${__RotateBgPID}" != x ] && unset __RotateBgPID 
 [ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
-[ x"${__lstTargets}" != x ] && unset __lstTargets 
  
 [ ${__lstResSZ} -lt 1 ] && __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
     "JLL-Exit: Not found any legal Resources then exit"; exit 0
