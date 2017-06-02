@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:31:31
+#   ModifiedTime: 2017-06-02 15:34:21
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -530,7 +530,16 @@ esac
 
 declare -a __lstRes
 declare -i __lstResSZ=0
-
+#
+# Improve the handle speed.
+#
+case ${GvPrjRootPath##*/} in
+2k15_mtk_1446_1_devprod)
+  
+  ;;
+*)
+  ;;
+esac
 
 
 __FIND_PATHS="-regex \".*/?${CONF_lstFile[0]}\""
