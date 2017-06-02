@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-01 21:33:51
+#   ModifiedTime: 2017-06-02 09:15:50
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -502,7 +502,7 @@ echo
 case ${__DRM_SCHEME} in
 playready)
     declare -a CONF_lstFile=(
-        "playready"
+        "android/n-base/vendor/playready"
     )
     declare -i CONF_szFile=${#CONF_lstFile[@]}
     for ((i=0;i<CONF_szFile;i++)) {
