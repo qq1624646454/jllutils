@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 14:55:50
+#   ModifiedTime: 2017-06-02 15:17:27
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -535,25 +535,6 @@ for ((i=1;i<CONF_lstFileSZ;i++)) {
 }
 fi
 
-
-# find . -maxdepth 1 \
-#   -a \( -path "./reposity" -o -path "./LogReposity" -o -path "./.*" -o -path "./lost+found" \) \
-#   -prune -o -type d -a -print | sed "1d"
-# TESTing
-if [ 1 -ne 1 ]; then
-    echo -ne "    Progressing For Collecting the legal resources...  "
-    Lfn_Sys_Rotate &
-    __RotateBgPID=$!
-    __lstTargets=$(find ${GvPrjRootPath}  \( -path "*/out" -o -path "out" -o -path "*/.*" \) -prune -o -type d -a \( -path "*/frameworks" -o -path "*/device" \) -print)
-    kill -9 ${__RotateBgPID}
-    clear
-    for __lstT in ${__lstTargets}; do
-        echo ${__lstT}
-    done
-    exit 0
-fi
-
-
 __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune -o -type d -a \\( ${__FIND_PATHS} \\) -print"
 echo
 echo ${__lstCmd}
@@ -563,6 +544,7 @@ Lfn_Sys_Rotate &
 __RotateBgPID=$!
 __lstTargets=$(eval ${__lstCmd})
 kill -9 ${__RotateBgPID}
+sleep 1
 clear
 for __lstT in ${__lstTargets}; do
     echo ${__lstT}
