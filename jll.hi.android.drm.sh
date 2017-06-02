@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:25:42
+#   ModifiedTime: 2017-06-02 15:31:29
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -550,9 +550,9 @@ declare -i __lstResSZ=0
 
 [ x"${__lstTargets}" != x ] && \
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
-    "  ======= The Legal Resources As Follows ======"
+    "======== The Legal Resources As Follows ========"
 for __lstT in ${__lstTargets}; do
-    __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} "   ${__lstT}"
+    echo  "   ${__lstT}"
     __lstRes[__lstResSZ++]="${__lstT}"
 done
 
