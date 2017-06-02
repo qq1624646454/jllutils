@@ -587,8 +587,11 @@ fi
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
 [ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
 [ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
-[ ${__lstResSZ} -lt 1 ] && __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
-    "JLL-Exit: Not found any legal Resources then exit"; exit 0
+if [ ${__lstResSZ} -lt 1 ]; then
+    __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
+        "JLL-Exit: Not found any legal Resources then exit"
+    exit 0
+fi
 
 clear
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
