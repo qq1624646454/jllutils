@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:37:28
+#   ModifiedTime: 2017-06-02 15:38:13
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -543,8 +543,9 @@ case ${GvPrjRootPath##*/} in
   ;;
 androidn_2k16_mtk_mainline)
   for((i=0;i<CONF_lstFileSZ;i++)) {
-      if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
-          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
+      if [ -e "${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}"
+          continue
       fi
   }
   ;;
