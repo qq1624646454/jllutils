@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:20:55
+#   ModifiedTime: 2017-06-02 15:21:59
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -552,7 +552,11 @@ done
 
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
 [ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
-[ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS 
+[ x"${__FIND_PATHS}" != x ] && unset __FIND_PATHS
+[ x"${__lstCmd}" != x ] && unset __lstCmd
+[ x"${__RotateBgPID}" != x ] && unset __RotateBgPID 
+[ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath 
+ 
 
 
 
