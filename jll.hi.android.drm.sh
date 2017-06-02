@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 15:22:28
+#   ModifiedTime: 2017-06-02 15:23:36
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -544,11 +544,14 @@ __lstTargets=$(eval ${__lstCmd})
 kill -9 ${__RotateBgPID}
 sleep 1
 clear
+
+declare -a __lstRes
+declare -i __lstResSZ=0
 __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
     "  ======= The Legal Resources As Follows ======"
 for __lstT in ${__lstTargets}; do
     __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} "   ${__lstT}"
-    
+    __lstRes[__lstResSZ++]="${__lstT}"
 done
 
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
