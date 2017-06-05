@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:33:28
+#   ModifiedTime: 2017-06-05 21:34:20
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -17,7 +17,10 @@ source ${JLLPATH}/BashShellLibrary
 #
 JLLCFG_Render_Range=6
 
-JLLCFG_dbgEnable=2  # 2: only show ranges and segments
+# 0: disable
+# 1: show the cmdline processing
+# 2: only show ranges and segments
+JLLCFG_dbgEnable=2
 
 
 
