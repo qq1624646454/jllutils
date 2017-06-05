@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:51:11
+#   ModifiedTime: 2017-06-05 18:53:24
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -406,10 +406,16 @@ function Lfn_File_SearchSymbol_EX()
               "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
         fi
 
+        declare -a __lstFiles
+        declare -i __iFiles=0
         __OldIFS=${IFS}
         IFS=$'\n'
         __AllFLs=`eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`
         for LvFssLine in ${__AllFLs}; do
+            __lstFiles[__iFiles++]="${LvFssLine}"
+        done
+        IFS=${__OldIFS}
+        for((x=0;x<__iFiles;x++)) {
             LvFssMatch=`grep ${LvFssFlags} -i " ${LvFssSymbol} " "${LvFssLine}" --color=never`
             if [ x"$?" = x"0" ]; then
                 [ x"${__lstRanges}" != x ] && unset __lstRanges
@@ -531,8 +537,7 @@ function Lfn_File_SearchSymbol_EX()
                     }
                 fi
             fi
-        done
-        IFS=${__OldIFS}
+        } 
     done
     if [ x"${CONF_dbgEnable}" = x"1" ]; then
         echo
