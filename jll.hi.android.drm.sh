@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:55:57
+#   ModifiedTime: 2017-06-05 18:56:45
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -466,8 +466,7 @@ function Lfn_File_SearchSymbol_EX()
                         exit 0
                     fi
                 done
-                __OldIFS=${IFS}
-                IFS=$'\n'
+                IFS=${__OldIFS}
                 if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
                     for((i=0;i<__iRanges;i+=3)) {
