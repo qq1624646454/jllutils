@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 15:45:20
+#   ModifiedTime: 2017-06-05 15:46:31
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -487,7 +487,7 @@ function Lfn_File_SearchSymbol_EX()
                         if [ ${__lstRanges[__i]} -lt ${__lstRanges[__i+2]} ]; then
                             __lstSegment[__iSegment++]=$((__lstRanges[__i]+1)) # Next Segment Start 
                         else
-                            __lstSegment[__iSegment++]=$((__lstRanges[0]+1)) # Next Range Start 
+                            __lstSegment[__iSegment++]=$((__lstRanges[0]+1)) # Next Segment Start 
                         fi
                     fi
                     # Combine the override ranges
