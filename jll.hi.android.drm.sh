@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:58:25
+#   ModifiedTime: 2017-06-05 20:59:03
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -16,6 +16,11 @@ source ${JLLPATH}/BashShellLibrary
 # Start                     Target                    End
 #
 JLLCFG_Render_Range=6
+
+JLLCFG_dbgEnable=0
+
+
+
 
 
 ###############################################################
@@ -372,7 +377,7 @@ function Lfn_File_SearchSymbol_EX()
         echo
         echo
         echo "jll: maybe take more long time to find all files by *"
-      if [ x"${CONF_dbgEnable}" = x"1" ]; then
+      if [ x"${JLLCFG_dbgEnable}" = x"1" ]; then
         __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
             "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -print"
         __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
@@ -395,39 +400,52 @@ function Lfn_File_SearchSymbol_EX()
         exit 0
     fi
 
-
+    declare -a __lstFindFiles
+    declare -i __iFindFiles=0
     for LvFssFl in ${LvFssFile}; do
-        if [ x"${CONF_dbgEnable}" = x"1" ]; then
-          echo
-          echo
-          __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
-              "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name \"${LvFssFl}\" -print"
-          __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
-              "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
-        fi
+        __lstFindFiles[__iFindFiles++]="${LvFssFl}"
+    done
+    [ x"${LvFssFile}" != x ] && unset LvFssFile
+    if [ x"${JLLCFG_dbgEnable}" = x"1" ]; then
+        echo "JLL-DBG| Total Finding Files is ${__iFindFiles}"
+    fi
 
+    for((iFF=0;iFF<__iFindFiles;iFF++)) {
+        [ x"${__lstFiles}" != x ] && unset __lstFiles
+        [ x"${__iFiles}" != x ] && unset __iFiles
         declare -a __lstFiles
         declare -i __iFiles=0
-        __OldIFS=${IFS}
+
+        # Collecting all relative files according to __iFindFiles[ ]
+        __CMDLINE="find ${LvFssRootPath} ${LvFssIgnorePath} -type f "
+        __CMDLINE="${__CMDLINE} -a -name \"${__lstFindFiles[iFF]}\" -print"
+        [ x"${JLLCFG_dbgEnable}" = x"1" ] && echo "JLL-CMDLINE-1: ${__CMDLINE}"
+        __AllFLs=`eval ${__CMDLINE}`
+        __OldIFS="${IFS}"
         IFS=$'\n'
-        __AllFLs=`eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`
         for LvFssLine in ${__AllFLs}; do
             __lstFiles[__iFiles++]="${LvFssLine}"
         done
-        IFS=${__OldIFS}
-        for((x=0;x<__iFiles;x++)) {
-            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${__lstFiles[x]}" --color=never`
-            if [ x"$?" = x"0" ]; then
+        IFS="${__OldIFS}"
+        [ x"${__AllFLs}" != x ] && unset __AllFLs
+
+        for((iF=0;iF<__iFiles;iF++)) {
+            __CMDLINE="grep ${LvFssFlags} -i \"${LvFssSymbol}\""
+            __CMDLINE="${__CMDLINE} \"${__lstFiles[iF]}\" --color=never"
+            [ x"${JLLCFG_dbgEnable}" = x"1" ] && echo "JLL-CMDLINE-2: ${__CMDLINE}"
+            LvFssMatch=`eval ${__CMDLINE} 2>/dev/null`
+            if [ x"${LvFssMatch}" != x ]; then
                 [ x"${__lstRanges}" != x ] && unset __lstRanges
                 [ x"${__iRanges}" != x ] && unset __iRanges
                 declare -a __lstRanges
                 declare -i __iRanges=0
-                __FileEnd=$(sed -n '$=' ${__lstFiles[x]})
-                __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${__lstFiles[x]}"
+                __FileEnd=$(sed -n '$=' ${__lstFiles[iF]})
+                __Lfn_Sys_ColorEcho ${__CvFgBlack}  ${__CvBgWhite}  \
+                                    "${__lstFiles[iF]##${GvPrjRootPath}/}"
 
-                __OldIFS=${IFS}
+                __OldIFS="${IFS}"
                 IFS=$'\n'
-                #There maybe are the multilse lines matched.
+                #There maybe are the multise lines matched.
                 for LvFssM in ${LvFssMatch}; do
                     __RenderTarget=$(echo ${LvFssM%%:*} | sed -n '/^[0-9][0-9]*$/p')
                     if [ x"${__RenderTarget}" != x ]; then
@@ -456,17 +474,22 @@ function Lfn_File_SearchSymbol_EX()
                             __lstRanges[__iRanges++]="${__RenderTarget}"
                             __lstRanges[__iRanges++]="${__RenderEnd}"
                         fi
+echo "JLLing: ${__lstFindFiles[iFF]}|${LvFssM} ;__bAdd=${__bAdd};${__iRanges}"
                     else
                         echo
                         echo "JLL-Warning| Matched Line But not obtain the line number:"
                         echo "${LvFssM}"
                         [ x"${__lstRanges}" != x ] && unset __lstRanges
                         [ x"${__iRanges}" != x ] && unset __iRanges
-                        IFS=${__OldIFS}
+                        IFS="${__OldIFS}"
                         exit 0
                     fi
                 done
-                IFS=${__OldIFS}
+                IFS="${__OldIFS}"
+
+echo "JLLing: ${__lstFindFiles[iFF]}; ${__lstFiles[iF]}"
+echo "continue: iFF=${iFF} __iFindFiles=${__iFindFiles}  iF=${iF} __iFiles=${__iFiles}"
+continue
                 if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
                     for((i=0;i<__iRanges;i+=3)) {
@@ -535,10 +558,10 @@ function Lfn_File_SearchSymbol_EX()
                     }
                 fi
             fi
-        } 
+        }
         IFS=${__OldIFS}
-    done
-    if [ x"${CONF_dbgEnable}" = x"1" ]; then
+    } 
+    if [ x"${JLLCFG_dbgEnable}" = x"1" ]; then
         echo
         __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgYellow} " Done"
         echo
@@ -742,7 +765,7 @@ fi
 
 [ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
 [ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
-[ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
+#[ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
 if [ ${__lstResSZ} -lt 1 ]; then
     __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
         "JLL-Exit: Not found any legal Resources then exit"
