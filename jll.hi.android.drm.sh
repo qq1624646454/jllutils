@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:10:33
+#   ModifiedTime: 2017-06-05 21:12:01
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -512,14 +512,11 @@ function Lfn_File_SearchSymbol_EX()
                         }
                     }
 
-echo "JLLing: ${__lstFindFiles[iFF]}; ${__lstFiles[iF]}"
-echo "continue: iFF=${iFF} __iFindFiles=${__iFindFiles}  iF=${iF} __iFiles=${__iFiles}"
-continue
-
                     [ x"${__lstSegment}" != x ] && unset __lstSegment
                     [ x"${__iSegment}" != x ] && unset __iSegment
                     declare -a __lstSegment
                     declare -i __iSegment=0
+
                     __SegSP=${__lstRanges[0]}
                     __SegEP=${__lstRanges[2]}
                     # Combine the override ranges
