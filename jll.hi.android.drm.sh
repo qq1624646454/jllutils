@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 20:59:03
+#   ModifiedTime: 2017-06-05 21:00:54
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -460,7 +460,7 @@ function Lfn_File_SearchSymbol_EX()
                         fi
                         # Prevent from adding the same item
                         __bAdd=1
-                        for ((i=__iRanges-3;i>=0;i-=3)) {
+                        for((i=__iRanges-3;i>=0;i-=3)){
                             if [ ${__lstRanges[i+2]} -eq ${__RenderEnd} \
                               -a ${__lstRanges[i+1]} -eq ${__RenderTarget} \
                               -a ${__lstRanges[i]} -eq ${__RenderStart} \
