@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:49:40
+#   ModifiedTime: 2017-06-05 18:51:11
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -417,7 +417,7 @@ function Lfn_File_SearchSymbol_EX()
                 declare -a __lstRanges
                 declare -i __iRanges=0
                 __FileEnd=$(sed -n '$=' ${LvFssLine})
-                __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine#${GvPrjRootPath}/}"
+                __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine}"
                 echo "-----------------------"
                 echo "${LvFssMatch}"
                 echo "-----------------------"
