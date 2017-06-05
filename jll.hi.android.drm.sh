@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:32:38
+#   ModifiedTime: 2017-06-05 21:33:28
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -17,7 +17,7 @@ source ${JLLPATH}/BashShellLibrary
 #
 JLLCFG_Render_Range=6
 
-JLLCFG_dbgEnable=1
+JLLCFG_dbgEnable=2  # 2: only show ranges and segments
 
 
 
@@ -554,7 +554,7 @@ function Lfn_File_SearchSymbol_EX()
                     __lstSegment[__iSegment++]=${__SegEP}
                 fi
 
-                if [ x"${JLLCFG_dbgEnable}" == x"1" ]; then
+                if [ x"${JLLCFG_dbgEnable}" == x"2" ]; then
                     echo "<<<<< Obtaining the below ranges:"
                     for((iT=0;iT<__iRanges;iT+=3)) {
                         echo "Raw-ITEM: ${__lstRanges[iT]}===${__lstRanges[iT+2]}"
