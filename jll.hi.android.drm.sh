@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:03:56
+#   ModifiedTime: 2017-06-05 21:04:25
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -462,9 +462,9 @@ function Lfn_File_SearchSymbol_EX()
                         __bAdd=1
                         iR=$((__iRanges-3))
                         while [ ${iR} -ge 0 ]; do
-                            if [ ${__lstRanges[i+2]} -eq ${__RenderEnd} \
-                              -a ${__lstRanges[i+1]} -eq ${__RenderTarget} \
-                              -a ${__lstRanges[i]} -eq ${__RenderStart} \
+                            if [ ${__lstRanges[iR+2]} -eq ${__RenderEnd} \
+                              -a ${__lstRanges[iR+1]} -eq ${__RenderTarget} \
+                              -a ${__lstRanges[iR]} -eq ${__RenderStart} \
                             ]; then
                                 __bAdd=0
                                 break
