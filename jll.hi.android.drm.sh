@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 15:51:23
+#   ModifiedTime: 2017-06-05 16:52:23
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -458,7 +458,7 @@ function Lfn_File_SearchSymbol_EX()
                         exit 0
                     fi
                 done
-                if [ ${__iRanges} -gt 1 ]; then
+                if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
                     for((i=0;i<__iRanges;i+=3)) {
                         for((j=i+3;j<__iRanges;j+=3)) {
@@ -477,29 +477,52 @@ function Lfn_File_SearchSymbol_EX()
                             fi
                         } 
                     }
+                    [ x"${__lstSegment}" != x ] && unset __lstSegment
+                    [ x"${__iSegment}" != x ] && unset __iSegment
                     declare -a __lstSegment
                     declare -i __iSegment=0
-
-                    __i=0 
-                    if [ ${__lstRanges[__i]} -eq ${__lstRanges[__i+1]} ]; then
-                        __lstSegment[__iSegment++]=${__lstRanges[__i]} # Keyword Line
-                        __lstSegment[__iSegment++]=0 # Segment End, 0 imples one Keyword line
-                        if [ ${__lstRanges[__i]} -lt ${__lstRanges[__i+2]} ]; then
-                            __lstSegment[__iSegment++]=$((__lstRanges[__i]+1)) # Next Segment Start 
-                        else
-                            __i=$((__i+3))
-                            __lstSegment[__iSegment++]=$((__lstRanges[__i])) # Next Segment Start 
-                        fi
-                    else
-                        __lstSegment[__iSegment++]=$((__lstRanges[__i])) # Help line 
-                    fi
+                    __SegSP=${__lstRanges[0]}
+                    __SegEP=${__lstRanges[2]}
                     # Combine the override ranges
-                    for((i=__i;i<__iRanges;i+=3)) {
-                    
-                    } 
- 
+                    for((i=3;i<__iRanges;i+=3)){
+                        __NextSegSP=${__lstRanges[i]}
+                        __NextSegEP=${__lstRanges[i+2]}
+                        if [ ${__NextSegSP} -ge ${__SegSP} -a ${__NextSegSP} -le ${__SegEP} ]; then
+                            # Case-1 :
+                            # Seg    : |--------------|
+                            # NextSeg:   |-----------|
+                            # Result : |--------------| <=> Seg.Start to Seg.End
+                            if [ ${__NextSegEP} -le ${__SegEP} ]; then
+                                continue
+                            fi
+                            # Case-2 :
+                            # Seg    : |--------------|
+                            # NextSeg:   |--------------|
+                            # Result : |----------------| <=> Seg.Start to NextSeg.End
+                            __SegEP=${__NextSegEP}
+                            continue
+                        fi
+                        if [ ${__NextSegSP} -gt ${__SegSP} ]; then
+                            # Case-3 :
+                            # Seg    : |--------------|
+                            # NextSeg:                   |-----------|
+                            # Result : |--------------|  |-----------|
+                            __lstSegment[__iSegment++]=${__SegSP}
+                            __SegSP=${__NextSegSP}
+                            __lstSegment[__iSegment++]=${__SegEP}
+                            __SegEP=${__NextSegEP}
+                            continue 
+                        fi
+                    }
+                    __lstSegment[__iSegment++]=${__SegSP}
+                    __lstSegment[__iSegment++]=${__SegEP}
+
                     for((i=0;i<__iRanges;i+=3)) {
-                        echo "$i:${__lstRanges[i]}--${__lstRanges[i+1]}--${__lstRanges[i+2]}"
+                        echo "Raw-ITEM: ${__lstRanges[i]}===${__lstRanges[i+2]}"
+                    }
+                    echo "+++++++++++++++++++++++++++++"
+                    for((i=0;i<__iRanges;i+=2)) {
+                        echo "New-ITEM: ${__lstSegment[i]}===${__lstSegment[i+1]}"
                     }
                 fi
             fi
