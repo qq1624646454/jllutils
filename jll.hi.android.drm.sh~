@@ -560,7 +560,7 @@ function Lfn_File_SearchSymbol_EX()
                 # Remark the high-light keywords
                 for((iK=0;iK<__iRanges;iK+=3)) {
                     iKK=$((iK+1))
-                    echo "Key: ${__lstRanges[iKK]}" 
+                    echo "Key-ITEM: ${__lstRanges[iKK]}" 
                 }
 
                 if [ x"${JLLCFG_dbgEnable}" == x"2" ]; then
