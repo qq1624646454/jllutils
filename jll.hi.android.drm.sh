@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:06:11
+#   ModifiedTime: 2017-06-05 21:07:56
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -482,15 +482,16 @@ function Lfn_File_SearchSymbol_EX()
                         echo "${LvFssM}"
                         [ x"${__lstRanges}" != x ] && unset __lstRanges
                         [ x"${__iRanges}" != x ] && unset __iRanges
+                        [ x"${__iFiles}" != x ] && unset __iFiles
+                        [ x"${__lstFiles}" != x ] && unset __lstFiles
+                        [ x"${__iFindFiles}" != x ] && unset __iFindFiles
+                        [ x"${__lstFindFiles}" != x ] && unset __lstFindFiles
                         IFS="${__OldIFS}"
                         exit 0
                     fi
                 done
                 IFS="${__OldIFS}"
 
-echo "JLLing: ${__lstFindFiles[iFF]}; ${__lstFiles[iF]}"
-echo "continue: iFF=${iFF} __iFindFiles=${__iFindFiles}  iF=${iF} __iFiles=${__iFiles}"
-continue
                 if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
                     for((i=0;i<__iRanges;i+=3)) {
@@ -510,6 +511,11 @@ continue
                             fi
                         } 
                     }
+
+echo "JLLing: ${__lstFindFiles[iFF]}; ${__lstFiles[iF]}"
+echo "continue: iFF=${iFF} __iFindFiles=${__iFindFiles}  iF=${iF} __iFiles=${__iFiles}"
+continue
+
                     [ x"${__lstSegment}" != x ] && unset __lstSegment
                     [ x"${__iSegment}" != x ] && unset __iSegment
                     declare -a __lstSegment
