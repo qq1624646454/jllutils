@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:56:45
+#   ModifiedTime: 2017-06-05 18:58:25
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -416,7 +416,7 @@ function Lfn_File_SearchSymbol_EX()
         done
         IFS=${__OldIFS}
         for((x=0;x<__iFiles;x++)) {
-            LvFssMatch=`grep ${LvFssFlags} -i " ${LvFssSymbol} " "${__lstFiles[x]}" --color=never`
+            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${__lstFiles[x]}" --color=never`
             if [ x"$?" = x"0" ]; then
                 [ x"${__lstRanges}" != x ] && unset __lstRanges
                 [ x"${__iRanges}" != x ] && unset __iRanges
