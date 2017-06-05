@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:15:19
+#   ModifiedTime: 2017-06-05 21:16:30
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -559,8 +559,8 @@ echo "JLLing: $__iRanges; $__iSegment"
                     }
                 fi
 
-                for((i=0;i<__iRanges;i+=3)) {
-                    echo "Raw-ITEM: ${__lstRanges[i]}===${__lstRanges[i+2]}"
+                for((iT=0;iT<__iRanges;iT+=3)) {
+                    echo "Raw-ITEM: ${__lstRanges[iT]}===${__lstRanges[iT+2]}"
                 }
             fi
         }
