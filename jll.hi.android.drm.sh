@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:09:59
+#   ModifiedTime: 2017-06-05 21:10:33
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -499,17 +499,17 @@ function Lfn_File_SearchSymbol_EX()
                             if [ ${__lstRanges[is]} -gt ${__lstRanges[js]} ]; then
                             echo "<-$is:${__lstRanges[is]}-${__lstRanges[is+1]}-${__lstRanges[is+2]}"
                             echo "->$js:${__lstRanges[js]}-${__lstRanges[js+1]}-${__lstRanges[js+2]}"
-                                __RenderStart=${__lstRanges[i]}
-                                __RenderTarget=${__lstRanges[i+1]}
-                                __RenderEnd=${__lstRanges[i+2]}
-                                __lstRanges[i]=${__lstRanges[j]}
-                                __lstRanges[i+1]=${__lstRanges[j+1]}
-                                __lstRanges[i+2]=${__lstRanges[j+2]}
-                                __lstRanges[j]=${__RenderStart}
-                                __lstRanges[j+1]=${__RenderTarget}
-                                __lstRanges[j+2]=${__RenderEnd}
+                                __RenderStart=${__lstRanges[is]}
+                                __RenderTarget=${__lstRanges[is+1]}
+                                __RenderEnd=${__lstRanges[is+2]}
+                                __lstRanges[is]=${__lstRanges[js]}
+                                __lstRanges[is+1]=${__lstRanges[js+1]}
+                                __lstRanges[is+2]=${__lstRanges[js+2]}
+                                __lstRanges[js]=${__RenderStart}
+                                __lstRanges[js+1]=${__RenderTarget}
+                                __lstRanges[js+2]=${__RenderEnd}
                             fi
-                        } 
+                        }
                     }
 
 echo "JLLing: ${__lstFindFiles[iFF]}; ${__lstFiles[iF]}"
