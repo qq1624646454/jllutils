@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:17:51
+#   ModifiedTime: 2017-06-05 21:18:54
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -552,12 +552,13 @@ function Lfn_File_SearchSymbol_EX()
                     }
                     __lstSegment[__iSegment++]=${__SegSP}
                     __lstSegment[__iSegment++]=${__SegEP}
-echo "JLLing: $__iRanges; $__iSegment"
-                   echo "+++++++++++++++++++++++++++++"
-                    for((i=0;i<__iSegment;i+=2)) {
-                        echo "New-ITEM: ${__lstSegment[i]}===${__lstSegment[i+1]}"
-                    }
                 fi
+
+echo "JLLing: $__iRanges; $__iSegment"
+                echo "+++++++++++++++++++++++++++++"
+                for((iTS=0;iTS<__iSegment;iTS+=2)) {
+                    echo "New-ITEM: ${__lstSegment[iTS]}===${__lstSegment[iTS+1]}"
+                }
 
                 for((iT=0;iT<__iRanges;iT+=3)) {
                     echo "Raw-ITEM: ${__lstRanges[iT]}===${__lstRanges[iT+2]}"
