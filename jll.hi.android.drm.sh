@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-02 17:53:34
+#   ModifiedTime: 2017-06-05 11:39:36
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -400,23 +400,33 @@ function Lfn_File_SearchSymbol_EX()
         IFS=$'\n'
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`; do
-            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=always`
-           if [ x"$?" = x"0" ]; then
-                __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}    " ${LvFssLine} "
-#                __Lfn_Sys_ColorEcho  "${LvFssMatch}"
+            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=never`
+            if [ x"$?" = x"0" ]; then
+              __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine}"
+              for LvFssM in ${LvFssMatch}; do
                 LvFssRangeLength=6
-                LvFssRangeStart=${LvFssMatch%%:*}
-echo "$LvFssRangeStart"
-                if [ ${LvFssRangeStart} -le ${LvFssRangeLength} ]; then
-                    LvFssRangeStart=1
+                LvFssRangeStart=$(echo ${LvFssM%%:*} | sed -n '/^[0-9][0-9]*$/p')
+                if [ x"${LvFssRangeStart}" != x ]; then
+                    if [ ${LvFssRangeStart} -le ${LvFssRangeLength} ]; then
+                        LvFssRangeStart=1
+                    else
+                        LvFssRangeStart=$((LvFssRangeStart - LvFssRangeLength))
+                    fi
+                    # Rendering the result
+                    k=$((LvFssRangeStart+LvFssRangeLength))
+                    for((i=LvFssRangeStart;i<k;i++)) {
+                        echo -ne "$i:"
+                        sed -n "${i}p" ${LvFssLine}
+                    }
+                    #__Lfn_Sys_ColorEcho "${LvFssRangeContent}"
+                    #__Lfn_Sys_ColorEcho  "${LvFssMatch}"
+                    echo
                 else
-                    LvFssRangeStart=$((LvFssRangeStart - LvFssRangeLength))
+                    echo
+                    echo "JLL-Warning: Matched Line But not obtain the line number"
+                    echo
                 fi
-                LvFssRangeContent=$(sed -n \
-                    "${LvFssRangeStart},$((LvFssRangeStart+LvFssRangeLength-1))"p ${LvFssLine})
-                __Lfn_Sys_ColorEcho "${LvFssRangeContent}"
-                __Lfn_Sys_ColorEcho  "${LvFssMatch}"
-                echo
+              done 
             fi
         done
         IFS=${__OldIFS}
