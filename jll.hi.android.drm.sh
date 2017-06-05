@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:30:22
+#   ModifiedTime: 2017-06-05 21:31:22
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -554,14 +554,15 @@ function Lfn_File_SearchSymbol_EX()
                     __lstSegment[__iSegment++]=${__SegEP}
                 fi
 
-                echo "+++++++++++++++++++++++++++++"
-                for((iTS=0;iTS<__iSegment;iTS+=2)) {
-                    echo "New-ITEM: ${__lstSegment[iTS]}===${__lstSegment[iTS+1]}"
-                }
-
-                for((iT=0;iT<__iRanges;iT+=3)) {
-                    echo "Raw-ITEM: ${__lstRanges[iT]}===${__lstRanges[iT+2]}"
-                }
+                if [ x"${JLLCFG_dbgEnable}" == x"1" ]; then
+                    for((iT=0;iT<__iRanges;iT+=3)) {
+                        echo "Raw-ITEM: ${__lstRanges[iT]}===${__lstRanges[iT+2]}"
+                    }
+                    echo ">>>>> Combine those ranges into legal segments"
+                    for((iTS=0;iTS<__iSegment;iTS+=2)) {
+                        echo "New-ITEM: ${__lstSegment[iTS]}===${__lstSegment[iTS+1]}"
+                    }
+                fi
             fi
         }
     } 
