@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:04:25
+#   ModifiedTime: 2017-06-05 18:05:37
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -410,8 +410,6 @@ function Lfn_File_SearchSymbol_EX()
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`; do
             LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=never`
-            echo "${LvFssLine}"
-            continue
             if [ x"$?" = x"0" ]; then
                 [ x"${__lstRanges}" != x ] && unset __lstRanges
                 [ x"${__iRanges}" != x ] && unset __iRanges
