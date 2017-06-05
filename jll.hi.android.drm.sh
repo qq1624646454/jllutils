@@ -5,10 +5,18 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 11:39:36
+#   ModifiedTime: 2017-06-05 14:58:22
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
+
+#
+# |---JLLCFG_Render_Range---|---JLLCFG_Render_Range---|
+# |_________________________|_________________________|
+# Start                     Target                    End
+#
+JLLCFG_Render_Range=6
+
 
 ###############################################################
 #   Library - Start
@@ -388,45 +396,109 @@ function Lfn_File_SearchSymbol_EX()
 
 
     for LvFssFl in ${LvFssFile}; do
-      if [ x"${CONF_dbgEnable}" = x"1" ]; then
-        echo
-        echo
-        __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
-            "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name \"${LvFssFl}\" -print"
-        __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
-            "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
-      fi
+        if [ x"${CONF_dbgEnable}" = x"1" ]; then
+          echo
+          echo
+          __Lfn_Sys_ColorEcho ${__CvFgPink} ${__CvBgBlack} \
+              "find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name \"${LvFssFl}\" -print"
+          __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
+              "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
+        fi
+
+        declare -a __lstRanges
+        declare -i __iRanges=0
         __OldIFS=${IFS}
         IFS=$'\n'
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -name "${LvFssFl}" -print`; do
             LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=never`
             if [ x"$?" = x"0" ]; then
-              __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine}"
-              for LvFssM in ${LvFssMatch}; do
-                LvFssRangeLength=6
-                LvFssRangeStart=$(echo ${LvFssM%%:*} | sed -n '/^[0-9][0-9]*$/p')
-                if [ x"${LvFssRangeStart}" != x ]; then
-                    if [ ${LvFssRangeStart} -le ${LvFssRangeLength} ]; then
-                        LvFssRangeStart=1
+                [ x"${__lstRanges}" != x ] && unset __lstRanges
+                [ x"${__iRanges}" != x ] && unset __iRanges
+                declare -a __lstRanges
+                declare -i __iRanges=0
+                __FileEnd=$(sed -n '$=' ${LvFssLine})
+                __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine}"
+                #There maybe are the multilse lines matched.
+                for LvFssM in ${LvFssMatch}; do
+                    __RenderTarget=$(echo ${LvFssM%%:*} | sed -n '/^[0-9][0-9]*$/p')
+                    if [ x"${__RenderTarget}" != x ]; then
+                        if [ ${__RenderTarget} -le ${JLLCFG_Render_Range} ]; then
+                            __RenderStart=1
+                        else
+                            __RenderStart=$((__RenderTarget-JLLCFG_Render_Range))
+                        fi
+                        __RenderEnd=$((__RenderTarget+JLLCFG_Render_Range))
+                        if [ ${__RenderEnd} -gt ${__FileEnd} ]; then
+                            __RenderEnd=${__FileEnd}
+                        fi
+                        # Prevent from adding the same item
+                        __bAdd=1
+                        for ((i=__iRanges-3;i>=0;i-=3)) {
+                            if [ ${__lstRanges[i+2]} -eq ${__RenderEnd} \
+                              -a ${__lstRanges[i+1]} -eq ${__RenderTarget} \
+                              -a ${__lstRanges[i]} -eq ${__RenderStart} \
+                            ]; then
+                                __bAdd=0
+                                break
+                            fi 
+                        }
+                        if [ ${__bAdd} -eq 1 ]; then
+                            __lstRanges[__iRanges++]="${__RenderStart}"
+                            __lstRanges[__iRanges++]="${__RenderTarget}"
+                            __lstRanges[__iRanges++]="${__RenderEnd}"
+                        fi
                     else
-                        LvFssRangeStart=$((LvFssRangeStart - LvFssRangeLength))
+                        echo
+                        echo "JLL-Warning: Matched Line But not obtain the line number"
+                        echo "${LvFssM}"
+                        [ x"${__lstRanges}" != x ] && unset __lstRanges
+                        [ x"${__iRanges}" != x ] && unset __iRanges
+                        IFS=${__OldIFS}
+                        exit 0
                     fi
-                    # Rendering the result
-                    k=$((LvFssRangeStart+LvFssRangeLength))
-                    for((i=LvFssRangeStart;i<k;i++)) {
-                        echo -ne "$i:"
-                        sed -n "${i}p" ${LvFssLine}
+                done
+                if [ ${__iRanges} -gt 1 ]; then
+                    # Sorted order
+                    for((i=0;i<__iRanges;i+=3)) {
+                        for((j=i+3;j<__iRanges;j+=3)) {
+                            if [ ${__lstRanges[i]} -gt ${__lstRanges[j]} ]; then
+                            echo "<-$i:${__lstRanges[i]}--${__lstRanges[i+1]}--${__lstRanges[i+2]}"
+                            echo "->$j:${__lstRanges[j]}--${__lstRanges[j+1]}--${__lstRanges[j+2]}"
+                                __RenderStart=${__lstRanges[i]}
+                                __RenderTarget=${__lstRanges[i+1]}
+                                __RenderEnd=${__lstRanges[i+2]}
+                                __lstRanges[i]=${__lstRanges[j]}
+                                __lstRanges[i+1]=${__lstRanges[j+1]}
+                                __lstRanges[i+2]=${__lstRanges[j+2]}
+                                __lstRanges[j]=${__RenderStart}
+                                __lstRanges[j+1]=${__RenderTarget}
+                                __lstRanges[j+2]=${__RenderEnd}
+                            fi
+                        } 
                     }
-                    #__Lfn_Sys_ColorEcho "${LvFssRangeContent}"
-                    #__Lfn_Sys_ColorEcho  "${LvFssMatch}"
-                    echo
-                else
-                    echo
-                    echo "JLL-Warning: Matched Line But not obtain the line number"
-                    echo
+                    declare -a __lstSegment
+                    declare -i __iSegment=0
+                    # Combine the override ranges
+                    for((i=0;i<__iRanges;i+=3)) {
+             echo "***** $((i/3)):${__lstRanges[i]},${__lstRanges[i+1]},${__lstRanges[i+2]}"
+                        if [ ${__lstRanges[0]} -eq ${__lstRanges[1]} ]; then
+                            __lstSegment[__iSegment++]=${__lstRanges[0]} # Keyword Line
+                            __lstSegment[__iSegment++]=0 # Segment Length, 0 imples Keyword line
+                        fi
+                        for((j=i+3;j<__iRanges;j+=3)) {
+                            # Compare the tail item
+                            if [ ${__lstRanges[i+2]} -ge ${__lstRanges[j+2]} ]; then
+             echo "      $((j/3)):${__lstRanges[j]},${__lstRanges[j+1]},${__lstRanges[j+2]}"
+
+                            fi 
+                        }
+                    } 
+ 
+                    for((i=0;i<__iRanges;i+=3)) {
+                        echo "$i:${__lstRanges[i]}--${__lstRanges[i+1]}--${__lstRanges[i+2]}"
+                    }
                 fi
-              done 
             fi
         done
         IFS=${__OldIFS}
