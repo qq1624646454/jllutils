@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:08:04
+#   ModifiedTime: 2017-06-05 21:09:59
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -494,11 +494,11 @@ function Lfn_File_SearchSymbol_EX()
 
                 if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
-                    for((i=0;i<__iRanges;i+=3)) {
-                        for((j=i+3;j<__iRanges;j+=3)) {
-                            if [ ${__lstRanges[i]} -gt ${__lstRanges[j]} ]; then
-                            echo "<-$i:${__lstRanges[i]}--${__lstRanges[i+1]}--${__lstRanges[i+2]}"
-                            echo "->$j:${__lstRanges[j]}--${__lstRanges[j+1]}--${__lstRanges[j+2]}"
+                    for((is=0;is<__iRanges;is+=3)) {
+                        for((js=is+3;js<__iRanges;js+=3)) {
+                            if [ ${__lstRanges[is]} -gt ${__lstRanges[js]} ]; then
+                            echo "<-$is:${__lstRanges[is]}-${__lstRanges[is+1]}-${__lstRanges[is+2]}"
+                            echo "->$js:${__lstRanges[js]}-${__lstRanges[js+1]}-${__lstRanges[js+2]}"
                                 __RenderStart=${__lstRanges[i]}
                                 __RenderTarget=${__lstRanges[i+1]}
                                 __RenderEnd=${__lstRanges[i+2]}
