@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 15:37:58
+#   ModifiedTime: 2017-06-05 15:39:53
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -479,13 +479,14 @@ function Lfn_File_SearchSymbol_EX()
                     }
                     declare -a __lstSegment
                     declare -i __iSegment=0
-                    
+ 
+                    if [ ${__lstRanges[0]} -eq ${__lstRanges[1]} ]; then
+                        __lstSegment[__iSegment++]=${__lstRanges[0]} # Keyword Line
+                        __lstSegment[__iSegment++]=0 # Segment End, 0 imples one Keyword line
+                        __lstSegment[__iSegment++]=$((__lstRanges[0]+1)) # Next Segment Start 
+                    fi
                     # Combine the override ranges
                     for((i=3;i<__iRanges;i+=3)) {
-                        if [ ${__lstRanges[0]} -eq ${__lstRanges[1]} ]; then
-                            __lstSegment[__iSegment++]=${__lstRanges[0]} # Keyword Line
-                            __lstSegment[__iSegment++]=0 # Segment Length, 0 imples Keyword line
-                        fi
                     } 
  
                     for((i=0;i<__iRanges;i+=3)) {
