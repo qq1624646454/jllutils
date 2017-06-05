@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 18:05:38
+#   ModifiedTime: 2017-06-05 18:12:30
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -417,7 +417,6 @@ function Lfn_File_SearchSymbol_EX()
                 declare -i __iRanges=0
                 __FileEnd=$(sed -n '$=' ${LvFssLine})
                 __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}  "${LvFssLine}"
-                continue
                 #There maybe are the multilse lines matched.
                 for LvFssM in ${LvFssMatch}; do
                     __RenderTarget=$(echo ${LvFssM%%:*} | sed -n '/^[0-9][0-9]*$/p')
