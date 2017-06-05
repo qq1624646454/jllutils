@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:16:30
+#   ModifiedTime: 2017-06-05 21:17:51
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -520,9 +520,9 @@ function Lfn_File_SearchSymbol_EX()
                     __SegSP=${__lstRanges[0]}
                     __SegEP=${__lstRanges[2]}
                     # Combine the override ranges
-                    for((i=3;i<__iRanges;i+=3)){
-                        __NextSegSP=${__lstRanges[i]}
-                        __NextSegEP=${__lstRanges[i+2]}
+                    for((iC=3;iC<__iRanges;iC+=3)){
+                        __NextSegSP=${__lstRanges[iC]}
+                        __NextSegEP=${__lstRanges[iC+2]}
                         if [ ${__NextSegSP} -ge ${__SegSP} -a ${__NextSegSP} -le ${__SegEP} ]; then
                             # Case-1 :
                             # Seg    : |--------------|
