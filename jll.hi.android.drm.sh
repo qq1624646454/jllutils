@@ -5,7 +5,12 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 16:08:13
+#   ModifiedTime: 2017-06-06 17:39:18
+#
+# History:
+#   2017-6-5| Created
+#   2017-6-6| Intake File Type Selecting For Customization
+
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -36,18 +41,16 @@ declare -a JLLCFG_lstFile=(
         "device/tpvision/common/plf/mediaplayer/av/include"
 )
 
-declare -a JLLCFG_lstFileType=(
-    "*.cpp"
-    "*.java"
-    "*.h"
-    "*.c"
-    "*.aidl"
-    "*.cc"
-    "*.mk"
-    "*.mak"
-    "Makefile"
-    "makefile"
+# Intake FileType Selector from vicc project
+# LanguageName  ExuberantCtags  Cscope  FileClasses
+declare -a GvVimIDE_Settings=(
+    "Asm"   "--Asm-kinds=+dlmt"                             " "   "*.s *.S *.inc"
+    "C"     "--C-kinds=+cdefgmnpstuv"                       " "   "*.c *.C *.h"
+    "C++"   "--C++-kinds=+cdefgmnpstuv"                     " "   "*.cpp *.cc *.CC *.h *.hpp"
+    "Java"  "--Java-kinds=+cefgimp --langmap=java:+.aidl"   " "   "*.java *.aidl"
+    "Make"  "--Make-kinds=+m"                               " "   "*.mak Makefile makefile *.mk"
 )
+
 
 
 
@@ -710,24 +713,39 @@ JLL-Help:${Fyellow}
        @[drm-scheme]:  only support for two schemes as follows:
            wv|widevine - support for ignore case sensitive
            pr|playready - support for ignore case sensitive
-       @[keyword-regular-expression]: support for regular expression
-     ${Fred}Note: parameters order can be unordered${Fgreen}
+       @[keyword-regular-expression]: support for regular expression ${Fred}
+  Note: parameters order can be unordered${Fgreen}
 ${Fgreen}
   For exmaple:  Lookup the digit
     jl@S:~\$ ${Fseablue}${_sn} pr "[ )]{0,}0x8004c013"${Fgreen}
     jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${Fgreen}
   
-  For exmaple:  Lookup the Function API
-    jl@S:~\$ ${Fseablue}${_sn} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*\)[\t ]{0,}[{]{0,}"
+  For exmaple:  Lookup the Function API named with decrypt
+    jl@S:~\$ ${Fseablue}${_sn} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*[)\t ]{0,}[{]{0,}"
     ${Fgreen}jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more
-
-
 ${Fgreen}
 JLL-Help:${Fyellow}
   ${_sn} [--help] | [-h]${Fgreen}
        @--help or -h: to lookup the manual about this
+${AC}${Fred}
+Note: For Improvimg Performance, 
+      Please use the below project name according to the configuration:${Fpink}
+      .
+      ├──${Byellow} 2k15_mtk_1446_1_devprod${AC}${Fpink}
+      │   ├── .repo 
+      │   ├── abi
+      │   ├── ...
+      │
+      ├──${Byellow} aosp_6.0.1_r10_selinux${AC}${Fpink}
+      │   ├── .repo 
+      │   ├── abi
+      │   ├── ... 
+      │    
+      ├──${Byellow} androidn_2k16_mtk_mainline${AC}${Fpink}
+      │   ├── .repo 
+      │   ├── android
+      │   └── vm_linux 
 ${AC}
-
 EOF
 
 }
@@ -879,6 +897,187 @@ androidn_2k16_mtk_mainline)
 *)
   ;;
 esac
+
+##############################################################################################
+#  BEGIN: the below selector component is from vicc project
+##############################################################################################
+
+declare -i GvVimIDE_SettingsCount=${#GvVimIDE_Settings[@]}/4
+
+# Prevent "*" from matching all files such as xxx.java is retrieved from matching *.java
+# in current path, hence convert "*" to "\*"
+if [ ${GvVimIDE_SettingsCount} -lt 4 ]; then
+    Lfn_Sys_DbgEcho "Sorry, Exit because VimIDE Settings is the invalid table"
+    exit 0
+fi
+for (( GvVimIDE_idx=0 ; GvVimIDE_idx<GvVimIDE_SettingsCount ; GvVimIDE_idx++ )) do
+    GvVimIDE_Settings[GvVimIDE_idx*4+3]="${GvVimIDE_Settings[GvVimIDE_idx*4+3]//\*./\\*.}"
+done
+
+## Usage:
+##     Fn_vimide_SpecifyProgrammingLanguages <oConfigure> <iOffsetX> <iOffsetY> [<iLanguage>] 
+##
+## Example.1:
+##     Fn_vimide_SpecifyProgrammingLanguages LvVisplChoices 4 5 "Java asm C++ C"
+##     echo "YourChoiceProgrammingLanguages: ${LvVisplChoices}"
+##   Result.1:
+##     Java C++ C
+##
+## Example.2:
+##     Fn_vimide_SpecifyProgrammingLanguages LvVisplChoices 4 5
+##     echo "YourChoiceProgrammingLanguages: ${LvVisplChoices}"
+function Fn_vimide_SpecifyProgrammingLanguages()
+{
+    if [ $# -lt 3 -o $# -gt 4 ]; then
+        Lfn_Sys_FuncComment
+        exit 0
+    fi
+
+    if [ x"$1" = x ]; then
+        Lfn_Sys_FuncComment
+        exit 0
+    fi
+
+    # Check if parameter is digit and Converse it to a valid parameter 
+    echo "$2" | grep -E '[^0-9]' >/dev/null && LvVisplX="0" || LvVisplX="$2";
+    echo "$3" | grep -E '[^0-9]' >/dev/null && LvVisplY="0" || LvVisplY="$3";
+
+    LvVisplChoice=""
+    if [ x"$4" = x ]; then
+        LvVisplFlag=1
+        Lfn_Cursor_Mov "${LvVisplY}" "down"
+        while [ ${LvVisplFlag} -eq 1 ]; do
+            #Lfn_Cursor_Move "1" "$3"
+            Lfn_Cursor_Mov "${LvVisplX}" "right"
+            echo "=====[ File Type (q: Quit) ]====="
+            LvVisplFlag=0
+            for (( LvVisplIdx=0 ; LvVisplIdx<GvVimIDE_SettingsCount ; LvVisplIdx++ )) do
+                if [ ! -z "${LvVisplChoice}" ]; then
+                    for LvVisplItem in ${LvVisplChoice}; do
+                        if [ x"${LvVisplItem}" = x"${GvVimIDE_Settings[LvVisplIdx*4]}" ]; then
+                            LvVisplItem="Hit.DontDisplay"
+                            break
+                        fi
+                    done
+                fi
+                if [ x"${LvVisplItem}" = x"Hit.DontDisplay" ]; then
+                    continue
+                fi
+                Lfn_Cursor_Mov "${LvVisplX}" "right" 
+                echo "├── ${GvVimIDE_Settings[LvVisplIdx*4]}"
+                LvVisplFlag=1
+            done
+            if [ ${LvVisplFlag} -ne 1 ]; then
+                break;
+            fi
+            Lfn_Cursor_Mov "${LvVisplX}" "right" 
+            echo "[Your Choice]   " 
+            #read -p "[Your Choice]   "  LvVisplAnChoice
+            Lfn_Cursor_Mov "${LvVisplX}" "right" 
+            echo "================================="
+            Lfn_Cursor_Mov "2" "up"
+            Lfn_Cursor_Mov "$(( LvVisplX + 20 ))" "right" 
+            read LvVisplAnChoice
+            if [ -z "${LvVisplAnChoice}" ]; then
+                continue;
+            fi
+            if [ x"${LvVisplAnChoice}" = x"q" ]; then
+                break;
+            fi
+            for (( LvVisplIdx=0 ; LvVisplIdx<GvVimIDE_SettingsCount ; LvVisplIdx++ )) do
+                if [ x"${LvVisplAnChoice}" = x"${GvVimIDE_Settings[LvVisplIdx*4]}" ]; then
+                    if [ x"${LvVisplChoice}" != x ]; then
+                        # Need to filter repeat the valid choices
+                        for LvVisplChoiceEntry in ${LvVisplChoice}; do
+                            if [ x"${LvVisplAnChoice}" = x"${LvVisplChoiceEntry}" ]; then
+                                break
+                            fi
+                        done
+                        if [ x"${LvVisplAnChoice}" != x"${LvVisplChoiceEntry}" ]; then
+                            LvVisplChoice="${LvVisplChoice} ${LvVisplAnChoice}"
+                        fi
+                        unset LvVisplChoiceEntry
+                    else
+                        LvVisplChoice="${LvVisplAnChoice}"
+                    fi
+                fi
+            done
+        done
+    else
+        for LvVisplAnChoice in $4; do
+            for (( LvVisplIdx=0 ; LvVisplIdx<GvVimIDE_SettingsCount ; LvVisplIdx++ )) do
+                if [ x"${LvVisplAnChoice}" = x"${GvVimIDE_Settings[LvVisplIdx*4]}" ]; then
+                    LvVisplChoice="${LvVisplChoice} ${LvVisplAnChoice}"
+                    break;
+                fi
+            done
+        done
+    fi
+    
+    if [ x"${LvVisplChoice}" = x ]; then
+        Lfn_Sys_DbgEcho "Sorry, Exit because Dont retrieve any Programming languages"
+        exit 0
+    fi
+
+    Lfn_Cursor_Mov "${LvVisplX}" "right"
+    echo ""
+    eval $1=$(echo -e "${LvVisplChoice}" | sed "s:\ :\\\\ :g")
+    return
+}
+clear
+echo
+Fn_vimide_SpecifyProgrammingLanguages LvVisplChoices 2 1 
+echo
+echo "Your_Choices_For_File_Type: ${LvVisplChoices}"
+echo
+# collecting the required File Type
+LvVicsfFileTypeIdx=0
+for (( LvVicsfIdx=0 ; LvVicsfIdx<GvVimIDE_SettingsCount ; LvVicsfIdx++ )) do
+    for LvVicsfLanguage in ${LvVisplChoices}; do
+        if [ x"${GvVimIDE_Settings[LvVicsfIdx*4]}" = x"${LvVicsfLanguage}" ]; then
+            for LvVicsfFT in ${GvVimIDE_Settings[LvVicsfIdx*4+3]}; do 
+                JLLCFG_lstFileType[LvVicsfFileTypeIdx++]="${LvVicsfFT}"
+            done
+        fi
+    done
+done
+[ x"${LvVisplChoices}" != x ] && unset LvVisplChoices 
+
+if [ ${LvVicsfFileTypeIdx} -lt 1 ]; then
+    JLLCFG_lstFileType=(
+        "*.cpp"
+        "*.java"
+        "*.h"
+        "*.c"
+        "*.aidl"
+        "*.cc"
+        "*.mk"
+        "*.mak"
+        "Makefile"
+        "makefile"
+    )
+fi
+
+[ x"${GvVimIDE_Settings}" != x ] && unset GvVimIDE_Settings 
+[ x"${GvVimIDE_SettingsCount}" != x ] && unset GvVimIDE_SettingsCount 
+[ x"${LvVicsfFileTypeIdx}" != x ] && unset LvVicsfFileTypeIdx 
+
+
+if [ x"${JLLCFG_dbgEnable}" = x"1" ]; then
+    ______i=${#JLLCFG_lstFileType[@]}
+    for((___i=0;___i<______i; ___i++)) {
+        echo "${JLLCFG_lstFileType[___i]}"
+    }
+fi
+
+##############################################################################################
+#  END: the below selector component is from vicc project
+##############################################################################################
+
+
+
+
+
 
 if [ ${__lstResSZ} -ne ${JLLCFG_lstFileSZ} ]; then
     unset __lstRes
