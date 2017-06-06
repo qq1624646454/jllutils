@@ -321,8 +321,8 @@ function __Lfn_Sys_ColorEcho()
 ##
 function Lfn_File_SearchSymbol_EX()
 {
-    CvPreciseFlags="-Ewnr"
-    CvComprehensiveFlags="-Enr"
+    CvPreciseFlags="-Ewn"
+    CvComprehensiveFlags="-En"
 
     LvFssSymbol=""
     LvFssFile=""
