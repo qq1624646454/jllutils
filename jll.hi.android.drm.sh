@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 08:59:18
+#   ModifiedTime: 2017-06-06 09:00:47
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -495,6 +495,11 @@ function Lfn_File_SearchSymbol_EX()
                 done
                 IFS="${__OldIFS}"
 
+                [ x"${__lstSegment}" != x ] && unset __lstSegment
+                [ x"${__iSegment}" != x ] && unset __iSegment
+                declare -a __lstSegment
+                declare -i __iSegment=0
+
                 if [ ${__iRanges} -gt 3 ]; then
                     # Sorted order
                     for((is=0;is<__iRanges;is+=3)) {
@@ -514,11 +519,6 @@ function Lfn_File_SearchSymbol_EX()
                             fi
                         }
                     }
-
-                    [ x"${__lstSegment}" != x ] && unset __lstSegment
-                    [ x"${__iSegment}" != x ] && unset __iSegment
-                    declare -a __lstSegment
-                    declare -i __iSegment=0
 
                     __SegSP=${__lstRanges[0]}
                     __SegEP=${__lstRanges[2]}
