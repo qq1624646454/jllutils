@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 13:52:11
+#   ModifiedTime: 2017-06-06 14:09:02
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -34,6 +34,19 @@ declare -a JLLCFG_lstFile=(
         "frameworks/native/include/media"
         "device/tpvision/common/plf/mediaplayer/av/comps"
         "device/tpvision/common/plf/mediaplayer/av/include"
+)
+
+declare -a JLLCFG_lstFileType=(
+    "*.cpp"
+    "*.java"
+    "*.h"
+    "*.c"
+    "*.aidl"
+    "*.cc"
+    "*.mk"
+    "*.mak"
+    "Makefile"
+    "makefile"
 )
 
 
@@ -839,9 +852,6 @@ case ${GvPrjRootPath##*/} in
   }
   ;;
 aosp_6.0.1_r10_selinux)
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediadrm"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediacodec"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaextractor"
   JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
   for((i=0;i<JLLCFG_lstFileSZ;i++)) {
       if [ -e "${GvPrjRootPath}/${JLLCFG_lstFile[i]}" ]; then
@@ -866,9 +876,8 @@ androidn_2k16_mtk_mainline)
 *)
   ;;
 esac
-echo "${__lstResSZ} -ne ${JLLCFG_lstFileSZ}"
+
 if [ ${__lstResSZ} -ne ${JLLCFG_lstFileSZ} ]; then
-exit 0
     unset __lstRes
     unset __lstResSZ
     declare -a __lstRes
@@ -917,19 +926,6 @@ for((i=0;i<__lstResSZ;i++)) {
  
 clear
 echo
-
-declare -a JLLCFG_lstFileType=(
-    "*.cpp"
-    "*.java"
-    "*.h"
-    "*.c"
-    "*.aidl"
-    "*.cc"
-    "*.mk"
-    "*.mak"
-    "Makefile"
-    "makefile"
-)
 
 __szConsiderFileType=""
 __nLstConsiderFileType=${#JLLCFG_lstFileType[@]}
