@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-05 21:38:00
+#   ModifiedTime: 2017-06-06 08:59:18
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -555,13 +555,9 @@ function Lfn_File_SearchSymbol_EX()
                     }
                     __lstSegment[__iSegment++]=${__SegSP}
                     __lstSegment[__iSegment++]=${__SegEP}
-                fi
+                else ### else for if [ ${__iRanges} -gt 3 ]; then
 
-                # Remark the high-light keywords
-                for((iK=0;iK<__iRanges;iK+=3)) {
-                    iKK=$((iK+1))
-                    echo "Key: ${__lstRanges[iKK]}" 
-                }
+                fi ### end for if [ ${__iRanges} -gt 3 ]; then
 
                 if [ x"${JLLCFG_dbgEnable}" == x"2" ]; then
                     echo "<<<<< Obtaining the below ranges:"
@@ -572,15 +568,27 @@ function Lfn_File_SearchSymbol_EX()
                     for((iTS=0;iTS<__iSegment;iTS+=2)) {
                         echo "New-ITEM: ${__lstSegment[iTS]}===${__lstSegment[iTS+1]}"
                     }
+                    # Remark the high-light keywords
+                    for((iK=0;iK<__iRanges;iK+=3)) {
+                        iKK=$((iK+1))
+                        echo "Key: ${__lstRanges[iKK]}" 
+                    }
                 fi
             fi
         }
-    } 
+    }
     if [ x"${JLLCFG_dbgEnable}" = x"1" ]; then
         echo
         __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgYellow} " Done"
         echo
     fi
+
+    [ x"${__lstRanges}" != x ] && unset __lstRanges
+    [ x"${__iRanges}" != x ] && unset __iRanges
+    [ x"${__iFiles}" != x ] && unset __iFiles
+    [ x"${__lstFiles}" != x ] && unset __lstFiles
+    [ x"${__iFindFiles}" != x ] && unset __iFindFiles
+    [ x"${__lstFindFiles}" != x ] && unset __lstFindFiles
 }
 
 ###############################################################
