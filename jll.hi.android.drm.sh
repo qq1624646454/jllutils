@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:22:44
+#   ModifiedTime: 2017-06-06 09:25:45
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -559,6 +559,15 @@ function Lfn_File_SearchSymbol_EX()
                     __lstSegment[__iSegment++]=${__lstRanges[0]}
                     __lstSegment[__iSegment++]=${__lstRanges[2]}
                 fi ### end for if [ ${__iRanges} -gt 3 ]; then
+
+                # Sort order for keyword lines
+                for((iKL=0;iKL<__iRanges;iKL+=3)) {
+                    for((jKL=iKL+3;jKL<__iRanges;jKL+=3)) {
+                        if [ ${__lstRanges[iKL+1]} -gt ${__lstRanges[jKL+1]} ]; then
+
+                        fi 
+                    }
+                }
 
                 if [ x"${JLLCFG_dbgEnable}" == x"2" ]; then
                     echo "<<<<< Obtaining the below ranges:"
