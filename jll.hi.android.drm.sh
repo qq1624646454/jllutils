@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 14:09:02
+#   ModifiedTime: 2017-06-06 14:47:49
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -546,8 +546,8 @@ function Lfn_File_SearchSymbol_EX()
                     for((is=0;is<__iRanges;is+=3)) {
                         for((js=is+3;js<__iRanges;js+=3)) {
                             if [ ${__lstRanges[is]} -gt ${__lstRanges[js]} ]; then
-                            echo "<-$is:${__lstRanges[is]}-${__lstRanges[is+1]}-${__lstRanges[is+2]}"
-                            echo "->$js:${__lstRanges[js]}-${__lstRanges[js+1]}-${__lstRanges[js+2]}"
+                        #echo "<-$is:${__lstRanges[is]}-${__lstRanges[is+1]}-${__lstRanges[is+2]}"
+                        #echo "->$js:${__lstRanges[js]}-${__lstRanges[js+1]}-${__lstRanges[js+2]}"
                                 __RenderStart=${__lstRanges[is]}
                                 __RenderTarget=${__lstRanges[is+1]}
                                 __RenderEnd=${__lstRanges[is+2]}
@@ -642,8 +642,8 @@ function Lfn_File_SearchSymbol_EX()
                         ]; then
                             [ ${__iKSP} -lt 1 ] && __iKSP=$((iKW+1))
                             [ ${__iKEP} -lt 1 ] && __iKEP=$((iKW+1))
-                            [ ${__iKEP} -ge 1 -a ${__lstRanges[iKW+1]} -gt ${__lstRanges[__iKEP]} ] \
-                                &&  __iKEP=$((iKW+1))
+                            [ ${__iKEP} -ge 1 -a ${__lstRanges[iKW+1]} \
+                                -gt ${__lstRanges[__iKEP]} ] &&  __iKEP=$((iKW+1))
                         fi
                     }
                     if [ x"${JLLCFG_dbgEnable}" = x"2" ]; then
@@ -670,11 +670,11 @@ function Lfn_File_SearchSymbol_EX()
                             fi
                         }
                         if [ ${__IsNeedHighLight} -eq 1 ]; then
-                            __Lfn_Sys_ColorEcho \
-                            "${CvAccOff}${CvFgBlue}${CvBgYellow}${__iRSP}${CvAccOff}: ${__Rendering}"
+                          __Lfn_Sys_ColorEcho \
+                          "${CvAccOff}${CvFgBlue}${CvBgYellow}${__iRSP}${CvAccOff}: ${__Rendering}"
                         else
-                            __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
-                            echo "${__iRSP}: ${__Rendering}"
+                          __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
+                          echo "${__iRSP}: ${__Rendering}"
                         fi
                         __iRSP=$((__iRSP+=1))
                     done
@@ -702,28 +702,31 @@ function Lfn_File_SearchSymbol_EX()
 
 function __FN_Help()
 {
+    _sn=${__CvScriptName}
 more>&1<<EOF
-
-JLL-Help:
-  ${__CvScriptName} [drm-scheme] [keyword-regular-expression]
+${AC}${Fgreen}
+JLL-Help:${Fyellow}
+  ${_sn} [drm-scheme] [keyword-regular-expression]${Fgreen}
        @[drm-scheme]:  only support for two schemes as follows:
            wv|widevine - support for ignore case sensitive
            pr|playready - support for ignore case sensitive
        @[keyword-regular-expression]: support for regular expression
-     Note: parameters order can be unordered 
-
+     ${Fred}Note: parameters order can be unordered${Fgreen}
+${Fgreen}
   For exmaple:  Lookup the digit
-    jll@Srv:~\$ ${__CvScriptName} pr "[ )]{0,}0x8004c013"
-    jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
+    jl@S:~\$ ${Fseablue}${_sn} pr "[ )]{0,}0x8004c013"${Fgreen}
+    jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${Fgreen}
   
-  For exmaple:  Lookup the Function API 
-    jll@Srv:~\$ ${__CvScriptName} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*\)[\t ]{0,}[{]{0,}"
-    jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
+  For exmaple:  Lookup the Function API
+    jl@S:~\$ ${Fseablue}${_sn} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*\)[\t ]{0,}[{]{0,}"
+    ${Fgreen}jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more
 
 
-JLL-Help:
-  ${__CvScriptName} [--help] | [-h]
+${Fgreen}
+JLL-Help:${Fyellow}
+  ${_sn} [--help] | [-h]${Fgreen}
        @--help or -h: to lookup the manual about this
+${AC}
 
 EOF
 
