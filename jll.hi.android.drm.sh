@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:20:40
+#   ModifiedTime: 2017-06-06 09:21:47
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -556,8 +556,8 @@ function Lfn_File_SearchSymbol_EX()
                     __lstSegment[__iSegment++]=${__SegSP}
                     __lstSegment[__iSegment++]=${__SegEP}
                 else ### else for if [ ${__iRanges} -gt 3 ]; then
-                    __lstSegment[__iSegment++]=${__SegSP}
-                    __lstSegment[__iSegment++]=${__SegEP}
+                    __lstSegment[__iSegment++]=${__lstRanges[0]}
+                    __lstSegment[__iSegment++]=${__lstRanges[2]}
                 fi ### end for if [ ${__iRanges} -gt 3 ]; then
 
                 if [ x"${JLLCFG_dbgEnable}" == x"2" ]; then
