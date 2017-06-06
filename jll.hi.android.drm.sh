@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:36:17
+#   ModifiedTime: 2017-06-06 09:41:57
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -593,8 +593,19 @@ function Lfn_File_SearchSymbol_EX()
                 for((iSR=0;iSR<__iSegment;iSR+=2)) {
                     __iRSP=${__lstSegment[iSR]}
                     __iREP=${__lstSegment[iSR+1]}
+                    __iKSP=0
+                    __iKEP=0
+                    for((iKW=0;iKW<__iRanges;iKW+=3)) {
+                        if [ ${__iKSP} -lt 1 ]; then
+                            if [ ${__lstRanges[iKW+1]} -le ${__iREP} ]; then
+                                __iKSP=$((iKW+1))
+                                continue
+                            fi
+                        fi
+                        if [ ${__iKSP} -lt 1 ]; then
+                    }
                     while [ ${__iRSP} -le ${__iREP} ]; do 
-                       
+                         
                     done
                 } 
             fi
