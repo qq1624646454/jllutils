@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:33:24
+#   ModifiedTime: 2017-06-06 09:35:33
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -591,7 +591,9 @@ function Lfn_File_SearchSymbol_EX()
                 # Rendering the result with keyword color
                 #
                 for((iSR=0;iSR<__iSegment;iSR+=2)) {
-
+                    __iRSP=${__lstSegment[iSR]}
+                    __iREP=${__lstSegment[iSR+1]}
+                    while [ ${__lstSegment[iSR]}  ]
                 } 
             fi
         }
