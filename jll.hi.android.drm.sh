@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:21:47
+#   ModifiedTime: 2017-06-06 09:22:44
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -572,7 +572,7 @@ function Lfn_File_SearchSymbol_EX()
                     # Remark the high-light keywords
                     for((iK=0;iK<__iRanges;iK+=3)) {
                         iKK=$((iK+1))
-                        echo "Key: ${__lstRanges[iKK]}" 
+                        echo "Key: ${__lstRanges[iKK]}"
                     }
                 fi
             fi
