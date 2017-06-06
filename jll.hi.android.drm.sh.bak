@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 11:57:23
+#   ModifiedTime: 2017-06-06 11:25:17
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -26,7 +26,7 @@ JLLCFG_dbgEnable=0
 #
 # Find the legal resources 
 #
-declare -a JLLCFG_lstFile=(
+declare -a CONF_lstFile=(
         "frameworks/av/drm"
         "frameworks/av/media"
         "frameworks/base/drm"
@@ -676,34 +676,7 @@ function Lfn_File_SearchSymbol_EX()
 #   Library - End 
 ###############################################################
 
-function __FN_Help()
-{
-more>&1<<EOF
 
-JLL-Help:
-  ${__CvScriptName} [drm-scheme] [keyword-regular-expression]
-       @[drm-scheme]:  only support for two schemes as follows:
-           wv|widevine - support for ignore case sensitive
-           pr|playready - support for ignore case sensitive
-       @[keyword-regular-expression]: support for regular expression
-     Note: parameters order can be unordered 
-
-  For exmaple:  Lookup the digit
-    jll@Srv:~\$ ${__CvScriptName} pr "[ )]{0,}0x8004c013"
-    jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
-  
-  For exmaple:  Lookup the Function API 
-    jll@Srv:~\$ ${__CvScriptName} pr "[ )=]Test_[a-zA-Z0-9_]{1,}\(.*\)[   ]{0,}[{]{0,}]"
-    jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
-
-
-JLL-Help:
-  ${__CvScriptName} [--help] | [-h]
-       @--help or -h: to lookup the manual about this
-
-EOF
-
-}
 
 
 
@@ -724,10 +697,6 @@ for ac_arg; do
           echo "JLL-Found: maybe drm scheme is widevine"
           __DRM_SCHEME=widevine
           ;;
-      --[hH][eE][lL][pP]|[-][h])
-          __FN_Help
-          exit 0
-          ;;
       *)
           ac_arg=${ac_arg/#0x/}  #trip the head of 0x
           ac_arg=${ac_arg/#0X/}  #trip the head of 0X
@@ -739,16 +708,14 @@ done
 if [ x"${__keyTexts}" = x ]; then
     echo
     echo "JLL-Exit: not found the Key TEXT, then exit"
-    echo
-    __FN_Help 
+    echo 
     exit 0
 fi
 
 if [ x"${__DRM_SCHEME}" = x ]; then
     echo
     echo "JLL-Exit: not found the legal DRM scheme, then exit"
-    echo
-    __FN_Help 
+    echo 
     exit 0
 fi
 
@@ -795,14 +762,14 @@ __Lfn_Sys_ColorEcho ${__CvBgSeaBule} ${__CvFgBlack} \
     "JLL-Probe: checking if \"${__DRM_SCHEME}\" is legal or not"
 echo
 
-declare -i JLLCFG_lstFileSZ=${#JLLCFG_lstFile[@]}
+declare -i CONF_lstFileSZ=${#CONF_lstFile[@]}
  
 case ${__DRM_SCHEME} in
 playready)
-    JLLCFG_lstFile[JLLCFG_lstFileSZ++]="vendor/playready"
+    CONF_lstFile[CONF_lstFileSZ++]="vendor/playready"
     ;;
 widevine)
-    JLLCFG_lstFile[JLLCFG_lstFileSZ++]="vendor/widevine"
+    CONF_lstFile[CONF_lstFileSZ++]="vendor/widevine"
     ;;
 *)
     echo
@@ -819,35 +786,35 @@ declare -i __lstResSZ=0
 #
 case ${GvPrjRootPath##*/} in
 2k15_mtk_1446_1_devprod)
-  for((i=0;i<JLLCFG_lstFileSZ;i++)) {
-      if [ -e "${GvPrjRootPath}/${JLLCFG_lstFile[i]}" ]; then
-          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${JLLCFG_lstFile[i]}"
+  for((i=0;i<CONF_lstFileSZ;i++)) {
+      if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
           continue
       fi
-      echo "JLL-Warning: not found \"${GvPrjRootPath}/${JLLCFG_lstFile[i]}\""
+      echo "JLL-Warning: not found \"${GvPrjRootPath}/${CONF_lstFile[i]}\""
   }
   ;;
 aosp_6.0.1_r10_selinux)
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediadrm"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediacodec"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaextractor"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
-  for((i=0;i<JLLCFG_lstFileSZ;i++)) {
-      if [ -e "${GvPrjRootPath}/${JLLCFG_lstFile[i]}" ]; then
-          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${JLLCFG_lstFile[i]}"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediadrm"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediacodec"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaextractor"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
+  for((i=0;i<CONF_lstFileSZ;i++)) {
+      if [ -e "${GvPrjRootPath}/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/${CONF_lstFile[i]}"
           continue
       fi
-      echo "JLL-Warning: not found \"${GvPrjRootPath}/${JLLCFG_lstFile[i]}\""
+      echo "JLL-Warning: not found \"${GvPrjRootPath}/${CONF_lstFile[i]}\""
   }
   ;;
 androidn_2k16_mtk_mainline)
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediadrm"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediacodec"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaextractor"
-  JLLCFG_lstFile[JLLCFG_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
-  for((i=0;i<JLLCFG_lstFileSZ;i++)) {
-      if [ -e "${GvPrjRootPath}/android/n-base/${JLLCFG_lstFile[i]}" ]; then
-          __lstRes[__lstResSZ++]="${GvPrjRootPath}/android/n-base/${JLLCFG_lstFile[i]}"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediadrm"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediacodec"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaextractor"
+  CONF_lstFile[CONF_lstFileSZ++]="frameworks/av/services/mediaresourcemanager"
+  for((i=0;i<CONF_lstFileSZ;i++)) {
+      if [ -e "${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}" ]; then
+          __lstRes[__lstResSZ++]="${GvPrjRootPath}/android/n-base/${CONF_lstFile[i]}"
           continue
       fi
   }
@@ -855,17 +822,17 @@ androidn_2k16_mtk_mainline)
 *)
   ;;
 esac
-echo "${__lstResSZ} -ne ${JLLCFG_lstFileSZ}"
-if [ ${__lstResSZ} -ne ${JLLCFG_lstFileSZ} ]; then
+echo "${__lstResSZ} -ne ${CONF_lstFileSZ}"
+if [ ${__lstResSZ} -ne ${CONF_lstFileSZ} ]; then
 exit 0
     unset __lstRes
     unset __lstResSZ
     declare -a __lstRes
     declare -i __lstResSZ=0
 
-    __FIND_PATHS="-regex \".*/?${JLLCFG_lstFile[0]}\""
-    for ((i=1;i<JLLCFG_lstFileSZ;i++)) {
-        __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${JLLCFG_lstFile[i]}\""
+    __FIND_PATHS="-regex \".*/?${CONF_lstFile[0]}\""
+    for ((i=1;i<CONF_lstFileSZ;i++)) {
+        __FIND_PATHS="${__FIND_PATHS} -o -regex \".*/?${CONF_lstFile[i]}\""
     }
 
     __lstCmd="find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune"
@@ -888,8 +855,8 @@ exit 0
     [ x"${__lstTargets}" != x ] && unset __lstTargets 
 fi
 
-[ x"${JLLCFG_lstFile}" != x ] && unset JLLCFG_lstFile
-[ x"${JLLCFG_lstFileSZ}" != x ] && unset JLLCFG_lstFileSZ
+[ x"${CONF_lstFile}" != x ] && unset CONF_lstFile
+[ x"${CONF_lstFileSZ}" != x ] && unset CONF_lstFileSZ
 #[ x"${GvPrjRootPath}" != x ] && unset GvPrjRootPath
 if [ ${__lstResSZ} -lt 1 ]; then
     __Lfn_Sys_ColorEcho ${__CvBgRed} ${__CvFgBlack} \
@@ -907,7 +874,7 @@ for((i=0;i<__lstResSZ;i++)) {
 clear
 echo
 
-declare -a JLLCFG_lstFileType=(
+declare -a CONF_lstFileType=(
     "*.cpp"
     "*.java"
     "*.h"
@@ -921,11 +888,11 @@ declare -a JLLCFG_lstFileType=(
 )
 
 __szConsiderFileType=""
-__nLstConsiderFileType=${#JLLCFG_lstFileType[@]}
+__nLstConsiderFileType=${#CONF_lstFileType[@]}
 for((i=0; i<__nLstConsiderFileType; i++)) {
-    __szConsiderFileType="${__szConsiderFileType} --File=\"${JLLCFG_lstFileType[i]}\""
+    __szConsiderFileType="${__szConsiderFileType} --File=\"${CONF_lstFileType[i]}\""
 }
-[ x"${JLLCFG_lstFileType}" != x ] && unset JLLCFG_lstFileType
+[ x"${CONF_lstFileType}" != x ] && unset CONF_lstFileType
 if [ x"${__szConsiderFileType}" = x ]; then
     __szConsiderFileType="*"
 fi
