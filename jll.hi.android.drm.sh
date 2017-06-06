@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 09:45:38
+#   ModifiedTime: 2017-06-06 09:47:22
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -597,7 +597,7 @@ function Lfn_File_SearchSymbol_EX()
                     __iKEP=0
                     for((iKW=0;iKW<__iRanges;iKW+=3)) {
                         if [ ${__iKSP} -lt 1 ]; then
-                            if [ ${__lstRanges[iKW+1]} -le ${__iREP} ]; then
+                            if [ ${__lstRanges[iKW+1]} -ge ${__iRSP} ]; then
                                 __iKSP=$((iKW+1))
                                 continue
                             fi
