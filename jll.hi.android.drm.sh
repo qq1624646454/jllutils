@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 11:57:23
+#   ModifiedTime: 2017-06-06 13:52:11
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
@@ -402,11 +402,17 @@ function Lfn_File_SearchSymbol_EX()
           __Lfn_Sys_ColorEcho ${__CvFgRed} ${__CvBgBlack} \
               "---> grep ${LvFssFlags} -i \"${LvFssSymbol}\""
         fi
+
+        LvFssSymbol="${LvFssSymbol//\"/\\\"}"
+        LvFssSymbol="${LvFssSymbol//\'/\\\'}"
+ 
         __OldIFS=${IFS}
         IFS=$'\n'
         for LvFssLine in \
         `eval find ${LvFssRootPath} ${LvFssIgnorePath} -type f -a -print`; do
-            LvFssMatch=`grep ${LvFssFlags} -i "${LvFssSymbol}" "${LvFssLine}" --color=always`
+            __CMDLINE="grep -C ${JLLCFG_Render_Range} ${LvFssFlags}"
+            __CMDLINE="${__CMDLINE} -i \"${LvFssSymbol}\" \"${LvFssLine}\" --color=always"
+            LvFssMatch=`eval ${__CMDLINE}`
             if [ x"$?" = x"0" ]; then
                 __Lfn_Sys_ColorEcho  ${__CvFgBlack}  ${__CvBgWhite}    " ${LvFssLine} "
                 __Lfn_Sys_ColorEcho  "${LvFssMatch}"
@@ -459,6 +465,8 @@ function Lfn_File_SearchSymbol_EX()
                 declare -a __lstRanges
                 declare -i __iRanges=0
                 __FileEnd=$(sed -n '$=' ${__lstFiles[iF]})
+                echo
+                echo
                 echo
                 #
                 # Renderring the file details
@@ -633,23 +641,26 @@ function Lfn_File_SearchSymbol_EX()
                         }
                         echo " }"
                     fi
-                    echo 
+                    echo
+                    LvFssSymbol="${LvFssSymbol//\"/\\\"}"
+                    LvFssSymbol="${LvFssSymbol//\'/\\\'}"
                     while [ ${__iRSP} -le ${__iREP} ]; do
-                        __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
                         __IsNeedHighLight=0
                         for((__iKCP=__iKSP;__iKCP<=__iKEP;__iKCP+=3)) {
                             if [ ${__iRSP} -eq ${__lstRanges[__iKCP]} ]; then
-                                __CMDLINE="echo \"${__Rendering}\" | grep -Er"
+                                __CMDLINE="sed -n \"${__iRSP}p\" ${__lstFiles[iF]} | grep -Er"
                                 __CMDLINE="${__CMDLINE} -i \"${LvFssSymbol}\""
                                 __CMDLINE="${__CMDLINE} --color=always"
                                 __Rendering=$(eval ${__CMDLINE})
                                 __IsNeedHighLight=1
+                                break
                             fi
                         }
                         if [ ${__IsNeedHighLight} -eq 1 ]; then
                             __Lfn_Sys_ColorEcho \
-                                "${CvAccOff}${CvFgGreen}${__iRSP}${CvAccOff}: ${__Rendering}"
+                            "${CvAccOff}${CvFgBlue}${CvBgYellow}${__iRSP}${CvAccOff}: ${__Rendering}"
                         else
+                            __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
                             echo "${__iRSP}: ${__Rendering}"
                         fi
                         __iRSP=$((__iRSP+=1))
@@ -693,7 +704,7 @@ JLL-Help:
     jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
   
   For exmaple:  Lookup the Function API 
-    jll@Srv:~\$ ${__CvScriptName} pr "[ )=]Test_[a-zA-Z0-9_]{1,}\(.*\)[   ]{0,}[{]{0,}]"
+    jll@Srv:~\$ ${__CvScriptName} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*\)[\t ]{0,}[{]{0,}"
     jll@Srv:~\$ more report_from_jll.hi.android.drm.sh.read_by_more
 
 
@@ -950,7 +961,7 @@ for((i=0;i<__lstResSZ;i++)) {
        --Symbol="${__keyTexts}" \
        --Mode=1 \
        --Path="${__lstRes[i]}" \
-       ${__szIgnorePath}  | tee  report_from_${__CvScriptName}.read_by_more
+       ${__szIgnorePath}  | tee report_from_${__CvScriptName}.read_by_more
 }
 
 
