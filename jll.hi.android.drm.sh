@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-07 08:57:56
+#   ModifiedTime: 2017-06-07 09:54:22
 #
 # History:
 #   2017-6-5| Created
@@ -1166,7 +1166,9 @@ echo
 
 __szIgnorePath=""
 
-if [ -e "" ]
+if [ -e "$(pwd)/report_from_${__CvScriptName}.read_by_more" ]; then
+    rm -rf $(pwd)/report_from_${__CvScriptName}.read_by_more
+fi
 
 for((i=0;i<__lstResSZ;i++)) {
    Lfn_File_SearchSymbol_EX \
