@@ -10,10 +10,12 @@ JLLPATH="$(dirname ${JLLPATH})"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 
-cat >&1 <<EOF
+more >&1 <<EOF
 
-jll.sshconf.sh
-git clone  git@code.csdn.net:qq1624646454/vicc.git 
+install manual
+---------------------------------------
+jl@S:~\$ mkdir -pv github
+jl@S:~\$ git clone https://github.com/qq1624646454/vicc_installer.git
 
 
 
