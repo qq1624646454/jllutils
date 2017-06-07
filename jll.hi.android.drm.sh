@@ -5,11 +5,12 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-07 09:54:22
+#   ModifiedTime: 2017-06-07 11:00:14
 #
 # History:
 #   2017-6-5| Created
 #   2017-6-6| Intake File Type Selecting For Customization
+#   2017-6-7| Fix the issue about none is writen to report_from_jll.hi.android.drm.sh.read_by_more
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,6 +28,15 @@ JLLCFG_Render_Range=6
 # 2: only show ranges and segments
 JLLCFG_dbgEnable=0
 
+
+#
+# Ignore the specified path with "JLLCFG_Ignore_PathKeywords" during finding the relative files
+#
+declare -a JLLCFG_Ignore_PathKeywords=(
+    "--Ignore=[tT][eE][sS][tT]"  # test, ignore case sensitive
+    "--Ignore=[Mm][Oo][Cc][Kk]"  # mock, ignore case sensitive
+    "--Ignore=[cC][lL][eE][aA][rR][kK][eE][yY]" # clearkey, ignore case sensitive
+)
 
 #
 # Find the legal resources 
@@ -57,6 +67,24 @@ declare -a GvVimIDE_Settings=(
 
 
 
+
+
+
+#########################################
+## Collecting all ignore path keywords
+#########################################
+#__szIgnorePath="--Ignore=[tT][eE][sS][tT] --Ignore=[cC][lL][eE][aA][rR][kK][eE][yY]"
+__szIgnorePath=""
+declare -i iJLLCFG_Ignore_PathKeywords=${#JLLCFG_Ignore_PathKeywords[@]}
+for((iIgnore=0;iIgnore<iJLLCFG_Ignore_PathKeywords;iIgnore++)) {
+    if [ x"${__szIgnorePath}" != x ]; then
+        __szIgnorePath="${__szIgnorePath} --Ignore=\"${JLLCFG_Ignore_PathKeywords[iIgnore]}\""
+    else
+        __szIgnorePath="--Ignore=\"${JLLCFG_Ignore_PathKeywords[iIgnore]}\""
+    fi
+}
+[ x"${JLLCFG_Ignore_PathKeywords}" != x ] && unset JLLCFG_Ignore_PathKeywords
+[ x"${iJLLCFG_Ignore_PathKeywords}" != x ] && unset iJLLCFG_Ignore_PathKeywords
 
 
 ###############################################################
@@ -367,17 +395,21 @@ function Lfn_File_SearchSymbol_EX()
         LvFssIgnores="`echo $1 | sed -e 's/--Ignore=//g' -e 's/,/ /g'`"
         if [ x"${LvFssIgnores}" != x ]; then
             LvFssIgnores="${LvFssIgnores//\"/}"
-            if [ -e "${LvFssRootPath}/${LvFssIgnores}" ]; then
+            if [ x"${LvFssIgnores}" != x ]; then
+            #if [ -e "${LvFssRootPath}/${LvFssIgnores}" ]; then
                 #echo "jll: --Ignore=${LvFssIgnores}"
+                #"find ${GvPrjRootPath} \\( -regex \".*/?out\" -o -regex \".*/\..*\" \\) -prune"
                 if [ x"${LvFssIgnorePath}" = x ]; then
-                  LvFssIgnorePath="-path \"${LvFssRootPath}/${LvFssIgnores}\""
+                #  LvFssIgnorePath="-path \"${LvFssRootPath}/${LvFssIgnores}\""
+                  LvFssIgnorePath="-regex \".*/?${LvFssIgnores}\""
                   LvFssIgnorePathCnt=1
                 else
-                  LvFssIgnorePath="${LvFssIgnorePath} -o -path \"${LvFssRootPath}/${LvFssIgnores}\""
+                #LvFssIgnorePath="${LvFssIgnorePath} -o -path \"${LvFssRootPath}/${LvFssIgnores}\""
+                  LvFssIgnorePath="${LvFssIgnorePath} -o -regex \".*/?${LvFssIgnores}\""
                   LvFssIgnorePathCnt=$((LvFssIgnorePathCnt+1))
                 fi
-            else
-                echo "jll: not present ignore path=${LvFssRootPath}/${LvFssIgnores}"
+            #else
+            #    echo "jll: not present ignore path=${LvFssRootPath}/${LvFssIgnores}"
             fi
         fi
         ;;
@@ -715,39 +747,94 @@ JLL-Help:${Fyellow}
        @[drm-scheme]:  only support for two schemes as follows:
            wv|widevine - support for ignore case sensitive
            pr|playready - support for ignore case sensitive
-       @[keyword-regular-expression]: support for regular expression ${Fred}
-  Note: parameters order can be unordered${Fgreen}
+       @[keyword-regular-expression]: support for regular expression.
+${Fred}  Note: parameters order can be unordered${AC}
 ${Fgreen}
   For exmaple:  Lookup the digit
     jl@S:~\$ ${Fseablue}${_sn} pr "[ )]{0,}0x8004c013"${Fgreen}
-    jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${Fgreen}
-  
+    jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${AC}
+${Fgreen}
+  For exmaple:  Precisely Lookup the Function API named with 'decrypt(...)'
+    jl@S:~\$ ${Fseablue}${_sn} pr "[ )=->.:]{1,}decrypt[ \t]{0,}\(.*"${AC}
+    ${Fgreen}jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${AC}
+${Fgreen}
   For exmaple:  Lookup the Function API named with decrypt
     jl@S:~\$ ${Fseablue}${_sn} pr "[ )=->.]{1,}decrypt[,a-zA-Z0-9_]{0,}\(.*[)\t ]{0,}[{]{0,}"
-    ${Fgreen}jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more
+    ${Fgreen}jl@S:~\$ ${Fseablue}more report_from_jll.hi.android.drm.sh.read_by_more${AC}
 ${Fgreen}
 JLL-Help:${Fyellow}
   ${_sn} [--help] | [-h]${Fgreen}
-       @--help or -h: to lookup the manual about this
-${AC}${Fred}
+       @--help or -h: to lookup the manual about this ${AC}
+${Fred}
 Note: For Improvimg Performance, 
-      Please use the below project name according to the configuration:${Fpink}
+      Please use the below project name according to the configuration:${AC}
       .
-      ├──${Byellow} 2k15_mtk_1446_1_devprod${AC}${Fpink}
+      ├──${Byellow}${Fblue} 2k15_mtk_1446_1_devprod ${AC}
       │   ├── .repo 
       │   ├── abi
       │   ├── ...
       │
-      ├──${Byellow} aosp_6.0.1_r10_selinux${AC}${Fpink}
+      ├──${Byellow}${Fblue} aosp_6.0.1_r10_selinux ${AC}
       │   ├── .repo 
       │   ├── abi
       │   ├── ... 
       │    
-      ├──${Byellow} androidn_2k16_mtk_mainline${AC}${Fpink}
+      ├──${Byellow}${Fblue} androidn_2k16_mtk_mainline ${AC}
       │   ├── .repo 
       │   ├── android
       │   └── vm_linux 
 ${AC}
+限定连续重复字符的范围
+
+.
+  代表一个除新行符之外的任意字符，必须存在一个字符
+
+*
+  代表零个或多个的前一个字符.
+
+  例如 oo*,  代表至少一个o, 即表示第一个o一定存在，第二个o可以有一个或多个，也可以没有，
+
+  比如 a* 可以匹配ab,aaab, aC, 或不以a开始的任意字符串,如 bba, bb.
+  基本上，a*对于所有存在的字符或字符串都可以匹配
+
+  搜索g开头和结尾，中间是至少一个o的字符串，即gog, goog....gooog...等
+  grep -n 'goo*g' regular_express.txt
+
+  搜索g开头和结尾的字符串在的行
+  grep -n 'g.*g' regular_express.txt     // .*表示 0个或多个任意字符
+
+
+.*
+  匹配范围最广的模式之一，可以匹配零个或多个任意字符(除新行符之外).
+  比如  abc.*123可以匹配 abcAnything123，也能匹配abc123
+
+?
+  匹配零个或一个的前一个字符.　它与*的不同之处是，它最多匹配的字符个数只有一个，而*是多个.
+
++
+  匹配一个或多个的前一个字符.
+
+[]
+  匹配中括号内罗列的任一字符
+  比如:
+      匹配中文:[\u4e00-\u9fa5]
+      英文字母:[a-zA-Z]
+      数字:[0-9]
+      匹配中文，英文字母和数字及_: ^[\u4e00-\u9fa5_a-zA-Z0-9]+$
+
+{min,max}
+  匹配出现次数介于min和max的前一个字符.
+  比如
+  {3} 表示准确匹配3次
+  {3,}　表示匹配3次或更多
+  指定的数字必须小于 65536, 且第一个必须小于等于第二个
+
+
+匹配函数原型:  ASN1_xxx(xxx)
+  jl@S:~\$ cd ~/workspace/aosp_6.0.1_r10_selinux/device/tpvision/common/plf/mediaplayer/av/comps
+  jl@S:.\$ grep -Enr "[ )=]ASN1_[a-zA-Z0-9_]{1,}[(].*[)]" \\
+                httputilservice/src/HttpUtilWrapper.cpp --color=always
+
 EOF
 
 }
@@ -1163,8 +1250,11 @@ for((i=0;i<__lstResSZ;i++)) {
     echo " ${__lstRes[i]}"
 }
 echo
-
-__szIgnorePath=""
+echo -e "${__CvAccOff}${__CvFgPink}${__CvBgBlack}JLL-Ignore-PATH-Keywords:${__CvAccOff}" 
+for __szIPath in ${__szIgnorePath}; do
+    echo "${__szIPath}"
+done 
+echo
 
 if [ -e "$(pwd)/report_from_${__CvScriptName}.read_by_more" ]; then
     rm -rf $(pwd)/report_from_${__CvScriptName}.read_by_more
