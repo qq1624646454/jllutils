@@ -3,7 +3,7 @@
 #
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -14,12 +14,12 @@ more >&1 <<EOF
 
 install manual
 ---------------------------------------
-jl@S:~\$ mkdir -pv github
-jl@S:~/github\$ git clone https://github.com/qq1624646454/vicc_installer.git
+jl@S:~\$ ${Fyellow} mkdir -pv github${AC}
+jl@S:~/github\$ ${Fyellow}git clone https://github.com/qq1624646454/vicc_installer.git${AC}
 ...
-jl@S:~/github\$ cd vicc_installer
-jl@S:~/github/vicc_installer\$ ./vicc_installer.sh
-
+jl@S:~/github\$ ${Fyellow}cd vicc_installer${AC}
+jl@S:~/github/vicc_installer\$ ${Fyellow}./vicc_installer.sh${AC}
+...
 
 
 
@@ -32,31 +32,6 @@ So \$VIMRUNTIME/ftplugin/cpp.vim will be loaded to vim.
 
 As the cpp.vim, cpp is treated as c.
 runtime! ftplugin/c.vim ftplugin/c_*.vim ftplugin/c/*.vim
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -----------------------------------
