@@ -15,8 +15,10 @@ more >&1 <<EOF
 install manual
 ---------------------------------------
 jl@S:~\$ mkdir -pv github
-jl@S:~\$ git clone https://github.com/qq1624646454/vicc_installer.git
-
+jl@S:~/github\$ git clone https://github.com/qq1624646454/vicc_installer.git
+...
+jl@S:~/github\$ cd vicc_installer
+jl@S:~/github/vicc_installer\$ ./vicc_installer.sh
 
 
 
