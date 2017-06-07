@@ -14,7 +14,7 @@ more >&1 << EOF
 jll@S~\$ ${Fyellow}su - root${AC}
 jll@S~\# ${Fyellow}vim /etc/default/grub ${AC}
 ...
-${Bpink}${Fblue}GRUB_DEFAULT=0${AC}
+${Bpink}${Fseablue}GRUB_DEFAULT=0 ${AC}
 ...
 
 
