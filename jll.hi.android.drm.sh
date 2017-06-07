@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-06 17:39:18
+#   ModifiedTime: 2017-06-07 08:57:56
 #
 # History:
 #   2017-6-5| Created
@@ -44,11 +44,12 @@ declare -a JLLCFG_lstFile=(
 # Intake FileType Selector from vicc project
 # LanguageName  ExuberantCtags  Cscope  FileClasses
 declare -a GvVimIDE_Settings=(
-    "Asm"   "--Asm-kinds=+dlmt"                             " "   "*.s *.S *.inc"
-    "C"     "--C-kinds=+cdefgmnpstuv"                       " "   "*.c *.C *.h"
-    "C++"   "--C++-kinds=+cdefgmnpstuv"                     " "   "*.cpp *.cc *.CC *.h *.hpp"
-    "Java"  "--Java-kinds=+cefgimp --langmap=java:+.aidl"   " "   "*.java *.aidl"
-    "Make"  "--Make-kinds=+m"                               " "   "*.mak Makefile makefile *.mk"
+  "Asm"     "--Asm-kinds=+dlmt"                             " "   "*.s *.S *.inc"
+  "C"       "--C-kinds=+cdefgmnpstuv"                       " "   "*.c *.C *.h"
+  "C++"     "--C++-kinds=+cdefgmnpstuv"                     " "   "*.cpp *.cc *.CC *.h *.hpp"
+  "Java"    "--Java-kinds=+cefgimp --langmap=java:+.aidl"   " "   "*.java *.aidl"
+  "Make"    "--Make-kinds=+m"                               " "   "*.mak Makefile makefile *.mk"
+  "Header"  "--C++-kinds=+cdefgmnpstuv"                     " "   "*.h *.hpp *.inc"
 )
 
 
@@ -632,7 +633,7 @@ function Lfn_File_SearchSymbol_EX()
                 fi
 
                 #
-                # Rendering the result with keyword color
+                # Renderring the result with keyword color
                 #
                 for((iSR=0;iSR<__iSegment;iSR+=2)) {
                     __iRSP=${__lstSegment[iSR]}
@@ -672,13 +673,14 @@ function Lfn_File_SearchSymbol_EX()
                                 break
                             fi
                         }
-                        if [ ${__IsNeedHighLight} -eq 1 ]; then
-                          __Lfn_Sys_ColorEcho \
-                          "${CvAccOff}${CvFgBlue}${CvBgYellow}${__iRSP}${CvAccOff}: ${__Rendering}"
-                        else
-                          __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
-                          echo "${__iRSP}: ${__Rendering}"
-                        fi
+                      #Renderring the results
+                      if [ ${__IsNeedHighLight} -eq 1 ]; then
+                        __Lfn_Sys_ColorEcho \
+                        "${CvAccOff}${CvFgBlue}${CvBgYellow}${__iRSP}${CvAccOff}: ${__Rendering} "
+                      else
+                        __Rendering=$(sed -n "${__iRSP}p" ${__lstFiles[iF]})
+                        echo "${__iRSP}: ${__Rendering}"
+                      fi
                         __iRSP=$((__iRSP+=1))
                     done
                 }
@@ -1035,8 +1037,17 @@ LvVicsfFileTypeIdx=0
 for (( LvVicsfIdx=0 ; LvVicsfIdx<GvVimIDE_SettingsCount ; LvVicsfIdx++ )) do
     for LvVicsfLanguage in ${LvVisplChoices}; do
         if [ x"${GvVimIDE_Settings[LvVicsfIdx*4]}" = x"${LvVicsfLanguage}" ]; then
-            for LvVicsfFT in ${GvVimIDE_Settings[LvVicsfIdx*4+3]}; do 
-                JLLCFG_lstFileType[LvVicsfFileTypeIdx++]="${LvVicsfFT}"
+            for LvVicsfFT in ${GvVimIDE_Settings[LvVicsfIdx*4+3]}; do
+                __isAddFT=1
+                for((___iFT=0;___iFT<LvVicsfFileTypeIdx;___iFT++)) {
+                    if [ x"${JLLCFG_lstFileType[___iFT]}" = x"${LvVicsfFT}" ]; then
+                        __isAddFT=0
+                        break;
+                    fi
+                }
+                if [ ${__isAddFT} -eq 1 ]; then
+                    JLLCFG_lstFileType[LvVicsfFileTypeIdx++]="${LvVicsfFT}"
+                fi
             done
         fi
     done
@@ -1047,10 +1058,13 @@ if [ ${LvVicsfFileTypeIdx} -lt 1 ]; then
     JLLCFG_lstFileType=(
         "*.cpp"
         "*.java"
+        "*.c"
         "*.h"
         "*.c"
         "*.aidl"
         "*.cc"
+        "*.hpp"
+        "*.c"
         "*.mk"
         "*.mak"
         "Makefile"
