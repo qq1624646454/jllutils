@@ -1166,6 +1166,7 @@ echo
 
 __szIgnorePath=""
 
+if [ -e "" ]
 
 for((i=0;i<__lstResSZ;i++)) {
    Lfn_File_SearchSymbol_EX \
