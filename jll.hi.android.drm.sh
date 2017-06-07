@@ -1173,7 +1173,7 @@ for((i=0;i<__lstResSZ;i++)) {
        --Symbol="${__keyTexts}" \
        --Mode=1 \
        --Path="${__lstRes[i]}" \
-       ${__szIgnorePath}  | tee report_from_${__CvScriptName}.read_by_more
+       ${__szIgnorePath}  | tee -a report_from_${__CvScriptName}.read_by_more
 }
 
 
