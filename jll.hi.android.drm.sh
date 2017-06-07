@@ -5,12 +5,15 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-07 11:00:14
+#   ModifiedTime: 2017-06-07 11:45:49
 #
 # History:
 #   2017-6-5| Created
 #   2017-6-6| Intake File Type Selecting For Customization
-#   2017-6-7| Fix the issue about none is writen to report_from_jll.hi.android.drm.sh.read_by_more
+#   2017-6-7| 1.Fix issue about none is writen to report_from_jll.hi.android.drm.sh.read_by_more
+#           | 2.Let ignore path support for regular expression, customization is specified by 
+#           |   JLLCFG_Ignore_PathKeywords
+#           | 3.Update Help manual
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -739,6 +742,38 @@ function Lfn_File_SearchSymbol_EX()
 
 function __FN_Help()
 {
+    _endOfFile=$(sed -n "$=" $0)
+    _idxOfFile=1
+    _statusOfIfle=0
+    while [ ${_idxOfFile} -le ${_endOfFile} ]; do 
+        _lineOfFile=$(sed -n "${_idxOfFile}p" $0)
+        case ${_statusOfIfle}  in
+        0)
+          _flg=$(echo "${_lineOfFile} " \
+                 | grep -E '^[ \t]{0,}#[ \t]{0,}[hH][iI][sS][tT][oO][rR][yY]')
+          if [ x"${_flg}" != x ]; then
+              _statusOfIfle=1 # Start
+              _lineOfFile=$(echo "${_lineOfFile/\#/}")
+              _lineOfFile=$(echo "${_lineOfFile}" \
+                            | sed -e "s/[hH][iI][sS][tT][oO][rR][yY]/JLL-version/g")
+              echo ${_lineOfFile}
+          fi
+          ;;
+        1)
+          _flg=$(echo "${_lineOfFile} " | grep -E '^[ \t]{0,}#.*')
+          if [ x"${_flg}" = x ]; then
+              _statusOfIfle=0 # End
+              _idxOfFile=$((_endOfFile+1))
+          else
+              echo "${_lineOfFile/\#/}"
+          fi
+          ;;
+        *)
+          ;;
+        esac
+        _idxOfFile=$((_idxOfFile+=1))
+    done
+    echo
     _sn=${__CvScriptName}
 more>&1<<EOF
 ${AC}${Fgreen}
@@ -1268,5 +1303,4 @@ for((i=0;i<__lstResSZ;i++)) {
        --Path="${__lstRes[i]}" \
        ${__szIgnorePath}  | tee -a report_from_${__CvScriptName}.read_by_more
 }
-
 
