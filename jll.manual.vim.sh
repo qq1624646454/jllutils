@@ -19,7 +19,7 @@ ${Fseablue}1)在全部内容的行首添加//号：${Fyellow}
 ${Fseablue}2)在2~50行的行尾添加#号: ${Fyellow}
 :2,50 s/$/#/g${AC}
 ${Fseablue}3)在2~50行的行首删除//号： ${Fyellow}
-:2,50 s/^\/\///g
+:2,50 s/^\/\///g${AC}
 
 EOF
 
