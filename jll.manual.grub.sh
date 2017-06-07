@@ -30,5 +30,6 @@ jll@S~# ${Fyellow}grub-editenv list${AC}
 jll@S~# ${Fyellow}grub-mkconfig -o /boot/grub/grub.cfg${AC}
 
 
+
 EOF
 
