@@ -1,24 +1,59 @@
 #!/bin/bash
 #
 
+# adapt to more/echo/less and so on
+  ESC=
+  AC=${ESC}[0m
+  Fblack=${ESC}[30m
+  Fred=${ESC}[31m
+  Fgreen=${ESC}[32m
+  Fyellow=${ESC}[33m
+  Fblue=${ESC}[34m
+  Fpink=${ESC}[35m
+  Fseablue=${ESC}[36m
+  Fwhite=${ESC}[37m
+  Bblack=${ESC}[40m
+  Bred=${ESC}[41m
+  Bgreen=${ESC}[42m
+  Byellow=${ESC}[43m
+  Bblue=${ESC}[44m
+  Bpink=${ESC}[45m
+  Bseablue=${ESC}[46m
+  Bwhite=${ESC}[47m
+
 GvShellObject="$0"
 GvShellObject="$(basename ${GvShellObject})"
 
 more >&1 << EOF
-*************************************** 
-** Asta N
-***************************************
+${Bpink}***************************************${AC}
+${Bpink}** Asta N                              ${AC}
+${Bpink}***************************************${AC}
 
-mkdir -pv ~/workspace/androidn_2k16_mtk_mainline
-cd ~/workspace/androidn_2k16_mtk_mainline
-repo init -m manifest_new_structure_v1.xml -u ssh://gerrit/platform/manifest -b  tpvision/androidn_2k16_mainline
-repo sync
+${Fyellow}mkdir -pv ~/workspace/androidn_2k16_mtk_mainline${AC}
+${Fyellow}cd ~/workspace/androidn_2k16_mtk_mainline${AC}
+${Fseablue}repo init -m manifest_new_structure_v1.xml -u ssh://gerrit/platform/manifest -b  tpvision/androidn_2k16_mainline${AC}
+${Fyellow}repo sync${AC}
 
-set_n
-cd android/n-base/
-./device/tpvision/common/sde/upg/build_philipstv.sh -p QM16XE_U
+${Fyellow}set_n${AC}
+${Fyellow}cd android/n-base/${AC}
+${Fseablue}./device/tpvision/common/sde/upg/build_philipstv.sh -p QM16XE_U${AC}
 
-git push origin HEAD:refs/for/tpvision/androidn_2k16_mtk_mainline
+${Fgreen}git push origin HEAD:refs/for/tpvision/androidn_2k16_mtk_mainline${AC}
+
+
+${Bpink}***************************************${AC}
+${Bpink}** Asta N: Home is not shown           ${AC}
+${Bpink}***************************************${AC}
+${Fseablue}settings put secure user_setup_complete 1${AC}
+
+
+${Bpink}***************************************${AC}
+${Bpink}** Test Web site                       ${AC}
+${Bpink}***************************************${AC}
+${Fseablue}www.connectedplanet.tv/olvs/test/${AC}
+
+
+
 
 
 
@@ -536,11 +571,6 @@ make -j8 DM_VERITY=false mtk_build  2>&1 | tee make.log
 <<2k15 Version Example>>
 TPM156L.5.96.0.72
 
-
-*********************************
-* Asta N Home is not shown
-*********************************
-settings put secure user_setup_complete 1
 
 
 
