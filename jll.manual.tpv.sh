@@ -68,15 +68,19 @@ ${Bpink}***************************************${AC}
 ${Bpink}** logcat property customization  ${AC}
 ${Bpink}***************************************${AC}
 
+${Fseablue} setprop persist.sys.mp.ffmpeg.log 1 ${AC}# @mediaplayer
+${Fseablue} setprop persist.tpvlog.smtv 1 ${AC} # @nettvbrowser
+
+${Fseablue} setprop persist.sys.jll_drm 3  ${AC}# ALOGV ALOGD LOGD LOGV @mediaplayer
+${Fseablue} setprop persist.sys.jll_wv  3  ${AC}# ALOGV ALOGD LOGD LOGV @vendor/widevine
+${Fseablue} setprop persist.sys.jll_pr  3  ${AC}# ALOGV ALOGD LOGD LOGV @mediaplayer
+
 ${Fseablue} setprop persist.sys.jll_drm 1  ${AC}# ALOGV or LOGV @mediaplayer
 ${Fseablue} setprop persist.sys.jll_drm 2  ${AC}# ALOGD or LOGD @mediaplayer
 ${Fseablue} setprop persist.sys.jll_wv 1  ${AC}# ALOGV or LOGV @vendor/widevine
 ${Fseablue} setprop persist.sys.jll_wv 2  ${AC}# ALOGD or LOGD @vendor/widevine
 ${Fseablue} setprop persist.sys.jll_pr 1  ${AC}# ALOGV or LOGV @mediaplayer
 ${Fseablue} setprop persist.sys.jll_pr 2  ${AC}# ALOGD or LOGD @mediaplayer
-${Fseablue} setprop persist.sys.mp.ffmpeg.log 1 ${AC}# @mediaplayer
-${Fseablue} setprop persist.tpvlog.smtv 1 ${AC} # @nettvbrowser
-
 
 
 
