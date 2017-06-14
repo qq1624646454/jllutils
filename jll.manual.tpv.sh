@@ -41,32 +41,56 @@ ${Fseablue}./device/tpvision/common/sde/upg/build_philipstv.sh -p QM16XE_U${AC}
 ${Fgreen}git push origin HEAD:refs/for/tpvision/androidn_2k16_mtk_mainline${AC}
 
 
+
+
 ${Bpink}***************************************${AC}
 ${Bpink}** Asta N: Home is not shown           ${AC}
 ${Bpink}***************************************${AC}
-${Fseablue}settings put secure user_setup_complete 1${AC}
+
+${Fseablue} settings put secure user_setup_complete 1${AC}
+
+
+
 
 
 ${Bpink}***************************************${AC}
 ${Bpink}** Test Web site                       ${AC}
 ${Bpink}***************************************${AC}
-${Fseablue}www.connectedplanet.tv/olvs/test/${AC}
+
+${Fseablue}  www.connectedplanet.tv/olvs/test/${AC}
+
+${Fpink} classic widevine test: ${AC}
+${Fseablue}   User testpages --> Pavan --> Component Selection TestPage --> Widevine TestPage ${AC}
+
+
+
+${Bpink}***************************************${AC}
+${Bpink}** logcat property customization  ${AC}
+${Bpink}***************************************${AC}
+
+${Fseablue} setprop persist.sys.jll_drm 1  ${AC}# ALOGV or LOGV @mediaplayer
+${Fseablue} setprop persist.sys.jll_drm 2  ${AC}# ALOGD or LOGD @mediaplayer
+${Fseablue} setprop persist.sys.jll_wv 1  ${AC}# ALOGV or LOGV @vendor/widevine
+${Fseablue} setprop persist.sys.jll_wv 2  ${AC}# ALOGD or LOGD @vendor/widevine
+${Fseablue} setprop persist.sys.jll_pr 1  ${AC}# ALOGV or LOGV @mediaplayer
+${Fseablue} setprop persist.sys.jll_pr 2  ${AC}# ALOGD or LOGD @mediaplayer
+${Fseablue} setprop persist.sys.mp.ffmpeg.log 1 ${AC}# @mediaplayer
+${Fseablue} setprop persist.tpvlog.smtv 1 ${AC} # @nettvbrowser
 
 
 
 
 
-
-===== The Branch before 2017.March.07 =====
+${Bpink}===== The Branch before 2017.March.07 =====${AC}
 mkdir -pv ~/workspace/androidn_2k16_mainline
 cd ~/workspace/androidn_2k16_mainline
 repo init   -u ssh://gerrit/platform/manifest -b  tpvision/androidn_2k16_mainline
 repo sync
 
-# apply the patch namely overwrite init.sh
+${Fblue}# apply the patch namely overwrite init.sh${AC}
 ~/workspace/Asta_Upgrade_M2N/compilation/jll_apply_patch.sh
 
-# compile as QM16XE_U-userdebug
+${Fblue}# compile as QM16XE_U-userdebug${AC}
 set_N
 source build/envsetup.sh
 lunch  QM16XE_U-userdebug
