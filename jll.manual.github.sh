@@ -5,15 +5,11 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-05-11 17:41:00
+#   ModifiedTime: 2017-06-16 20:49:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
-
-### Color Echo Usage ###
-# Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
-# echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 
 more >&1 <<EOF
@@ -22,38 +18,36 @@ more >&1 <<EOF
 =============================================================================================
 github project to use or developping
 
-${AC}${Fseablue}
-  How to select HTTPS or SSH for Clone or Download, such as:
-      https://github.com/qq1624646454/jllutils.git
-      git@github.com:qq1624646454/jllutils.git
-  ----------------------------------------------------------------------------------------
-  | (1).Using https without providing any user-name and user-password or ~/.ssh/id_rsa.  |
-  |     But in further, any change is submitted to github are required by user-name and  | 
-  |     user-password.                                                                   |
-  | (2).Using ssh with providing ~/.ssh/id_rsa, maybe and the password associated with   |
-  |     ~/.ssh/id_rsa. This case is mostly for developer.                                |
-  ---------------------------------------------------------------------------------------- 
-${AC}
+${Fseablue} How to select HTTPS or SSH for Clone or Download, such as:${AC}
+${Fseablue}      https://github.com/qq1624646454/jllutils.git ${AC}
+${Fseablue}      git@github.com:qq1624646454/jllutils.git ${AC}
+${Fseablue}  -------------------------------------------------------------------------- ${AC}
+${Fseablue}  | (1).Using https without providing any user-name and user-password or   | ${AC}
+${Fseablue}  |     ~/.ssh/id_rsa. But in further, any change is submitted to github   | ${AC}
+${Fseablue}  |     are required by user-name and user-password.                       | ${AC}
+${Fseablue}  | (2).Using ssh with providing ~/.ssh/id_rsa, maybe and the password     | ${AC}
+${Fseablue}  |     associated with ~/.ssh/id_rsa. This case is mostly for developer.  | ${AC}
+${Fseablue}  -------------------------------------------------------------------------- ${AC}
 
 SUGGESTION FOR jielong.lin which is a common user and then is also a developer
 
-  1).Using https to download the project:
-${AC}${Fyellow}jielong.lin@TpvServer:~/github$ git clone https://github.com/qq1624646454/jllutils.git
+1).Using https to download the project:
+${Fyellow}jl@S:~/github$ git clone https://github.com/qq1624646454/jllutils.git${AC}
 Cloning into 'jllutils'...
 remote: Counting objects: 203, done.
 remote: Compressing objects: 100% (164/164), done.
 remote: Total 203 (delta 37), reused 203 (delta 37), pack-reused 0
 Receiving objects: 100% (203/203), 5.31 MiB | 1.46 MiB/s, done.
-Resolving deltas: 100% (37/37), done.${AC}
+Resolving deltas: 100% (37/37), done.
 
-  2).Change .git for push over ssh, namely using ~/.ssh/id_rsa
-${AC}${Fyellow}jielong.lin@TpvServer:~/github$ cd jllutils
-jielong.lin@TpvServer:~/github/jllutils$
-jielong.lin@TpvServer:~/github/jllutils$ git remote show
+2).Change .git for push over ssh, namely using ~/.ssh/id_rsa
+jl@S:~/github$ ${Fyellow}cd jllutils${AC}
+jl@S:~/github/jllutils$
+jl@S:~/github/jllutils$ ${Fyellow}git remote show${AC}
 origin
-jielong.lin@TpvServer:~/github/jllutils$
-jielong.lin@TpvServer:~/github/jllutils$
-jielong.lin@TpvServer:~/github/jllutils$ git remote show origin
+jl@S:~/github/jllutils$
+jl@S:~/github/jllutils$
+jl@S:~/github/jllutils$ ${Fyellow}git remote show origin${AC}
 * remote origin
   Fetch URL: https://github.com/qq1624646454/jllutils.git
   Push  URL: https://github.com/qq1624646454/jllutils.git
@@ -65,18 +59,15 @@ jielong.lin@TpvServer:~/github/jllutils$ git remote show origin
   Local ref configured for 'git push':
     master pushes to master (up to date)
 
-jielong.lin@TpvServer:~/github/jllutils$
-jielong.lin@TpvServer:~/github/jllutils$ ./jll.sshconf.sh
-  ...${AC}<Or ${AC}${Fgreen}git remote set-url --push origin YOUR_GIT_URL${AC}>
+jl@S:~/github/jllutils$
+jl@S:~/github/jllutils$ ${Fyellow}./jll.sshconf.sh${AC}
+  ...<Or ${Fgreen}git remote set-url --push origin YOUR_GIT_URL${AC}>
 
-  3).Now commit your change by 'git push -u origin master' will use SSH with ~/.ssh/id_rsa
-
-
+3).Now commit your change by 'git push -u origin master' will use SSH with ~/.ssh/id_rsa
 
 
 
-
-=============================================================================== ${AC}${Fseablue}
+${Fseablue}=============================================================================== ${AC}
 
    |                      |                   |
    |---------commit -a --------------------->|_|
@@ -100,15 +91,15 @@ jielong.lin@TpvServer:~/github/jllutils$ ./jll.sshconf.sh
    |-------- diff HEAD -----------------------|
    |--- diff -------------|                   |
    |                      |                   |
-${AC}
 
 
-=============================================================================================
-${AC}${Fseablue}  没有解决，建议重新建立项目 (注意今后提交的文件不要超过50M)
-    -------------------------------------------------------------------------
-    |  The Books folder which contains the large files have been removed.   |
-    |  The Error will be met when any changes are committed by git push     |
-    -------------------------------------------------------------------------${AC}
+${Fseablue}====================================================================${AC}
+${Fseablue}  没有解决，建议重新建立项目 (注意今后提交的文件不要超过50M) ${AC}
+${Fseablue}  ---------------------------------------------------------- ${AC}
+${Fseablue}  |  The Books folder which contains the large files have  | ${AC}
+${Fseablue}  |  been removed. The Error will be met when any changes  | ${AC}
+${Fseablue}  |  are committed by git push                             | ${AC}
+${Fseablue}  ---------------------------------------------------------- ${AC}
 ...
 Compressing objects: 100% (27/27), done.
 Writing objects: 100% (27/27), 399.01 MiB | 2.98 MiB/s, done.
@@ -125,16 +116,16 @@ To git@github.com:qq1624646454/philipstv_tpv.git
 error: failed to push some refs to 'git@github.com:qq1624646454/philipstv_tpv.git'
 jielong.lin@TpvServer:~/github/philipstv_tpv$
 jielong.lin@TpvServer:~/github/philipstv_tpv$
-${AC}${Fyellow}---------------------------
-分析：
-    超过50M的文件，提交时会被警告，而超过100M的文件，会被拒绝提交
-${AC} ${AC}${Fgreen}
-(1).查看.git大小,它确实挺大的, index/stage可能很大，包含了超过50MB文件和超过100MB文件${AC}
-jielong.lin@TpvServer:~/github/philipstv_tpv$ du -h -d 1
+${Fyellow}---------------------------${AC}
+${Fyellow}分析：${AC}
+${Fyellow}    超过50M的文件，提交时会被警告，而超过100M的文件，会被拒绝提交 ${AC}
+
+${Fgreen}(1).查看.git大小,它确实挺大的, index/stage可能很大，包含了超过50MB文件和超过100MB文件${AC}
+jl@S:~/github/philipstv_tpv$ ${Fgreen}du -h -d 1 ${AC}
 575M    ./.git
 117M    ./DRM_OpenSource
-767M    .${AC}${Fgreen}
-(2).查看workspace和index/stage状态：${AC}
+767M    .
+${Fgreen}(2).查看workspace和index/stage状态：${AC}
 
 
 
