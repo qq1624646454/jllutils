@@ -859,7 +859,8 @@ declare -a GvMenuUtilsContent=(
     "Make Tool upg Image : upg is only maked after Compilation"
     "Git Push For LocalRepository To RemoteRepository"
     "All Git Repositores Status"
-    "Sync Latest Code And Checkout Version Into ${GvCONF_TAG_Pattern}aaa.bbb.ccc.ddd"
+    "Checkout Version Into ${GvCONF_TAG_Pattern}aaa.bbb.ccc.ddd"
+    "Sync Latest Code"
 )
 Lfn_MenuUtils GvResult  "Select" 7 4 "***** MENU (q: quit no matter what) *****"
 GvResultID=0
@@ -1090,66 +1091,6 @@ if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
     # only for 2k17 asta N
     GvPrjRootPath="${GvPrjRootPath}/android/n-base"
 
-    echo
-    read -p "JLL-Ask: Sync Latest Code if press [y], or not:   "  GvChoice
-    if [ x"${GvChoice}" = x"y" ]; then
-        unset GvChoice
-        declare -i GvPageUnit=10
-        declare -i GvMenuID=0
-        declare -a GvPageMenuUtilsContent
-        GvPageMenuUtilsContent[GvMenuID++]="automatically sync with reset"
-        GvPageMenuUtilsContent[GvMenuID++]="automatically sync without reset"
-        GvPageMenuUtilsContent[GvMenuID++]="manually sync"
-        Lfn_PageMenuUtils GvAutoChoice  "Select" 7 4 "***** SYNC MODE  (q: quit) *****"
-        GvChoice=1
-        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[0]}" ]; then
-            GvChoice=0
-        fi
-        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[1]}" ]; then
-            GvChoice=1
-        fi
-        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[2]}" ]; then
-            GvChoice=2
-        fi
-        [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
-        [ x"${GvMenuID}" != x ] && unset GvMenuID
-        [ x"${GvPageUnit}" != x ] && unset GvPageUnit
- 
-        echo
-        cd ${GvPrjRootPath}
-        pwd
-        echo
-        if [ x"${GvChoice}" = x"2" ]; then # manually sync 
-            repo forall -c 'pwd;if [ x"$(git status -s)" != x ]; then \
-                            read -p "Jll: Reset Code@ $(pwd) if press [y], or not:  " __GvChoive; \
-                            fi; \
-                            if [ x"${__GvChoive}" = x"y" ]; then \
-                                git clean -dfx; git reset --hard HEAD; \
-                            fi; '
-            __SSHCONF_Switching_Start__jielong
-            repo sync
-            __SSHCONF_Switching_End
-        else
-            if [ x"${GvChoice}" = x"1" ]; then # automatically sync without reset
-                __SSHCONF_Switching_Start__jielong
-                repo sync
-                __SSHCONF_Switching_End
-            else
-                if [ x"${GvChoice}" = x"0" ]; then # automatically sync with reset
-                    repo forall -c "pwd; git clean -dfx; git reset --hard HEAD"
-                    __SSHCONF_Switching_Start__jielong
-                    repo sync
-                    __SSHCONF_Switching_End
-                else
-                    echo "JLL: Error because unknown sync mode {manually or automatically}"
-                fi
-            fi
-        fi
-        echo
-        cd -  >/dev/null
-    fi
-    echo
-
     if [ ! -e "${GvPrjRootPath}/frameworks/av/.git" ]; then
         echo
         Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  \
@@ -1289,8 +1230,88 @@ if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
     exit 0
 fi
 
+## "Sync Latest Code"
+if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+    unset GvMenuUtilsContent
+    unset GvMenuUtilsContentCnt
 
-unset GvMenuUtilsContent
-unset GvMenuUtilsContentCnt
+    # Find the same level path which contains .repo folder
+    Lfn_Sys_GetSameLevelPath  GvPrjRootPath ".repo"
+    if [ ! -e "${GvPrjRootPath}" ]; then
+        Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
+        Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
+        exit 0
+    fi
+    echo
+    #GvRepoPath="${GvRootPath##${GvPrjRootPath}}"
+    GvRepoPath="${GvPrjRootPath}"
+    # only for 2k17 asta N
+    GvPrjRootPath="${GvPrjRootPath}/android/n-base"
+
+    echo
+    #read -p "JLL-Ask: Sync Latest Code if press [y], or not:   "  GvChoice
+    #if [ x"${GvChoice}" = x"y" ]; then
+    #    unset GvChoice
+        declare -i GvPageUnit=10
+        declare -i GvMenuID=0
+        declare -a GvPageMenuUtilsContent
+        GvPageMenuUtilsContent[GvMenuID++]="automatically sync with reset"
+        GvPageMenuUtilsContent[GvMenuID++]="automatically sync without reset"
+        GvPageMenuUtilsContent[GvMenuID++]="manually sync"
+        Lfn_PageMenuUtils GvAutoChoice  "Select" 7 4 "***** SYNC MODE  (q: quit) *****"
+        GvChoice=1
+        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[0]}" ]; then
+            GvChoice=0
+        fi
+        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[1]}" ]; then
+            GvChoice=1
+        fi
+        if [ x"${GvAutoChoice}" = x"${GvPageMenuUtilsContent[2]}" ]; then
+            GvChoice=2
+        fi
+        [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+        [ x"${GvMenuID}" != x ] && unset GvMenuID
+        [ x"${GvPageUnit}" != x ] && unset GvPageUnit
+ 
+        echo
+        cd ${GvPrjRootPath}
+        pwd
+        echo
+        if [ x"${GvChoice}" = x"2" ]; then # manually sync 
+            repo forall -c 'pwd;if [ x"$(git status -s)" != x ]; then \
+                            read -p "Jll: Reset Code@ $(pwd) if press [y], or not:  " __GvChoive; \
+                            fi; \
+                            if [ x"${__GvChoive}" = x"y" ]; then \
+                                git clean -dfx; git reset --hard HEAD; \
+                            fi; '
+            __SSHCONF_Switching_Start__jielong
+            repo sync
+            __SSHCONF_Switching_End
+        else
+            if [ x"${GvChoice}" = x"1" ]; then # automatically sync without reset
+                __SSHCONF_Switching_Start__jielong
+                repo sync
+                __SSHCONF_Switching_End
+            else
+                if [ x"${GvChoice}" = x"0" ]; then # automatically sync with reset
+                    repo forall -c "pwd; git clean -dfx; git reset --hard HEAD"
+                    __SSHCONF_Switching_Start__jielong
+                    repo sync
+                    __SSHCONF_Switching_End
+                else
+                    echo "JLL: Error because unknown sync mode {manually or automatically}"
+                fi
+            fi
+        fi
+        [ x"${GvChoice}" != x ] && unset GvChoice
+        echo
+        cd -  >/dev/null
+    #fi
+    echo
+fi
+
+[ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
+[ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+
 exit 0
  
