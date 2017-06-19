@@ -12,14 +12,14 @@ more >&1<<EOF
 
   GIT Remote Transaction require to using SSH-Key: 
     ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC},
-  exit if press [q],
-  or next to select other SSH-Key
+    ${Fseablue}exit if press ${Fyellow}[q]${AC},
+    ${Fyellow}or${Fseablue} next to select other SSH-Key${AC}
 EOF
         read -n 1 __MyChoice
     fi
 
 fi
-
+exit 0
 case x"$1" in
 x"push")
     if [ x"$(git status -s)" != x ]; then
