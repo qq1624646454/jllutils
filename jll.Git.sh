@@ -157,6 +157,7 @@ EOF
                         exit 0 
                     fi
                     [ -e "${__JLLCFG_SshKey_RootPath}" ] && rm -rf ${__JLLCFG_SshKey_RootPath}
+                    cp -rf ${JLLPATH}/.sshconf ${__JLLCFG_SshKey_RootPath}
                     cp -rf ${JLLPATH}/.sshconf/qq1624646454@csdn_github ${HOME}/.ssh
                      
                 fi
