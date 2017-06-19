@@ -140,9 +140,8 @@ EOF
                 done
                 [ x"${__sshconf_list}" != x ] && unset __sshconf_list
                 GvPageMenuUtilsContent[___i]="Install: setup ssh keys then let jllutils over SSH"
-                unset __sshconf_list 
-Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
+                Lfn_PageMenuUtils __result  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
+                if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
  
 
 
