@@ -138,7 +138,6 @@ EOF
                 echo "JLL-Probing: Collecting all the items from ${__JLLCFG_SshKey_RootPath}"
                 __sshconf_list=$(ls -l "${__JLLCFG_SshKey_RootPath}" 2>/dev/null \
                                  | grep -E '^d' | awk -F ' ' '{print $9}')
-                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                 for __sshconf_item in ${__sshconf_list}; do
                     echo "JLL-Probing: $___i - ${__sshconf_item}" 
                     GvPageMenuUtilsContent[___i++]="sshkey use: ${__sshconf_item}"
@@ -157,7 +156,11 @@ JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
 EOF
                         exit 0 
                     fi
+                    [ -e "${__JLLCFG_SshKey_RootPath}" ] && rm -rf ${__JLLCFG_SshKey_RootPath}
+                    cp -rf ${JLLPATH}/.sshconf/qq1624646454@csdn_github ${HOME}/.ssh
+                     
                 fi
+                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 
             fi
         fi
