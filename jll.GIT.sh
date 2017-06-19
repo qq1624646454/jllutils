@@ -8,11 +8,13 @@ source ${JLLPATH}/BashShellLibrary
 if [ x"$1" = x"push" -o x"$1" = x"pull" ]; then
     [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
     if [ ${__isSSHKey} -eq 1 ]; then
-        echo
-        echo "JLL: git require to using SSH-Key:"
-        echo "     ~/.ssh/id_rsa if press [y],"
-        echo "     exit if press [q],"
-        echo "     or next to select other SSH-Key"
+more >&1<<EOF
+
+  GIT Remote Transaction require to using SSH-Key: 
+    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC},
+  exit if press [q],
+  or next to select other SSH-Key
+EOF
         read -n 1 __MyChoice
     fi
 
