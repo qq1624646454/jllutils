@@ -169,7 +169,7 @@ EOF
 
                     if [ ! -e "${JLLPATH}/.git" ]; then
 more >&1<<EOF
-JLL-Failure: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLLPATH}/.git\"${AC}
+JLL-Exit: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLLPATH}/.git\"${AC}
 EOF
                         rm -rf ${HOME}/.ssh
                         rm -rf ${__JLLCFG_SshKey_RootPath}
@@ -192,10 +192,11 @@ EOF
                         __RawCTX=${__RawCTX/https:\/\//git@}
                         __RawCTX=${__RawCTX/\//:}
                         if [ x"${__RawCTX}" = x ]; then
-                            echo
-                            echo "JLL: Exit because not obtain git@URL for the current .git"
-                            echo
-                            unset __RawCTX
+more >&1<<EOF
+JLL-Exit: Not obtain ${Fred}\"git@URL\"${AC} for the current .git
+EOF
+                            [ x"${__RawCTX}" != x ] && unset __RawCTX
+                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                             exit 0
                         fi
                         echo
