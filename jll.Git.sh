@@ -178,7 +178,34 @@ EOF
                         if [ -e "${HOME}/.ssh/config" ]; then
                             chmod +w ${HOME}/.ssh/config*
                         fi
+                        [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                        exit 0
                     fi
+                    # Push  URL: https://github.com/qq1624646454/jllutils.git
+                    __RawCTX=$(cd ${JLLPATH} >/dev/null;\
+               git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL:[ ]{0,}git")
+    if [ x"${__RawCTX}" = x ]; then
+      __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
+                 git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
+      __RawCTX=${__RawCTX#*URL:}
+      __RawCTX=${__RawCTX/https:\/\//git@}
+      __RawCTX=${__RawCTX/\//:}
+      if [ x"${__RawCTX}" = x ]; then
+        echo
+        echo "JLL: Exit because not obtain git@URL for the current .git"
+        echo
+        unset CvScriptPath
+        unset CvScriptName
+        unset CvPathFileForScript
+        unset __RawCTX
+        exit 0
+      fi
+      echo
+      cd ${CvScriptPath}
+      git remote set-url --push origin ${__RawCTX}
+      echo
+      git remote show origin
+      cd - >/dev/null
  
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
