@@ -147,7 +147,10 @@ EOF
                     [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                     [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                     if [ ! -e "${JLLPATH}/.sshconf/qq1624646454@csdn_github" ]; then
-
+more >&1<<EOF
+JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
+EOF
+                        
                     fi
                 fi
 
