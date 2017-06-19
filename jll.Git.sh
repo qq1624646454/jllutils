@@ -87,6 +87,7 @@ EOF
             fi
         fi
         if [ x"${__MyChoice}" != x"y" ]; then
+            unset __MyChoice
             __isMatch=${__JLLCFG_NR_SshKey_URLs}
             for((__i=0; __i<__JLLCFG_NR_SshKey_URLs; __i+=2)) {
                 echo "JLL-Probing: \"${__JLLCFG_SshKey_URLs[__i+1]}\" = \"${__URL}\""
@@ -96,6 +97,7 @@ EOF
                     break;
                 fi
             }
+            [ x"${__URL}" != x ] && unset __URL
             if [ ${__isMatch} -ne ${__JLLCFG_NR_SshKey_URLs} -a \
                 -e "${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}" ]; then
                 echo "JLL-Using: ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}"
