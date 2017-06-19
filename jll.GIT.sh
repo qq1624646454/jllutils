@@ -7,7 +7,7 @@ source ${JLLPATH}/BashShellLibrary
 
 case x"$1" in
 x"push")
-
+    [ ]
 
     if [ x"$(git status -s)" != x ]; then
         git add -A
