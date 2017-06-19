@@ -78,6 +78,7 @@ more >&1<<EOF
 EOF
             read -n 1 __MyChoice
             if [ x"${__MyChoice}" = x"q" ]; then
+                unset __MyChoice
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
