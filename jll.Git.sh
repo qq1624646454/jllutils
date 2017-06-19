@@ -155,7 +155,7 @@ EOF
 more >&1<<EOF
 JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
 EOF
-                        
+                        exit 0 
                     fi
                 fi
 
