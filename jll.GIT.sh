@@ -8,6 +8,14 @@ source ${JLLPATH}/BashShellLibrary
 case x"$1" in
 x"push")
     [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
+    if [ ${__isSSHKey} -eq 1 ]; then
+        echo
+        echo "JLL: git require to using SSH-Key:"
+        echo "     ~/.ssh/id_rsa if press [y]"
+        echo "     exit if press [q]"
+        echo "     next to select SSH-Key"
+        read
+    fi
 
     if [ x"$(git status -s)" != x ]; then
         git add -A
