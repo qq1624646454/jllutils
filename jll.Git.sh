@@ -159,7 +159,10 @@ EOF
                     [ -e "${__JLLCFG_SshKey_RootPath}" ] && rm -rf ${__JLLCFG_SshKey_RootPath}
                     cp -rf ${JLLPATH}/.sshconf ${__JLLCFG_SshKey_RootPath}
                     cp -rf ${JLLPATH}/.sshconf/qq1624646454@csdn_github ${HOME}/.ssh
-                     
+                    chmod -R 0500 ${HOME}/.ssh/*
+                    if [ -e "${HOME}/.ssh/config" ]; then
+                        chmod +w ${HOME}/.ssh/config*
+                    fi
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 
