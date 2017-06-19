@@ -143,7 +143,9 @@ EOF
                 Lfn_PageMenuUtils __result  "Select" 7 4 \
                                   "***** Configure Under \"~/.ssh/\" (q: quit) *****"
                 if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
- 
+                    [ x"${__result}" != x ] && unset __result
+                    [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                 fi
 
             fi
