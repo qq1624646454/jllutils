@@ -214,6 +214,13 @@ EOF
                     fi
                     [ x"${__RawCTX}" != x ] && unset __RawCTX
                 fi
+                if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
+                    [ x"${__result}" != x ] && unset __result
+                    [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+               
+                    [ x"${__result}" != x ] && unset __result
+                fi  
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 
             fi
