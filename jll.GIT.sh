@@ -5,6 +5,18 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
+function __Get_URL_From_GIT()
+{
+    __FetchURL=$(git remote show origin | grep -Ei '^[ \t]{0,}Fetch[ \t]{1,}URL:')
+    __PushURL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
+
+    echo "__FetchURL=${__FetchURL##*URL: }"
+    echo "__PushURL=${__PushURL##*URL: }"
+}
+
+__Get_URL_From_GIT
+exit 0
+
 if [ x"$1" = x"push" -o x"$1" = x"pull" ]; then
     [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
     if [ ${__isSSHKey} -eq 1 ]; then
@@ -16,6 +28,16 @@ more >&1<<EOF
     ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
 EOF
         read -n 1 __MyChoice
+    else
+more >&1<<EOF
+
+  GIT Remote Transaction require to using SSH-Key: 
+    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
+    ${Fseablue}exit if press ${Fyellow}[q]${AC};
+    ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
+EOF
+        read -n 1 __MyChoice
+ 
     fi
 
 fi
