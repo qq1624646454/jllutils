@@ -210,7 +210,8 @@ EOF
                         cd ${JLLPATH}
                         git remote show origin
                         cd - >/dev/null
-                    fi 
+                    fi
+                    [ x"${__RawCTX}" != x ] && unset __RawCTX
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 
