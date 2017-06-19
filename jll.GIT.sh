@@ -5,9 +5,10 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
-
 case x"$1" in
 x"push")
+
+
     if [ x"$(git status -s)" != x ]; then
         git add -A
         git commit -m "update by $(basename $0) @ $(date +%Y-%m-%d\ %H:%M:%S)"
