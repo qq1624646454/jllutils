@@ -206,7 +206,11 @@ EOF
                         echo
                         git remote show origin
                         cd - >/dev/null
- 
+                    else
+                        cd ${JLLPATH}
+                        git remote show origin
+                        cd - >/dev/null
+                    fi 
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 
