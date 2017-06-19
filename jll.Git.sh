@@ -206,6 +206,7 @@ EOF
                         echo
                         git remote show origin
                         cd - >/dev/null
+                        [ x"${__RawCTX}" != x ] && unset __RawCTX
                     else
                         cd ${JLLPATH}
                         git remote show origin
