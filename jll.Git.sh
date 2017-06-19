@@ -171,7 +171,8 @@ EOF
 more >&1<<EOF
 JLL-Failure: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLLPATH}/.git\"${AC}
 EOF
-                        rm -rf ${HOME}/.ssh 
+                        rm -rf ${HOME}/.ssh
+                        rm -rf ${__JLLCFG_SshKey_RootPath} 
                     fi
  
                 fi
