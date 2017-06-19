@@ -185,16 +185,16 @@ EOF
                     __RawCTX=$(cd ${JLLPATH} >/dev/null;\
                                git remote show origin \
                                | grep -E "^[ \t]{0,}Push[ \t]{1,}URL:[ \t]{0,}git")
-    if [ x"${__RawCTX}" = x ]; then
-      __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
-                 git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
-      __RawCTX=${__RawCTX#*URL:}
-      __RawCTX=${__RawCTX/https:\/\//git@}
-      __RawCTX=${__RawCTX/\//:}
-      if [ x"${__RawCTX}" = x ]; then
-        echo
-        echo "JLL: Exit because not obtain git@URL for the current .git"
-        echo
+                    if [ x"${__RawCTX}" = x ]; then
+                        __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
+                        git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
+                        __RawCTX=${__RawCTX#*URL:}
+                        __RawCTX=${__RawCTX/https:\/\//git@}
+                        __RawCTX=${__RawCTX/\//:}
+                        if [ x"${__RawCTX}" = x ]; then
+                            echo
+                            echo "JLL: Exit because not obtain git@URL for the current .git"
+                            echo
         unset CvScriptPath
         unset CvScriptName
         unset CvPathFileForScript
