@@ -11,9 +11,9 @@ if [ x"$1" = x"push" -o x"$1" = x"pull" ]; then
 more >&1<<EOF
 
   GIT Remote Transaction require to using SSH-Key: 
-    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC},
-    ${Fseablue}exit if press ${Fyellow}[q]${AC},
-    ${Fyellow}or${Fseablue} next to select other SSH-Key${AC}
+    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
+    ${Fseablue}exit if press ${Fyellow}[q]${AC};
+    ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
 EOF
         read -n 1 __MyChoice
     fi
