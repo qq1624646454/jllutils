@@ -9,13 +9,26 @@
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+${Byellow}${Fblack}=====================================${AC}
+${Fyellow}     Users and Groups List
+${Byellow}${Fblack}=====================================${AC}
+1）与用户（user）相关的配置文件；
+/etc/passwd 注：用户（user）的配置文件；
+/etc/shadow 注：用户（user）影子口令文件；
+
+2）与用户组（group）相关的配置文件；
+/etc/group 注：用户组（group）配置文件；
+/etc/gshadow 注：用户组（group）的影子文件；
+
+
 
 
 
