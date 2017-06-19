@@ -231,7 +231,7 @@ EOF
 
     ##__FetchURL=https://github.com/qq1624646454/jllutils.git
     ##__PushURL=git@github.com:qq1624646454/jllutils.git
-    #echo "__URL=${__URL} _is_HTTPS_URL=${__is_HTTPS_URL}"
+    echo "__URL=${__URL} _is_HTTPS_URL=${__is_HTTPS_URL}"
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
 
