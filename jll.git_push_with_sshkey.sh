@@ -144,20 +144,14 @@ cd - >/dev/null
 #####
 #####  MAIN
 #####
-if [ x"$(which realpath)" = x ]; then
-    echo
-    echo "JLL.IDE: Please install \"realpath\" first"
-    echo
-    exit 0
-fi
 
     # Check private ssh key
-    GvRescuePath=$(realpath ~)/.ssh.for_____release.R$(date +%Y%m%d%H%M%S)
-    if [ -e "$(realpath ~)/.ssh" ]; then
-        mv -f $(realpath ~)/.ssh  ${GvRescuePath}
+    GvRescuePath=${HOME}/.ssh.for_____release.R$(date +%Y%m%d%H%M%S)
+    if [ -e "${HOME}/.ssh" ]; then
+        mv -f ${HOME}/.ssh  ${GvRescuePath}
     fi
-    mkdir -p $(realpath ~)/.ssh
-cat >$(realpath ~)/.ssh/id_rsa <<EOF
+    mkdir -p ${HOME}/.ssh
+cat >${HOME}/.ssh/id_rsa <<EOF
 -----BEGIN RSA PRIVATE KEY-----
 Proc-Type: 4,ENCRYPTED
 DEK-Info: AES-128-CBC,AECFEEC72412B35880117D37FF07B0A4
@@ -189,7 +183,7 @@ dQ6ChDltBUasfFbnFVLhIPX0G7TtH8fGuOrc601t161JhOKz03xgWpSGEBTsQcdh
 QRBhky1pkCPEdJmCYcfm9rZFFh90J6eMX978BRC4ENtK9qtejVFCJBgi4nyaJefN
 -----END RSA PRIVATE KEY-----
 EOF
-    chmod 0500 $(realpath ~)/.ssh/id_rsa
+    chmod 0500 ${HOME}/.ssh/id_rsa
 
 
 cd ${GvRootPath}
@@ -201,9 +195,9 @@ git log --graph \
 cd - >/dev/null
 
 echo
-if [ -e "$(realpath ~)/.ssh" -a -e "${GvRescuePath}" ]; then
-    rm -rf $(realpath ~)/.ssh
-    mv -f ${GvRescuePath} $(realpath ~)/.ssh
+if [ -e "${HOME}/.ssh" -a -e "${GvRescuePath}" ]; then
+    rm -rf ${HOME}/.ssh
+    mv -f ${GvRescuePath} ${HOME}/.ssh
 fi
 echo
 unset GvRescuePath
