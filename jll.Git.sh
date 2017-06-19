@@ -196,15 +196,16 @@ more >&1<<EOF
 JLL-Exit: Not obtain ${Fred}\"git@URL\"${AC} for the current .git
 EOF
                             [ x"${__RawCTX}" != x ] && unset __RawCTX
-                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] \
+                                && unset __JLLCFG_SshKey_RootPath
                             exit 0
                         fi
                         echo
-      cd ${CvScriptPath}
-      git remote set-url --push origin ${__RawCTX}
-      echo
-      git remote show origin
-      cd - >/dev/null
+                        cd ${JLLPATH}
+                        git remote set-url --push origin ${__RawCTX}
+                        echo
+                        git remote show origin
+                        cd - >/dev/null
  
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
