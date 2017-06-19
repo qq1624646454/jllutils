@@ -136,8 +136,9 @@ EOF
                                  | grep -E '^d' | awk -F ' ' '{print $9}')
                 for __sshconf_item in ${__sshconf_list}; do
                     echo "JLL-Probing: $___i - ${__sshconf_item}" 
-                    GvPageMenuUtilsContent[___i++]="sshkey use: ${GvItem}"
+                    GvPageMenuUtilsContent[___i++]="sshkey use: ${__sshconf_item}"
                 done
+                [ x"${__sshconf_list}" != x ] && unset __sshconf_list
                 GvPageMenuUtilsContent[___i]="Install: setup ssh keys then let jllutils over SSH"
                 unset __sshconf_list 
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
