@@ -68,6 +68,7 @@ EOF
         [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
         __MyChoice="n"
         if [ ${__isSSHKey} -eq 1 ]; then
+            [ x"${__isSSHKey}" != x ] && unset __isSSHKey
 more >&1<<EOF
 
   GIT Remote Transaction require to using SSH-Key: 
@@ -81,7 +82,6 @@ EOF
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                 [ x"${__URL}" != x ] && unset __URL
-                [ x"${__isSSHKey}" != x ] && unset __isSSHKey
                 exit 0
             fi
         fi
@@ -115,17 +115,23 @@ EOF
                 if [ -e "${HOME}/.ssh/config" ]; then
                     chmod +w ${HOME}/.ssh/config*
                 fi
+                [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
+                [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
+                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                [ x"${__URL}" != x ] && unset __URL
+                [ x"${__isSSHKey}" != x ] && unset __isSSHKey
             else
                 if [ -e "${HOME}/.ssh" ]; then
                     echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"${__ssh_package}\""
                     mv -fv ${HOME}/.ssh  ${HOME}/${__ssh_package}
                     echo
                 fi
-                jll.sshconf.sh
-
-
-
-
+                [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
+                [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
+                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                [ x"${__URL}" != x ] && unset __URL
+                [ x"${__isSSHKey}" != x ] && unset __isSSHKey
+                
 
                 ___i=0
                 declare -i GvPageUnit=10
