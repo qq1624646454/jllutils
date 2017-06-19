@@ -138,8 +138,8 @@ EOF
                     echo "JLL-Probing: $___i - ${__sshconf_item}" 
                     GvPageMenuUtilsContent[___i++]="sshkey use: ${GvItem}"
                 done
-                GvPageMenuUtilsContent[___i]="installing: setup ssh keys then let jllutils over SSH"
-unset GvList 
+                GvPageMenuUtilsContent[___i]="Install: setup ssh keys then let jllutils over SSH"
+                unset __sshconf_list 
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
  
