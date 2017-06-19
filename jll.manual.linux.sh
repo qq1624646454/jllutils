@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-19 10:38:33
-#   ModifiedTime: 2017-04-20 17:12:47
+#   ModifiedTime: 2017-06-19 15:44:31
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -20,11 +20,11 @@ more >&1<<EOF
 ${Byellow}${Fblack}=====================================${AC}
 ${Fyellow}     Users and Groups List
 ${Byellow}${Fblack}=====================================${AC}
-1）与用户（user）相关的配置文件；
+${Fseablue}1）与用户（user）相关的配置文件；${AC}
 /etc/passwd 注：用户（user）的配置文件；
 /etc/shadow 注：用户（user）影子口令文件；
 
-2）与用户组（group）相关的配置文件；
+${Fseablue}2）与用户组（group）相关的配置文件；${AC}
 /etc/group 注：用户组（group）配置文件；
 /etc/gshadow 注：用户组（group）的影子文件；
 
