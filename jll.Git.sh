@@ -173,7 +173,11 @@ JLL-Failure: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLL
 EOF
                         rm -rf ${HOME}/.ssh
                         rm -rf ${__JLLCFG_SshKey_RootPath}
-                        mv -fv ${__}
+                        mv -fv ${__ssh_package} ${HOME}/.ssh
+                        chmod -R 0500 ${HOME}/.ssh/*
+                        if [ -e "${HOME}/.ssh/config" ]; then
+                            chmod +w ${HOME}/.ssh/config*
+                        fi
                     fi
  
                 fi
