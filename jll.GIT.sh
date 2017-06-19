@@ -7,7 +7,7 @@ source ${JLLPATH}/BashShellLibrary
 
 case x"$1" in
 x"push")
-    [ ]
+    [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
 
     if [ x"$(git status -s)" != x ]; then
         git add -A
