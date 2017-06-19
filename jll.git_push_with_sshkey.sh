@@ -2,6 +2,239 @@
 #Copyright(c) 2016-2100,  jielong_lin,  All rights reserved.
 #
 
+#git push ssh://${GvCONF_HOST}/${LvProject} HEAD:refs/for/${LvCurrentRevision}
+GvCONF_HOST=gerrit-master
+
+#User@${GvCONF_EmailSuffix}
+GvCONF_EmailSuffix=tpv-tech.com
+
+GvCONF_TAG_Pattern=QM152E_R
+
+
+#The below variables are set by __SSHCONF_GetCommiter
+GvCONF_Committer_Author=
+GvCONF_Committer_Email=
+
+function __SSHCONF_GetCommiter()
+{
+    #Example For:
+    #------------------------------
+    #Host url
+    #HostName 172.20.30.2
+    #User jielong.lin 
+    #Port 29420
+    #IdentityFile ~/.ssh/id_rsa
+    if [ ! -e "${HOME}/.ssh/config" ]; then
+        GvCONF_Committer_Author=$(git config --global user.name)
+        GvCONF_Committer_Email=$(git config --global user.email)
+        if [ x"${GvCONF_Committer_Author}" != x -a x"${GvCONF_Committer_Email}" != x ]; then
+            echo
+            echo "JLL: using origin 'git config --global user.name and user.email':"
+            echo "-----------------------------------------------------------"
+            echo "JLL: committer author = ${GvCONF_Committer_Author}" 
+            echo "JLL: committer email = ${GvCONF_Committer_Email}"
+            echo 
+        else
+            echo
+            echo "JLL: failed to use origin 'git config --global user.name and user.email'"
+            echo "JLL: please set git config for committer by manual"
+            echo
+        fi
+    else
+        declare -a __HOST_Table
+        OldIFS=${IFS}
+        IFS=$'\n'
+        GvI=0
+        for GvLine  in $(grep -n -E "^Host " ${HOME}/.ssh/config); do
+            __HOST_Table[GvI++]=${GvLine} 
+        done 
+        IFS=${OldIFS}
+        if [ ${GvI} -lt 1 ]; then
+            echo
+            echo "JLL: Sorry to exit due to none HOST in ${HOME}/.ssh/config"
+            echo
+            unset __HOST_Table
+            exit 0
+        fi
+        declare -a GvHitHostTable
+        declare -a GvHitUserTable
+        IFS=$'\n'
+        GvK=0
+        for GvLine in $(grep --color -n -E "^User " ${HOME}/.ssh/config); do
+            echo "JLL: Probing ${GvLine}"
+            GvIdx=${GvLine%%:*}
+            # Search the line number of the Host 
+            for((GvJ=0; GvJ<GvI; GvJ++)) {
+                GvIsMatch=0
+                if [ ${GvIdx} -lt ${__HOST_Table[GvJ]%%:*} ]; then
+                    GvIsMatch=1
+                else 
+                    # GvIdx belong to the tail item
+                    if [ $((GvJ+1)) -eq ${GvI} ]; then
+                       echo "JLL: reach to Tail Item"
+                       GvIsMatch=1
+                       GvJ=$((GvJ+1))
+                    fi
+                fi
+
+                if [ ${GvIsMatch} -eq 1 ]; then
+                    GvIsHit=0
+                    for((GvN=0;GvN<GvK;GvN++)) {
+                        # check if same
+                        if [ x"${GvHitHostTable[GvN]}" = x"${__HOST_Table[GvJ-1]##*Host }" ]; then
+                           GvIsHit=1;
+                           break;
+                        fi
+                    }
+                    if [ ${GvIsHit} -eq 0 ]; then
+                        echo "JLL: Hit=${__HOST_Table[GvJ-1]##*Host }"
+                        GvHitHostTable[GvK]=${__HOST_Table[GvJ-1]##*Host }
+                        GvHitUserTable[GvK++]=${GvLine##*User }
+                    fi
+                    break;
+                fi
+            }
+        done
+        IFS=${OldIFS}
+        unset __HOST_Table
+        echo
+        echo "======================================="
+        echo "JLL: Hit-Total is $GvK"
+        echo "======================================="
+        echo
+
+        for((i=0;i<${GvK};i++)) {
+            echo "JLL: Check if \"$(echo ${GvHitHostTable[i]})\"==\"${GvCONF_HOST}\" "
+            if [ x"$(echo ${GvHitHostTable[i]})" = x"${GvCONF_HOST}" ]; then
+                GvCONF_Committer_Author=$(echo ${GvHitUserTable[i]})
+                GvCONF_Committer_Email=${GvCONF_Committer_Author}@${GvCONF_EmailSuffix}
+                break;
+            fi
+        }
+        unset GvHitHostTable
+        unset GvHitUserTable
+
+        if [ x"${GvCONF_Committer_Author}" != x -a x"${GvCONF_Committer_Email}" != x ]; then
+            echo
+            echo "JLL: using ${HOME}/.ssh/config for setting committer:"
+            echo "-----------------------------------------------------------"
+            echo "JLL: committer author = ${GvCONF_Committer_Author}" 
+            echo "JLL: committer email = ${GvCONF_Committer_Email}"
+            echo 
+        else
+            echo
+            echo "JLL: failed to use ${HOME}/.ssh/config for setting committer"
+            echo "JLL: please set git config for committer by manual"
+            echo
+        fi
+    fi
+}
+
+
+__ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
+function __SSHCONF_Switching_Start__jielong()
+{
+    echo
+    if [ -e "${HOME}/.ssh" ]; then
+        echo "JLL: ~/.ssh will be moved to ${__ssh_package}"
+        mv -fv ${HOME}/.ssh  ${HOME}/${__ssh_package}
+        echo
+    fi
+    mkdir -pv ${HOME}/.ssh
+    chmod 0777 ${HOME}/.ssh
+    echo "JLL: Generate ~/.ssh/id_rsa belong to jielong.lin@tpv-tech.com"
+cat >${HOME}/.ssh/id_rsa <<EOF
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA30E5aVhLJYIp3exNWMIjKFTKd25oOxdw25oBJE4bDxS5yCsE
+IJOhNrlPGKzyo22q3tIpiuZg4Ld6l9n2BxNbSND2sezhr4TnikVPPgCZdcGmUGho
+OGkVM2CqTiEL2kL9qDS9vEOxg818nHhbiVuF7MVO0eij/Yk17/b+iDgSsmHJ5zcw
+DMdA4+jauXERyAzdfEzHbmmKbR6L2TIkMPqYFieFHpS7zGxssR0tPxqTKd7I9reI
+2b8rK2yTwCRnaWKTuKP+uOfLYrg0fdx/N88/X8sC6Vfw/qnaoPXoahW1cWDXH1G9
+K7Gn+mZxKqGSOZlybcPL+ZNknKZytkRZqc3WRQIDAQABAoIBAGZq9JyIPckSQoSl
+cAJE5X4OD+fkRXq+US7dIqL2FeHAP049taIAN9f0AP4v8QvaNqYLwbUP5OeSJHJf
+MkeisKDiBBoxsoMjtFixXR3zhnMICHUgwJcIVgqA0QAQlvBlBRrSPyyL3Xa6oOzj
+JhMIYpLxHSyczgZ0mMLiC3iQSLt913rdehD1y6aseinLyUuwembvxMZw2FIrSqy9
+pKi50Pp2dWQ3rq4M11K7GTe9wfqvIIWVVvnYlawV5SNLUXlK5G8LFS4N/tUN+nqk
+MCS7ooeeBKn9/UDjg7l5gDX/VqsCLBvCEO9mg8VT+jkUpE3nbEgO6gBsZ70mBnY9
+H1D/iu0CgYEA9y3Ve2bsdmUiDRiNdEOR2WiGtAQOdPeEW6cX/9ldwo+Dff9ZRjXO
+eTRjcDHUKmaHGmrrqyZnARAWrWZ9aVIGrPFHFyRAf/oApfJQYDHRtQ285rzKD3FQ
+4HIV3TtYfO7gf756xtyYXLSQvNaXEjTbYw+mlZTpBnXWKFnl7LwpwncCgYEA5zjT
+BbbgiIjxN56S0Ri8MCWRgeTwdmSIgz/m6+k0YEGu+H8GKmDvSmb7w2nxVuL1FhKQ
+BvQe8Kaxnsfu5xiKGNjJ2cSzlR86Bp3h+oVQun7fcAUf704B35DPu1nuM4IyN1zn
+gllsbGN10Eg7ZdSiucWcYbsqLMCGvgH6dux5wCMCgYEA9w7v350bYqdpJo/Q61GS
+WSzZ3tpjHNQ9jmJwYYEA7zQE6Q4uTDgBvTH45i5X811xUp1mGzaSJATRtdXIKlob
+ZAbx2JaahY/7z+JoJg4FnqMxmas/h7nqbbx6UBs+MfmNmQFptJTPEXJFbQpMC52b
+XuNIzR/+3j8vpDtezoWwc7cCgYBvszfeTtZxnxZItEZg1P40lDGS+rJfv3ljTn+T
+//jZd2G7kkG8P0/aNZ3ybT+1pbaYjycc9Nntj9nGxvdWlLhCAJiipy/KHme9wo/k
+onq5XYk7aH5g8OJeympQK8WzBHaV4D/G7MRAKFxF3l8zdmGWNSyy2eQp8mglandA
+9ERs2QKBgQCoYfcDBFi+bnr0USxBO2ysXOhkkzLzigos7WEeW+R56zmgqGiiw/o7
+vot6BuT0GQnWnhFGh/uEM5+b0Y4vfDKxDXXb4j5Cn6wSMC+Xyn/5XKTJAMleZZg9
+M1KJDNJyY9xEVITOo4KFxVTdmPWeuW8x+KRgpOT3Ws1OzBoSZXBo0g==
+-----END RSA PRIVATE KEY-----
+EOF
+    chmod 0400 ${HOME}/.ssh/id_rsa
+cat >${HOME}/.ssh/config<<EOF
+
+Host         gerrit-XM
+Hostname     172.20.30.2
+Port         29419
+User         jielong.lin
+IdentityFile ~/.ssh/id_rsa
+
+Host         gerrit
+Hostname     inblrgit001.tpvision.com
+Port         29418
+User         jielong.lin
+IdentityFile ~/.ssh/id_rsa 
+
+Host         gerrit-master
+Hostname     inblrgit001.tpvision.com
+Port         29418
+User         jielong.lin
+IdentityFile ~/.ssh/id_rsa
+
+Host url
+HostName 172.20.30.2
+User jielong.lin 
+Port 29420
+IdentityFile ~/.ssh/id_rsa
+
+Host url-tpemaster
+HostName 172.16.112.71
+User jielong.lin 
+Port 29418
+IdentityFile ~/.ssh/id_rsa
+
+Host         url_LatAm
+Hostname     172.16.112.71
+Port         29418
+User         jielong.lin
+IdentityFile ~/.ssh/id_rsa
+
+
+
+EOF
+    chmod 0720 ${HOME}/.ssh/config
+    echo
+}
+
+function __SSHCONF_Switching_End()
+{
+    if [ -e "${HOME}/${__ssh_package}" ]; then
+        if [ -e "${HOME}/.ssh" ]; then
+            rm -rvf ${HOME}/.ssh
+        fi
+        mv -vf ${HOME}/${__ssh_package}  ${HOME}/.ssh
+        echo "JLL: Finish restoring the original ssh configuration."
+    else
+        echo "JLL: Nothing to do for restoring the original ssh configuration."
+    fi
+}
+
+
+
+
+
 ## Usage:
 ##     Lfn_Sys_GetEachUpperLevelPath <oPaths>
 ## Details:
