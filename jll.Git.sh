@@ -215,10 +215,13 @@ EOF
                     [ x"${__RawCTX}" != x ] && unset __RawCTX
                 fi
                 if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
-                    [ x"${__result}" != x ] && unset __result
                     [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                     [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
-               
+                    cp -rvf ${__JLLCFG_SshKey_RootPath}/${__result##*: }/* ${HOME}/.ssh
+                    chmod -R 0500 ${HOME}/.ssh/*
+                    if [ -e "${HOME}/.ssh/config" ]; then
+                        chmod +w ${HOME}/.ssh/config*
+                    fi
                     [ x"${__result}" != x ] && unset __result
                 fi  
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
