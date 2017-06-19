@@ -183,7 +183,8 @@ EOF
                     fi
                     # Push  URL: https://github.com/qq1624646454/jllutils.git
                     __RawCTX=$(cd ${JLLPATH} >/dev/null;\
-               git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL:[ ]{0,}git")
+                               git remote show origin \
+                               | grep -E "^[ \t]{0,}Push[ \t]{1,}URL:[ \t]{0,}git")
     if [ x"${__RawCTX}" = x ]; then
       __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
                  git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
