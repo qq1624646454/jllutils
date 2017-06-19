@@ -167,12 +167,12 @@ EOF
                     echo "JLL-GIT: Change for letting jllutils over SSH"
                     echo
 
-                    if [ ! -e "${JLLPATH}/.git/" ]; then
+                    if [ ! -e "${JLLPATH}/.git" ]; then
 more >&1<<EOF
-JLL-Failure: Not exist ${Fred}\"${JLLPATH}/.git\"${AC}
+JLL-Failure: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLLPATH}/.git\"${AC}
 EOF
- 
-    fi
+                         
+                    fi
  
                 fi
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
