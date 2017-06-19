@@ -5,6 +5,10 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
+# KeyName Url 
+declare -a __JLLCFG_URLs=(
+  "qq1624646454" "github.com/qq1624646454/jllutils.git"
+)
 
 function __Get_URL_From_GIT()
 {
