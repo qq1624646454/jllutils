@@ -45,7 +45,9 @@ if [ x"$1" = x"add" ]; then
         mkdir -pv /home/${GvNewUser}/.vim
         chown -R ${GvNewUser}:${GvNewUser} /home/${GvNewUser}/.vim
     fi
-    cp -rvf ${CvScriptPath}/vimenv/mark-2.8.5/* /home/${GvNewUser}/.vim/
+    if [ -e "${CvScriptPath}/vimenv/mark-2.8.5" ]; then
+        cp -rvf ${CvScriptPath}/vimenv/mark-2.8.5/* /home/${GvNewUser}/.vim/
+    fi
     chown -R ${GvNewUser}:${GvNewUser} /home/${GvNewUser}/.vim
     chmod -R 0700 /home/${GvNewUser}/.vim
     echo
