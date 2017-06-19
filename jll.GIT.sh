@@ -5,6 +5,7 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
+
 function __Get_URL_From_GIT()
 {
     __FetchURL=$(git remote show origin | grep -Ei '^[ \t]{0,}Fetch[ \t]{1,}URL:')
@@ -13,9 +14,10 @@ function __Get_URL_From_GIT()
     __FetchURL=${__FetchURL##*URL: }
     __PushURL=${__PushURL##*URL: }
 
-
-    echo "__FetchURL=${__FetchURL##*URL: }"
-    echo "__PushURL=${__PushURL##*URL: }"
+    ##__FetchURL=https://github.com/qq1624646454/jllutils.git
+    ##__PushURL=git@github.com:qq1624646454/jllutils.git
+    #echo "__FetchURL=${__FetchURL}"
+    #echo "__PushURL=${__PushURL}"
 }
 
 __Get_URL_From_GIT
