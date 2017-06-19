@@ -10,6 +10,10 @@ function __Get_URL_From_GIT()
     __FetchURL=$(git remote show origin | grep -Ei '^[ \t]{0,}Fetch[ \t]{1,}URL:')
     __PushURL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
 
+    __FetchURL=${__FetchURL##*URL: }
+    __PushURL=${__PushURL##*URL: }
+
+
     echo "__FetchURL=${__FetchURL##*URL: }"
     echo "__PushURL=${__PushURL##*URL: }"
 }
