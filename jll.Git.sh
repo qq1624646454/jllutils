@@ -186,7 +186,7 @@ EOF
                                git remote show origin \
                                | grep -E "^[ \t]{0,}Push[ \t]{1,}URL:[ \t]{0,}git")
                     if [ x"${__RawCTX}" = x ]; then
-                        __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
+                        __RawCTX=$(cd ${JLLPATH} >/dev/null;\
                         git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
                         __RawCTX=${__RawCTX#*URL:}
                         __RawCTX=${__RawCTX/https:\/\//git@}
@@ -195,13 +195,10 @@ EOF
                             echo
                             echo "JLL: Exit because not obtain git@URL for the current .git"
                             echo
-        unset CvScriptPath
-        unset CvScriptName
-        unset CvPathFileForScript
-        unset __RawCTX
-        exit 0
-      fi
-      echo
+                            unset __RawCTX
+                            exit 0
+                        fi
+                        echo
       cd ${CvScriptPath}
       git remote set-url --push origin ${__RawCTX}
       echo
