@@ -5,8 +5,7 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
-case x"$1" in
-x"push")
+if [ x"$1" = x"push" -o x"$1" = x"pull" ]; then
     [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
     if [ ${__isSSHKey} -eq 1 ]; then
         echo
@@ -17,6 +16,10 @@ x"push")
         read -n 1 __MyChoice
     fi
 
+fi
+
+case x"$1" in
+x"push")
     if [ x"$(git status -s)" != x ]; then
         git add -A
         git commit -m "update by $(basename $0) @ $(date +%Y-%m-%d\ %H:%M:%S)"
