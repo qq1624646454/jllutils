@@ -130,9 +130,7 @@ EOF
                 fi
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
-                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                 
-
                 ___i=0
                 declare -i GvPageUnit=10
                 declare -a GvPageMenuUtilsContent
@@ -140,6 +138,7 @@ EOF
                 echo "JLL-Probing: Collecting all the items from ${__JLLCFG_SshKey_RootPath}"
                 __sshconf_list=$(ls -l "${__JLLCFG_SshKey_RootPath}" 2>/dev/null \
                                  | grep -E '^d' | awk -F ' ' '{print $9}')
+                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                 for __sshconf_item in ${__sshconf_list}; do
                     echo "JLL-Probing: $___i - ${__sshconf_item}" 
                     GvPageMenuUtilsContent[___i++]="sshkey use: ${__sshconf_item}"
