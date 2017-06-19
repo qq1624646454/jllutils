@@ -86,6 +86,7 @@ EOF
                 exit 0
             fi
         fi
+        [ x"${__isSSHKey}" != x ] && unset __isSSHKey
         if [ x"${__MyChoice}" != x"y" ]; then
             unset __MyChoice
             __isMatch=${__JLLCFG_NR_SshKey_URLs}
@@ -121,8 +122,6 @@ EOF
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
-                [ x"${__URL}" != x ] && unset __URL
-                [ x"${__isSSHKey}" != x ] && unset __isSSHKey
             else
                 if [ -e "${HOME}/.ssh" ]; then
                     echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"${__ssh_package}\""
@@ -132,8 +131,6 @@ EOF
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
-                [ x"${__URL}" != x ] && unset __URL
-                [ x"${__isSSHKey}" != x ] && unset __isSSHKey
                 
 
                 ___i=0
