@@ -2,6 +2,10 @@
 #Copyright(c) 2016-2100,  jielong_lin,  All rights reserved.
 #
 
+# Get the github url
+
+exit 0
+
 #git push ssh://${GvCONF_HOST}/${LvProject} HEAD:refs/for/${LvCurrentRevision}
 GvCONF_HOST=gerrit-master
 
@@ -229,6 +233,35 @@ function __SSHCONF_Switching_End()
     else
         echo "JLL: Nothing to do for restoring the original ssh configuration."
     fi
+}
+
+function Fn_PhilipsTV_GitPushToMaster()
+{
+    #__SSHCONF_Switching_Start
+    __SSHCONF_Switching_Start__jielong
+    LvProject=$(repo info . | grep -E '^Project: ' | awk -F'Project: ' '{print $2}')
+    LvCurrentRevision=$(repo info . | grep -E 'Current revision: ' | awk -F'Current revision: ' '{print $2}')
+
+    if [ x"${LvProject}" = x -o x"${LvCurrentRevision}" = x ]; then
+        echo "JLL: Sorry to exit because can't get the valid information by 'repo info .'"
+        __SSHCONF_Switching_End
+        exit 0
+    fi
+
+    __SSHCONF_GetCommiter
+
+    git config --global user.name  ${GvCONF_Committer_Author} 
+    git config --global user.email ${GvCONF_Committer_Email} 
+    echo
+    echo "JLL: cat ~/.ssh/config"
+    cat ~/.ssh/config
+    echo
+    echo "JLL: cat ~/.ssh/id_rsa"
+    cat ~/.ssh/id_rsa 
+    echo
+    echo "JLL:  git push ssh://${GvCONF_HOST}/${LvProject} HEAD:refs/for/${LvCurrentRevision}"
+    git push ssh://${GvCONF_HOST}/${LvProject} HEAD:refs/for/${LvCurrentRevision}
+    __SSHCONF_Switching_End
 }
 
 
