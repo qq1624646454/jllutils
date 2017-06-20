@@ -219,7 +219,7 @@ JLL-Exit: Not change for letting jllutils over SSH - Not exist ${Fred}\"${JLLPAT
 EOF
                         rm -rf ${HOME}/.ssh
                         rm -rf ${__JLLCFG_SshKey_RootPath}
-                        mv -fv ${__ssh_package} ${HOME}/.ssh
+                        mv -fv ${HOME}/${__ssh_package} ${HOME}/.ssh
                         chmod -R 0500 ${HOME}/.ssh/*
                         if [ -e "${HOME}/.ssh/config" ]; then
                             chmod +w ${HOME}/.ssh/config*
