@@ -163,7 +163,7 @@ ${Bgreen}${Fblack}  GIT Remote Transaction require to using SSH-Key: ${AC}
     ${Fseablue}2) exit if press ${Fyellow}[q]${AC};
     ${Fseablue}3) next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
 EOF
-            read -p "    YourChoice:___" -n 1 __MyChoice
+            read -p "    YourChoice:___ " -n 1 __MyChoice
             echo
             if [ x"${__MyChoice}" = x"q" ]; then
                 unset __MyChoice
