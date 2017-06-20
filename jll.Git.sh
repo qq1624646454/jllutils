@@ -127,6 +127,7 @@ EOF
         fi
         [ x"${__isSSHKey}" != x ] && unset __isSSHKey
         if [ x"${__MyChoice}" != x"y" ]; then
+            # Not use the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh
             unset __MyChoice
             __isMatch=${__JLLCFG_NR_SshKey_URLs}
             for((__i=0; __i<__JLLCFG_NR_SshKey_URLs; __i+=2)) {
@@ -267,6 +268,7 @@ EOF
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             fi
         else
+            # Use the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
             [ x"${__URL}" != x ] && unset __URL
 
         fi
