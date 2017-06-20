@@ -5,6 +5,18 @@ JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
+# Find the same level path which contains .repo folder
+Lfn_Sys_GetSameLevelPath  GvPrjRootPath ".repo"
+if [ ! -e "${GvPrjRootPath}" ]; then
+    Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
+    Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
+    exit 0
+fi
+echo
+GvRepoPath="${GvRootPath##${GvPrjRootPath}}"
+
+
+
 # KeyName Url_with_SSH_rather_than_https 
 __JLLCFG_SshKey_RootPath="${HOME}/.sshconf"
 declare -a __JLLCFG_SshKey_URLs=(
