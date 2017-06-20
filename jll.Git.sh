@@ -18,8 +18,8 @@ declare -a __JLLCFG_SshKey_URLs=(
 if [ x"${__JLLCFG_SshKey_URLs}" = x ]; then
 more >&1<<EOF
 
-JLL-Exit: Not found ${Fred}'__JLLCFG_SshKey_URLs[]'${AC}
-JLL-Exit: exit 0
+JLL-Exit:: Not found ${Fred}'__JLLCFG_SshKey_URLs[]'${AC}
+JLL-Exit:: exit 0
 
 EOF
     unset __JLLCFG_SshKey_RootPath
@@ -29,8 +29,8 @@ __JLLCFG_NR_SshKey_URLs=${#__JLLCFG_SshKey_URLs[@]}
 if [ ${__JLLCFG_NR_SshKey_URLs} -lt 1 ]; then
 more >&1<<EOF
 
-JLL-Exit: ${Fred}'__JLLCFG_SshKey_URLs[]'${AC} is invalid because its count is 0.
-JLL-Exit:  exit 0
+JLL-Exit:: ${Fred}'__JLLCFG_SshKey_URLs[]'${AC} is invalid because its count is 0.
+JLL-Exit::  exit 0
 
 EOF
     unset __JLLCFG_NR_SshKey_URLs
