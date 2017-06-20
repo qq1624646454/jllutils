@@ -149,7 +149,7 @@ EOF
                 echo "JLL-Using:: ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}"
                 # Replace the ~/.ssh
                 if [ -e "${HOME}/.ssh" ]; then
-                    echo "JLL-SSHKey:: \"~/.ssh\" is being moved to \"${__ssh_package}\""
+                    echo "JLL-SSHKey:: \"~/.ssh\" is being moved to \"~/${__ssh_package}\""
                     mv -fv ${HOME}/.ssh  ${HOME}/${__ssh_package}
                     echo
                 fi
@@ -170,7 +170,7 @@ EOF
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             else
                 if [ -e "${HOME}/.ssh" ]; then
-                    echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"${__ssh_package}\""
+                    echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"~/${__ssh_package}\""
                     mv -fv ${HOME}/.ssh  ${HOME}/${__ssh_package}
                     echo
                 fi
