@@ -237,10 +237,11 @@ EOF
                 Lfn_PageMenuUtils __result  "Select" 7 4 \
                                   "***** Configure Under \"~/.ssh/\" (q: quit) *****"
                 if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
-                    [ x"${__result}" != x ] && unset __result
-                    [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
-                    [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                     if [ ! -e "${JLLPATH}/.sshconf/qq1624646454@csdn_github" ]; then
+                        [ x"${__result}" != x ] && unset __result
+                        [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                        [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+
 more >&1<<EOF
 JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
 EOF
@@ -269,6 +270,9 @@ EOF
                             chmod +w ${HOME}/.ssh/config*
                         fi
                         [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                        [ x"${__result}" != x ] && unset __result
+                        [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                        [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                         exit 0
                     fi
                     # Change the https URL to git URL for Push
@@ -289,6 +293,10 @@ EOF
                             [ x"${__RawCTX}" != x ] && unset __RawCTX
                             [ x"${__JLLCFG_SshKey_RootPath}" != x ] \
                                 && unset __JLLCFG_SshKey_RootPath
+                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+                            [ x"${__result}" != x ] && unset __result
+                            [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                            [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                             exit 0
                         fi
                         echo
@@ -348,7 +356,6 @@ JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
 ${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
 
 EOF
-
     fi
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
