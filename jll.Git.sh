@@ -150,7 +150,7 @@ EOF
                 mkdir -pv ${HOME}/.ssh
                 chmod 0777 ${HOME}/.ssh
 more >&1<<EOF 
-JLL-SSHKey: Setup \"${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}\" to \"~/.ssh\""
+JLL-SSHKey:: Setup \"${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}\" to \"~/.ssh\""
 EOF
                 cp -rvf ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}/*  \
                         ${HOME}/.ssh/
