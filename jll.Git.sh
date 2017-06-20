@@ -267,6 +267,7 @@ EOF
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             fi
         else
+            [ x"${__URL}" != x ] && unset __URL
 
         fi
     fi
