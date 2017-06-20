@@ -282,7 +282,7 @@ EOF
 
 more>&1<<EOF
 
-JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
+JLL-Prepare:: Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh 
 JLL-Prepare:: End preparing the GIT environment.
 
 EOF
