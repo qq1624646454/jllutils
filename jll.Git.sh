@@ -370,7 +370,7 @@ x"push")
     cd - >/dev/null 
     __Fn_prepare_GIT push
     cd ${__GitPath}
-    git push -f -u origin master
+    #git push -f -u origin master
     cd - >/dev/null 
     __Fn_finalize_GIT
     cd ${__GitPath}
