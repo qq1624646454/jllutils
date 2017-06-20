@@ -268,7 +268,7 @@ EOF
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             fi
         else
-            # Use the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
+            # Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
             [ x"${__URL}" != x ] && unset __URL
 
         fi
