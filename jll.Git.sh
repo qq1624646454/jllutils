@@ -43,7 +43,9 @@ fi
 __ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
 function __Fn_finalize_GIT()
 {
+    if [ -e "${HOME}/${__ssh_package}" ]; then
 
+    fi
 }
 
 function __Fn_prepare_GIT()
