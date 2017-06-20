@@ -8,14 +8,18 @@ source ${JLLPATH}/BashShellLibrary
 # Find the same level path which contains .git folder
 Lfn_Sys_GetSameLevelPath  __GitPath ".git"
 if [ ! -e "${__GitPath}" ]; then
-    Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Path=\"${GvPrjRootPath}\"" 
-    Lfn_Sys_DbgColorEcho ${CvBgBlack} ${CvFgRed}  "Error-Exit: Cannot find Git Root Path" 
+more >&1<<EOF
+
+JLL-Exit: ${Fred}Not found .git path started from current path${AC}
+
+EOF
     exit 0
 fi
+clear
 echo
-GvRepoPath="${GvRootPath##${GvPrjRootPath}}"
-
-
+echo "JLL-Probe: Found .git path=${Fyellow}${__GitPath}${AC}"
+echo
+cd ${__GitPath}
 
 # KeyName Url_with_SSH_rather_than_https 
 __JLLCFG_SshKey_RootPath="${HOME}/.sshconf"
