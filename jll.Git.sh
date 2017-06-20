@@ -46,7 +46,7 @@ function __Fn_finalize_GIT()
     if [ -e "${HOME}/${__ssh_package}" ]; then
 more>&1<<EOF
 
-JLL-Finalize: Start restoring sshkey under 
+JLL-Finalize:: Start restoring sshkey under 
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
@@ -56,15 +56,15 @@ EOF
         mv -vf ${HOME}/${__ssh_package}  ${HOME}/.ssh
 more>&1<<EOF
 
-JLL-Finalize: End restoring sshkey under 
+JLL-Finalize:: End restoring sshkey under 
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
     else
 more>&1<<EOF
 
-JLL-Finalize: not found ${Fred}${HOME}/${__ssh_package}${AC}
-JLL-Finalize: not need to restore sshkey under 
+JLL-Finalize:: not found ${Fred}${HOME}/${__ssh_package}${AC}
+JLL-Finalize:: not need to restore sshkey under 
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
@@ -77,13 +77,20 @@ function __Fn_prepare_GIT()
     if [ x"$1" != x"push" -a x"$1" != x"pull" ]; then
 more >&1<<EOF
 
-JLL-Prepare: call prototype failure - ${Fred}__Fn_prepare_GIT "[push|pull]${AC}"
-JLL-Exit: exit 0
+JLL-Prepare:: call prototype failure - ${Fred}__Fn_prepare_GIT "[push|pull]${AC}"
+JLL-Exit:: exit 0
 
 EOF
         [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
         exit 0
     fi
+
+more>&1<<EOF
+
+JLL-Prepare:: Start preparing the GIT environment contained the follows: 
+
+EOF
+
 
     if [ x"$1" = x"push" ]; then
         __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
