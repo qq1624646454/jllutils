@@ -41,6 +41,11 @@ fi
 
 
 __ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
+function __Fn_finalize_GIT()
+{
+
+}
+
 function __Fn_prepare_GIT()
 {
     if [ x"$1" != x"push" -a x"$1" != x"pull" ]; then
