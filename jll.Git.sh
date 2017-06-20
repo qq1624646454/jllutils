@@ -2,7 +2,31 @@
 # Copyright (c) 2016-2100,  jielong_lin,  All rights reserved.
 #
 JLLPATH="$(which $0)"
-JLLPATH="$(dirname ${JLLPATH})"
+# ./xxx.sh
+# ~/xxx.sh
+# /home/xxx.sh
+# xxx.sh
+if [ x"${JLLPATH}" != x ]; then
+    __CvScriptName=${JLLPATH##*/}
+    __CvScriptPath=${JLLPATH%/*}
+    if [ x"${__CvScriptPath}" = x ]; then
+        __CvScriptPath="$(pwd)"
+    else
+        __CvScriptPath="$(cd ${__CvScriptPath};pwd)"
+    fi
+    if [ x"${__CvScriptName}" = x ]; then
+        echo
+        echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 0"
+        echo
+        exit 0
+    fi 
+else
+    echo
+    echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 1"
+    echo
+    exit 0
+fi
+JLLPATH="${__CvScriptPath}"
 source ${JLLPATH}/BashShellLibrary
 
 # Find the same level path which contains .git folder
@@ -19,7 +43,6 @@ clear
 echo
 echo "JLL-Probe: Found .git path=${Fyellow}${__GitPath}${AC}"
 echo
-cd ${__GitPath}
 
 # KeyName Url_with_SSH_rather_than_https 
 __JLLCFG_SshKey_RootPath="${HOME}/.sshconf"
@@ -115,11 +138,15 @@ JLL-Prepare:: Start preparing the GIT environment contained the follows:
 EOF
 
     if [ x"$1" = x"push" ]; then
+        cd ${__GitPath}
         __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
+        cd - >/dev/null
         __URL=${__URL##*URL: }
     fi
     if [ x"$1" = x"pull" ]; then
+        cd ${__GitPath}
         __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Fetch[ \t]{1,}URL:')
+        cd - >/dev/null
         __URL=${__URL##*URL: }
     fi
 
@@ -136,7 +163,8 @@ more >&1<<EOF
     ${Fseablue}exit if press ${Fyellow}[q]${AC};
     ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
 EOF
-            read -n 1 __MyChoice
+            read -p "    YourChoice:___" -n 1 __MyChoice
+            echo
             if [ x"${__MyChoice}" = x"q" ]; then
                 unset __MyChoice
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
@@ -287,6 +315,9 @@ EOF
                     fi
                     [ x"${__result}" != x ] && unset __result
                 fi  
+                [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
+                [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+                [ x"${__result}" != x ] && unset __result
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 more>&1<<EOF
 
@@ -322,79 +353,73 @@ EOF
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
 
-__Fn_prepare_GIT push
-exit 0
 
-if [ x"$1" = x"push" -o x"$1" = x"pull" ]; then
-    [ -e "${HOME}/.ssh/id_rsa" ] && __isSSHKey=1 || __isSSHKey=0
-    if [ ${__isSSHKey} -eq 1 ]; then
-more >&1<<EOF
-
-  GIT Remote Transaction require to using SSH-Key: 
-    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
-    ${Fseablue}exit if press ${Fyellow}[q]${AC};
-    ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
-EOF
-        read -n 1 __MyChoice
-    else
-more >&1<<EOF
-
-  GIT Remote Transaction require to using SSH-Key: 
-    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
-    ${Fseablue}exit if press ${Fyellow}[q]${AC};
-    ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
-EOF
-        read -n 1 __MyChoice
- 
-    fi
-
-fi
-exit 0
 case x"$1" in
 x"push")
+    cd ${__GitPath}
     if [ x"$(git status -s)" != x ]; then
         git add -A
         git commit -m "update by $(basename $0) @ $(date +%Y-%m-%d\ %H:%M:%S)"
     fi
-    git push -u origin master
+    cd - >/dev/null 
+    __Fn_prepare_GIT push
+    cd ${__GitPath}
+    git push -f -u origin master
+    cd - >/dev/null 
+    __Fn_finalize_GIT
+    cd ${__GitPath}
     git log --graph \
             --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
             --abbrev-commit \
             --date=relative | head -n 8
+    cd - >/dev/null 
     echo
 ;;
 x"pull")
+    cd ${__GitPath}
     if [ x"$(git status -s)" != x ]; then
-        read -p "JLL-GIT-REPO: Remove all Changes via 'git clean -dfx;git reset --hard HEAD' if press [y], or skip:   " GvChoice
-        if [ x"${GvChoice}" = x"y" ]; then
+more >&1<<EOF
+
+JLL-Action:: Remove all changes via ${Fseablue}git clean -dfx; git reset --hard HEAD${AC}
+               if press ${Fyellow}[y]${AC}, or ${Fgreen}skip${AC}
+EOF
+        read -p "              YourChoice:___" -n 1 __MyChoice
+        if [ x"${__MyChoice}" = x"y" ]; then
             git clean -dfx;
             git reset --hard HEAD;
         fi
     fi
+    cd - >/dev/null 
+    __Fn_prepare_GIT pull
+    cd ${__GitPath}
     git pull -u origin master
+    cd - >/dev/null 
+    __Fn_finalize_GIT
+    cd ${__GitPath}
     git log --graph \
         --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
         --abbrev-commit \
         --date=relative | head -n 8
+    cd - >/dev/null 
     echo
 ;;
 *)
-cat >&1 <<EOF
+more >&1 <<EOF
 
    USAGE:
 
-     $(basename $0) [help]
+     ${Fyellow}${__CvScriptName} [help]${AC}
 
      # If change is checked by 'git status -s', the follows will be run:
      # 'git add -A'
      # 'git commit -m "update by $(basename $0) @Date"'
      # 'git push -u origin master'
-     $(basename $0) push
+     ${Fyellow}${__CvScriptName} push${AC}
 
      # If change is checked by 'git status -s', the follows will be run: 
      # 'git clean -dfx;git reset --hard HEAD' if approve to cleanup all changes
      # 'git pull -u origin master' is always run
-     $(basename $0) pull
+     ${Fyellow}${__CvScriptName} pull${AC}
 
 EOF
 ;;
