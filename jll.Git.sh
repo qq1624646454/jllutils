@@ -44,9 +44,13 @@ __ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
 function __Fn_finalize_GIT()
 {
     if [ -e "${HOME}/${__ssh_package}" ]; then
-        echo
-        echo "JLL-Finalize: restore sshkey under ~/.ssh from ${HOME}/${__ssh_package}"
-        echo
+more>&1<<EOF
+
+JLL-Finalize: Starting to restore sshkey under 
+              ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
+
+EOF
+
         if [ -e "${HOME}/.ssh" ]; then
             rm -rvf ${HOME}/.ssh
         fi
