@@ -45,7 +45,8 @@ function __Fn_finalize_GIT()
 {
     if [ -e "${HOME}/${__ssh_package}" ]; then
         echo
-        echo "JLL-Finalize: retore sshkey"
+        echo "JLL-Finalize: restore sshkey under ~/.ssh from ${HOME}/${__ssh_package}"
+        echo
         if [ -e "${HOME}/.ssh" ]; then
             rm -rvf ${HOME}/.ssh
         fi
