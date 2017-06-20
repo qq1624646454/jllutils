@@ -276,13 +276,11 @@ EOF
         else
             # Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
             [ x"${__URL}" != x ] && unset __URL
-
+            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+            [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
+            [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
         fi
     fi
-
-    ##__FetchURL=https://github.com/qq1624646454/jllutils.git
-    ##__PushURL=git@github.com:qq1624646454/jllutils.git
-    echo "__URL=${__URL} _is_HTTPS_URL=${__is_HTTPS_URL}"
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
 
