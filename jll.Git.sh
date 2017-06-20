@@ -151,7 +151,7 @@ EOF
                 chmod 0777 ${HOME}/.ssh
 more >&1<<EOF 
 JLL-SSHKey:: Setup the appropriate SSH Key as follows:
-               \"${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}\"
+               ${Fseablue}~/.ssh${AC} <-- ${Fseablue}${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}${AC}
 EOF
                 cp -rvf ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}/*  \
                         ${HOME}/.ssh/
