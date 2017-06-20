@@ -369,9 +369,17 @@ x"push")
     fi
 more >&1<<EOF
 
-JLL-Action::  run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}, or skip"
+${Bgreen}${Fwhite}    Selection Menu                                           ${AC}
+    quit if press ${Fyellow}[q]${AC}
+    run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}
+    next step to git push -f -u origin master if press ${Fyellow}[Other any]${AC}
 EOF
-    read -p "              YourChoice___  " -n 1 __myChoice
+    read -n 1 -p "              YourChoice___  " __myChoice
+    echo
+    if [ x"${__myChoice}" = x"q" ]; then
+        cd - >/dev/null
+        exit 0
+    fi
     if [ x"${__myChoice}" = x"y" ]; then
         git commit --amend
     fi
