@@ -63,7 +63,7 @@ EOF
     else
 more>&1<<EOF
 
-JLL-Finalize: not found ${Fseablue}${HOME}/${__ssh_package}${AC}
+JLL-Finalize: not found ${Fred}${HOME}/${__ssh_package}${AC}
 JLL-Finalize: not need to restore sshkey under 
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
@@ -77,8 +77,8 @@ function __Fn_prepare_GIT()
     if [ x"$1" != x"push" -a x"$1" != x"pull" ]; then
 more >&1<<EOF
 
-JLL-Error: call prototype failure - ${Fred}__Fn_prepare_GIT "[push|pull]${AC}"
-JLL-Exit:  exit 0
+JLL-Prepare: call prototype failure - ${Fred}__Fn_prepare_GIT "[push|pull]${AC}"
+JLL-Exit: exit 0
 
 EOF
         [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
