@@ -321,13 +321,12 @@ EOF
                     if [ -e "${HOME}/.ssh/config" ]; then
                         chmod +w ${HOME}/.ssh/config*
                     fi
-                    [ x"${__result}" != x ] && unset __result
-                fi  
+                fi
                 [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                 [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                 [ x"${__result}" != x ] && unset __result
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
-more>&1<<EOF
+more >&1<<EOF
 
 JLL-Prepare:: Backup the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh
 ${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
@@ -341,7 +340,7 @@ EOF
             [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
             [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
 
-more>&1<<EOF
+more >&1<<EOF
 
 JLL-Prepare:: Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh 
 ${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
@@ -350,7 +349,7 @@ EOF
         fi
     else
         # it is HTTPS without using SSH Key.
-more>&1<<EOF
+more >&1<<EOF
 
 JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
 ${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
