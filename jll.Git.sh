@@ -46,15 +46,21 @@ function __Fn_finalize_GIT()
     if [ -e "${HOME}/${__ssh_package}" ]; then
 more>&1<<EOF
 
-JLL-Finalize: Starting to restore sshkey under 
+JLL-Finalize: Start restoring sshkey under 
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
-
         if [ -e "${HOME}/.ssh" ]; then
             rm -rvf ${HOME}/.ssh
         fi
         mv -vf ${HOME}/${__ssh_package}  ${HOME}/.ssh
+more>&1<<EOF
+
+JLL-Finalize: End restoring sshkey under 
+              ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
+
+EOF
+
     fi
 }
 
