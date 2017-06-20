@@ -88,7 +88,7 @@ EOF
 more>&1<<EOF
 
 JLL-Prepare:: Start preparing the GIT environment contained the follows: 
-
+              ~/.ssh or ${HOME}/.ssh for git URL 
 EOF
 
 
