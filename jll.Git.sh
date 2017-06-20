@@ -149,9 +149,9 @@ EOF
                 fi
                 mkdir -pv ${HOME}/.ssh
                 chmod 0777 ${HOME}/.ssh
-more >&1<<EOF 
+more >&1<<EOF
 JLL-SSHKey:: Setup the appropriate SSH Key as follows:
-               ${Fseablue}~/.ssh${AC} <-- ${Fseablue}${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}${AC}
+               ~/.ssh <-- ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}
 EOF
                 cp -rvf ${__JLLCFG_SshKey_RootPath}/${__JLLCFG_SshKey_URLs[__isMatch]}/*  \
                         ${HOME}/.ssh/
