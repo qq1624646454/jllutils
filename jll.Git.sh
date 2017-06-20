@@ -88,9 +88,10 @@ EOF
 more>&1<<EOF
 
 JLL-Prepare:: Start preparing the GIT environment contained the follows: 
-              ~/.ssh or ${HOME}/.ssh for git URL 
-EOF
+                1).provide ~/.ssh or ${HOME}/.ssh for git URL
+                2).nothing to do for https URL 
 
+EOF
 
     if [ x"$1" = x"push" ]; then
         __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
