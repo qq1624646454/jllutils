@@ -158,10 +158,10 @@ EOF
             [ x"${__isSSHKey}" != x ] && unset __isSSHKey
 more >&1<<EOF
 
-  GIT Remote Transaction require to using SSH-Key: 
-    ${Fseablue}~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
-    ${Fseablue}exit if press ${Fyellow}[q]${AC};
-    ${Fseablue}next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
+${Bgreen}${Fblack}  GIT Remote Transaction require to using SSH-Key: ${AC}
+    ${Fseablue}1) ~/.ssh/id_rsa if press ${Fyellow}[y]${AC};
+    ${Fseablue}2) exit if press ${Fyellow}[q]${AC};
+    ${Fseablue}3) next to select other SSH-Key if press ${Fyellow}[Other-Any]${AC};
 EOF
             read -p "    YourChoice:___" -n 1 __MyChoice
             echo
