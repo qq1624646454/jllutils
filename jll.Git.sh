@@ -85,7 +85,7 @@ function __Fn_finalize_GIT()
     if [ -e "${HOME}/${__ssh_package}" ]; then
 more>&1<<EOF
 
-JLL-Finalize:: Start restoring sshkey under 
+${Bblue}${Fyellow}JLL-Finalize:: Start restoring sshkey under ${AC}
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
@@ -100,7 +100,7 @@ EOF
 
 more>&1<<EOF
 
-JLL-Finalize:: End restoring sshkey under 
+${Bblue}${Fyellow}JLL-Finalize:: End restoring sshkey under ${AC}
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
@@ -108,7 +108,7 @@ EOF
 more>&1<<EOF
 
 JLL-Finalize:: not found ${Fred}${HOME}/${__ssh_package}${AC}
-JLL-Finalize:: not need to restore sshkey under 
+${Bblue}${Fyellow}JLL-Finalize:: End restoring sshkey and not need to restore sshkey under ${AC}
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
@@ -131,7 +131,7 @@ EOF
 
 more>&1<<EOF
 
-JLL-Prepare:: Start preparing the GIT environment contained the follows: 
+${Bblue}${Fyellow}JLL-Prepare:: Start preparing the GIT environment contained the follows:${AC}
                 1).provide ~/.ssh or ${HOME}/.ssh for git URL
                 2).nothing to do for https URL 
 
@@ -321,8 +321,8 @@ EOF
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
 more>&1<<EOF
 
-JLL-Prepare:: Backup the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh 
-JLL-Prepare:: End preparing the GIT environment.
+JLL-Prepare:: Backup the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh
+${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
 
 EOF
             fi
@@ -336,7 +336,7 @@ EOF
 more>&1<<EOF
 
 JLL-Prepare:: Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh 
-JLL-Prepare:: End preparing the GIT environment.
+${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
 
 EOF
         fi
@@ -345,7 +345,7 @@ EOF
 more>&1<<EOF
 
 JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
-JLL-Prepare:: End preparing the GIT environment.
+${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
 
 EOF
 
