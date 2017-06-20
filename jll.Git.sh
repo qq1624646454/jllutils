@@ -44,6 +44,8 @@ __ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
 function __Fn_finalize_GIT()
 {
     if [ -e "${HOME}/${__ssh_package}" ]; then
+        echo
+        echo "JLL-Finalize: retore sshkey"
         if [ -e "${HOME}/.ssh" ]; then
             rm -rvf ${HOME}/.ssh
         fi
