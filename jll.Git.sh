@@ -369,7 +369,7 @@ x"push")
     fi
 more >&1<<EOF
 
-${Bgreen}${Fpink} ******** Selection Menu For GIT Transaction ******* ${AC}
+${Bgreen}${Fblack} ******** Selection Menu For GIT Transaction ******* ${AC}
  1) ${Fseablue}quit${AC} if press ${Fyellow}[q]${AC}
  2) run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}
  3) next step to ${Fseablue}git push -f -u origin master${AC} if press ${Fyellow}[Other any]${AC}
