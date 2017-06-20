@@ -54,6 +54,11 @@ EOF
             rm -rvf ${HOME}/.ssh
         fi
         mv -vf ${HOME}/${__ssh_package}  ${HOME}/.ssh
+        chmod -R 0500 ${HOME}/.ssh/*
+        if [ -e "${HOME}/.ssh/config" ]; then
+            chmod +w ${HOME}/.ssh/config*
+        fi
+
 more>&1<<EOF
 
 JLL-Finalize:: End restoring sshkey under 
