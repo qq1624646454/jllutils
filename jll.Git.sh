@@ -369,12 +369,12 @@ x"push")
     fi
 more >&1<<EOF
 
-${Bgreen}${Fwhite}    Selection Menu                                           ${AC}
-    quit if press ${Fyellow}[q]${AC}
-    run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}
-    next step to git push -f -u origin master if press ${Fyellow}[Other any]${AC}
+${Bgreen}${Fpink} ******** Selection Menu For GIT Transaction ******* ${AC}
+ 1) ${Fseablue}quit${AC} if press ${Fyellow}[q]${AC}
+ 2) run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}
+ 3) next step to ${Fseablue}git push -f -u origin master${AC} if press ${Fyellow}[Other any]${AC}
 EOF
-    read -n 1 -p "              YourChoice___  " __myChoice
+    read -n 1 -p " YourChoice___  " __myChoice
     echo
     if [ x"${__myChoice}" = x"q" ]; then
         cd - >/dev/null
