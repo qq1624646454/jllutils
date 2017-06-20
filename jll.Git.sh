@@ -326,13 +326,13 @@ EOF
                 [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                 [ x"${__result}" != x ] && unset __result
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+            fi
 more >&1<<EOF
 
 JLL-Prepare:: Backup the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh
 ${Bblue}${Fyellow}JLL-Prepare:: End preparing the GIT environment.${AC}
 
 EOF
-            fi
         else
             # Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
             [ x"${__URL}" != x ] && unset __URL
@@ -370,7 +370,7 @@ x"push")
     cd - >/dev/null 
     __Fn_prepare_GIT push
     cd ${__GitPath}
-    #git push -f -u origin master
+    git push -f -u origin master
     cd - >/dev/null 
     __Fn_finalize_GIT
     cd ${__GitPath}
