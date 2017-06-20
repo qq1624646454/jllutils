@@ -60,6 +60,14 @@ JLL-Finalize: End restoring sshkey under
               ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
 
 EOF
+    else
+more>&1<<EOF
+
+JLL-Finalize: not found ${Fseablue}${HOME}/${__ssh_package}${AC}
+JLL-Finalize: not need to restore sshkey under 
+              ${Fyellow}${HOME}/.ssh${AC} <--- ${Fyellow}${HOME}/${__ssh_package}${AC}
+
+EOF
 
     fi
 }
