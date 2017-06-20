@@ -222,6 +222,7 @@ EOF
                         [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                         exit 0
                     fi
+                    # Change the https URL to git URL for Push
                     # Push  URL: https://github.com/qq1624646454/jllutils.git
                     __RawCTX=$(cd ${JLLPATH} >/dev/null;\
                                git remote show origin \
