@@ -272,6 +272,12 @@ EOF
                     [ x"${__result}" != x ] && unset __result
                 fi  
                 [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+more>&1<<EOF
+
+JLL-Prepare:: Backup the origin SSH Key under ~/.ssh and re-select the new SSH Key for ~/.ssh 
+JLL-Prepare:: End preparing the GIT environment.
+
+EOF
             fi
         else
             # Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
