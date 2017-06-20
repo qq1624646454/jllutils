@@ -279,7 +279,23 @@ EOF
             [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
             [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
+
+more>&1<<EOF
+
+JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
+JLL-Prepare:: End preparing the GIT environment.
+
+EOF
         fi
+    else
+        # it is HTTPS without using SSH Key.
+more>&1<<EOF
+
+JLL-Prepare:: Checked URL is HTTPS without using SSH Key.
+JLL-Prepare:: End preparing the GIT environment.
+
+EOF
+
     fi
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
