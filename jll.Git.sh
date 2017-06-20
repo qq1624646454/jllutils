@@ -367,6 +367,14 @@ x"push")
         git add -A
         git commit -m "update by $(basename $0) @ $(date +%Y-%m-%d\ %H:%M:%S)"
     fi
+more >&1<<EOF
+
+JLL-Action::  run ${Fseablue}git commit --amend${AC} if press ${Fyellow}[y]${AC}, or skip"
+EOF
+    read -p "              YourChoice___  " -n 1 __myChoice
+    if [ x"${__myChoice}" = x"y" ]; then
+        git commit --amend
+    fi
     cd - >/dev/null 
     __Fn_prepare_GIT push
     cd ${__GitPath}
