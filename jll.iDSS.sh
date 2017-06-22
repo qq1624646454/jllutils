@@ -5,7 +5,7 @@
 #   Author:       jielong.lin 
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-20 18:53:35
-#   ModifiedTime: 2017-06-20 20:13:58
+#   ModifiedTime: 2017-06-22 13:48:20
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -31,14 +31,19 @@ function _FNCB_dump()
   echo "======================================================================================"
   echo "   Darwin Streaming Server Alive Processes "
   echo "======================================================================================"
-  DSS_="[Dd][Aa][Rr][Ww][Ii][Nn][Ss][Tt][Rr][Ee][Aa][Mm][Ii][Nn][Gg][Ss][Ee][Rr][Vv][Ee][Rr]"
   PS_AX=$(ps ax)
+  # DSS_ is DarwingStreamingServer
+  #DSS_="[Dd][Aa][Rr][Ww][Ii][Nn][Ss][Tt][Rr][Ee][Aa][Mm][Ii][Nn][Gg][Ss][Ee][Rr][Vv][Ee][Rr]"
   #DSS_PID=$(echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${DSS_}/ {printf \$1\" \"}")
-  echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${DSS_}/ {print}"
-  SAS_="[Ss][Tt][Rr][Ee][Aa][Mm][Ii][Nn][Gg][Aa][Dd][Mm][Ii][Nn][Ss][Ee][Rr][Vv][Ee][Rr].[Pp][Ll]"
+  #echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${DSS_}/ {print}"
+  # SAS_ is streamingadminserver.pl 
+  #SAS_="[Ss][Tt][Rr][Ee][Aa][Mm][Ii][Nn][Gg][Aa][Dd][Mm][Ii][Nn][Ss][Ee][Rr][Vv][Ee][Rr].[Pp][Ll]"
   #SAS_PID=$(ps ax | grep -Ei "${SAS_PNAME}" | awk "{print \$1}" | xargs -r echo -n)
   #SAS_PID=$(echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${SAS_}/ {printf \$1\" \"}")
-  echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${SAS_}/ {print}"
+  #echo "${PS_AX}" | awk "{\$2=\$3=\$4=\"\"; print}" | awk "/${SAS_}/ {print}"
+  
+  ps ax | awk "{\$2=\$3=\$4=\"\"; print}" | grep -Ei "[D]arwinStreamingServer$"
+  ps ax | awk "{\$2=\$3=\$4=\"\"; print}" | grep -Ei "[s]treamingadminserver\.pl$"
 
   echo
   echo
