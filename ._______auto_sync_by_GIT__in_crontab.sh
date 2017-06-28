@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-06-28 14:10:55
+#   ModifiedTime: 2017-06-28 14:20:30
 
 
 
@@ -65,13 +65,17 @@ function _FN_is_align_with_git_remote()
                 fi
             }
             if [ x"${__isReturn}" = x"1" -a x"$1" != x ]; then
-                eval $1=1
+                if [ x"${__local_commitID}" != x"${__lstCommittedIDs[0]}" ]; then
+                    eval $1=1
+                    return
+                fi
+                eval $1=0  # Has already aligned
                 return
             fi
         fi
     fi
-    if  [ x"$1" != x ]; then
-        eval $1=0
+    if  [ x"$1" != x ]; then # other cases should be best to align.
+        eval $1=1
     fi
 }
 
