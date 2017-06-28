@@ -37,7 +37,8 @@ cd - >/dev/null
 
 
 
-# wanna the other project also support for the auto align from git remote repository
+${Fpink}# wanna the other project also support for the auto align from git remote repository ${AC}
+${Fpink}# please next to do the follows: ${AC}
 tar -zvxf AUTO_TOOL_OVER_LINUX.tgz -C [YourTargetFolder]
 cd [YourTargetFolder]
 please modify ____install_auto_sync.sh for crontab triggerred actived time.
