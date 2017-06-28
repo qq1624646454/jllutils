@@ -26,7 +26,8 @@ cd ~/github.com/qq1624646454/jllutils
 cd - >/dev/null
 
 
-# For a developer, please next to do the follows:
+${Fpink}# For a developer, maybe need to setup ssh keys into ~/.sshconf ${AC}
+${Fpink}# please next to do the follows: ${AC}
 cd ~/github.com/qq1624646454/jllutils
 ./jll.sshconf.sh
 cd - >/dev/null
