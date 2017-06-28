@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:42:31
+#   ModifiedTime: 2017-06-28 18:42:32
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -99,7 +99,7 @@ ${Fred}The Apache error log may have more information.${AC}
 ${Bgreen}${Fblack}SOLVE ${AC}
 ${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}vim /etc/apache2/ports.conf${AC}
   7
-  8 NameVirtualHost *:${Fgreen}8888${AC}
+  8 NameVirtualHost *:80
   9 Listen ${Fgreen}8888${AC}
  10
 
