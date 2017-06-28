@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:08:44
+#   ModifiedTime: 2017-06-28 18:09:37
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -34,20 +34,10 @@ ${Fyellow} apt-get install git git-svn git-doc git-email git-gui gitk gitweb ${A
 ${Fyellow} apt-get install apache2 ${AC}
 
 
-## enable the url http://localhost:80/gitweb
-
+## enable the url http://localhost/gitweb
+## or enable the url http://localhost:80/gitweb
+## or enable the url localhost:80/gitweb
 ${Fyellow} ln -s /usr/share/gitweb /var/www/ ${AC}
-
-
-
-
-## configure apache2 
-##   modify the index page
-${Fyellow} grep -iR DirectoryIndex /etc/apache2 ${AC}
-./mods-available/dir.conf:  DirectoryIndex \\
-    index.html index.cgi index.pl index.php index.xhtml index.htm
-./mods-enabled/dir.conf:  DirectoryIndex \\
-    index.html index.cgi index.pl index.php index.xhtml index.htm
 
 
 
