@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:28:44
+#   ModifiedTime: 2017-06-28 18:40:58
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -37,7 +37,20 @@ ${Fyellow} apt-get install apache2 ${AC}
 ## enable the url http://localhost/gitweb
 ## or enable the url http://localhost:80/gitweb
 ## or enable the url localhost:80/gitweb
+## the one of the below methods is valid, default by method-2.
+#method-1:
 ${Fyellow} ln -s /usr/share/gitweb /var/www/ ${AC}
+
+#method-2: add a new configure file /etc/apache2/conf.d/gitweb
+${Fyellow} vim /etc/apache2/conf.d/gitweb ${AC}
+${Fyellow} 1 Alias /gitweb /usr/share/gitweb ${AC}
+${Fyellow} 2 ${AC}
+${Fyellow} 3 <Directory /usr/share/gitweb> ${AC}
+${Fyellow} 4   Options FollowSymLinks +ExecCGI ${AC}
+${Fyellow} 5   AddHandler cgi-script .cgi ${AC}
+${Fyellow} 6 </Directory> ${AC}
+
+
 
 ${Fyellow} vim /etc/gitweb.conf ${AC}
   1 # path to git projects (<project>.git)
