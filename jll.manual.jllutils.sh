@@ -20,7 +20,7 @@ git clone https://github.com/qq1624646454/jllutils.git
 cd - >/dev/null
 
 ${Fpink}# install jllutils contained registed path into ~/.bash ${AC}
-${Fpink}# and auto align from remote git repository. ${AC}
+${Fpink}# and auto align from git remote repository. ${AC}
 cd ~/github.com/qq1624646454/jllutils
 ./____install_jllutils.sh
 cd - >/dev/null
@@ -32,11 +32,12 @@ ${Fpink}# please next to do the follows: ${AC}
 cd ~/github.com/qq1624646454/jllutils
 ./jll.sshconf.sh
 ${Fpink}# please select the item \"installing: setup ssh keys then let jllutils over SSH\" ${AC}
+git remote show origin
 cd - >/dev/null
 
 
 
-# Build the auto align from remote git repository
+# wanna the other project also support for the auto align from git remote repository
 tar -zvxf AUTO_TOOL_OVER_LINUX.tgz -C [YourTargetFolder]
 cd [YourTargetFolder]
 please modify ____install_auto_sync.sh for crontab triggerred actived time.
