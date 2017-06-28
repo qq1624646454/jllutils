@@ -29,10 +29,16 @@ ${Fyellow} dpkg --get-selections | grep git ${AC}
 
 ${Fyellow} apt-get install git git-svn git-doc git-email git-gui gitk gitweb ${AC}
 
-IF /var/www
 
 ## install apache2 to support for gitweb
 ${Fyellow} apt-get install apache2 ${AC}
+
+
+## enable the url localhost:8888
+ln -s /usr/share/gitweb /var/www/
+
+
+
 
 ## configure apache2 
 ##   modify the index page
