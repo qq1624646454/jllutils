@@ -363,9 +363,18 @@ EOF
 case x"$1" in
 x"push")
     cd ${__GitPath}
-    if [ x"$(git status -s)" != x ]; then
+    __GitCHANGE="$(git status -s)"
+    if [ x"${__GitCHANGE}" != x ]; then
         git add -A
-        git commit -m "update by $(basename $0) @ $(date +%Y-%m-%d\ %H:%M:%S)"
+        __GitCHANGE="$(git status -s)"
+        git commit -m \
+"
+Commited by using ${__CvScriptName} @ $(date +%Y-%m-%d\ %H:%M:%S)
+
+Changes as follows: 
+${__GitCHANGE}
+"
+ 
     fi
 more >&1<<EOF
 
