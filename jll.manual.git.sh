@@ -7,22 +7,6 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
-******************************************************************
-** How to build git project management:
-**   Linux(Debian,Ubuntu) as git remote repository
-**   Window7(installed Git-Bash, ConEmu) as git local repository
-**
-** Such as Android APP code development workaround in windows7
-******************************************************************
-##
-## Install git remote repository
-\$${AC}${Fyellow} ${AC}
-
-
-
-
-
-
 ***************************************************
 ** How to Use git & repo in Philips TV Project
 ***************************************************
