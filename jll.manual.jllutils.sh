@@ -17,7 +17,12 @@ mkdir -pv ~/github.com/qq1624646454
 ${Fpink}# For a User, please do the follows: ${AC}
 cd ~/github.com/qq1624646454
 git clone https://github.com/qq1624646454/jllutils.git
-cd jllutils
+cd - >/dev/null
+
+${Fpink}# install jllutils contained registed path into ~/.bash ${AC}
+${Fpink}# and auto align from remote git repository. ${AC}
+cd ~/github.com/qq1624646454/jllutils
+./____install_jllutils.sh
 cd - >/dev/null
 
 
@@ -25,6 +30,7 @@ cd - >/dev/null
 cd ~/github.com/qq1624646454/jllutils
 ./jll.sshconf.sh
 cd - >/dev/null
+
 
 
 # Build the auto align from remote git repository
