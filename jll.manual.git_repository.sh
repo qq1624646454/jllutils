@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:42:32
+#   ModifiedTime: 2017-06-28 23:30:38
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -33,11 +33,29 @@ ${Fyellow} apt-get install git git-svn git-doc git-email git-gui gitk gitweb ${A
 ## install apache2 to support for gitweb
 ${Fyellow} apt-get install apache2 ${AC}
 
+## Create a common default account to access git repository.
+${Fyellow} jll.user.sh add ${AC}
+## After git account is created, switch root to git account
+${Fyellow} su - git ${AC} 
+## Create a test project
+${Fyellow} mkdir -pv test ${AC}
+${Fyellow} cd test ${AC}
+${Fyellow} touch readme ${AC}
+${Fyellow} git config --global user.email "jielong.lin@tpv-tech.com" ${AC}
+${Fyellow} git config --global user.name "jielong.lin" ${AC}
+${Fyellow} git init ${AC}
+${Fyellow} git add -A ${AC}
+${Fyellow} git commit -m "create first time" ${AC}
+${Fyellow} git log ${AC}
 
-## enable the url http://localhost/gitweb
-## or enable the url http://localhost:80/gitweb
-## or enable the url localhost:80/gitweb
+# arrive here, please switch to root account...
+${Fyellow} su - root ${AC}
+
+## For enable the url http://localhost/gitweb
+##     or enable the url http://localhost:80/gitweb
+##     or enable the url localhost:80/gitweb
 ## the one of the below methods is valid, default by method-2.
+## ${Fgreen}proposal use method-2, it seems nothing to do. [jielong.lin] ${AC}
 ## method-1:
 ${Fyellow} ln -s /usr/share/gitweb /var/www/ ${AC}
 
@@ -53,21 +71,37 @@ ${Fyellow} 6 </Directory> ${AC}
 ## let gitweb be customized. 
 ${Fyellow} vim /etc/gitweb.conf ${AC}
   1 # path to git projects (<project>.git)
-  2 \$projectroot = "${Fyellow}/home/jielong.lin/localhost${AC}";
+  2 \$projectroot = "${Fyellow}/home/git${AC}";
   3
   4 # directory to use for temp files
   ...
  31
  32 ${Fyellow}\$site_name = "GitWeb @ TPV-Server";${AC}
- 33 ${Fyellow}\$feature{'search'}{'default'} = [1]; ${AC}
- 34 ${Fyellow}\$feature{'blame'}{'default'} = [1]; ${AC}
+ 33 ${Fyellow}#\$feature{'search'}{'default'} = [1]; ${AC}
+ 34 ${Fyellow}#\$feature{'blame'}{'default'} = [1]; ${AC}
 
 
 ## be actived after restart apache server 
 ${Fyellow} /etc/init.d/apache2 restart ${AC}
 
 ## Testing...type "http://localhost/gitweb"
+${Fyellow} m3w http://localhost:80/gitweb ${AC}
+${Fyellow} m3w http://localhost:8888/gitweb ${AC}
 
+
+
+${Bred}${Fwhite}                                                               ${AC}
+${Bred}${Fwhite}  ${AC}  ISSUE-$((issueID++))
+${Bred}${Fwhite}                                                               ${AC}
+${Fwhite}root@TpvServer:~# ${Fgreen}w3m http://localhost:8888/gitweb${AC}
+${Fgreen}git${Fblue}projects${AC} /
+
+404 - No projects found
+${Fblue}OPML TXT${AC}
+
+${Bgreen}${Fblack}SOLVE ${AC}
+${Fgreen}The root-caused reason is that not perssion for the current account.${AC}
+${Fgreen}Please create a new account and enable some git project ${AC}
 
 
 
@@ -103,6 +137,64 @@ ${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}vim /etc/apache2/ports.conf${AC}
   9 Listen ${Fgreen}8888${AC}
  10
 
+
+
+${Bgreen}${Fwhite}                                                               ${AC}
+${Bgreen}${Fwhite}  ${AC}   GIT SERVER                                           ${AC}
+${Bgreen}${Fwhite}  ${AC}   building a Git Remote Repository without work tree
+${Bgreen}${Fwhite}  ${AC}   namely all files only belong to .git and none source code
+${Bgreen}${Fwhite}  ${AC}   ITS URL is "username@server_ip:projectname" 
+${Bgreen}${Fwhite}  ${AC}   such as  "git@172.20.30.29:drmplayer_demo" 
+${Bgreen}${Fwhite}                                                               ${AC}
+${Fyellow} su - git ${AC}
+${Fyellow} mkdir -pv drmplayer_demo ${AC}
+${Fyellow} cd drmplayer_demo ${AC}
+${Fyellow} git init --bare ${AC}
+${Fyellow} ls -al ${AC}
+
+${Bgreen}${Fwhite}                                                               ${AC}
+${Bgreen}${Fwhite}  ${AC}   GIT CLIENT                                           ${AC}
+${Bgreen}${Fwhite}  ${AC}   building a Git Local Repository with work tree
+${Bgreen}${Fwhite}  ${AC}   namely contained .git and source code
+${Bgreen}${Fwhite}                                                               ${AC}
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello 
+\$${Fyellow} git init ${AC}
+Initialized empty Git repository in D:/System/jielong.lin/Desktop/hello/.git/
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master) \
+\$${Fyellow} git add . ${AC}
+warning: LF will be replaced by CRLF in hello.txt.
+The file will have its original line endings in your working directory.
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
+\$${Fyellow} git commit -m "add" ${AC}
+[master (root-commit) e3ab94c] add
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.txt
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
+\$${Fyellow} git log ${AC}
+commit e3ab94c3025b28b48a47ed4260d0c9730d933039
+Author: jielong.lin <493164984@qq.com>
+Date:   Wed Jun 28 23:21:57 2017 +0800
+
+    add
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
+\$${Fyellow} git remote add origin git@172.20.30.29:drmplayer_demo ${AC}
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
+\$${Fyellow} git push origin master ${AC}
+Enter passphrase for key '/c/Users/jielong.lin/.ssh/id_rsa':
+git@172.20.30.29's password:
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 211 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To 172.20.30.29:drmplayer_demo
+ * [new branch]      master -> master
+
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
+\$
 
 
 EOF
