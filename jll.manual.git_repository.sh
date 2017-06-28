@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:41:51
+#   ModifiedTime: 2017-06-28 18:42:31
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -62,8 +62,12 @@ ${Fyellow} vim /etc/gitweb.conf ${AC}
  33 ${Fyellow}\$feature{'search'}{'default'} = [1]; ${AC}
  34 ${Fyellow}\$feature{'blame'}{'default'} = [1]; ${AC}
 
+
+## be actived after restart apache server 
 ${Fyellow} /etc/init.d/apache2 restart ${AC}
-Testing...type "http://localhost/gitweb"
+
+## Testing...type "http://localhost/gitweb"
+
 
 
 
