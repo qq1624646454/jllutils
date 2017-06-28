@@ -5,12 +5,9 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-06-28 11:58:23
+#   ModifiedTime: 2017-06-28 14:10:55
 
 
-
-declare -a __lstCommittedIDs
-declare -i __iCommittedIDs=0
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
@@ -51,15 +48,32 @@ function _FN_retrieve_git_commits_by_GitURL()
     [ x"${__CTXLine}" != x ] && unset __CTXLine
 }
 
-__JLLCONF_Lastest_Commit=0
-_FN_retrieve_git_commits_by_GitURL "https://github.com/qq1624646454/jllutils/commits/master"
-if [ ${__iCommittedIDs} -gt 0 ]; then
-    __JLLCONF_Lastest_Commit=${__lstCommittedIDs[0]}
-fi
-[ x"${__lstCommittedIDs}" != x ] && unset __lstCommittedIDs
-[ x"${__iCommittedIDs}" != x ] && unset __iCommittedIDs
-
-
+function _FN_is_align_with_git_remote()
+{
+    if [ x"${__iCommittedIDs}" != x -a ${__iCommittedIDs} -gt 0 ]; then
+        __local_commitID=$(git log --oneline | head -n 1)
+        __local_commitID="${__local_commitID%% *}"
+        if [ x"${__local_commitID}" != x ]; then
+            __isReturn=0
+            echo "JLL-check:: local.lastest.commit.id --- remote.commit.id "
+            for((__k=0;__k<__iCommittedIDs;__k++)) {
+                echo "JLL-check:: ${__local_commitID} --- ${__lstCommittedIDs[__k]}"
+                if [ x"${__local_commitID}" = x"${__lstCommittedIDs[__k]}" ]; then
+                    __isReturn=1
+                    echo "JLL-check:: HIT at ${__local_commitID} --- ${__lstCommittedIDs[__k]}"
+                    break
+                fi
+            }
+            if [ x"${__isReturn}" = x"1" -a x"$1" != x ]; then
+                eval $1=1
+                return
+            fi
+        fi
+    fi
+    if  [ x"$1" != x ]; then
+        eval $1=0
+    fi
+}
 
 
 
@@ -215,9 +229,25 @@ ${__GitCHANGE}
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
   fi
 fi
+
+
+
+declare -a __lstCommittedIDs
+declare -i __iCommittedIDs=0
+
+_FN_retrieve_git_commits_by_GitURL "https://github.com/qq1624646454/jllutils/commits/master" \
+                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+_FN_is_align_with_git_remote __isAlign  \
+                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+[ x"${__lstCommittedIDs}" != x ] && unset __lstCommittedIDs
+[ x"${__iCommittedIDs}" != x ] && unset __iCommittedIDs
+
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
+/bin/echo "Check if align with remote via __isAlign=${__isAlign}"    >> _______auto_sync_by_GIT__in_crontab.log
+if [ x"${__isAlign}" = x"1" ]; then
 /bin/echo "Pull Changes from '${__RemoteRepository}' by git pull "   >> _______auto_sync_by_GIT__in_crontab.log
 /usr/bin/git pull -f -u origin master                                >> _______auto_sync_by_GIT__in_crontab.log
+fi
 /usr/bin/git log | /usr/bin/head -n 4                                >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 cd - >/dev/null
