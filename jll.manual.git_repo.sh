@@ -7,9 +7,15 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
-*******************
-** How to Use
-*******************
+***************************************************
+** How to Use git & repo in Philips TV Project
+***************************************************
+
+
+
+***************************************************
+** How to Use git & repo in Philips TV Project
+***************************************************
 
 ##
 ## Switch to another U+ version for Asta M
