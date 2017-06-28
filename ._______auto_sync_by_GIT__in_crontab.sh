@@ -5,9 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-06-28 14:20:30
-
-
+#   ModifiedTime: 2017-06-28 14:23:12
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
@@ -233,7 +231,6 @@ ${__GitCHANGE}
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
   fi
 fi
-
 
 
 declare -a __lstCommittedIDs
