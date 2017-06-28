@@ -26,11 +26,11 @@ cd ~/github.com/qq1624646454/jllutils
 cd - >/dev/null
 
 
-${Fpink}# For a developer, maybe need to setup ssh keys into ~/.sshconf ${AC}
+${Fpink}# For a developer, maybe need to setup ssh keys into ~/.ssh and ~/.sshconf ${AC}
 ${Fpink}# please next to do the follows: ${AC}
 cd ~/github.com/qq1624646454/jllutils
 ./jll.sshconf.sh
-${Fpink}# please select the menu \"installing: setup ssh keys then let jllutils over SSH\" ${AC}
+${Fpink}# please select the item \"installing: setup ssh keys then let jllutils over SSH\" ${AC}
 cd - >/dev/null
 
 
