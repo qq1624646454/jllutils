@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:01:47
+#   ModifiedTime: 2017-06-28 18:07:26
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -22,8 +22,8 @@ more >&1 << EOF
 ** Such as Android APP code development workaround in windows7
 ******************************************************************
 ##
-## Check if 80 port is used
-${Fyellow} netstat -nap | grep -w '80' ${AC}
+## Check if 80 and 8888 ports are used. Proposal use 8888 port.
+${Fyellow} netstat -nap | grep -E -w '80|8888' ${AC}
  
 ${Fyellow} dpkg --get-selections | grep git ${AC}
 
@@ -34,7 +34,7 @@ ${Fyellow} apt-get install git git-svn git-doc git-email git-gui gitk gitweb ${A
 ${Fyellow} apt-get install apache2 ${AC}
 
 
-## enable the url localhost:8888
+## enable the url localhost:8888/
 ln -s /usr/share/gitweb /var/www/
 
 
