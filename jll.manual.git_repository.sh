@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:27:49
+#   ModifiedTime: 2017-06-28 18:28:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -49,6 +49,9 @@ ${Fyellow} vim /etc/gitweb.conf ${AC}
  32 ${Fyellow}\$site_name = "GitWeb @ TPV-Server";${AC}
  33 ${Fyellow}\$feature{'search'}{'default'} = [1]; ${AC}
  34 ${Fyellow}\$feature{'blame'}{'default'} = [1]; ${AC}
+
+${Fyellow} /etc/init.d/apache2 restart ${AC}
+Testing...type "http://localhost/gitweb"
 
 
 
