@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 18:23:49
+#   ModifiedTime: 2017-06-28 18:27:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -38,7 +38,6 @@ ${Fyellow} apt-get install apache2 ${AC}
 ## or enable the url http://localhost:80/gitweb
 ## or enable the url localhost:80/gitweb
 ${Fyellow} ln -s /usr/share/gitweb /var/www/ ${AC}
-
 
 ${Fyellow} vim /etc/gitweb.conf ${AC}
   1 # path to git projects (<project>.git)
