@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 09:54:54
+#   ModifiedTime: 2017-06-29 09:56:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -214,7 +214,7 @@ ${Bred}${Fwhite}                                                               $
 ${Bred}${Fwhite}  ${AC}  ISSUE-$((issueID++)) on git version 2.9.3.windows.2
 ${Bred}${Fwhite}                                                               ${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \$${Fyellow} git add -A       ${AC}
-
+${Fred}... Filename too long ${AC}
 
 
 
