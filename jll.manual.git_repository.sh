@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 13:43:10
+#   ModifiedTime: 2017-06-29 14:52:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -281,6 +281,13 @@ remote: Total 7 (delta 1), reused 0 (delta 0)
 Receiving objects: 100% (7/7), done.
 Resolving deltas: 100% (1/1), done.
 Checking connectivity... done.
+
+${Fgreen}please copy git_push.sh and git_pull.sh into project${AC}
+jielong.lin@XMNB4003161 MINGW32 ~/drmplayer_demo
+\$${Fyellow}curl -x 172.20.30.1:3128 -C - -O ${AC} \\
+     ${Fyellow}https://github.com/qq1624646454/jllutils/blob/master/git_push.sh${AC} 
+\$${Fyellow}curl -x 172.20.30.1:3128 -C - -O ${AC} \\
+     ${Fyellow}https://github.com/qq1624646454/jllutils/blob/master/git_pull.sh${AC} 
 
 
 EOF
