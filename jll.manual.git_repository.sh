@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 09:58:29
+#   ModifiedTime: 2017-06-29 11:51:35
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -99,7 +99,7 @@ ${Fgreen}git${Fblue}projects${AC} /
 404 - No projects found
 ${Fblue}OPML TXT${AC}
 
-${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}SOLVE ${AC}                                                    
 ${Fgreen}The root-caused reason is that not perssion for the current account.${AC}
 ${Fgreen}Please create a new account and enable some git project ${AC}
 
@@ -114,7 +114,7 @@ ${Fred} * Starting web server apache2${AC}
 ${Fred}apache2: Could not reliably determine the server's fully qualified domain name, ${AC}
 ${Fred}         using 127.0.1.1 for ServerName${AC}
 
-${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}SOLVE ${AC}                                                    
 ${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}echo "ServerName localhost" > httpd.conf${AC}
 
 
@@ -130,7 +130,7 @@ ${Fred}Unable to open logs${AC}
 ${Fred}Action 'start' failed.${AC}
 ${Fred}The Apache error log may have more information.${AC}
 
-${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}SOLVE ${AC}                                                    
 ${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}vim /etc/apache2/ports.conf${AC}
   7
   8 NameVirtualHost *:80
@@ -204,11 +204,11 @@ ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \$${Fyellow} git add .        $
 ${Fred}warning: LF will be replaced by CRLF in hello.txt. ${AC}
 ${Fred}The file will have its original line endings in your working directory. ${AC}
 
-${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}SOLVE ${AC}                                                    
 ${Bgreen}${Fblack}Windows use CRLF to break line, but Unix/Linux use LF, so git${AC}
-${Bgreen}${Fblack}will translate LF to CRLF for compatible with Windows${AC}
+${Bgreen}${Fblack}will translate LF to CRLF for compatible with Windows        ${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
-\$ ${Fgreen}git config --gobal core.autocrlf false${AC}
+\$ ${Fgreen}git config --global core.autocrlf false${AC}
 
 
 
@@ -218,11 +218,50 @@ ${Bred}${Fwhite}                                                               $
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \$${Fyellow} git add -A       ${AC}
 ${Fred}... Filename too long ${AC}
 
-${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}SOLVE ${AC}                                                    
 ${Bgreen}${Fblack}The path name length is limited for mysys-git in windows${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
-\$ ${Fgreen}git config --gobal core.longpaths true ${AC}
+\$ ${Fgreen}git config --global core.longpaths true ${AC}
 
+
+Please make a shell script file "build_git.sh"
+===============================================================================
+#!/bin/bash
+
+if [ x"\$1" = x ]; then
+    echo
+    echo "Exit: please type the legal URL, such as:"
+    echo "      git@172.20.30.29:project_test"
+    echo
+    exit 0
+fi
+
+_my_URL=\$1
+_my_Project=\${_my_URL##*:}
+_my_URL=\${_my_URL%%:*}
+
+ssh \${_my_URL} "ls \${_my_Project} 2>/dev/null"
+
+if [ x"\$?" != x"0" ]; then
+    echo
+    echo "Exit: please type the legal USERNAME@URL:PROJECT, such as:"
+    echo "      git@172.20.30.29:project_test"
+    echo
+    exit 0
+fi
+
+_my_DT="\$(date +%Y-%m-%d\ %H:%M)"
+
+echo "git init"
+git init
+echo "git add -A"
+git add -A
+echo "git commit -m \"create the new project @ \${_my_DT}\""
+git commit -m "create the new project @ \${_my_DT}"
+echo "git remote add origin \$1"
+git remote add origin \$1
+echo "#git push origin master"
+# git push origin master
 
 
 
