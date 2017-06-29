@@ -284,11 +284,8 @@ Checking connectivity... done.
 
 ${Fgreen}please copy git_push.sh and git_pull.sh into project${AC}
 jielong.lin@XMNB4003161 MINGW32 ~/drmplayer_demo
-\$${Fyellow}curl -x 172.20.30.1:3128 -C - -O ${AC} \\
-     ${Fyellow}https://github.com/qq1624646454/jllutils/blob/master/git_push.sh${AC} 
-\$${Fyellow}curl -x 172.20.30.1:3128 -C - -O ${AC} \\
-     ${Fyellow}https://github.com/qq1624646454/jllutils/blob/master/git_pull.sh${AC} 
-
+\$${Fyellow} scp -r jielong.lin@172.20.30.29:github.com/qq1624646454/jllutils/git_pull.sh ./ ${AC}
+\$${Fyellow} scp -r jielong.lin@172.20.30.29:github.com/qq1624646454/jllutils/git_push.sh ./ ${AC}
 
 EOF
 
