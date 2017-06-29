@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 09:51:09
+#   ModifiedTime: 2017-06-29 09:54:54
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -205,6 +205,8 @@ ${Fred}warning: LF will be replaced by CRLF in hello.txt. ${AC}
 ${Fred}The file will have its original line endings in your working directory. ${AC}
 
 ${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}Windows use CRLF to break line, but Unix/Linux use LF, so git${AC} \
+${Bgreen}${Fblack}will translate LF to CRLF for compatible with Windows${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
 \$ ${Fgreen}git config --gobal core.autocrlf false${AC}
 
