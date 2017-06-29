@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-28 23:30:38
+#   ModifiedTime: 2017-06-29 09:30:50
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -161,7 +161,7 @@ jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello
 \$${Fyellow} git init ${AC}
 Initialized empty Git repository in D:/System/jielong.lin/Desktop/hello/.git/
 
-jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master) \
+jielong.lin@XMNB4003161 MINGW32 /d/System/jielong.lin/Desktop/hello (master)
 \$${Fyellow} git add . ${AC}
 warning: LF will be replaced by CRLF in hello.txt.
 The file will have its original line endings in your working directory.
