@@ -37,6 +37,15 @@ EOF
 }
 echo
 
+if [ x"$(ls .git 2>/dev/null)" = x ]; then
+    echo
+    echo "Exit: not a git repository (or any of the parent directories): .git"
+    echo
+    exit 0
+fi
+
+
+
 git status -s
 git pull origin master
 git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | head -n 5 
