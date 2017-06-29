@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-03-09 15:56:24
-#   ModifiedTime: 2017-05-26 11:45:37
+#   ModifiedTime: 2017-06-29 14:47:16
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,7 +15,7 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-cat >&1 <<EOF
+more >&1 <<EOF
 
 ${AC}${Fseablue}
 # Obtain the website specified by URL${AC}
@@ -33,22 +33,74 @@ ${AC}${Fseablue}
 wget -c -t0 -T3  URL
 ${AC}${Fseablue}
   e.g:
-      wget -c -t0 -T3 \
+      wget -c -t0 -T3 \\
           "https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip"
 ${AC}
 
 
 
 
+${Bwhite}${Fblack}==================================================================${AC}
+${Bwhite}${Fblack}  ${AC}   Support for 
+${Bwhite}${Fblack}  ${AC}       continuable download(-C -), 
+${Bwhite}${Fblack}  ${AC}       hold the default file name (-O) 
+${Bwhite}${Fblack}  ${AC}       use proxy server (-x IP:Port)
+${Bwhite}${Fblack}==================================================================${AC}
+curl.exe \\
+    -x 172.20.30.1:3128 \\
+    -C - \\
+    -O https://github.com/qq1624646454/jllutils/blob/master/UI.template.sh
+
+
+${Byellow}                                                        ${AC}
+${Byellow}  ${AC} Build a new shell script into MINGW32 /usr/bin, and run it anywhere
+${Byellow}                                                        ${AC}
+jielong.lin@XMNB4003161 MINGW32 ${Fyellow}/usr/bin${AC}
+\$ ${Fyellow}vim jll.curl.sh${AC}
+#!/bin/bash
+# Copyright(C) 2017-2100.  jielong.lin@qq.com.   All rights reserved.
+#
+# Support for
+#   continuable download(-C -)
+#   hold the default file name (-O)
+#   use proxy server (-x IP:Port)
+
+echo
+echo "# Support for"
+echo "#   continuable download(-C -)"
+echo "#   hold the default file name (-O)"
+echo "#   use proxy server (-x IP:Port)"
+echo
+echo "Usage:"
+echo "    \$0  [URL_to_be_used_for_download]" 
+echo "    ----------------------------------"
+echo
+echo "    curl \\\\ "
+echo "        -x 172.20.30.1:3128 \\\\ "
+echo "        -C - \\\\ "
+echo "        -O \$1 "
+echo "    ----------------------------------"
+echo
+
+if [ x"\$1" = x ]; then
+    exit 0
+fi
+
+curl \\
+    -x 172.20.30.1:3128 \\
+    -C - \\
+    -O \$1
+
+jielong.lin@XMNB4003161 MINGW32 ${Fyellow}/usr/bin${AC}
+\$ ${Fyellow}chmod +x jll.curl.sh${AC}
 
 
 
-${AC}${Fwhite}
-==================================================================
-    Download a file on https site by wget
-        :: Self-signed certificate encountered 
-        :: cannot verify developers.tpvision.com's certificate'
-==================================================================${AC}
+${Bwhite}${Fblack}==================================================================${AC}
+${Bwhite}${Fblack}  ${AC}   Download a file on https site by wget
+${Bwhite}${Fblack}  ${AC}        :: Self-signed certificate encountered 
+${Bwhite}${Fblack}  ${AC}        :: cannot verify developers.tpvision.com's certificate'
+${Bwhite}${Fblack}==================================================================${AC}
 jielong.lin@TpvServer:~/test\$${Fyellow}wget -c -t0 -T3 "https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip"${Fgreen}
 --2017-05-26 09:33:09--  https://developers.tpvision.com/istreams/data/2017-05-25_14-05-53_TPVisionDebug.zip
 Resolving developers.tpvision.com (developers.tpvision.com)... 172.27.221.45

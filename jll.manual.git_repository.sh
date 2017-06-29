@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 11:51:35
+#   ModifiedTime: 2017-06-29 13:43:10
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -228,10 +228,12 @@ Please make a shell script file "build_git.sh"
 ===============================================================================
 #!/bin/bash
 
+exit 0 # please disable after build git repository successfully.
 if [ x"\$1" = x ]; then
     echo
     echo "Exit: please type the legal URL, such as:"
     echo "      git@172.20.30.29:project_test"
+    echo "For example: \$0 \"git@172.20.30.29:project_test\""
     echo
     exit 0
 fi
@@ -263,6 +265,22 @@ git remote add origin \$1
 echo "#git push origin master"
 # git push origin master
 
+
+${Bgreen}${Fwhite}                                                               ${AC}
+${Bgreen}${Fwhite}  ${AC}   GIT CLIENT                                           ${AC}
+${Bgreen}${Fwhite}  ${AC}   clone a Git Local Repository with work tree
+${Bgreen}${Fwhite}  ${AC}   namely contained .git and source code
+${Bgreen}${Fwhite}                                                               ${AC}
+jielong.lin@XMNB4003161 MINGW32 ~
+\$${Fyellow} git clone git@172.20.30.29:drmplayer_demo ${AC}
+Cloning into 'drmplayer_demo'...
+git@172.20.30.29's password:
+remote: Counting objects: 7, done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 7 (delta 1), reused 0 (delta 0)
+Receiving objects: 100% (7/7), done.
+Resolving deltas: 100% (1/1), done.
+Checking connectivity... done.
 
 
 EOF
