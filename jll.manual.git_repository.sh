@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 09:56:25
+#   ModifiedTime: 2017-06-29 09:57:45
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -210,11 +210,19 @@ ${Bgreen}${Fblack}will translate LF to CRLF for compatible with Windows${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
 \$ ${Fgreen}git config --gobal core.autocrlf false${AC}
 
+
+
 ${Bred}${Fwhite}                                                               ${AC}
 ${Bred}${Fwhite}  ${AC}  ISSUE-$((issueID++)) on git version 2.9.3.windows.2
 ${Bred}${Fwhite}                                                               ${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \$${Fyellow} git add -A       ${AC}
 ${Fred}... Filename too long ${AC}
+
+${Bgreen}${Fblack}SOLVE ${AC}
+${Bgreen}${Fblack}The path name length is limited for mysys-git in windows${AC} \
+${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
+\$ ${Fgreen}git config --gobal core.longpaths true ${AC}
+
 
 
 
