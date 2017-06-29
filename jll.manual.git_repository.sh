@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 09:49:34
+#   ModifiedTime: 2017-06-29 09:51:09
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -205,11 +205,13 @@ ${Fred}warning: LF will be replaced by CRLF in hello.txt. ${AC}
 ${Fred}The file will have its original line endings in your working directory. ${AC}
 
 ${Bgreen}${Fblack}SOLVE ${AC}
-${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}vim /etc/apache2/ports.conf${AC}
-  7
-  8 NameVirtualHost *:80
-  9 Listen ${Fgreen}8888${AC}
- 10
+${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
+\$ ${Fgreen}git config --gobal core.autocrlf false${AC}
+
+${Bred}${Fwhite}                                                               ${AC}
+${Bred}${Fwhite}  ${AC}  ISSUE-$((issueID++)) on git version 2.9.3.windows.2
+${Bred}${Fwhite}                                                               ${AC}
+${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \$${Fyellow} git add -A       ${AC}
 
 
 
