@@ -36,6 +36,14 @@ EOF
 }
 echo
 
+
+if [ x"$(ls .git 2>/dev/null)" = x ]; then
+    echo
+    echo "Exit: not a git repository (or any of the parent directories): .git"
+    echo
+    exit 0
+fi
+
 GvChanges="$(git status -s)"
 if [ x"${GvChanges}" != x ]; then
     git add -A
