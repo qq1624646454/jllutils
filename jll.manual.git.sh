@@ -30,7 +30,11 @@ more >&1 << EOF
 # git log -relative-date //show the relative data to the current, such as 2 weeks ago
 #
 # --: tell git log about the later parameter is the path format, such as
-#   git log -- foo.py bar.py  //show the records associated with foo.py bar.py files.
+#       git log -- foo.py bar.py  //show the records associated with foo.py bar.py files.
+#
+# -S"hello": if you wanna know when the "hello" is added to the code file and committed, -S"hello" can
+#            help you to filter and find out the relative records.
+#              git log -S"hello" 
 #
 git log --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
