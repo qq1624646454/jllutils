@@ -10,12 +10,13 @@ more >&1 << EOF
 
 # git log help
 # //PRETTY FORMAT
-# %H: commit hash             %h: abbreviated commit hash
-# %an: author name            %ae: author email
-# %cn: committer name         %ce: committer email             %cr: committer date, relative
-# %d: ref names, like the --decorate option of git-log(1)       
-# %s: subject(提交说明)       %Cred: switch color to red       %Cgreen: switch color to green
-# %Creset: reset color        %Cblue: switch color to blue     %n: newline 
+# %H: commit hash                %h: abbreviated commit hash
+# %an: author name               %ae: author email
+# %cn: committer name            %ce: committer email             %cr: committer date, relative
+# %d: ref names       
+# %s: subject(各个branch信息)    %Cred: switch color to red       %Cgreen: switch color to green
+# %Creset: reset color           %Cblue: switch color to blue     %n: newline 
+# -(n):  only show last n committed records, n is a digit
 #
 # git log -2  //only show last 2 records
 # git log -2 -p //only show last 2 records and expand the different changes(展开差异变化)
