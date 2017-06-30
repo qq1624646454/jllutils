@@ -28,7 +28,7 @@ more >&1 << EOF
 # git log --name-only //only show modified files
 # git log --name-status //show add,del,modified files
 # git log -relative-date //show the relative data to the current, such as 2 weeks ago
-# git 
+#
 git log --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
 | head -n 8
