@@ -13,11 +13,15 @@ more >&1 << EOF
 # %H: commit hash                %h: abbreviated commit hash
 # %an: author name               %ae: author email
 # %cn: committer name            %ce: committer email             %cr: committer date, relative
-# %d: ref names       
+# %d: ref names (各个branch信息)      
 # %s: subject(各个branch信息)    %Cred: switch color to red       %Cgreen: switch color to green
 # %Creset: reset color           %Cblue: switch color to blue     %n: newline 
-# -(n):  only show last n committed records, n is a digit
 #
+# -(n):  only show last n committed records, n is a digit
+# --committer=(who) / --author=(who): only show the records associated with committer/author 
+# --since,--after: only show the records after the specified date
+# --until, --before: only show the records before the specified date
+# git log --pretty="%h - %s" --author=jielong.lin --since="2016-01-02" --before="2017-05-01"
 # git log -2  //only show last 2 records
 # git log -2 -p //only show last 2 records and expand the different changes(展开差异变化)
 # git log -2 --stat //only show last 2 records and statistic content
@@ -27,7 +31,7 @@ more >&1 << EOF
 # git 
 git log --graph \\
 --pretty=format:'%Cred${Fred}%h${AC}%Creset \\
--%C(yellow)${Fyellow}%d${AC}%Creset %s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
+-%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
 | head -n 8
 
