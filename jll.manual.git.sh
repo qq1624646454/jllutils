@@ -13,7 +13,7 @@ more >&1 << EOF
 # %H: commit hash                %h: abbreviated commit hash
 # %an: author name               %ae: author email
 # %cn: committer name            %ce: committer email             %cr: committer date, relative
-# %d: ref names (各个branch信息)      
+# %d: ref names (各个branch信息) %C(yellow): the same to %Cyellow     
 # %s: subject(各个branch信息)    %Cred: switch color to red       %Cgreen: switch color to green
 # %Creset: reset color           %Cblue: switch color to blue     %n: newline 
 #
@@ -29,9 +29,7 @@ more >&1 << EOF
 # git log --name-status //show add,del,modified files
 # git log -relative-date //show the relative data to the current, such as 2 weeks ago
 # git 
-git log --graph \\
---pretty=format:'%Cred${Fred}%h${AC}%Creset \\
--%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
+git log --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
 | head -n 8
 
