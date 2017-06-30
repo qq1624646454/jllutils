@@ -21,7 +21,7 @@ more >&1 << EOF
 # --committer=(who) / --author=(who): only show the records associated with committer/author 
 # --since,--after: only show the records after the specified date
 # --until, --before: only show the records before the specified date
-# git log --pretty="%h - %s" --author=jielong.lin --since="2016-01-02" --before="2017-05-01"
+# git log --pretty="%h - %s" --author="jielong.lin\|jll" --since="2016-01-02" --before="2017-05-01"
 # git log -2  //only show last 2 records
 # git log -2 -p //only show last 2 records and expand the different changes(展开差异变化)
 # git log -2 --stat //only show last 2 records and statistic content
