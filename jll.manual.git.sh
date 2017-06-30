@@ -38,8 +38,7 @@ more >&1 << EOF
 #
 
 # customiaze the log format for jielong.lin
-git log --graph -8 \\
-        --pretty=format:'%Cred${Fred}%h${AC}%Creset (%ce %Cgreen${Fgreen}(%cr)${AC}%Creset) -%s '
+git log --pretty=format:'%Cred${Fred}%h${AC}%Creset (%ce %Cgreen${Fgreen}(%cr)${AC}%Creset) %s' -8
 
 
 ***************************************************
