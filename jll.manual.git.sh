@@ -8,7 +8,7 @@ source ${JLLPATH}/BashShellLibrary
 more >&1 << EOF
 
 git log --graph \\
---pretty=format:'%C${Fred}red%h%Creset${AC} \\
+--pretty=format:'%Cred${Fred}%h${AC}%Creset \\
 -%C${Fyellow}(yellow)%d%Creset${AC} %s %C${Fgreen}green(%cr)%Creset${AC}' \\
 --abbrev-commit --date=relative \\
 | head -n 8
