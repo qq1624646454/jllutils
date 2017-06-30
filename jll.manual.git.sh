@@ -36,9 +36,9 @@ more >&1 << EOF
 #            help you to filter and find out the relative records.
 #              git log -S"hello" 
 #
-git log --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
---abbrev-commit --date=relative \\
-| head -n 8
+
+# customiaze the log format for jielong.lin
+git log -8 --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset'
 
 
 ***************************************************
