@@ -9,7 +9,7 @@ more >&1 << EOF
 
 git log --graph \\
 --pretty=format:'%Cred${Fred}%h${AC}%Creset \\
--%C${Fyellow}(yellow)%d%Creset${AC} %s %C${Fgreen}green(%cr)%Creset${AC}' \\
+-%C(yellow)${Fyellow}%d${AC}%Creset %s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
 | head -n 8
 
