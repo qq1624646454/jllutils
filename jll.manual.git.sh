@@ -36,9 +36,8 @@ more >&1 << EOF
 #            help you to filter and find out the relative records.
 #              git log -S"hello" 
 #
-
 ${Byellow}${Fblue}# customiaze the log format for jielong.lin${AC}
-git log --pretty=format:'%Cred${Fred}%h${AC}%Creset (%ce %Cgreen${Fgreen}(%cr)${AC}%Creset) %s' -8
+git log --pretty=format:'%Cred${Fred}%h${AC}%Creset %Cgreen${Fgreen}(%ce - %cr)${AC}%Creset %s' -8
 
 
 ***************************************************
