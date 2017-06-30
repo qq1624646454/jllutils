@@ -29,6 +29,9 @@ more >&1 << EOF
 # git log --name-status //show add,del,modified files
 # git log -relative-date //show the relative data to the current, such as 2 weeks ago
 #
+# --: tell git log about the later parameter is the path format, such as
+#   git log -- foo.py bar.py  //show the records associated with foo.py bar.py files.
+#
 git log --graph --pretty=format:'%Cred${Fred}%h${AC}%Creset -%s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
 --abbrev-commit --date=relative \\
 | head -n 8
