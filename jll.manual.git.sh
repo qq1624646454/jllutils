@@ -7,6 +7,23 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+
+# git log help
+# //PRETTY FORMAT
+# %H: commit hash             %h: abbreviated commit hash
+# %an: author name            %ae: author email
+# %cn: committer name         %ce: committer email             %cr: committer date, relative
+# %d: ref names, like the --decorate option of git-log(1)       
+# %s: subject(提交说明)       %Cred: switch color to red       %Cgreen: switch color to green
+# %Creset: reset color        %Cblue: switch color to blue     %n: newline 
+#
+# git log -2  //only show last 2 records
+# git log -2 -p //only show last 2 records and expand the different changes(展开差异变化)
+# git log -2 --stat //only show last 2 records and statistic content
+# git log --name-only //only show modified files
+# git log --name-status //show add,del,modified files
+# git log -relative-date //show the relative data to the current, such as 2 weeks ago
+# git 
 git log --graph \\
 --pretty=format:'%Cred${Fred}%h${AC}%Creset \\
 -%C(yellow)${Fyellow}%d${AC}%Creset %s %Cgreen${Fgreen}(%cr)${AC}%Creset' \\
