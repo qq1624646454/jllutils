@@ -399,10 +399,8 @@ EOF
     cd - >/dev/null 
     __Fn_finalize_GIT
     cd ${__GitPath}
-    git log --graph \
-            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-            --abbrev-commit \
-            --date=relative | head -n 8
+    git log \
+        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
     echo
 ;;
@@ -427,10 +425,8 @@ EOF
     cd - >/dev/null 
     __Fn_finalize_GIT
     cd ${__GitPath}
-    git log --graph \
-        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-        --abbrev-commit \
-        --date=relative | head -n 8
+    git log \
+        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
     echo
 ;;

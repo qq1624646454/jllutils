@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-06-28 14:23:12
+#   ModifiedTime: 2017-06-30 16:31:58
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
@@ -227,7 +227,8 @@ ${__GitCHANGE}
     /usr/bin/git push                                                >> _______auto_sync_by_GIT__in_crontab.log
     __SSHCONF_Switching_End
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
-    /usr/bin/git log | /usr/bin/head -n 4                            >> _______auto_sync_by_GIT__in_crontab.log
+    /usr/bin/git log --name-status \
+                     --pretty=format:'%n%n%h  %ce (%cr)  %s' -4      >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
   fi
 fi
@@ -249,7 +250,8 @@ if [ x"${__isAlign}" = x"1" ]; then
 /bin/echo "Pull Changes from '${__RemoteRepository}' by git pull "   >> _______auto_sync_by_GIT__in_crontab.log
 /usr/bin/git pull -f -u origin master                                >> _______auto_sync_by_GIT__in_crontab.log
 fi
-/usr/bin/git log | /usr/bin/head -n 4                                >> _______auto_sync_by_GIT__in_crontab.log
+/usr/bin/git log --name-status \
+                 --pretty=format:'%n%n%h  %ce (%cr)  %s' -4          >> _______auto_sync_by_GIT__in_crontab.log
 /bin/echo                                                            >> _______auto_sync_by_GIT__in_crontab.log
 cd - >/dev/null
 

@@ -12,10 +12,10 @@ more >&1 << EOF
 # //PRETTY FORMAT
 # %H: commit hash                %h: abbreviated commit hash
 # %an: author name               %ae: author email
-# %cn: committer name            %ce: committer email             %cr: committer date, relative
-# %d: ref names (各个branch信息) %C(yellow): the same to %Cyellow     
-# %s: subject(各个branch信息)    %Cred: switch color to red       %Cgreen: switch color to green
-# %Creset: reset color           %Cblue: switch color to blue     %n: newline 
+# %cn: committer name            %ce: committer email                %cr: committer date, relative
+# %d: ref names (各个branch信息) %C(yellow): switch color to yellow     
+# %s: subject                    %Cred: switch color to red          %Cgreen: switch color to green
+# %Creset: reset color           %Cblue: switch color to blue        %n: newline 
 #
 # -(n):  only show last n committed records, n is a digit
 # --committer=(who) / --author=(who): only show the records associated with committer/author 
@@ -27,7 +27,7 @@ more >&1 << EOF
 # git log -2 --stat //only show last 2 records and statistic content
 # git log --name-only //only show modified files
 # git log --name-status //show add,del,modified files
-# git log -relative-date //show the relative data to the current, such as 2 weeks ago
+# git log --relative-date //show the relative data to the current, such as 2 weeks ago
 #
 # --: tell git log about the later parameter is the path format, such as
 #       git log -- foo.py bar.py  //show the records associated with foo.py bar.py files.
@@ -37,7 +37,7 @@ more >&1 << EOF
 #              git log -S"hello" 
 #
 ${Byellow}${Fblue}# customiaze the log format for jielong.lin${AC}
-git log --pretty=format:'%Cred${Fred}%h${AC}%Creset %Cgreen${Fgreen}%ce${AC}%Creset %Cyellow${Fyellow}%cr${AC}%Creset %s' -8
+git log --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
 
 
 ***************************************************
