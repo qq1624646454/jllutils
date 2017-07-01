@@ -21,7 +21,7 @@ more >&1<<EOF
 
 ${Byellow}                                                                     ${AC}
 ${Byellow}  ${AC}The Below Steps Have Already Been Checked Pass By jielong.lin
-${Byellow}  ${AC}    Install and Configure NFS Server support on Ubuntu
+${Byellow}  ${AC}    Install and Configure NFS Server support on Ubuntu 12.04.5 LTS
 ${Byellow}                                                                     ${AC}
 jll@S1:~$ ${Fyellow}sudo apt-get install nfs-kernel-server nfs-common portmap${AC}
 [sudo] password for jll:
@@ -38,7 +38,7 @@ jll@S1:~$
 
 ${Byellow}                                                                     ${AC}
 ${Byellow}  ${AC}The Below Steps Have Already Been Checked Pass By jielong.lin
-${Byellow}  ${AC}    Install and Configure NFS Client support on Ubuntu
+${Byellow}  ${AC}    Install and Configure NFS Client support on Ubuntu 12.04.5 LTS 
 ${Byellow}                                                                     ${AC}
 jll@S2:~$ ${Fyellow}apt-get install libnfs-dev nfs-common ${AC}
 ... 
