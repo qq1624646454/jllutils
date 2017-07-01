@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-01 13:26:21
-#   ModifiedTime: 2017-07-01 14:59:22
+#   ModifiedTime: 2017-07-01 15:00:32
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -25,42 +25,15 @@ ${Byellow}  ${AC}    Install and Configure NFS Server support on Ubuntu
 ${Byellow}                                                                     ${AC}
 jll@S1:~$ ${Fyellow}sudo apt-get install nfs-kernel-server nfs-common portmap${AC}
 [sudo] password for jll:
-Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-Note, selecting 'rpcbind' instead of 'portmap'
 ...
-Setting up nfs-kernel-server (1:1.2.5-3ubuntu3.2) ...
-
-Creating config file /etc/exports with new version
-
-Creating config file /etc/default/nfs-kernel-server with new version
- * Exporting directories for NFS kernel daemon...                                     [ OK ]
- * Starting NFS kernel daemon                                                         [ OK ]
-Processing triggers for libc-bin ...
-ldconfig deferred processing now taking place
-
 jll@S1:~$ ${Fyellow}sudo vim /etc/exports${AC}
 #...
 /home/jll 172.20.30.1/24(rw,no_root_squash,async)
 
 jll@S1:~$ ${Fyellow}sudo /etc/init.d/nfs-kernel-server restart${AC}
- * Stopping NFS kernel daemon                                                         [ OK ]
- * Unexporting directories for NFS kernel daemon...                                   [ OK ]
- * Exporting directories for NFS kernel daemon...
- exportfs: /etc/exports [1]: Neither 'subtree_check' or 'no_subtree_check' specified 
-           for export "172.20.30.1/24:/home/jll".
-  Assuming default behaviour ('no_subtree_check').
-  NOTE: this default has changed since nfs-utils version 1.0.x
-
-                                                                                      [ OK ]
- * Starting NFS kernel daemon                                                         [ OK ]
+...
 jll@S1:~$ ${Fyellow}sudo exportfs -a ${AC}
-exportfs: /etc/exports [1]: Neither 'subtree_check' or 'no_subtree_check' specified 
-          for export "172.20.30.1/24:/home/jll".
-  Assuming default behaviour ('no_subtree_check').
-  NOTE: this default has changed since nfs-utils version 1.0.x
-
+...
 jll@S1:~$
 
 ${Byellow}                                                                     ${AC}
@@ -73,7 +46,8 @@ jll@S2:~$
 jll@S2:~$ ${Fyellow}mkdir -pv ~/xmnb4003161.tpvaoc.com/Desktop ${AC}
 jll@S2:~$ ${Fyellow}cd ~/xmnb4003161.tpvaoc.com ${AC}
 jll@S2:~/xmnb4003161.tpvaoc.com$ 
-jll@S2:~/xmnb4003161.tpvaoc.com$ mount -v -t nfs -o nfsvers=3  172.20.30.32:/home/jll/ Desktop
+jll@S2:~/xmnb4003161.tpvaoc.com$ ${Fyellow}mount -v -t nfs -o nfsvers=3 \
+172.20.30.32:/home/jll/ Desktop${AC}
 ...
 
 
