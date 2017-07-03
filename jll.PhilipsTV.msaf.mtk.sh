@@ -851,9 +851,12 @@ if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
     #__SSHCONF_Switching_Start
     __SSHCONF_Switching_Start__jielong
     echo
-    mkdir -pv 2k16_mtk_archer_refdev
-    cd 2k16_mtk_archer_refdev
-    repo init -u ssh://url/tpv/platform/manifest -b 2k16_mtk_archer_refdev
+    #mkdir -pv 2k16_mtk_archer_refdev
+    mkdir -pv 2k17_mtk_archer_m_refdev
+    #cd 2k16_mtk_archer_refdev
+    cd 2k17_mtk_archer_m_refdev
+    #repo init -u ssh://url/tpv/platform/manifest -b 2k16_mtk_archer_refdev
+    repo init -u ssh://url/tpv/platform/manifest -b 2k17_mtk_archer_m_refdev
     repo sync
     cd -
     echo
