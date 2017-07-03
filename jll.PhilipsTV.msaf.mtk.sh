@@ -981,7 +981,6 @@ if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
                 __SSHCONF_Switching_Start__jielong
                 repo sync
                 __SSHCONF_Switching_End
-        else
             else
                 if [ x"${GvChoice}" = x"0" ]; then # automatically sync with reset
                     repo forall -c "pwd; git clean -dfx; git reset --hard HEAD"
