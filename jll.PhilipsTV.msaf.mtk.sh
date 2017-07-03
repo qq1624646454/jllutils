@@ -1114,8 +1114,12 @@ if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
     fi
     cd ${GvBranchGitPath}
     if [ x"$(git status -s)" = x ]; then
-        echo "JLL: no any new changes to push"
+        echo "JLL: no any new changes to commit"
         echo
+        read -p "JLL: still RUN 'git push ...' IF press [y], or exit?   " GvChoice
+        if [ x"${GvChoice}" = x"y" ]; then
+            Fn_PhilipsTV_GitPushToMaster
+        fi
         unset GvBranchGitPath
         cd - >/dev/null
         exit 0
