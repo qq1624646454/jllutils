@@ -26,6 +26,7 @@ FOR Android:
 FOR nfs:
 mount -v -t nfs -o nfsvers=3 xmnb4003161.tpvaoc.com:/C/Android  Desktop
 
+umount -f Desktop # if nfs is break
 
 EOF
 
