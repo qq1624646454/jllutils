@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-01 13:26:21
-#   ModifiedTime: 2017-07-01 15:00:32
+#   ModifiedTime: 2017-07-04 15:28:02
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,18 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+
+1: Run  ./WinNFSd.exe "/c" on Windows 7
+2: Run  mount -v -t nfs -o nfsvers=3 xmnb4003161.tpvaoc.com:/C/Android  Desktop
+mount.nfs: timeout set for Tue Jul  4 15:28:20 2017
+mount.nfs: trying text-based options 'nfsvers=3,addr=172.20.27.30'
+mount.nfs: prog 100003, trying vers=3, prot=6
+mount.nfs: trying 172.20.27.30 prog 100003 vers 3 prot TCP port 2049
+mount.nfs: prog 100005, trying vers=3, prot=17
+mount.nfs: trying 172.20.27.30 prog 100005 vers 3 prot UDP port 1058
+xmnb4003161.tpvaoc.com:/C/Android on /root/xmnb4003161.tpvaoc.com/Desktop type nfs (rw,nfsvers=3)
+
 
 
 
