@@ -6,6 +6,16 @@ JLLPATH="$(dirname ${JLLPATH})"
 #source ${JLLPATH}/BashShellLibrary
 
 cat >&1 << EOF
+--------------------------------------
+domain
+--------------------------------------
+ wbinfo -u
+ wbinfo -g
+
+ nslookup
+ dig www.baidu.com
+
+
 
 --------------------------------------
  Check if IPv4:Port is valid or not
