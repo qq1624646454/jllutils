@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-07-04 01:15:56
+#   ModifiedTime: 2017-07-04 14:46:41
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -31,6 +31,20 @@ ${Fyellow} apt-get install git git-doc git-email git-man git-svn gitweb ${AC}
 
 
 ## install apache2 to support for gitweb
+## Apache 2.4 Configuration:
+## root@JllServer:/etc# tree apache2 -L 1
+## apache2
+## ├── apache2.conf
+## ├── conf-available   #备选配置
+## ├── conf-enabled     #当选配置，需要使能哪个功能就建个链接到conf-available
+## ├── envvars
+## ├── magic
+## ├── mods-available   #备选配置
+## ├── mods-enabled     #当选配置，需要使能哪个功能就建个链接到mods-available
+## ├── ports.conf
+## ├── sites-available
+## └── sites-enabled
+##
 ${Fyellow} apt-get install apache2 ${AC}
 
 ## Create a common default account to access git repository.
@@ -139,6 +153,30 @@ ${Fwhite}root@TpvServer:/etc/apache2# ${Fgreen}vim /etc/apache2/ports.conf${AC}
 
 
 
+${Bred}${Fwhite}                                                               ${AC}
+${Bred}${Fwhite}  ${AC}  ISSUE-$((issueID++)) for debian 8.3  apache 2.4 
+${Bred}${Fwhite}                                                               ${AC}
+${Fwhite}w3m http://localhost/gitweb       ${AC}
+${Fred}Not Found${AC}
+${Fred}The requested URL /gitweb was not found on this server.${AC}
+${Fred}============================================================${AC}
+${Fred}Apache/2.4.10 (Debian) Server at localhost Port 80
+${Bgreen}${Fblack}SOLVE: not load cgi ${AC}                                                    
+${Fwhite}root@JllServer:/etc/apache2# ${Fgreen}${AC}
+${Fwhite}root@JllServer:~#${Fgreen} cd /etc/apache2/${AC}
+${Fwhite}root@JllServer:/etc/apache2#${Fgreen} ls mods-enabled | grep -i cgi${AC}
+${Fwhite}root@JllServer:/etc/apache2#${Fgreen} cd mods-enabled/${AC}
+${Fwhite}root@JllServer:/etc/apache2/mods-enabled#${Fgreen} ln -s ../mods-available/cgi.load ./${AC}
+${Fwhite}root@JllServer:/etc/apache2/mods-enabled#${Fgreen} ls -l cgi.load${AC}
+${Fwhite}lrwxrwxrwx 1 root root 26 Jul  4 14:38 cgi.load -> ../mods-available/cgi.load${AC}
+${Fwhite}root@JllServer:/etc/apache2/mods-enabled#${AC}
+${Fwhite}root@JllServer:/etc/apache2/mods-enabled#${Fgreen} /etc/init.d/apache2 restart${AC}
+${Fwhite}[ ok ] Restarting apache2 (via systemctl): apache2.service.${AC}
+${Fwhite}root@JllServer:/etc/apache2/mods-enabled#${AC}
+
+
+
+
 ${Bgreen}${Fwhite}                                                               ${AC}
 ${Bgreen}${Fwhite}  ${AC}   GIT SERVER                                           ${AC}
 ${Bgreen}${Fwhite}  ${AC}   building a Git Remote Repository without work tree
@@ -222,6 +260,16 @@ ${Bgreen}${Fblack}SOLVE ${AC}
 ${Bgreen}${Fblack}The path name length is limited for mysys-git in windows${AC}
 ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
 \$ ${Fgreen}git config --global core.longpaths true ${AC}
+
+
+
+  596  cd mods-enabled/
+  597  ls -al cgi.load
+  598  rm -rvf cgi.load
+  599  ln -s ../mods-available/cgi.load ./
+  600  ls -al
+  601  /etc/init.d/apache2 restart
+
 
 
 Please make a shell script file "build_git.sh"
