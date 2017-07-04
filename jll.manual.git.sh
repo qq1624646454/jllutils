@@ -131,6 +131,8 @@ ${AC}
 
 *******************
 ** Install Git
+**
+**  git git-doc git-email git-man git-svn gitweb
 *******************
 ${AC}${Fyellow}
 aptitude show git
@@ -138,9 +140,8 @@ aptitude install git
 aptitude install git-svn
 aptitude install git-doc
 aptitude install git-email
-aptitude install git-gui
-aptitude install gitk 
 aptitude install gitweb
+aptitude install git-man
 ${AC}
 
 

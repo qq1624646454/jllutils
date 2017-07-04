@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-06-29 14:52:28
+#   ModifiedTime: 2017-07-04 01:15:56
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,7 +27,7 @@ ${Fyellow} netstat -nap | grep -E -w '80|8888' ${AC}
  
 ${Fyellow} dpkg --get-selections | grep git ${AC}
 
-${Fyellow} apt-get install git git-svn git-doc git-email git-gui gitk gitweb ${AC}
+${Fyellow} apt-get install git git-doc git-email git-man git-svn gitweb ${AC}
 
 
 ## install apache2 to support for gitweb
@@ -43,7 +43,7 @@ ${Fyellow} cd test ${AC}
 ${Fyellow} touch readme ${AC}
 ${Fyellow} git config --global user.email "jielong.lin@tpv-tech.com" ${AC}
 ${Fyellow} git config --global user.name "jielong.lin" ${AC}
-${Fyellow} git init ${AC}
+${Fyellow} git init --bare ${AC}
 ${Fyellow} git add -A ${AC}
 ${Fyellow} git commit -m "create first time" ${AC}
 ${Fyellow} git log ${AC}
