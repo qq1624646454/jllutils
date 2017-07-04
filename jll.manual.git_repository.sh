@@ -263,13 +263,6 @@ ${Fwhite}jielong.lin@XMNB4003161 MINGW32 ~/hello \
 
 
 
-  596  cd mods-enabled/
-  597  ls -al cgi.load
-  598  rm -rvf cgi.load
-  599  ln -s ../mods-available/cgi.load ./
-  600  ls -al
-  601  /etc/init.d/apache2 restart
-
 
 
 Please make a shell script file "build_git.sh"
