@@ -23,5 +23,9 @@ FOR Android:
     mount -o rw,remount /dev/block/mmcblk0p6 
 
 
+FOR nfs:
+mount -v -t nfs -o nfsvers=3 xmnb4003161.tpvaoc.com:/C/Android  Desktop
+
+
 EOF
 
