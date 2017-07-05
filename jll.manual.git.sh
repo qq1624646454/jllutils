@@ -7,6 +7,9 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+# if you are working in TPV office workspace, please set proxy for git to download
+git config --global http.proxy "172.20.30.1:3128"
+
 
 # git log help
 # //PRETTY FORMAT
