@@ -424,6 +424,12 @@ EOF
     __Fn_prepare_GIT pull
     cd ${__GitPath}
     git pull -u origin master
+    if [ x"$?" != x"0" ]; then
+        git pull origin master
+        if [ x"$?" != x"0" ]; then
+            git fetch origin
+        fi
+    fi
     cd - >/dev/null 
     __Fn_finalize_GIT
     cd ${__GitPath}
