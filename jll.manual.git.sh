@@ -37,10 +37,12 @@ more >&1 << EOF
 #              git log -S"hello" 
 #
 ${Byellow}${Fblue}# customiaze the log format for jielong.lin${AC}
-git log --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+git log \\
+  --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
 
 git reflog
-git reflog --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+git reflog \\
+  --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
 
 
 
