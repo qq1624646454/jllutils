@@ -220,7 +220,9 @@ EOF
                 fi
                 [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
                 [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
-                
+                mkdir -pv ${HOME}/.ssh
+                chmod 0777 ${HOME}/.ssh
+ 
                 ___i=0
                 declare -i GvPageUnit=10
                 declare -a GvPageMenuUtilsContent
