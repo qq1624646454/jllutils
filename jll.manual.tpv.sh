@@ -165,7 +165,7 @@ lunch QM16XE_F-userdebug
 ***************************************
 http://172.16.112.62/mediawiki/index.php/2k17_Android_prj#Code_Release_Branch_Diagram
 
-Host url-tpe 
+Host url-tpe
 HostName 172.16.112.71 
 User zhibo.chen 
 Port 29418 
@@ -183,9 +183,12 @@ git push ssh://url-tpe/tpv/device/tpv/common/plf/exoplayer HEAD:refs/for/2k17_mt
 
 
 
-*************************************** 
-** 2k16 Archer branch on Msaf project  
-***************************************
+
+
+
+************************************************************************************************* 
+** 2k16 Archer branch on Msaf project (it is too old so that not use by jielong.lin @2017-07-06)
+************************************************************************************************* 
  mkdir -pv 2k16_mtk_archer_refdev
  cd 2k16_mtk_archer_refdev
  repo init -u ssh://url/tpv/platform/manifest -b 2k16_mtk_archer_refdev
