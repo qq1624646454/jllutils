@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-06-30 16:52:12
+#   ModifiedTime: 2017-07-06 11:44:02
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
@@ -212,8 +212,26 @@ __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
   __IsGIT __IsEnter
   if [ ${__IsEnter} -eq 1 ]; then
+
+declare -a __lstCommittedIDs
+declare -i __iCommittedIDs=0
+_FN_retrieve_git_commits_by_GitURL "https://github.com/qq1624646454/jllutils/commits/master" \
+                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+_FN_is_align_with_git_remote __isAlign  \
+                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+[ x"${__lstCommittedIDs}" != x ] && unset __lstCommittedIDs
+[ x"${__iCommittedIDs}" != x ] && unset __iCommittedIDs
+
     /usr/bin/git config --global user.email ${__JLLCONF_Committer_Email}
     /usr/bin/git config --global user.name  ${__JLLCONF_Committer_Author}
+
+if [ x"${__isAlign}" = x"1" ]; then
+/bin/echo "Found the latest changes in ${__RemoteRepository}"        >> _______auto_sync_by_GIT__in_crontab.log
+/bin/echo "First Pull Changes from '${__RemoteRepository}' by git pull before git push -f "  \
+                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+/usr/bin/git pull -f -u origin master                                >> _______auto_sync_by_GIT__in_crontab.log
+fi
+
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git add    -A                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git commit -m \
@@ -224,7 +242,7 @@ ${__GitCHANGE}
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
     __SSHCONF_Switching_Start__qq1624646454
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
-    /usr/bin/git push                                                >> _______auto_sync_by_GIT__in_crontab.log
+    /usr/bin/git push -f                                             >> _______auto_sync_by_GIT__in_crontab.log
     __SSHCONF_Switching_End
     /usr/bin/git status -s                                           >> _______auto_sync_by_GIT__in_crontab.log
     /usr/bin/git log -4                                              >> _______auto_sync_by_GIT__in_crontab.log
