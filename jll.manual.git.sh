@@ -7,6 +7,63 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+###
+### sometimes, must use git rebase origin/2k17_mtk_archer_m_refdev 
+### to hold the simple history records
+###
+
+# obtain the url from origin which is the remote object.
+${Fseablue}git remote show origin${AC}
+* remote origin
+  Fetch URL: ssh://url/tpv/device/tpv/common/app/contentexplorer
+  Push  URL: ssh://url/tpv/device/tpv/common/app/contentexplorer
+  HEAD branch: MSAF_2k18_EU_HTV_M
+  Remote branches:
+    2k17_mtk_archer_m_refdev                tracked
+    MSAF_2k18_EU_HTV_M                      tracked
+    master                                  tracked
+
+# lookup the url ip is xm server or tpe server
+${Fseablue}ssh url${AC}
+  ****    Welcome to Gerrit Code Review    ****
+
+  Hi Jielong Lin, you have successfully connected over SSH.
+
+  Unfortunately, interactive shells are disabled.
+  To clone a hosted Git repository, use:
+
+  git clone ssh://jielong.lin@172.20.30.2:29420/REPOSITORY_NAME.git
+
+Connection to 172.20.30.2 closed.
+
+# so far, 172.20.30.2 is xm server, try to fetch from xm server
+${Fseablue}git rebase origin/2k17_mtk_archer_m_refdev ${AC}
+...
+
+# switch to tpe server for origin
+${Fseablue}vim ~/.ssh/config ${AC}
+Host url
+HostName 172.16.112.71
+User jielong.lin
+Port 29418
+IdentityFile ~/.ssh/id_rsa
+
+${Fseablue}ssh url${AC}
+  ****    Welcome to Gerrit Code Review    ****
+
+  Hi Jielong Lin, you have successfully connected over SSH.
+
+  Unfortunately, interactive shells are disabled.
+  To clone a hosted Git repository, use:
+
+  git clone ssh://jielong.lin@172.16.112.71:29418/REPOSITORY_NAME.git
+
+Connection to 172.16.112.71 closed.
+
+# try to fetch from tpe server
+${Fseablue}git rebase origin/2k17_mtk_archer_m_devprod${AC}
+...
+
 # if you are working in TPV office workspace, please set proxy for git to download
 git config --global http.proxy "172.20.30.1:3128"
 
