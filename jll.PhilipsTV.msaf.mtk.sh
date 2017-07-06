@@ -7,7 +7,7 @@ source ${JLLPATH}/BashShellLibrary
 
 
 #git push ssh://${GvCONF_HOST}/${LvProject} HEAD:refs/for/${LvCurrentRevision}
-GvCONF_HOST=url-tpemaster
+GvCONF_HOST=url-tpe
 
 #User@${GvCONF_EmailSuffix}
 GvCONF_EmailSuffix=tpv-tech.com
@@ -184,7 +184,7 @@ User jielong.lin
 Port 29420
 IdentityFile ~/.ssh/id_rsa
 
-Host url-tpemaster
+Host url-tpe
 HostName 172.16.112.71
 User jielong.lin 
 Port 29418
@@ -244,7 +244,7 @@ User xianmei.liao
 Port 29420
 IdentityFile ~/.ssh/id_rsa
 
-Host url-tpemaster
+Host url-tpe
 HostName 172.16.112.71
 User xianmei.liao
 Port 29418
