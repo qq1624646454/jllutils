@@ -64,8 +64,24 @@ Connection to 172.16.112.71 closed.
 ${Fseablue}git rebase origin/2k17_mtk_archer_m_devprod${AC}
 ...
 
+
+
+
+${Bred}                                                                ${AC}
+${Bred}  ${AC}$ ${Fyellow}git pull --rebase${AC}
+${Bred}  ${AC}fatal: unable to access \\
+${Bred}  ${AC}'https://github.com/linjielong/git_repository_utils4win32.git/': \\
+${Bred}  ${AC}Failed to connect to github.com port 443: Timed out
+${Bred}                                                                ${AC}
+${Fgreen}you should set the proxy for git ${AC}
 # if you are working in TPV office workspace, please set proxy for git to download
-git config --global http.proxy "172.20.30.1:3128"
+${Fseablue}git config --global http.proxy "172.20.30.1:3128"${AC}
+${Fseablue}git config --global https.proxy "172.20.30.1:3128"${AC}
+
+# if unset proxy
+${Fseablue}git config --global --unset http.proxy${AC}
+${Fseablue}git config --global --unset https.proxy${AC}
+
 
 
 # git log help
