@@ -5,13 +5,28 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-07 09:26:29
+#   ModifiedTime: 2017-07-11 16:32:08
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} Install Android Studio 2.3.3 in Ubuntu 12.04 64bit. 
+${Bred}${Black}                                     ${AC}
+wget https://dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio-ide-162.4069837-linux.zip
+unzip android-studio-ide-162.4069837-linux.zip -d ./
+cd android-studio/
+vim Install-Linux-tar.txt
+sudo ./bin/studio.sh
+
+
+
+
+
+
 
 
 ${Bred}${Black}                                     ${AC}
