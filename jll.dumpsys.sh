@@ -46,5 +46,19 @@ free -t -m
 #"${Bseablue}${Fblack}                                                                       ${AC}"
 fi
 echo
+if [ x"$(which ps)" != x -a y"$(which sort)" != y -a z"$(which head)" != z ]; then
+echo -e \
+"${Bseablue}${Fblack}内存占用率前6名的进程(VSZ=虚拟内存-KB,RSZ=实际内存-KB,STIME=进程启动时间)${AC}"
+#ps ax -o "pid,pmem,vsz,rsz,pcpu,stime,user,uid,comm,args"|head -1;
+#ps ax -o "pid,pmem,vsz,rsz,pcpu,stime,user,uid,comm,args"|sort -rn -k2|head -6
+ps ax -o "pid,pmem,vsz,rsz,pcpu,stime,user,uid,comm"|head -1;
+ps ax -o "pid,pmem,vsz,rsz,pcpu,stime,user,uid,comm" | tail -n +2 |sort -rn -k2|head -6
+echo -e \
+"${Bseablue}${Fblack}CPU占用率前6名的进程                                                     ${AC}"
+#ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm,args"|head -1;
+#ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm,args"|sort -rn -k2|head -6
+ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm"|head -1;
+ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm" | tail -n +2 |sort -rn -k2|head -6
+fi
 echo
 
