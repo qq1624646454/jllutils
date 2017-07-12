@@ -24,16 +24,16 @@
 
 
 echo
-echo -e "${Fseablue}逻辑CPU个数${AC}"
+echo -ne "${Fseablue}逻辑CPU个数:${AC}  "
 cat /proc/cpuinfo | grep "pro" 2>/dev/null |wc -l
 echo
-echo -e "${Fseablue}多线程支持${AC}"
+echo -ne "${Fseablue}多线程支持:${AC}  "
 cat /proc/cpuinfo | grep -qi "core id" 2>/dev/null |echo $?
 echo
-echo "实际CPU个数"
+echo -ne "${Fseablue}实际CPU个数:${AC}  "
 cat /proc/cpuinfo | grep "physical id" 2>/dev/null |sort | uniq | wc -l
-logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep "siblings"| sort | uniq | awk -F: '{print $2}')
 echo
+logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep "siblings"| sort | uniq | awk -F: '{print $2}')
 echo "每个物理CPU中逻辑CPU的个数"
 echo $logical_cpu_per_phy_cpu
 
