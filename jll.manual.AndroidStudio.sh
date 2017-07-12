@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:23:46
+#   ModifiedTime: 2017-07-12 18:24:48
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,6 +24,9 @@ sudo ./bin/studio.sh
 ${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
 ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio.sh所在路径写入到环境变量PATH中.${AC}
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
+${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
+
+
 
 
 
