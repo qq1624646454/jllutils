@@ -21,7 +21,63 @@ unzip android-studio-ide-162.4069837-linux.zip -d ./
 cd android-studio/
 vim Install-Linux-tar.txt
 sudo ./bin/studio.sh
+${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
 
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} Install Android Studio 2.3.3 in Ubuntu 12.04 64bit. 
+${Bred}${Black}                                     ${AC}
+
+jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
+sh: 1: glxinfo: not found
+emulator: WARNING: encryption is off
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glLinkProgram:2253 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramInfoLog:1810 error 0x501
+TextureDraw: Could not create/link program: ▒, ▒
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetAttachedShaders:1241 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetAttachedShaders:1241 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
+eglMakeCurrent failed
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderInfoLog:1892 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderInfoLog:1892 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glBindAttribLocation:232 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glBindAttribLocation:232 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glLinkProgram:2253 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
+android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
+X Error of failed request:  GLXBadContextTag
+  Major opcode of failed request:  150 (GLX)
+  Minor opcode of failed request:  1 (X_GLXRender)
+  Serial number of failed request:  273
+  Current serial number in output stream:  275
+QObject::~QObject: Timers cannot be stopped from another thread
+Segmentation fault (core dumped)
+jielong.lin@TpvServer:~/Android/Sdk/tools$
 
 
 
