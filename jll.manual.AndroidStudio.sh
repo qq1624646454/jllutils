@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:34:54
+#   ModifiedTime: 2017-07-12 18:35:55
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -51,45 +51,11 @@ ${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退
 ${Bred}${Black}                                     ${AC}
 ${Fyellow}ANALYZE: 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
 ${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
-jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
+jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}./emulator -avd Android_TV_1080p_API_23${AC}
 sh: 1: glxinfo: not found
 emulator: WARNING: encryption is off
 android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glLinkProgram:2253 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramInfoLog:1810 error 0x501
-TextureDraw: Could not create/link program: ▒, ▒
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetAttachedShaders:1241 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetAttachedShaders:1241 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteProgram:818 error 0x501
-eglMakeCurrent failed
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderInfoLog:1892 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glCompileShader:510 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderiv:1854 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetShaderInfoLog:1892 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glDeleteShader:841 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glAttachShader:203 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glBindAttribLocation:232 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glBindAttribLocation:232 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glLinkProgram:2253 error 0x501
-android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
+...
 android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glGetProgramiv:1747 error 0x501
 X Error of failed request:  GLXBadContextTag
   Major opcode of failed request:  150 (GLX)
@@ -97,7 +63,7 @@ X Error of failed request:  GLXBadContextTag
   Serial number of failed request:  273
   Current serial number in output stream:  275
 QObject::~QObject: Timers cannot be stopped from another thread
-Segmentation fault (core dumped)
+${Fred}Segmentation fault (core dumped)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$
 
 
