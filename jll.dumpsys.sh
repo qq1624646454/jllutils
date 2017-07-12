@@ -36,8 +36,11 @@ echo
 logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep "siblings"| sort | uniq | awk -F: '{print $2}')
 echo -ne "${Fseablue}每个物理CPU中逻辑CPU的个数:${AC}  "
 echo ${logical_cpu_per_phy_cpu}
-
-
+echo
+if [ x"$(which free)" != x ]; then
+    echo -e "${Fseablue}当前内存使用情况${AC}"
+    free -g
+fi
 echo
 echo "查看代表vCPU的QEMU的线程"
 ps -eLo ruser,pid,ppid,lwp,psr,args |grep qemgrep -v grep 2>/dev/null
