@@ -34,8 +34,8 @@ echo -ne "${Fseablue}实际CPU个数:${AC}  "
 cat /proc/cpuinfo | grep "physical id" 2>/dev/null |sort | uniq | wc -l
 echo
 logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep "siblings"| sort | uniq | awk -F: '{print $2}')
-echo "每个物理CPU中逻辑CPU的个数"
-echo $logical_cpu_per_phy_cpu
+echo -ne "${Fseablue}每个物理CPU中逻辑CPU的个数:${AC}  "
+echo ${logical_cpu_per_phy_cpu}
 
 
 echo
