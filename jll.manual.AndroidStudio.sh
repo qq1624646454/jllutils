@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:41:41
+#   ModifiedTime: 2017-07-12 18:41:42
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -111,7 +111,6 @@ X Error of failed request:  GLXBadContextTag
 QObject::~QObject: Timers cannot be stopped from another thread
 ${Fred}Segmentation fault (core dumped)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$
-
 
 
 
