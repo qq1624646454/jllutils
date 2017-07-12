@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:31:56
+#   ModifiedTime: 2017-07-12 18:32:27
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -49,6 +49,7 @@ ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
 ${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退 
 ${Bred}${Black}                                     ${AC}
+${Fyellow}ANALYZE:${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
 sh: 1: glxinfo: not found
 emulator: WARNING: encryption is off
