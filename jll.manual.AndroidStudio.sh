@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:30:24
+#   ModifiedTime: 2017-07-12 18:31:56
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -22,8 +22,11 @@ cd android-studio/
 vim Install-Linux-tar.txt
 sudo ./bin/studio.sh
 ${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
+
 ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio.sh所在路径写入到环境变量PATH中.${AC}
+
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
+
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
 
 
@@ -36,8 +39,16 @@ ${Bred}  ${AC} /dev/kvm 未授权给普通用户访问
 ${Bred}${Black}                                     ${AC}
 sudo chmod 0777 /dev/kvm
 ${Fyellow}每次开机后，都需要作一次这样的操作，所以建议将其定制到/etc/rc.local${AC}
+sudo vim /etc/rc.local
+/bin/chmod 0777 /dev/kvm
 
 
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
+${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退 
+${Bred}${Black}                                     ${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
 sh: 1: glxinfo: not found
 emulator: WARNING: encryption is off
