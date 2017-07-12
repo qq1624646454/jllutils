@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:41:42
+#   ModifiedTime: 2017-07-12 18:45:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -98,7 +98,7 @@ ${Fyellow}hw.gpu.enabled: yes${AC}
 
 ${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}./emulator -avd Android_TV_1080p_API_23${AC}
-sh: 1: glxinfo: not found
+${Fred}sh: 1: glxinfo: not found${AC}
 emulator: WARNING: encryption is off
 android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
 ...
@@ -109,9 +109,10 @@ X Error of failed request:  GLXBadContextTag
   Serial number of failed request:  273
   Current serial number in output stream:  275
 QObject::~QObject: Timers cannot be stopped from another thread
-${Fred}Segmentation fault (core dumped)${AC}
+Segmentation fault (core dumped)
 jielong.lin@TpvServer:~/Android/Sdk/tools$
-
+jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}sudo apt-get install glxinfo ${AC}
+...
 
 
 
