@@ -39,9 +39,11 @@ echo -ne "${Fseablue}查看CPU0的进程数:${AC}  "
 ps -eLo psr|grep 0 2>/dev/null |wc -l
 echo
 if [ x"$(which free)" != x ]; then
-    echo -e "${Bseablue}${Fblack}当前内存使用情况                                        ${AC}"
-    free -g
-    echo -e "${Bseablue}${Fblack}                                                        ${AC}"
+echo -e \
+"${Bseablue}${Fblack}当前内存使用情况                                                         ${AC}"
+free -g
+echo -e \
+"${Bseablue}${Fblack}                                                                         ${AC}"
 fi
 echo
 echo
