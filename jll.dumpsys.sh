@@ -40,10 +40,10 @@ ps -eLo psr|grep 0 2>/dev/null |wc -l
 echo
 if [ x"$(which free)" != x ]; then
 echo -e \
-"${Bseablue}${Fblack}当前内存使用情况(MB)                                                     ${AC}"
-free -m
-echo -e \
-"${Bseablue}${Fblack}                                                                         ${AC}"
+"${Bseablue}${Fblack}当前内存使用情况(MB)                                                   ${AC}"
+free -t -m
+#echo -e \
+#"${Bseablue}${Fblack}                                                                       ${AC}"
 fi
 echo
 echo
