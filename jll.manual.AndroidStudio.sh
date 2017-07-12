@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:33:09
+#   ModifiedTime: 2017-07-12 18:34:54
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -50,6 +50,7 @@ ${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit.
 ${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退 
 ${Bred}${Black}                                     ${AC}
 ${Fyellow}ANALYZE: 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
+${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
 sh: 1: glxinfo: not found
 emulator: WARNING: encryption is off
