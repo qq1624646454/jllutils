@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:35:55
+#   ModifiedTime: 2017-07-12 18:41:41
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -50,6 +50,52 @@ ${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit.
 ${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退 
 ${Bred}${Black}                                     ${AC}
 ${Fyellow}ANALYZE: 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
+${Fyellow}通过AndroidStudio--->AVD Manager-->Actions(Edit this AVD)获取AVD的信息${AC}
+Name: Android_TV_1080p_API_23
+CPU/ABI: Android TV Intel Atom (x86)
+Path: /home/jielong.lin/.android/avd/Android_TV_1080p_API_23.avd
+Target: android-tv [Android TV] (API level 23)
+Skin: tv_1080p
+SD Card: 100M
+hw.dPad: yes
+runtime.network.speed: full
+hw.accelerometer: no
+hw.device.name: tv_1080p
+vm.heapSize: 192
+skin.dynamic: yes
+hw.device.manufacturer: Google
+hw.gps: yes
+hw.initialOrientation: landscape
+image.androidVersion.api: 23
+hw.audioInput: yes
+image.sysdir.1: system-images/android-23/android-tv/x86/
+hw.keyboard.lid: yes
+tag.id: android-tv
+showDeviceFrame: yes
+hw.camera.back: emulated
+hw.mainKeys: yes
+AvdId: Android_TV_1080p_API_23
+hw.camera.front: emulated
+hw.lcd.density: 320
+avd.ini.displayname: Android TV (1080p) API 23
+hw.gpu.mode: auto
+hw.device.hash2: MD5:f26df701fd74415b9a435e3e607b5d8a
+hw.ramSize: 1536
+hw.trackBall: no
+PlayStore.enabled: false
+hw.battery: no
+hw.cpu.ncore: 2
+hw.sdCard: yes
+tag.display: Android TV
+runtime.network.latency: none
+hw.keyboard: yes
+hw.sensors.proximity: no
+disk.dataPartition.size: 800M
+hw.sensors.orientation: no
+avd.ini.encoding: UTF-8
+${Fyellow}hw.gpu.enabled: yes${AC}
+
+
 ${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}./emulator -avd Android_TV_1080p_API_23${AC}
 sh: 1: glxinfo: not found
