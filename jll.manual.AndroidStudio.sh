@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-12 18:24:48
+#   ModifiedTime: 2017-07-12 18:28:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -31,8 +31,12 @@ ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行�
 
 
 ${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} Install Android Studio 2.3.3 in Ubuntu 12.04 64bit. 
+${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
+${Bred}  ${AC} /dev/kvm 未授权给普通用户访问
 ${Bred}${Black}                                     ${AC}
+sudo chmod 0777 /dev/kvm
+${Fyellow}每次开机后，都需要作一次这样的操作，所以建议将其定制到/etc/rc.local${AC}
+
 
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ./emulator -avd Android_TV_1080p_API_23
 sh: 1: glxinfo: not found
