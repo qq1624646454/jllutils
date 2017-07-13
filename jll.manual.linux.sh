@@ -22,6 +22,15 @@ more >&1<<EOF
 
 
 
+
+---------------------
+profile & bashrc
+---------------------
+https://wido.me/sunteya/understand-bashrc-and-profile
+
+
+
+
 ${Byellow}${Fblack}=====================================${AC}
 ${Fyellow}     Users and Groups List
 ${Byellow}${Fblack}=====================================${AC}
