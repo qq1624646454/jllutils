@@ -27,7 +27,7 @@ echo
 echo -ne "${Fseablue}逻辑CPU个数:${AC}  "
 cat /proc/cpuinfo | grep -i "pro" 2>/dev/null |wc -l
 echo -ne "${Fseablue}多线程支持:${AC}  "
-cat /proc/cpuinfo | grep -qi "core id" 2>/dev/null |echo $?
+cat /proc/cpuinfo | grep -qi "core id" 2>/dev/null && echo "yes" || echo "no"
 echo -ne "${Fseablue}实际CPU个数:${AC}  "
 cat /proc/cpuinfo | grep -i "physical id" 2>/dev/null |sort | uniq | wc -l
 logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep -i "siblings" 2>/dev/null \
