@@ -72,8 +72,10 @@ ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm"|head -1;
 ps ax -o "pid,pcpu,pmem,vsz,rsz,stime,user,uid,comm" | tail -n +2 |sort -rn -k2|head -6
 fi
 echo
-echo -ne "${Fseablue}当前使用的图形环境启动器:${AC}   "
+if [ -e "/etc/X11/default-display-manager" ]; then
+echo -ne "${Fseablue}当前使用的显示管理器:${AC}   "
 cat  /etc/X11/default-display-manager
+echo -e "${Fseablue}@/etc/X11/default-display-manager${AC}"
 echo
 
 echo
