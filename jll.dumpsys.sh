@@ -75,7 +75,7 @@ echo
 if [ -e "/etc/X11/default-display-manager" ]; then
 echo -ne "${Fseablue}当前使用的显示管理器:${AC}   "
 cat  /etc/X11/default-display-manager
-echo -e "${Fgreen}Configuration: ${AC} @/etc/X11/default-display-manager"
+echo -e "${Fgreen}Howto_Set_Display_Manager: ${AC} /etc/X11/default-display-manager"
 echo
 fi
 echo
