@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-19 10:38:33
-#   ModifiedTime: 2017-06-19 15:44:31
+#   ModifiedTime: 2017-07-13 18:32:39
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,11 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+
+/etc/X11/default-display-manager
+
+
 
 ${Byellow}${Fblack}=====================================${AC}
 ${Fyellow}     Users and Groups List
