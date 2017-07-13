@@ -35,7 +35,7 @@ echo -ne "${Fseablue}每个物理CPU中逻辑CPU的个数:${AC}  "
 echo ${logical_cpu_per_phy_cpu}
 echo -ne \
 "${Fseablue}查看代表vCPU的QEMU的线程(lwp-light weight process,thread; psr-assign to which):${AC}  "
-ps -eLo ruser,pid,ppid,lwp,psr,args |grep qemgrep -v grep 2>/dev/null
+ps -eLo ruser,pid,ppid,lwp,psr,args |grep -i qeme | grep -v grep 2>/dev/null
 echo
 echo -ne "${Fseablue}查看CPU0的进程数:${AC}  "
 ps -eLo psr|grep 0 2>/dev/null |wc -l
