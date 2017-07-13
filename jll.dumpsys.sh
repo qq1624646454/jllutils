@@ -23,7 +23,7 @@
 
 
 echo
-if [ x"$(which sort)" != x -a y"$(which uniq)" != y -a z"$(which wc)" != z ]; then
+if [ x"$(which wc)" != x ]; then
 echo -ne "${Fseablue}逻辑CPU个数:${AC}  "
 cat /proc/cpuinfo | grep -i "pro" 2>/dev/null |wc -l
 fi
@@ -41,10 +41,12 @@ fi
 
 echo -ne \
 "${Fseablue}查看代表vCPU的QEMU的线程(lwp-light weight process,thread; psr-assign to which):${AC}  "
-ps -eLo ruser,pid,ppid,lwp,psr,args |grep -i qeme | grep -v grep 2>/dev/null
+ps -eLo ruser,pid,ppid,lwp,psr,args 2>/dev/null|grep -i qemu | grep -v grep 2>/dev/null
 echo
+if [ x"$(which wc)" != x ]; then
 echo -ne "${Fseablue}查看CPU0的进程数:${AC}  "
-ps -eLo psr|grep 0 2>/dev/null |wc -l
+ps -eLo psr 2>/dev/null|grep 0 2>/dev/null |wc -l
+fi
 echo
 if [ x"$(which free)" != x ]; then
 echo -e \
@@ -54,7 +56,8 @@ free -t -m
 #"${Bseablue}${Fblack}                                                                       ${AC}"
 fi
 echo
-if [ x"$(which ps)" != x -a y"$(which sort)" != y -a z"$(which head)" != z ]; then
+if [ x"$(which ps)" != x -a y"$(which sort)" != y -a z"$(which head)" != z -a w"$(which tail)" != w ]; 
+then
 echo -e \
 "${Bseablue}${Fblack}内存占用率前6名的进程(VSZ=虚拟内存-KB,RSZ=实际内存-KB,STIME=进程启动时间)${AC}"
 #ps ax -o "pid,pmem,vsz,rsz,pcpu,stime,user,uid,comm,args"|head -1;
