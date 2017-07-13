@@ -241,7 +241,9 @@ EOF
 #            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 #            --abbrev-commit \
 #            --date=relative | head -n 8
-    git log --graph --abbrev-commit --date=relative | head -n 9
+    git log \
+        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+#    git log --graph --abbrev-commit --date=relative | head -n 9
     cd - >/dev/null
     echo
     if [ -e "${HOME}/.ssh" -a -e "${__LvRescuePath}" ]; then
