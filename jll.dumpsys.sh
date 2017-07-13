@@ -33,7 +33,8 @@ cat /proc/cpuinfo | grep "physical id" 2>/dev/null |sort | uniq | wc -l
 logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep "siblings"| sort | uniq | awk -F: '{print $2}')
 echo -ne "${Fseablue}每个物理CPU中逻辑CPU的个数:${AC}  "
 echo ${logical_cpu_per_phy_cpu}
-echo -ne "${Fseablue}查看代表vCPU的QEMU的线程:${AC}  "
+echo -ne \
+"${Fseablue}查看代表vCPU的QEMU的线程(lwp-light weight process,thread; psr-assign to which):${AC}  "
 ps -eLo ruser,pid,ppid,lwp,psr,args |grep qemgrep -v grep 2>/dev/null
 echo
 echo -ne "${Fseablue}查看CPU0的进程数:${AC}  "
