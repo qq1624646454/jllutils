@@ -23,18 +23,22 @@
 
 
 echo
+if [ x"$(which sort)" != x -a y"$(which uniq)" != y -a z"$(which wc)" != z ]; then
 echo -ne "${Fseablue}逻辑CPU个数:${AC}  "
 cat /proc/cpuinfo | grep -i "pro" 2>/dev/null |wc -l
+fi
 echo -ne "${Fseablue}多线程支持:${AC}  "
 cat /proc/cpuinfo | grep -qi "core id" 2>/dev/null && echo "yes" || echo "no"
 
-if [ x"$(which sort)" != x -a y"$(which uniq)" != y  ]; then
+if [ x"$(which sort)" != x -a y"$(which uniq)" != y -a z"$(which wc)" != z ]; then
 echo -ne "${Fseablue}实际CPU个数:${AC}  "
 cat /proc/cpuinfo | grep -i "physical id" 2>/dev/null |sort | uniq | wc -l
 logical_cpu_per_phy_cpu=$(cat /proc/cpuinfo |grep -i "siblings" 2>/dev/null \
                           | sort | uniq | awk -F: '{print $2}')
 echo -ne "${Fseablue}每个物理CPU中逻辑CPU的个数:${AC}  "
 echo ${logical_cpu_per_phy_cpu}
+fi
+
 echo -ne \
 "${Fseablue}查看代表vCPU的QEMU的线程(lwp-light weight process,thread; psr-assign to which):${AC}  "
 ps -eLo ruser,pid,ppid,lwp,psr,args |grep -i qeme | grep -v grep 2>/dev/null
