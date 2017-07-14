@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-14 10:06:43
-#   ModifiedTime: 2017-07-14 17:33:33
+#   ModifiedTime: 2017-07-14 18:41:28
 JLLPATH="$(which $0)"
 # ./xxx.sh
 # ~/xxx.sh
@@ -65,7 +65,12 @@ GvPageMenuUtilsContent[___i++]=\
 "Settings:   configurate workflow for customizing various users' requirements"
 
 GvPageMenuUtilsContent[___i++]=\
-"Split:  split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} BIG_FILE ${JLLCFG_PREFIX_NAME}"
+"Split_From_Other:  split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} \
+BIG_FILE ${JLLCFG_PREFIX_NAME}"
+
+GvPageMenuUtilsContent[___i++]=\
+"Split_From_Current:  split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} \
+BIG_FILE ${JLLCFG_PREFIX_NAME}"
 
 __CHK_debris="$(ls ${JLLCFG_PREFIX_NAME}* 2>/dev/null)"
 if [ x"${__CHK_debris}" != x ]; then
@@ -146,10 +151,77 @@ vim ${JLLCFG_CONFIG_FILE}
 break
 done
 
-while [ x"${__result%%:*}" = x"Split" ]; do 
+
+
+
+while [ x"${__result%%:*}" = x"Split_From_Other" ]; do 
+    __BigFile=""
+        while [ x"${__BigFile}" = x -o ! -e "${__BigFile}" ]; do
+            echo -ne "${Bgreen}${Fblack}\
+JLL: Please type Big File with ${Fyellow}PATH${Fblack} for split(q: Quit)${AC}  \033[04m   "
+            read __BigFile
+            echo -ne "\033[0m"
+            if [ x"${__BigFile}" = x"q" ]; then
+                break
+            fi 
+            if [ x"${__BigFile}" = x ]; then
+                echo "JLL: Failure because unfortunately type a null name as the big filename" 
+                continue
+            fi
+            if [ -e "$(pwd)/${__BigFile}" ]; then
+                __BigFile="$(pwd)/${__BigFile}"
+            fi
+            if [ x"$(ls -l ${__BigFile} 2>/dev/null | grep -E '^-')" = x ]; then
+                echo "JLL: not found \"${__BigFile}\""
+                __BigFile=""
+            fi
+        done
+
+    if [ x"${__BigFile}" = x ]; then 
+        echo -e "${Fred}jll: Not obtain the Big File because of some mistakes ${AC}"
+        echo
+        break
+    fi
+
+    if [ x"${__BigFile}" = x"q" ]; then
+        echo -e "${Fred}jll: quit to over immediately ${AC}"
+        echo
+        break
+    fi
+
+    echo
+    echo -e "${Bseablue}                                        ${AC}"
+    echo -e "${Bseablue}  ${AC}JLL: ${Fseablue}${__BigFile}${AC} will be splitted."
+    echo -e "${Bseablue}                                        ${AC}"
+    echo
+
+    __TargetFile=${__BigFile##*/}__slices
+    __TargetFile="$(pwd)/${__TargetFile}"
+    if [ -e "${__TargetFile}" ]; then
+        rm -rvf ${__TargetFile}
+    fi
+    mkdir -pv ${__TargetFile}
+    cd ${__TargetFile}
+    echo
+    echo -e "${Bgreen}${Fblack}md5sum -b ${__BigFile} > origin.md5sum${AC}"
+    md5sum -b ${__BigFile} > origin.md5sum
+    echo -e "\
+${Bgreen}${Fblack}split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} \
+${__BigFile} ${JLLCFG_PREFIX_NAME} ${AC}"
+    split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} ${__BigFile} ${JLLCFG_PREFIX_NAME}
+    cd - >/dev/null
+    echo 
+break
+done
+
+
+
+
+while [ x"${__result%%:*}" = x"Split_From_Current" ]; do 
     __BigFile=""
     __FLcnt=$(find ./ -maxdepth 1 -type f ! -name ".*" -type f -size +${JLLCFG_UNIT_SIZE}c \
               -exec ls -lh {} \; | grep -E '^-' | wc -l)
+    echo "JLL:  Probed the legal files number=${__FLcnt}, to compare  ${JLLCFG_HUMAN_COUNT}"
     if [ x"${__FLcnt}" != x -a ${__FLcnt} -le ${JLLCFG_HUMAN_COUNT} ]; then 
         __FLlist=$(find ./ -maxdepth 1 -type f ! -name ".*" -type f -size +${JLLCFG_UNIT_SIZE}c \
                    -exec ls -lh {} \; | grep -E '^-')
@@ -174,6 +246,7 @@ while [ x"${__result%%:*}" = x"Split" ]; do
         Lfn_PageMenuUtils_Plus __resultJ "Select" 7 4 \
                                          "***** Select a Big File to SPLIT (q: quit) *****"
         if [ x"${__resultJ}" = x -o ${__resultJ} -ge ${___i} ]; then
+            echo "JLL: not found any legal big file in current path, maybe check your settings"
             __result2="none"
         fi
         __result2="${GvPageMenuUtilsContent[__resultJ]}"
@@ -196,13 +269,15 @@ while [ x"${__result%%:*}" = x"Split" ]; do
             if [ x"${__BigFile}" = x"q" ]; then
                 break
             fi 
-            if [ x"${__BigFile}" = x ]; then 
+            if [ x"${__BigFile}" = x ]; then
+                echo "JLL: unfortunately type a null name as the big filename" 
                 continue
             fi
             if [ -e "$(pwd)/${__BigFile}" ]; then
                 __BigFile="$(pwd)/${__BigFile}" 
             fi
             if [ x"$(ls -l ${__BigFile} 2>/dev/null | grep -E '^-')" = x ]; then
+                echo "JLL: not found \"${__BigFile}\""
                 __BigFile=""
             fi
         done
