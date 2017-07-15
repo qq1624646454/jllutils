@@ -42,8 +42,8 @@ fi
 ## Default Settings, But They will be replaced by ${JLLCFG_CONFIG_FILE} 
 ##################################################################################################
 
-JLLCFG_HUMAN_COUNT=1 #32 #Beyond it, Tool will privode input search for file selecting.
-JLLCFG_UNIT_SIZE=$((1024 * 1024))  # 1024 * 1024 = 1MB. Tool will list the files beyond 1MB
+JLLCFG_HUMAN_COUNT=32 #Beyond it, Tool will privode input search for file selecting.
+JLLCFG_UNIT_SIZE=$((100 * 1024 * 1024))  # 1024 * 1024 = 1MB. Tool will list the files beyond 1MB
 JLLCFG_SUFFIX_LENGTH=10
 JLLCFG_PREFIX_NAME=_sp_
 
