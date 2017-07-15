@@ -4,16 +4,35 @@
 # V0 - Original Template is built by jielong.lin @2016-2-1
 # V1 - Add "Lfn_Sys_PathConvertToAbsolutePath" by jielong.lin @2016-2-2
 # V2 - Optimize "eval output with ()" by jielong.lin @2016-11-17
+# V3 - Improve the Rotate Progress Bar by Lfn_Sys_Rotate_With_SIGNAL 
 
 #------------------------------
 # Constant Variable Definition
 #------------------------------
 CvPathFileForScript="`which $0`"
-CvScriptName="`basename  ${CvPathFileForScript}`"
-CvScriptPath="`dirname   ${CvPathFileForScript}`"
-
-if [ x"$CvScriptPath" = x"." ]; then
-    CvScriptPath="`pwd`"
+# ./xxx.sh
+# ~/xxx.sh
+# /home/xxx.sh
+# xxx.sh
+if [ x"${CvPathFileForScript}" != x ]; then
+    CvScriptName=${CvPathFileForScript##*/}
+    CvScriptPath=${CvPathFileForScript%/*}
+    if [ x"${CvScriptPath}" = x ]; then
+        CvScriptPath="$(pwd)"
+    else
+        CvScriptPath="$(cd ${CvScriptPath};pwd)"
+    fi
+    if [ x"${CvScriptName}" = x ]; then
+        echo
+        echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 0"
+        echo
+        exit 0
+    fi
+else
+    echo
+    echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 1"
+    echo
+    exit 0
 fi
 
 
@@ -438,6 +457,54 @@ function Lfn_Sys_Rotate()
         esac
     done
 }
+
+## Lfn_Sys_Rotate_With_SIGNAL
+## GvBgPid=$!
+## sleep 20
+## kill -9 ${GvBgPid} 
+##
+function Lfn_Sys_Rotate_With_SIGNAL()
+{
+    LvSrInterval=0.05
+    LvSrTcount="0"
+
+    export __jllutil_rotate_status=1
+
+    # When SIGUSR2(=12) is received, run "export __jllutil_rotate_status=0" 
+    trap "export __jllutil_rotate_status=0"  12
+
+    while [ x"${__jllutil_rotate_status}" = x"1" ]; do
+        LvSrTcount=`expr ${LvSrTcount} + 1`
+        case  ${LvSrTcount}  in
+        1)
+            echo -ne "\b-"
+            sleep  ${LvSrInterval}
+        ;;
+        2)
+            echo -ne "\b\\"
+            sleep  ${LvSrInterval}
+        ;;
+        3)
+            echo -ne "\b|"
+            sleep  ${LvSrInterval}
+        ;;
+        4)
+            echo -ne "\b/"
+            sleep  ${LvSrInterval}
+        ;;
+        *)
+            LvSrTcount="0"
+            sleep  ${LvSrInterval}
+        ;;
+        esac
+    done
+
+    trap 12 # Restore signal SIGUSR2 to default action.
+}
+
+
+
+
 
 ## Lfn_Sys_PathConvertToAbsolutePath <oAbsolutePath> <iPathFile|iPath> 
 ##
@@ -1422,6 +1489,9 @@ function Lfn_MenuUtils()
             _LvVisuResult=$(echo -e "${GvMenuUtilsContent[LvVisuFocus]}" | sed -e "s:\ :\\\\ :g")
             _LvVisuResult=${_LvVisuResult//(/\\(}
             _LvVisuResult=${_LvVisuResult//)/\\)}
+            _LvVisuResult=${_LvVisuResult//>/\\>}
+            _LvVisuResult=${_LvVisuResult//</\\<}
+            echo "${_LvVisuResult}"
             eval $1=${_LvVisuResult}
             unset _LvVisuResult
         fi
@@ -1431,6 +1501,211 @@ function Lfn_MenuUtils()
     unset LvVisuFocus
     unset LvVisuCount
 }
+
+## Lfn_MenuUtils_Plus <oResult> <iSettingsType> <iX> <iY> [<iTitle>]
+##
+## For Select mode ,namely iSettingsType=Select, it is similar to Lfn_MenuUtils except 
+## for <oResult>.  <oResult> will output the index in GvMenuUtilsContent[]
+##
+function Lfn_MenuUtils_Plus()
+{
+    if [ $# -gt 5 ]; then
+        Lfn_Sys_FuncComment
+        exit 0
+    fi
+
+    # Check if parameter is digit and Converse it to a valid parameter 
+    echo "$3" | grep -E '[^0-9]' >/dev/null && LvVisuX="0" || LvVisuX="$3";
+    if [ x"${LvVisuX}" = x"0" ]; then
+        LvVisuX=1
+    fi
+    echo "$4" | grep -E '[^0-9]' >/dev/null && LvVisuY="0" || LvVisuY="$4";
+    if [ x"${LvVisuY}" = x"0" ]; then
+        LvVisuY=1
+    fi
+
+    # Check if parameter is a valid 
+    if [ x"$2" != x"Input" -a x"$2" != x"Select" ]; then
+        Lfn_Sys_FuncComment
+        exit 0
+    fi 
+
+    #LvVisuCount=$[${#GvMenuUtilsContent[@]} / 2]
+    LvVisuCount=$(( ${#GvMenuUtilsContent[@]} / 1 ))
+    if [ x"$2" = x"Select" -a ${LvVisuCount} -lt 1 ]; then
+        # Select Mode but none item to be selected
+        echo "Sorry, Cant Run Select Mode Because of None items to be selected."
+        return
+    fi
+
+    # Select for configuration guide
+    LvVisuFocus=99999 #None Focus
+    LvVisuNextFocus=0
+
+    while [ 1 ]; do
+        ##
+        ## Render UI
+        ##
+        if [ x"$2" = x"Select" ]; then # Input Mode
+            Lfn_Cursor_EchoConfig "off"
+        fi
+        clear
+        LvRenderLine=${LvVisuY}
+        if [ x"$5" != x ]; then # exist title
+            Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine} 
+            echo "$5"
+            LvRenderLine=$(( LvRenderLine + 1 ))
+        fi
+        if [ ${LvVisuCount} -gt 0 ]; then
+            for (( LvVisuIdx=0 ; LvVisuIdx<LvVisuCount ; LvVisuIdx++ )) do
+                if [ x"$2" = x"Select" ]; then
+                    Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine} 
+                    if [ ${LvVisuFocus} -eq ${LvVisuIdx} ]; then
+                        if [ ${LvVisuFocus} -ne ${LvVisuNextFocus} ]; then
+                            # Cancel the focus item reversed style
+                            echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                            LvVisuFocus=99999 # lose the focus
+                        else
+                            # When Focus is the same to Next Focus, such as only exist one item
+                            # Echo By Reversing its color 
+                            echo -ne "├── ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            LvVisuFocus=${LvVisuNextFocus}
+                        fi
+                    else
+                        if [ ${LvVisuNextFocus} -eq ${LvVisuIdx} ]; then
+                            # Echo By Reversing its color 
+                            echo -ne "├── ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            LvVisuFocus=${LvVisuNextFocus}
+                        else
+                            echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                        fi
+                    fi
+                    LvRenderLine=$(( LvRenderLine + 1 ))
+                fi
+                if [ x"$2" = x"Input" ]; then
+                    Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine}
+                    echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                    LvRenderLine=$(( LvRenderLine + 1 ))
+                fi
+            done
+            ##
+            ## Drive UI
+            ##
+
+            if [ x"$2" = x"Select" ]; then
+                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 4 ))"
+                # echo "Focus:${LvVisuFocus} NextFocus:${LvVisuNextFocus} Count:${LvVisuCount}"
+                echo "Focus:${LvVisuFocus} Count:${LvVisuCount}"
+                Lfn_Stdin_Read LvCustuiData
+                case "${LvCustuiData}" in
+                "KeyUp"|"k")
+                    if [ ${LvVisuNextFocus} -eq 0 ]; then
+                        LvVisuNextFocus=${LvVisuCount}
+                    fi
+                    LvVisuNextFocus=$(expr ${LvVisuNextFocus} - 1)
+                ;;
+                "KeyDown"|"j")
+                    LvVisuNextFocus=$(expr ${LvVisuNextFocus} + 1)
+                    if [ ${LvVisuNextFocus} -eq ${LvVisuCount} ]; then
+                        LvVisuNextFocus=0
+                    fi
+                    ;;
+                "KeySpaceOrEnter")
+                    echo ""
+                    LvVisuFocus=${LvVisuNextFocus}
+                    Lfn_Cursor_EchoConfig "on"
+                    break
+                    ;;
+                "q")
+                    LvVisuFocus=99999
+                    echo ""
+                    echo "Exit: Quit due to your choice: q"
+                    echo ""
+                    Lfn_Cursor_EchoConfig "on"
+                    exit 0
+                    ;;
+                *)
+                    ;;
+                esac
+                Lfn_Cursor_EchoConfig "on"
+            fi
+            if [ x"$2" = x"Input" ]; then
+                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                echo "[Please Input A String (Dont repeat name with the above)]"
+                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                read LvVisuData
+                if [ -z "${LvVisuData}" ]; then
+                    echo ""
+                    continue
+                fi
+                if [ x"${LvVisuData}" = x"q" ]; then
+                    echo ""
+                    echo "Exit: due to your choice: q"
+                    echo ""
+                    exit 0 
+                fi
+                LvVisuIsLoop=0
+                if [ ${LvVisuCount} -gt 0 ]; then
+                    for (( LvVisuIdx=0 ; LvVisuIdx<LvVisuCount ; LvVisuIdx++ )) do
+                        if [ x"${GvMenuUtilsContent[LvVisuIdx]}" = x"${LvVisuData}" ]; then
+                            LvVisuIsLoop=1
+                            echo "Sorry, Dont repeat to name the above Items:\"${LvVisuData}\""
+                            echo ""
+                            break
+                        fi
+                    done
+                fi
+                if [ x"${LvVisuIsLoop}" = x"0" -a x"${LvVisuData}" != x ]; then
+                    eval $1=$(echo -e "${LvVisuData}" | sed "s:\ :\\\\ :g")
+                    unset LvVisuData
+                    unset LvVisuIdx
+                    unset LvVisuIsLoop
+                    break
+                fi
+            fi
+        else
+            if [ x"$2" = x"Select" ]; then
+                eval $1=""
+                return
+            fi
+            if [ x"$2" = x"Input" ]; then
+                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                echo "[Please Input A String (Dont repeat name with the above)]"
+                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                read LvVisuData
+                echo ""
+                if [ x"${LvVisuData}" != x ]; then
+                    eval $1="${LvVisuData}"
+                    break 
+                fi
+                if [ x"${LvVisuData}" = x"q" ]; then
+                    echo "Exit: due to your choice: q"
+                    echo ""
+                    break 
+                fi
+            fi
+        fi
+    done
+
+    if [ x"$2" = x"Select" ]; then
+        if [ ${LvVisuFocus} -ge 0 -a ${LvVisuFocus} -lt ${LvVisuCount} ]; then
+            _LvVisuResult=$(echo -e "${GvMenuUtilsContent[LvVisuFocus]}" | sed -e "s:\ :\\\\ :g")
+            #_LvVisuResult=${_LvVisuResult//(/\\(}
+            #_LvVisuResult=${_LvVisuResult//)/\\)}
+            #_LvVisuResult=${_LvVisuResult//>/\\>}
+            #_LvVisuResult=${_LvVisuResult//</\\<}
+            #eval $1=${_LvVisuResult}
+            eval $1=${LvVisuFocus}
+            unset _LvVisuResult
+        fi
+    fi
+ 
+    unset LvVisuNextFocus
+    unset LvVisuFocus
+    unset LvVisuCount
+}
+
+
 
 
 ##
@@ -1505,6 +1780,79 @@ function Lfn_PageMenuUtils()
     #eval $1=$(echo -e "${LvResult}" | sed "s:\ :\\\\ :g")
 }
 
+
+function Lfn_PageMenuUtils_Plus()
+{
+    if [ $# -gt 5 ]; then
+        exit 0
+    fi
+
+    # Check if parameter is digit and Converse it to a valid parameter
+    echo "$3" | grep -E '[^0-9]' >/dev/null && LvPmuX="0" || LvPmuX="$3";
+    if [ x"${LvPmuX}" = x"0" ]; then
+        LvPmuX=1
+    fi
+    echo "$4" | grep -E '[^0-9]' >/dev/null && LvPmuY="0" || LvPmuY="$4";
+    if [ x"${LvPmuY}" = x"0" ]; then
+        LvPmuY=1
+    fi
+
+    # Check if parameter is a valid
+    if [ x"$2" != x"Input" -a x"$2" != x"Select" ]; then
+        exit 0
+    fi
+
+    LvPageMenuUtilsContentCount=${#GvPageMenuUtilsContent[@]}
+    LvPageIdx=0
+    LvPageCount=$((LvPageMenuUtilsContentCount/GvPageUnit)) 
+    while [ ${LvPageMenuUtilsContentCount} -gt 0 ]; do
+        # Loading the specified page to display
+        declare -a GvMenuUtilsContent
+        for(( LvIdx=$((GvPageUnit*LvPageIdx)); LvIdx < LvPageMenuUtilsContentCount; LvIdx++ )) {
+            if [ ${LvIdx} -lt $((GvPageUnit*LvPageIdx+GvPageUnit)) ]; then
+                GvMenuUtilsContent[LvIdx-$((GvPageUnit*LvPageIdx))]="${GvPageMenuUtilsContent[${LvIdx}]}"
+            else
+                break
+            fi
+        }
+        if [ ${LvIdx} -ne ${LvPageMenuUtilsContentCount} ]; then
+            GvMenuUtilsContent[LvIdx-$((GvPageUnit*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
+        fi
+        if [ x"$2" = x"Select" ]; then
+            Lfn_MenuUtils_Plus _LvResult  "$2" $3 $4 "$5"
+            if [ x"${_LvResult}" != x \
+                 -a y"${GvMenuUtilsContent[_LvResult]}" = y"NextPage.$((LvPageIdx+1))" ]; then
+                unset GvMenuUtilsContent
+                LvPageIdx=$((LvPageIdx+1))
+                continue
+            fi
+            LvResult="${GvMenuUtilsContent[_LvResult]}"
+            unset GvMenuUtilsContent
+        else
+            Lfn_MenuUtils LvResult  "$2" $3 $4 "$5"
+            unset GvMenuUtilsContent
+            if [ x"${LvResult}" = x"NextPage.$((LvPageIdx+1))" ]; then
+                LvPageIdx=$((LvPageIdx+1))
+                continue
+            fi
+        fi
+        break
+    done
+
+    _ResultCNT=${#GvPageMenuUtilsContent[@]}
+    eval $1=${_ResultCNT}
+    for((_ResultI=0; _ResultI<_ResultCNT;_ResultI++)){
+        if [ x"${GvPageMenuUtilsContent[_ResultI]}" = x"${LvResult}" ]; then
+            eval $1=${_ResultI}
+        fi
+    }
+
+#    LvResult=$(echo -e "${LvResult}" | sed "s:\ :\\\\ :g")
+#    LvResult=${LvResult//(/\\(}
+#    LvResult=${LvResult//)/\\)}
+#    eval $1=${LvResult}
+    #eval $1=$(echo -e "${LvResult}" | sed "s:\ :\\\\ :g")
+}
 
 
 

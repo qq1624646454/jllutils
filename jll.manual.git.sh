@@ -8,6 +8,21 @@ source ${JLLPATH}/BashShellLibrary
 more >&1 << EOF
 
 ###
+### folder
+### |--- 1.file
+### |--- 2.file
+### |--- subfolder
+### |    |--- 1.file
+### |    |--- 2.file
+###
+### add all files under folder into cache (stage/index) of git repository
+${Fseablue}git add folder${AC}
+### remove all files under folder from cache (stage/index) of git repository, not include local
+${Fseablue}git rm -r --cached folder${AC}
+
+
+
+###
 ### sometimes, must use git rebase origin/2k17_mtk_archer_m_refdev 
 ### to hold the simple history records
 ###

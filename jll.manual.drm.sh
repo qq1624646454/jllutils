@@ -7,6 +7,12 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+Open Source Drm Player
+-----------------------
+https://github.com/google/shaka-player.git
+
+
+
 ===================================================================
  Drm Key | How to flash the key to active the DRM 
 -------------------------------------------------------------------

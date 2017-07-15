@@ -241,7 +241,9 @@ EOF
 #            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 #            --abbrev-commit \
 #            --date=relative | head -n 8
-    git log --graph --abbrev-commit --date=relative | head -n 9
+    git log \
+        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+#    git log --graph --abbrev-commit --date=relative | head -n 9
     cd - >/dev/null
     echo
     if [ -e "${HOME}/.ssh" -a -e "${__LvRescuePath}" ]; then
@@ -331,13 +333,24 @@ EOF
     chmod 0500 ${HOME}/.ssh/id_rsa
 
     cd ${__LvRootPath}
-    git pull -u origin master
+    echo "JLL-Doing: trying to use \"git pull origin master\""
+    git pull origin master
+    if [ x"$?" != x"0" ]; then
+        echo "JLL-Fixing: trying to use \"git pull -u origin master\""
+        git pull -u origin master
+        if [ x"$?" != x"0" ]; then
+            echo "JLL-Fixing: trying to use \"git fetch origin\""
+            git fetch origin
+        fi
+    fi
     echo
 #    git log --graph \
 #            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 #            --abbrev-commit \
 #            --date=relative | head -n 8
-    git log --graph --abbrev-commit --date=relative | head -n 9
+    git log \
+        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+    #git log --graph --abbrev-commit --date=relative -8 
     cd - >/dev/null
 
     echo
