@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-14 10:06:43
-#   ModifiedTime: 2017-07-14 18:41:28
+#   ModifiedTime: 2017-07-15 17:52:37
 JLLPATH="$(which $0)"
 # ./xxx.sh
 # ~/xxx.sh
@@ -219,12 +219,42 @@ done
 
 while [ x"${__result%%:*}" = x"Split_From_Current" ]; do 
     __BigFile=""
-    __FLcnt=$(find ./ -maxdepth 1 -type f ! -name ".*" -type f -size +${JLLCFG_UNIT_SIZE}c \
-              -exec ls -lh {} \; | grep -E '^-' | wc -l)
+
+    __doCMD_="find ./ \\( -regex \".*/?\.git\" -o -regex \".*/\..*\" \\) -prune"
+    __doCMD_="${__doCMD_} -o -type f -size +${JLLCFG_UNIT_SIZE}c -print"
+    __doCMD_="${__doCMD_} -exec ls -lh {} \\;"
+    __doCMD_="${__doCMD_} | grep -E '^-'"
+    echo
+    echo    "JLL: Be probing by executing the follows:"
+    echo -e "${Fyellow}${__doCMD_}${AC} | wc -l"
+    echo
+    echo
+    echo -ne "JLL: Progressing For Collecting the legal files count...  "
+    Lfn_Sys_Rotate_With_SIGNAL &
+    __RotateBgPID_=$!
+    __FLcnt=$(eval "${__doCMD_} | wc -l")
+    sleep 1
+    #kill -9 ${__RotateBgPID_} >/dev/null
+    kill -12 ${__RotateBgPID_} >/dev/null
+    sleep 1
+    echo
+    echo
+    echo
     echo "JLL:  Probed the legal files number=${__FLcnt}, to compare  ${JLLCFG_HUMAN_COUNT}"
-    if [ x"${__FLcnt}" != x -a ${__FLcnt} -le ${JLLCFG_HUMAN_COUNT} ]; then 
-        __FLlist=$(find ./ -maxdepth 1 -type f ! -name ".*" -type f -size +${JLLCFG_UNIT_SIZE}c \
-                   -exec ls -lh {} \; | grep -E '^-')
+    if [ x"${__FLcnt}" != x -a ${__FLcnt} -le ${JLLCFG_HUMAN_COUNT} ]; then
+        echo
+        echo    "JLL: Be probing by executing the follows:"
+        echo -e "${Fyellow}${__doCMD_}${AC} | wc -l"
+        echo
+        echo
+        echo -ne "JLL: Progressing For Collecting the legal files...  "
+        Lfn_Sys_Rotate_With_SIGNAL &
+        __RotateBgPID_=$!
+        __FLlist=$(eval "${__doCMD_}")
+        sleep 1
+        kill -12 ${__RotateBgPID_} >/dev/null
+        sleep 1
+        echo
         [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
         [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
 
@@ -265,7 +295,7 @@ while [ x"${__result%%:*}" = x"Split_From_Current" ]; do
             echo -ne \
             "${Bgreen}${Fblack}JLL: Please type Big File for split(q: Quit)${AC}  \033[04m   "
             read __BigFile
-            echo -ne "\033[0m"
+            echo -e "\033[0m"
             if [ x"${__BigFile}" = x"q" ]; then
                 break
             fi 

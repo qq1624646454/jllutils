@@ -1,6 +1,17 @@
 #!/bin/bash
 # Copyright (c) 2016-2100,  jielong_lin,  All rights reserved.
 #
+
+## when this script receive SIGHUP(=1),SIGINT(=2),SIGQUIT(=3),SIGTERM(=15)
+## this script will execute echo "I have received 1 or 2 or 3 or 15"
+# trap "echo 'I have received 1 or 2 or 3 or 15' " 1 2 3 15
+#
+## Send a signal to Process
+# kill -s SIGTERM pid <=> kill -15 pid <=> kill pid
+## -s SIGTERM to specify the signal name, and -15 to specify the signal digit
+
+JLLCFG_UNIT_SIZE=$((100*1024*1024))
+
 JLLPATH="$(which $0)"
 # ./xxx.sh
 # ~/xxx.sh
@@ -364,8 +375,82 @@ EOF
 
 case x"$1" in
 x"push")
+  while true; do 
     cd ${__GitPath}
     __GitCHANGE="$(git status -s)"
+
+    # Limit the file pushed size should not be beyond JLLCFG_UNIT_SIZE
+#    __FL_list=$(find ./ -type f ! -name ".*" -type f -size +${JLLCFG_UNIT_SIZE}c \
+#               -exec ls -lh {} \; | grep -E '^-')
+    __doCMD_="find ./ \\( -regex \".*/?\.git\" -o -regex \".*/\..*\" \\) -prune"
+    __doCMD_="${__doCMD_} -o -type f -size +${JLLCFG_UNIT_SIZE}c -print"
+    __doCMD_="${__doCMD_} -exec ls -lh {} \\;"
+    __doCMD_="${__doCMD_} | grep -E '^-'"
+    echo
+    echo    "JLL: Be probing by executing the follows:"
+    echo -e "${Fyellow}${__doCMD_}${AC}"
+    echo
+    echo
+    echo -ne "JLL: Progressing For Collecting the legal files...  "
+    Lfn_Sys_Rotate_With_SIGNAL &
+    __RotateBgPID_=$!
+    __FL_list=$(eval "${__doCMD_}")
+    sleep 1
+    #kill -9 ${__RotateBgPID_} >/dev/null
+    kill -12 ${__RotateBgPID_} >/dev/null
+    sleep 1
+    echo
+    echo
+    echo
+
+    __Is_Start_SPLIT=0
+    OIFS=${IFS}
+    IFS=$'\n'
+    for __FL_ in ${__FL_list}; do
+        __FL_=$(echo ${__FL_} | awk -F' ' '{print $9}')
+        if [ x"${__FL_}" = x ]; then
+            continue
+        fi
+        __FL_sz=$(du -b ${__FL_} 2>/dev/null | awk -F' ' '{print $1}')
+        echo -e "${Bgreen}${Fblack}JLL: ${__FL_} : ${__FL_sz}Byte${AC}"
+        if [ x"${__FL_sz}" != x ]; then
+            if [ ${__FL_sz} -ge ${JLLCFG_UNIT_SIZE} ]; then
+                echo -e "\
+JLL: ignore ${Fred}${__FL_}${AC}, it is bigger (${__FL_sz}) than limit(${JLLCFG_UNIT_SIZE}) "
+                __CHK_repeat=$(grep -Ei "${__FL_}" ${__GitPath}/.gitignore 2>/dev/null)
+                if [ x"${__CHK_repeat}" = x ]; then
+                    echo -e "JLL: ${Fred}${__FL_}${AC} will be writen \
+into ${Fred}${__GitPath}/.gitignore${AC}"
+                    echo "${__FL_}" >> ${__GitPath}/.gitignore
+                else
+                    echo -e "JLL: Probe result is ${Fred}${__CHK_repeat}${AC}"
+                    echo -e "JLL: ${Fred}${__FL_}${AC} has recorded \
+in ${Fred}${__GitPath}/.gitignore${AC}"
+                fi
+                __Is_Start_SPLIT=1
+            fi
+        fi
+    done
+    IFS=${OIFS}
+
+    if [ x"${__Is_Start_SPLIT}" = x"1" ]; then
+        echo -e \
+        "JLL: run ${Fyellow}jll.file.split_or_splice.sh${AC} for big file if press [y], or skip"
+        echo -ne \
+        "${Bgreen}${Fblack}JLL: Please type${AC}  \033[04m   "
+        read -n 1 __MyChoice_
+        echo -e "\033[0m"
+        if [ x"${__MyChoice_}" = x"y" ]; then
+            if [ x"$(which jll.file.split_or_splice.sh)" = x ]; then
+                echo -e "JLL: not found command ${Fyellow}jll.file.split_or_splice.sh${AC}"
+            else
+                jll.file.split_or_splice.sh
+                continue
+            fi
+        fi
+        echo
+    fi
+
     if [ x"${__GitCHANGE}" != x ]; then
         git add -A
         __GitCHANGE="$(git status -s)"
@@ -405,6 +490,8 @@ EOF
         --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
     echo
+  break
+  done
 ;;
 x"pull")
     cd ${__GitPath}
