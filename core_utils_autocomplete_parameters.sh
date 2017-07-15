@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-04-28 16:55:56
+#   ModifiedTime: 2017-07-14 19:51:45
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -23,16 +23,83 @@ function _____cuap__query_git_log_with_grep()
     # clean up completed cache
     COMPREPLY=()
     # the word to the current cursor
-    cur="${COMP_WORDS[COMP_CWORD]}"    
+    cur="${COMP_WORDS[COMP_CWORD]}"
     # the previous word to the current cursor 
     prev="${COMP_WORDS[COMP_CWORD-1]}"
     # argument list
     opts="--author= help"
 
     if [[ ${cur} == * ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    fi
+}
+
+
+#
+# jll.Git.sh [push|pull]
+#
+function _____cuap__Git()
+{
+    local cur prev opts
+    # clean up completed cache
+    COMPREPLY=()
+    # the word to the current cursor
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    # the previous word to the current cursor
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    # argument list
+    opts="push pull help"
+
+    if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
-        return 0     
-    fi    
+        return 0
+    fi
+}
+
+
+#
+# jll.hi.android.drm.sh [drm-scheme] [keyword-regular-expression] 
+#
+function _____cuap__hi_android_drm()
+{
+    local cur prev opts
+    # clean up completed cache
+    COMPREPLY=()
+    # the word to the current cursor
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    # the previous word to the current cursor
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    # argument list
+    opts="pr playready wv widevine --help -h"
+
+    if [[ ${cur} == * ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
+        return 0
+    fi
+}
+
+
+
+#
+# jll.symbol.sh -s=<Symbol> -f=<FileType> [-f=<FileType> ... ] [-m=<0|1>]
+#
+function _____cuap__symbol()
+{
+    local cur prev opts
+    # clean up completed cache
+    COMPREPLY=()
+    # the word to the current cursor
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    # the previous word to the current cursor
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    # argument list
+    opts="-s= -f= -m=0#precise"
+
+    if [[ ${cur} == * ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
+        return 0
+    fi
 }
 
 
@@ -44,15 +111,20 @@ function _____cuap__query_git_log_with_grep()
 
 
 
+
 declare -a registed_table=(
-    #Function                      #ShellFile
-    "_____cuap__query_git_log_with_grep"  "jll.query.git_log_with_grep.sh"
+    #Function                               #ShellFile
+    "_____cuap__query_git_log_with_grep"    "jll.query.git_log_with_grep.sh"
+    "_____cuap__Git"                        "jll.Git.sh"
+    "_____cuap__hi_android_drm"             "jll.hi.android.drm.sh"
+    "_____cuap__symbol"                     "jll.symbol.sh"
 )
 
-GvRegTableCount=${#registed_table[@]}/2
+GvRegTableCount=${#registed_table[@]}
 for((i=0; i<GvRegTableCount; i+=2)){
     if [ -e "${JLLPATH}/${registed_table[i+1]}" ]; then
         complete -F ${registed_table[i]} ${registed_table[i+1]}
+        # echo "JLL: ${JLLPATH}/${registed_table[i+1]}"
     else
         echo "JLL: Error because ${JLLPATH}/${registed_table[i+1]} is not present"
     fi

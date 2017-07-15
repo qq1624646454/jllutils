@@ -604,6 +604,8 @@ TPM156L.5.96.0.72
 
 
 
+My Laptop name is xmnb4003161.tpvaoc.com:0.0
+
 
 EOF
 

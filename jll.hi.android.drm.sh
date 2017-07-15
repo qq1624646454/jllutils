@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-06-07 11:45:49
+#   ModifiedTime: 2017-07-15 17:16:11
 #
 # History:
 #   2017-6-5| Created
@@ -1232,10 +1232,11 @@ if [ ${__lstResSZ} -ne ${JLLCFG_lstFileSZ} ]; then
     echo ${__lstCmd}
     echo
     echo -ne "    Progressing For Collecting the legal resources...  "
-    Lfn_Sys_Rotate &
+    Lfn_Sys_Rotate_With_SIGNAL &
     __RotateBgPID=$!
     __lstTargets=$(eval ${__lstCmd})
-    kill -9 ${__RotateBgPID}
+    #kill -9 ${__RotateBgPID}
+    kill -12 ${__RotateBgPID} >/dev/null
 
     for __lstT in ${__lstTargets}; do
         __lstRes[__lstResSZ++]="${__lstT}"

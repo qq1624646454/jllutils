@@ -4,16 +4,35 @@
 # V0 - Original Template is built by jielong.lin @2016-2-1
 # V1 - Add "Lfn_Sys_PathConvertToAbsolutePath" by jielong.lin @2016-2-2
 # V2 - Optimize "eval output with ()" by jielong.lin @2016-11-17
+# V3 - Improve the Rotate Progress Bar by Lfn_Sys_Rotate_With_SIGNAL 
 
 #------------------------------
 # Constant Variable Definition
 #------------------------------
 CvPathFileForScript="`which $0`"
-CvScriptName="`basename  ${CvPathFileForScript}`"
-CvScriptPath="`dirname   ${CvPathFileForScript}`"
-
-if [ x"$CvScriptPath" = x"." ]; then
-    CvScriptPath="`pwd`"
+# ./xxx.sh
+# ~/xxx.sh
+# /home/xxx.sh
+# xxx.sh
+if [ x"${CvPathFileForScript}" != x ]; then
+    CvScriptName=${CvPathFileForScript##*/}
+    CvScriptPath=${CvPathFileForScript%/*}
+    if [ x"${CvScriptPath}" = x ]; then
+        CvScriptPath="$(pwd)"
+    else
+        CvScriptPath="$(cd ${CvScriptPath};pwd)"
+    fi
+    if [ x"${CvScriptName}" = x ]; then
+        echo
+        echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 0"
+        echo
+        exit 0
+    fi
+else
+    echo
+    echo "JLL-Exit:: Not recognize the command \"$0\", then exit - 1"
+    echo
+    exit 0
 fi
 
 
@@ -438,6 +457,54 @@ function Lfn_Sys_Rotate()
         esac
     done
 }
+
+## Lfn_Sys_Rotate_With_SIGNAL
+## GvBgPid=$!
+## sleep 20
+## kill -9 ${GvBgPid} 
+##
+function Lfn_Sys_Rotate_With_SIGNAL()
+{
+    LvSrInterval=0.05
+    LvSrTcount="0"
+
+    export __jllutil_rotate_status=1
+
+    # When SIGUSR2(=12) is received, run "export __jllutil_rotate_status=0" 
+    trap "export __jllutil_rotate_status=0"  12
+
+    while [ x"${__jllutil_rotate_status}" = x"1" ]; do
+        LvSrTcount=`expr ${LvSrTcount} + 1`
+        case  ${LvSrTcount}  in
+        1)
+            echo -ne "\b-"
+            sleep  ${LvSrInterval}
+        ;;
+        2)
+            echo -ne "\b\\"
+            sleep  ${LvSrInterval}
+        ;;
+        3)
+            echo -ne "\b|"
+            sleep  ${LvSrInterval}
+        ;;
+        4)
+            echo -ne "\b/"
+            sleep  ${LvSrInterval}
+        ;;
+        *)
+            LvSrTcount="0"
+            sleep  ${LvSrInterval}
+        ;;
+        esac
+    done
+
+    trap 12 # Restore signal SIGUSR2 to default action.
+}
+
+
+
+
 
 ## Lfn_Sys_PathConvertToAbsolutePath <oAbsolutePath> <iPathFile|iPath> 
 ##
