@@ -37,6 +37,28 @@ else
     echo
     exit 0
 fi
+
+JLLCFG_CONFIG_PATH="${HOME}/.cache/jllutils"
+JLLCFG_CONFIG_FILE="${JLLCFG_CONFIG_PATH}/${__CvScriptName}"
+if [ ! -d "${JLLCFG_CONFIG_PATH}" ]; then
+    mkdir -pv ${JLLCFG_CONFIG_PATH}
+fi
+
+##################################################################################################
+## Default Settings, But They will be replaced by ${JLLCFG_CONFIG_FILE} 
+##################################################################################################
+
+JLLCFG_HUMAN_COUNT=32 #Beyond it, Tool will privode input search for file selecting.
+JLLCFG_UNIT_SIZE=$((100 * 1024 * 1024))  # 1024 * 1024 = 1MB. Tool will list the files beyond 1MB
+JLLCFG_SUFFIX_LENGTH=10
+JLLCFG_PREFIX_NAME=_sp_
+
+if [ x"$(ls ${JLLCFG_CONFIG_FILE} 2>/dev/null)" != x ]; then
+    . ${JLLCFG_CONFIG_FILE}
+fi
+
+
+
 JLLPATH="${__CvScriptPath}"
 source ${JLLPATH}/BashShellLibrary
 
