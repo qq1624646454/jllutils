@@ -460,8 +460,8 @@ function Lfn_Sys_Rotate()
 
 ## Lfn_Sys_Rotate_With_SIGNAL
 ## GvBgPid=$!
-## sleep 20
-## kill -9 ${GvBgPid} 
+## sleep 20 
+## kill -12 ${GvBgPid} 
 ##
 function Lfn_Sys_Rotate_With_SIGNAL()
 {
