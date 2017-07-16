@@ -509,7 +509,7 @@ EOF
     __Fn_finalize_GIT
     cd ${__GitPath}
     git log \
-        --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
+    --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
     echo
   break
