@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-14 19:51:45
+#   ModifiedTime: 2017-07-17 13:58:41
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -52,7 +52,7 @@ function _____cuap__Git()
     opts="push pull help"
 
     if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         return 0
     fi
 }
@@ -74,7 +74,7 @@ function _____cuap__hi_android_drm()
     opts="pr playready wv widevine --help -h"
 
     if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         return 0
     fi
 }
@@ -97,12 +97,38 @@ function _____cuap__symbol()
     opts="-s= -f= -m=0#precise"
 
     if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )     
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         return 0
     fi
 }
 
 
+
+#
+# vicc -l          || vicc --list
+# vicc -c          || vicc --create 
+# vicc -d          || vicc --delete
+# vicc -t <Symbol> || vicc --tag <Symbol>
+# vicc -u          || vicc --update
+# vicc --auto
+#
+function _____cuap__vicc()
+{
+    local cur prev opts
+    # clean up completed cache
+    COMPREPLY=()
+    # the word to the current cursor
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    # the previous word to the current cursor
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    # argument list
+    opts="-l --list -c --create -d --delete -t --tag -u --update --auto"
+
+    if [[ ${cur} == * ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    fi
+}
 
 
 
@@ -118,6 +144,9 @@ declare -a registed_table=(
     "_____cuap__Git"                        "jll.Git.sh"
     "_____cuap__hi_android_drm"             "jll.hi.android.drm.sh"
     "_____cuap__symbol"                     "jll.symbol.sh"
+
+    # vicc is an independent utils differred from jllutils.
+    "_____cuap__vicc"                       "vicc"
 )
 
 GvRegTableCount=${#registed_table[@]}
@@ -126,7 +155,11 @@ for((i=0; i<GvRegTableCount; i+=2)){
         complete -F ${registed_table[i]} ${registed_table[i+1]}
         # echo "JLL: ${JLLPATH}/${registed_table[i+1]}"
     else
-        echo "JLL: Error because ${JLLPATH}/${registed_table[i+1]} is not present"
+        if [ x"$(which ${registed_table[i+1]})" != x ]; then
+            complete -F ${registed_table[i]} ${registed_table[i+1]}
+        else
+            echo "JLL: Error because not found ${registed_table[i+1]}"
+        fi
     fi
 }
 
