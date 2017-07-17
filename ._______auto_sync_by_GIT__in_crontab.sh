@@ -5,7 +5,9 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-07-06 11:44:02
+#   ModifiedTime: 2017-07-17 13:26:18
+
+JLLCFG_RemoteGit_URL="https://github.com/qq1624646454/jllutils/commits/master"
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
@@ -215,7 +217,7 @@ if [ x"${__GitCHANGE}" != x ]; then
 
 declare -a __lstCommittedIDs
 declare -i __iCommittedIDs=0
-_FN_retrieve_git_commits_by_GitURL "https://github.com/qq1624646454/jllutils/commits/master" \
+_FN_retrieve_git_commits_by_GitURL  "${JLLCFG_RemoteGit_URL}" \
                                                                      >> _______auto_sync_by_GIT__in_crontab.log
 _FN_is_align_with_git_remote __isAlign  \
                                                                      >> _______auto_sync_by_GIT__in_crontab.log
@@ -238,7 +240,7 @@ fi
 "
 Changes as follows: 
 ${__GitCHANGE}
-"
+"                                                                    >> _______auto_sync_by_GIT__in_crontab.log
     /bin/echo                                                        >> _______auto_sync_by_GIT__in_crontab.log
     __SSHCONF_Switching_Start__qq1624646454
     /bin/echo "Push Changes to '${__RemoteRepository}' by git push"  >> _______auto_sync_by_GIT__in_crontab.log
@@ -254,8 +256,8 @@ fi
 declare -a __lstCommittedIDs
 declare -i __iCommittedIDs=0
 
-_FN_retrieve_git_commits_by_GitURL "https://github.com/qq1624646454/jllutils/commits/master" \
-                                                                     >> _______auto_sync_by_GIT__in_crontab.log
+_FN_retrieve_git_commits_by_GitURL \
+     "${JLLCFG_RemoteGit_URL}"                                        >> _______auto_sync_by_GIT__in_crontab.log
 _FN_is_align_with_git_remote __isAlign  \
                                                                      >> _______auto_sync_by_GIT__in_crontab.log
 [ x"${__lstCommittedIDs}" != x ] && unset __lstCommittedIDs
