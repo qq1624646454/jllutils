@@ -32,7 +32,6 @@ alias as_emulator="ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd'
 read -p \"please type AVD=\" AVD_name;
 [ x\"\${AVD_name}\" != x ] \
 && ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" \
-|| echo \"Invaild AVD name so that nothing to do\" \
 "
 
 
