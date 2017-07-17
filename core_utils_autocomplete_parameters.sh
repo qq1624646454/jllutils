@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-17 13:54:32
+#   ModifiedTime: 2017-07-17 13:58:41
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -157,8 +157,9 @@ for((i=0; i<GvRegTableCount; i+=2)){
     else
         if [ x"$(which ${registed_table[i+1]})" != x ]; then
             complete -F ${registed_table[i]} ${registed_table[i+1]}
+        else
+            echo "JLL: Error because not found ${registed_table[i+1]}"
         fi
-        echo "JLL: Error because ${JLLPATH}/${registed_table[i+1]} is not present"
     fi
 }
 
