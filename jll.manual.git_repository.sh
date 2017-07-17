@@ -47,8 +47,14 @@ ${Fyellow} apt-get install git git-doc git-email git-man git-svn gitweb ${AC}
 ##
 ${Fyellow} apt-get install apache2 ${AC}
 
-## Create a common default account to access git repository.
+## Create a common default account called git to access git repository.
 ${Fyellow} jll.user.sh add ${AC}
+${Fyellow} mount /dev/sda5 /Repository ${AC}
+OR set /dev/sda5 is mounted in /Repository during startup 
+${Fyellow} echo "/dev/sda5  /Repository  ext4 rw  0  2" >>/etc/fstab ${AC}
+${Fyellow} mv -vf /home/git /Repository ${AC}
+${Fyellow} chown -R git:git /Repository/git ${AC}
+${Fyellow} ln -vs /Repository/git /home/git ${AC}
 ## After git account is created, switch root to git account
 ${Fyellow} su - git ${AC} 
 ## Create a test project
