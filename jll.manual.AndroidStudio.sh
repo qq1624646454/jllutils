@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-17 21:30:15
+#   ModifiedTime: 2017-07-18 09:27:35
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,6 +24,14 @@ sudo apt-get install libnotify-dev
 
 
 ${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU ${AC}
+${Bred}${Black}                                     ${AC}
+sudo aptitude install pulseaudio
+
+
+
+
+${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} 定制任意路径下的Android模拟器运行环境 
 ${Bred}${Black}                                     ${AC}
 ${Fyellow}将以下脚本写入~/.bashrc，并重新登录即可${AC}
@@ -31,7 +39,7 @@ alias as_emulator="ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd'
 | uniq;
 read -p \"please type AVD=\" AVD_name;
 [ x\"\${AVD_name}\" != x ] \
-&& ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" \
+&& ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" -gpu swiftshader \
 "
 
 
