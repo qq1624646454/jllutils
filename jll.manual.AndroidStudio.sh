@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:29:03
+#   ModifiedTime: 2017-07-18 09:29:14
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -42,7 +42,6 @@ read -p \"please type AVD=\" AVD_name;
 [ x\"\${AVD_name}\" != x ] \
 && ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" -gpu swiftshader \
 "
-
 
 
 ${Bred}${Black}                                     ${AC}
