@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 19:46:54
+#   ModifiedTime: 2017-07-18 20:22:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,17 +16,23 @@ more >&1<<EOF
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} Install Android Studio 2.3.3 in Ubuntu 12.04 64bit. 
 ${Bred}${Black}                                     ${AC}
-wget https://dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio-ide-162.4069837-linux.zip
+wget \\
+  https://dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio-ide-162.4069837-linux.zip
 unzip android-studio-ide-162.4069837-linux.zip -d ./
 cd android-studio/
-vim Install-Linux-tar.txt
+
+#vim Install-Linux-tar.txt
+vim ./bin/studio.sh
+7 
+8  # JLL.S20170718: bind to one X server for renderring
+9  export DISPLAY=192.168.1.11:0.0
+10  # JLL.E20170718: bind to one X server for renderring
+11
 ./bin/studio.sh
+
 ${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
-
 ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio.sh所在路径写入到环境变量PATH中.${AC}
-
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
-
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
 
 
