@@ -23,7 +23,7 @@ cd android-studio/
 
 #vim Install-Linux-tar.txt
 
-# line 8 - 18
+# insert the follows from line 8 to 18
 vim ./bin/studio.sh
 ${Fgreen}# JLL.S20170718: bind to one X server for renderring${AC}
 ${Fgreen}DISPLAY=192.168.1.11:0.0${AC}
