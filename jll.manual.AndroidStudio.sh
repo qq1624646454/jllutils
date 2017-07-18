@@ -54,44 +54,14 @@ read -p \"please type AVD=\" AVD_name;
 "
 
 
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC}  AVD运行时错误
-${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU${AC}
-${Bred}${Black}                                     ${AC}
-sudo aptitude install pulseaudio
-
-
-
-
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
-${Bred}  ${AC} /dev/kvm 未授权给普通用户访问
+${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退. 
 ${Bred}${Black}                                     ${AC}
-sudo chmod 0777 /dev/kvm
-${Fyellow}每次开机后，都需要作一次这样的操作，所以建议将其定制到/etc/rc.local${AC}
-sudo vim /etc/rc.local
-/bin/chmod 0777 /dev/kvm
-
-
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
-${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退 
-${Bred}${Black}                                     ${AC}
-${Fyellow}ANALYZE: 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
-${Fyellow}通过AndroidStudio--->AVD Manager-->Actions(Edit this AVD)获取AVD的信息${AC}
-Name: Android_TV_720p_API_23
-CPU/ABI: Android TV Intel Atom (x86)
-...
-hw.accelerometer: no
-...
-hw.gpu.mode: auto
-...
-${Fyellow}hw.gpu.enabled: yes${AC}
-...
-
+${Fyellow}ANALYZE: 这是因为AVD默认使用GLES访问硬件加速的本地显卡,以此实现更快的图形渲染.${AC}
+${Fyellow}         但是，基于Xserver的VcXsrv环境下，似乎并不支持。${AC}
+${Fyellow}         所以需要改成软件模拟显卡的模式: -gpu swiftshader${AC}
+ 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
 ${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ \
 ${Fseablue}~/Android/Sdk/tools/emulator -avd Android_TV_720p_API_23${AC}
@@ -110,6 +80,33 @@ Segmentation fault (core dumped)
 jielong.lin@TpvServer:~/Android/Sdk/tools$
 jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}sudo apt-get install glxinfo ${AC}
 ...
+
+
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC}  AVD运行时错误
+${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU${AC}
+${Bred}${Black}                                     ${AC}
+sudo aptitude install pulseaudio
+
+
+
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
+${Bred}  ${AC} /dev/kvm 未授权给普通用户访问
+${Bred}${Black}                                     ${AC}
+sudo chmod 0777 /dev/kvm
+${Fyellow}每次开机后，都需要作一次这样的操作，所以建议将其定制到/etc/rc.local${AC}
+sudo vim /etc/rc.local
+/bin/chmod 0777 /dev/kvm
+
+
+
 
 
 
