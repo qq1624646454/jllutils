@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:40:47
+#   ModifiedTime: 2017-07-19 00:40:48
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -60,7 +60,6 @@ SEOF
 
 
 
-
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} AndroidStudio运行时错误
 ${Bred}  ${AC} ${Fred}Looking in classpath from com.intellij.util.lang.UrlClassLoader@6d5380c2${AC}
@@ -68,6 +67,27 @@ ${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3
 ${Bred}  ${AC} 64bit. 
 ${Bred}${Black}                                     ${AC}
 sudo apt-get install libnotify-dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
