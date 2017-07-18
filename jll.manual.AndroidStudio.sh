@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:40:48
+#   ModifiedTime: 2017-07-19 00:43:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -30,9 +30,9 @@ vim ./bin/studio.sh
 12 ${Fgreen}# JLL.S20170718: Customize to start AVD before AndroidStudio ${AC}
 13 ${Fgreen}ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq${AC}
 14 ${Fgreen}read -p "Please Type above AVD_name=" _as_AVD_name${AC}
-15 ${Fgreen}[ x"\${_as_AVD_name}" != x ] ${AC}\
-16 ${Fgreen}&& ~/dl.google.com/android/repository/emulator/emulator \\${AC}
-17 ${Fgreen}-avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
+15 ${Fgreen}[ x"\${_as_AVD_name}" != x ] \\${AC}
+16 ${Fgreen}    && ~/dl.google.com/android/repository/emulator/emulator \\${AC}
+17 ${Fgreen}           -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
 18 ${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
 
 ./bin/studio.sh
