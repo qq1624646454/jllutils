@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:55:38
+#   ModifiedTime: 2017-07-19 01:29:10
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -33,8 +33,8 @@ ${Fgreen}# JLL.S20170718: Customize to start AVD before AndroidStudio ${AC}
 ${Fgreen}ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq${AC}
 ${Fgreen}read -p "Please Type above AVD_name=" _as_AVD_name${AC}
 ${Fgreen}[ x"\${_as_AVD_name}" != x ] \\${AC}
-${Fgreen}    && ~/dl.google.com/android/repository/emulator/emulator \\${AC}
-${Fgreen}           -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
+${Fgreen}&& ~/dl.google.com/android_sdk/emulator/emulator \\${AC}
+${Fgreen}   -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
 ${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
 
 ./bin/studio.sh
@@ -44,21 +44,20 @@ ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
 
-cat >>~/.bashrc<<SEOF
+# append the follows into the tail of ~/.bashrc
+vim ~/.bashrc
 
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 ${Fgreen}alias as_emulator=" \\${AC}
 ${Fgreen}ls ~/.android/avd |awk -F'.ini' '{print \\\$1}' |awk -F'.avd' '{print \\\$1}' |uniq;${AC}
-${Fgreen}[ x\"\\\${DISPLAY}\" = x ] && DISPLAY=192.168.1.11:0.0
-${Fgreen}read -p \"please type AVD=\" AVD_name;${AC}
+${Fgreen}[ x\"\\\${DISPLAY}\" = x ] && export DISPLAY=192.168.1.11:0.0
+${Fgreen}read -p \"AVD will be renderred by \\\${DISPLAY}; Please Type AVD=\" AVD_name;${AC}
 ${Fgreen}[ x\"\\\${AVD_name}\" != x ] \\${AC}
-${Fgreen}&& ~/dl.google.com/android/repository/emulator/emulator \\${AC}
+${Fgreen}&& ~/dl.google.com/android_sdk/emulator/emulator \\${AC}
 ${Fgreen}   -avd \"\\\${AVD_name}\" -gpu swiftshader"${AC}
 
 ${Fgreen}PATH=~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/:\${PATH}${AC}
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
-
-SEOF
 
 
 
