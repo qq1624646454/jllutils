@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:37:22
+#   ModifiedTime: 2017-07-19 00:38:08
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,8 +24,8 @@ cd android-studio/
 #vim Install-Linux-tar.txt
 vim ./bin/studio.sh
 7 
-8  # JLL.S20170718: bind to one X server for renderring
-9  export DISPLAY=192.168.1.11:0.0
+8   # JLL.S20170718: bind to one X server for renderring
+9   DISPLAY=192.168.1.11:0.0
 10  # JLL.E20170718: bind to one X server for renderring
 11
 ./bin/studio.sh
