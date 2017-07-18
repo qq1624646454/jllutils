@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:41:51
+#   ModifiedTime: 2017-07-18 09:43:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -76,10 +76,10 @@ Segmentation fault (core dumped)
 ${Fyellow}ANALYZE: 这是因为AVD默认使用GLES访问硬件加速的本地显卡,以此实现更快的图形渲染.${AC}
 ${Fyellow}         但是，基于Xserver的VcXsrv环境下，似乎并不支持。${AC}
 ${Fyellow}         所以需要改成软件模拟显卡的模式: -gpu swiftshader${AC}
-${Fgreen}SOLUTION: ${AC} 
-${Fseablue}~/dl.google.com/android/repository/emulator/emulator -avd Android_TV_720p_API_23 \
--gpu swiftshader${AC}
-
+${Fgreen}SOLUTION: ${AC}
+jielong.lin@TpvServer:~$ \
+${Fseablue}~/dl.google.com/android/repository/emulator/emulator -avd Android_TV_720p_API_23${AC} \
+${Fseablue}-gpu swiftshader${AC}
 
 
 ${Bred}${Black}                                     ${AC}
