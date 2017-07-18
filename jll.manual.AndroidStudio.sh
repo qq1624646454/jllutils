@@ -5,31 +5,13 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:29:14
+#   ModifiedTime: 2017-07-18 09:31:11
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
-
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} ${Fred}Looking in classpath from com.intellij.util.lang.UrlClassLoader@6d5380c2${AC}
-${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3 in Ubuntu 12.04 
-${Bred}  ${AC} 64bit. 
-${Bred}${Black}                                     ${AC}
-sudo apt-get install libnotify-dev
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU ${AC}
-${Bred}${Black}                                     ${AC}
-sudo aptitude install pulseaudio
-
-
-
 
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} 定制任意路径下的Android模拟器运行环境
@@ -59,6 +41,25 @@ ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
 
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} AndroidStudio运行时错误
+${Bred}  ${AC} ${Fred}Looking in classpath from com.intellij.util.lang.UrlClassLoader@6d5380c2${AC}
+${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3 in Ubuntu 12.04 
+${Bred}  ${AC} 64bit. 
+${Bred}${Black}                                     ${AC}
+sudo apt-get install libnotify-dev
+
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC}  AVD运行时错误
+${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU${AC}
+${Bred}${Black}                                     ${AC}
+sudo aptitude install pulseaudio
 
 
 
