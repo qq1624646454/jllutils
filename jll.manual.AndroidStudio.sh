@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:43:04
+#   ModifiedTime: 2017-07-18 09:46:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -80,6 +80,12 @@ ${Fgreen}SOLUTION: ${AC}
 jielong.lin@TpvServer:~$ \
 ${Fseablue}~/dl.google.com/android/repository/emulator/emulator -avd Android_TV_720p_API_23${AC} \
 ${Fseablue}-gpu swiftshader${AC}
+注：-gpu <mode>，mode可以有auto host mesa angle swiftshader off，具体详见：
+    https://developer.android.com/studio/run/emulator-acceleration.html
+${Bgreen}${Fblack}建议：${AC}
+${Bgreen}${Fblack}将-gpu <mode> 定制到alias as_emulator当中，每次启动AS之前，先启动它.${AC}
+
+
 
 
 ${Bred}${Black}                                     ${AC}
