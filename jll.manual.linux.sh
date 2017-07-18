@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-19 10:38:33
-#   ModifiedTime: 2017-07-13 18:32:39
+#   ModifiedTime: 2017-07-18 22:40:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,11 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+
+${Fred} You have new mail in /var/mail/jll ${AC}
+${Fgreen} ANALYZE: 一般是系统执行出错了,才会出现这个问题,输入mutt可以查看具体问题${AC}
+mutt
 
 
 /etc/X11/default-display-manager

@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-07-17 13:26:18
+#   ModifiedTime: 2017-07-18 22:32:55
 
 JLLCFG_RemoteGit_URL="https://github.com/qq1624646454/jllutils/commits/master"
 
@@ -204,11 +204,12 @@ if [ ! -e "${JLLPATH}/.git" ]; then
     /bin/exit 0
 fi
 
+cd ${JLLPATH}
+
 __RemoteRepository=$(/usr/bin/git remote show origin | /bin/grep -E '^[ ]{0,}Push[ ]{1,}URL:')
 __RemoteRepository=${__RemoteRepository#*:}
 [ x"${__RemoteRepository}" = x ] && __RemoteRepository="remote.${JLLSELF}"
 
-cd ${JLLPATH}
 /bin/echo "synchronizing with ${__RemoteRepository} @${__DT}"        >  _______auto_sync_by_GIT__in_crontab.log
 __GitCHANGE="$(/usr/bin/git status -s)"
 if [ x"${__GitCHANGE}" != x ]; then
