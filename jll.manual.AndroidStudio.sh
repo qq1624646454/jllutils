@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:38:08
+#   ModifiedTime: 2017-07-19 00:40:47
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -23,11 +23,18 @@ cd android-studio/
 
 #vim Install-Linux-tar.txt
 vim ./bin/studio.sh
-7 
-8   # JLL.S20170718: bind to one X server for renderring
-9   DISPLAY=192.168.1.11:0.0
-10  # JLL.E20170718: bind to one X server for renderring
+8  ${Fgreen}# JLL.S20170718: bind to one X server for renderring${AC}
+9  ${Fgreen}DISPLAY=192.168.1.11:0.0${AC}
+10 ${Fgreen}# JLL.E20170718: bind to one X server for renderring${AC}
 11
+12 ${Fgreen}# JLL.S20170718: Customize to start AVD before AndroidStudio ${AC}
+13 ${Fgreen}ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq${AC}
+14 ${Fgreen}read -p "Please Type above AVD_name=" _as_AVD_name${AC}
+15 ${Fgreen}[ x"\${_as_AVD_name}" != x ] ${AC}\
+16 ${Fgreen}&& ~/dl.google.com/android/repository/emulator/emulator \\${AC}
+17 ${Fgreen}-avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
+18 ${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
+
 ./bin/studio.sh
 
 ${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
