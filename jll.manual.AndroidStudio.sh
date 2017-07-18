@@ -22,18 +22,20 @@ unzip android-studio-ide-162.4069837-linux.zip -d ./
 cd android-studio/
 
 #vim Install-Linux-tar.txt
+
+# line 8 - 18
 vim ./bin/studio.sh
-8  ${Fgreen}# JLL.S20170718: bind to one X server for renderring${AC}
-9  ${Fgreen}DISPLAY=192.168.1.11:0.0${AC}
-10 ${Fgreen}# JLL.E20170718: bind to one X server for renderring${AC}
-11
-12 ${Fgreen}# JLL.S20170718: Customize to start AVD before AndroidStudio ${AC}
-13 ${Fgreen}ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq${AC}
-14 ${Fgreen}read -p "Please Type above AVD_name=" _as_AVD_name${AC}
-15 ${Fgreen}[ x"\${_as_AVD_name}" != x ] \\${AC}
-16 ${Fgreen}    && ~/dl.google.com/android/repository/emulator/emulator \\${AC}
-17 ${Fgreen}           -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
-18 ${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
+${Fgreen}# JLL.S20170718: bind to one X server for renderring${AC}
+${Fgreen}DISPLAY=192.168.1.11:0.0${AC}
+${Fgreen}# JLL.E20170718: bind to one X server for renderring${AC}
+
+${Fgreen}# JLL.S20170718: Customize to start AVD before AndroidStudio ${AC}
+${Fgreen}ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq${AC}
+${Fgreen}read -p "Please Type above AVD_name=" _as_AVD_name${AC}
+${Fgreen}[ x"\${_as_AVD_name}" != x ] \\${AC}
+${Fgreen}    && ~/dl.google.com/android/repository/emulator/emulator \\${AC}
+${Fgreen}           -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
+${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
 
 ./bin/studio.sh
 
