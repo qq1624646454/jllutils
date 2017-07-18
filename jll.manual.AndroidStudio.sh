@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:47:20
+#   ModifiedTime: 2017-07-18 09:52:54
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -84,7 +84,7 @@ ${Fseablue}-gpu swiftshader${AC}
     https://developer.android.com/studio/run/emulator-acceleration.html
 ${Bgreen}${Fblack}建议：${AC}
 ${Bgreen}${Fblack}将-gpu <mode> 定制到alias as_emulator当中，每次启动AS之前，先启动它.${AC}
-${Bgreen}${Fblack}vim ~/dl.google.com/android/repository/emulator/emulator ${AC}
+${Bgreen}${Fblack}vim ~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/studio.sh ${AC}
   3 # ---------------------------------------------------------------------
   4 # Android Studio startup script.
   5 # ---------------------------------------------------------------------
