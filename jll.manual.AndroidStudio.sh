@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:47:16
+#   ModifiedTime: 2017-07-18 09:47:20
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -85,8 +85,19 @@ ${Fseablue}-gpu swiftshader${AC}
 ${Bgreen}${Fblack}建议：${AC}
 ${Bgreen}${Fblack}将-gpu <mode> 定制到alias as_emulator当中，每次启动AS之前，先启动它.${AC}
 ${Bgreen}${Fblack}vim ~/dl.google.com/android/repository/emulator/emulator ${AC}
-
-
+  3 # ---------------------------------------------------------------------
+  4 # Android Studio startup script.
+  5 # ---------------------------------------------------------------------
+  6 #
+  7
+  8 # Customized by jielong.lin
+  9 if [ x"\$(alias as_emulator 2>/dev/null)" != x ]; then
+ 10     as_emulator
+ 11 fi
+ 12
+ 13
+ 14 message()
+ 15 {
 
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC}  AVD运行时错误
