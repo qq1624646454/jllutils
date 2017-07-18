@@ -5,44 +5,13 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:29:14
+#   ModifiedTime: 2017-07-18 09:32:01
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
-
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} ${Fred}Looking in classpath from com.intellij.util.lang.UrlClassLoader@6d5380c2${AC}
-${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3 in Ubuntu 12.04 
-${Bred}  ${AC} 64bit. 
-${Bred}${Black}                                     ${AC}
-sudo apt-get install libnotify-dev
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU ${AC}
-${Bred}${Black}                                     ${AC}
-sudo aptitude install pulseaudio
-
-
-
-
-${Bred}${Black}                                     ${AC}
-${Bred}  ${AC} 定制任意路径下的Android模拟器运行环境
-${Bred}  ${AC} 注意:在Vcxsrv环境中，似乎还无法支持硬件加速的GLE，因此，请设置-gpu swiftshader
-${Bred}${Black}                                     ${AC}
-${Fyellow}将以下脚本写入~/.bashrc，并重新登录即可${AC}
-alias as_emulator="ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' \
-| uniq;
-read -p \"please type AVD=\" AVD_name;
-[ x\"\${AVD_name}\" != x ] \
-&& ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" -gpu swiftshader \
-"
-
 
 ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} Install Android Studio 2.3.3 in Ubuntu 12.04 64bit. 
@@ -60,6 +29,37 @@ ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
 
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
 
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} AndroidStudio运行时错误
+${Bred}  ${AC} ${Fred}Looking in classpath from com.intellij.util.lang.UrlClassLoader@6d5380c2${AC}
+${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3 in Ubuntu 12.04 
+${Bred}  ${AC} 64bit. 
+${Bred}${Black}                                     ${AC}
+sudo apt-get install libnotify-dev
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} 定制任意路径下的Android模拟器运行环境
+${Bred}  ${AC} 注意:在Vcxsrv环境中，似乎还无法支持硬件加速的GLE，因此，请设置-gpu swiftshader
+${Bred}${Black}                                     ${AC}
+${Fyellow}将以下脚本写入~/.bashrc，并重新登录即可${AC}
+alias as_emulator="ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' \
+| uniq;
+read -p \"please type AVD=\" AVD_name;
+[ x\"\${AVD_name}\" != x ] \
+&& ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" -gpu swiftshader \
+"
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC}  AVD运行时错误
+${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU${AC}
+${Bred}${Black}                                     ${AC}
+sudo aptitude install pulseaudio
 
 
 
