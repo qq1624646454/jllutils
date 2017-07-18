@@ -47,11 +47,11 @@ ${Fgreen}cat >>~/.bashrc<<SEOF${AC}
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 ${Fgreen}alias as_emulator=" \\${AC}
 ${Fgreen}ls ~/.android/avd |awk -F'.ini' '{print \\\$1}' |awk -F'.avd' '{print \\\$1}' |uniq;${AC}
-${Fgreen}[ x\\\"\\\${DISPLAY}\\\" = x ] && DISPLAY=192.168.1.11:0.0
-${Fgreen}read -p \\\"please type AVD=\\\" AVD_name;${AC}
-${Fgreen}[ x\\\"\\\${AVD_name}\\\" != x ] \\${AC}
+${Fgreen}[ x\"\\\${DISPLAY}\" = x ] && DISPLAY=192.168.1.11:0.0
+${Fgreen}read -p \"please type AVD=\" AVD_name;${AC}
+${Fgreen}[ x\"\\\${AVD_name}\" != x ] \\${AC}
 ${Fgreen}&& ~/dl.google.com/android/repository/emulator/emulator \\${AC}
-${Fgreen}   -avd \\\"\\\${AVD_name}\\\" -gpu swiftshader"${AC}
+${Fgreen}   -avd \"\\\${AVD_name}\" -gpu swiftshader"${AC}
 
 ${Fgreen}PATH=~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/:\${PATH}${AC}
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
