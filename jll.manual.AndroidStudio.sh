@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:26:24
+#   ModifiedTime: 2017-07-18 09:27:35
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -21,6 +21,14 @@ ${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3
 ${Bred}  ${AC} 64bit. 
 ${Bred}${Black}                                     ${AC}
 sudo apt-get install libnotify-dev
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} ${Fred}A solution for pulseaudio: pa_context_connect() failed with QEMU ${AC}
+${Bred}${Black}                                     ${AC}
+sudo aptitude install pulseaudio
+
+
 
 
 ${Bred}${Black}                                     ${AC}
