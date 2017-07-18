@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 00:50:57
+#   ModifiedTime: 2017-07-19 00:55:38
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -44,7 +44,7 @@ ${Fyellow}为了让AndroidStudio可以在任何路径下运行，建议将studio
 ${Fyellow}下次运行studio.sh即可以启动AndroidStudio${AC}
 ${Fyellow}第一次编译工程时，AS可能还需要去下载gradle包进行安装${AC}
 
-${Fgreen}cat >>~/.bashrc<<SEOF${AC}
+cat >>~/.bashrc<<SEOF
 
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 ${Fgreen}alias as_emulator=" \\${AC}
