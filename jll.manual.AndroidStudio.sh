@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 10:20:33
+#   ModifiedTime: 2017-07-18 19:46:54
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -46,12 +46,12 @@ ${Bred}  ${AC} 定制任意路径下的Android模拟器运行环境
 ${Bred}  ${AC} 注意:在Vcxsrv环境中，似乎还无法支持硬件加速的GLE，因此，请设置-gpu swiftshader
 ${Bred}${Black}                                     ${AC}
 ${Fyellow}将以下脚本写入~/.bashrc，并重新登录即可${AC}
-alias as_emulator="ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' \
-| uniq;
-read -p \"please type AVD=\" AVD_name;
-[ x\"\${AVD_name}\" != x ] \
-&& ~/dl.google.com/android/repository/emulator/emulator -avd \"\${AVD_name}\" -gpu swiftshader \
-"
+${Fgreen}alias as_emulator=" \\${AC}
+${Fgreen}ls ~/.android/avd |awk -F'.ini' '{print \\\$1}' |awk -F'.avd' '{print \\\$1}' |uniq;${AC}
+${Fgreen}read -p \"please type AVD=\" AVD_name;${AC}
+${Fgreen}[ x\"\\\${AVD_name}\" != x ] \\${AC}
+${Fgreen}&& ~/dl.google.com/android/repository/emulator/emulator \\${AC}
+${Fgreen}-avd \"\\\${AVD_name}\" -gpu swiftshader"${AC}
 
 
 ${Bred}${Black}                                     ${AC}
