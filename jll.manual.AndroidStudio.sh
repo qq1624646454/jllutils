@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-18 09:32:01
+#   ModifiedTime: 2017-07-18 09:38:42
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -58,14 +58,9 @@ ${Bred}${Black}                                     ${AC}
 ${Bred}  ${AC} AVD(Android Virtual Device) in Ubuntu 12.04 64bit. 
 ${Bred}  ${AC} 模拟器界面弹出后，又立刻闪退. 
 ${Bred}${Black}                                     ${AC}
-${Fyellow}ANALYZE: 这是因为AVD默认使用GLES访问硬件加速的本地显卡,以此实现更快的图形渲染.${AC}
-${Fyellow}         但是，基于Xserver的VcXsrv环境下，似乎并不支持。${AC}
-${Fyellow}         所以需要改成软件模拟显卡的模式: -gpu swiftshader${AC}
- 使用命令行单独测试AVD，可以看到详细的错误信息${AC}
-${Fseablue}在Android SDK目录下， tools/emulator是专门用于运行Android的模拟器(qemu)${AC}
+${Fyellow}首先，使用命令行启动AVD，可以看到详细的错误信息${AC}
 jielong.lin@TpvServer:~/Android/Sdk/tools$ \
 ${Fseablue}~/Android/Sdk/tools/emulator -avd Android_TV_720p_API_23${AC}
-${Fred}sh: 1: glxinfo: not found${AC}
 emulator: WARNING: encryption is off
 android/android-emugl/host/libs/Translator/GLES_V2/GLESv2Imp.cpp:glShaderSource:2452 error 0x501
 ...
@@ -77,10 +72,13 @@ X Error of failed request:  GLXBadContextTag
   Current serial number in output stream:  246
 QObject::~QObject: Timers cannot be stopped from another thread
 Segmentation fault (core dumped)
-jielong.lin@TpvServer:~/Android/Sdk/tools$
-jielong.lin@TpvServer:~/Android/Sdk/tools$ ${Fseablue}sudo apt-get install glxinfo ${AC}
 ...
 
+
+
+${Fyellow}ANALYZE: 这是因为AVD默认使用GLES访问硬件加速的本地显卡,以此实现更快的图形渲染.${AC}
+${Fyellow}         但是，基于Xserver的VcXsrv环境下，似乎并不支持。${AC}
+${Fyellow}         所以需要改成软件模拟显卡的模式: -gpu swiftshader${AC}
 
 
 
