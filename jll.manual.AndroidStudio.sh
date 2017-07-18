@@ -56,7 +56,7 @@ ${Fgreen}   -avd \"\\\${AVD_name}\" -gpu swiftshader"${AC}
 ${Fgreen}PATH=~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/:\${PATH}${AC}
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 
-SEOF
+${Fgreen}SEOF${AC}
 
 
 
