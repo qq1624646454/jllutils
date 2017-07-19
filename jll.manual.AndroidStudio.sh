@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 01:29:10
+#   ModifiedTime: 2017-07-19 10:55:23
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -56,7 +56,9 @@ ${Fgreen}[ x\"\\\${AVD_name}\" != x ] \\${AC}
 ${Fgreen}&& ~/dl.google.com/android_sdk/emulator/emulator \\${AC}
 ${Fgreen}   -avd \"\\\${AVD_name}\" -gpu swiftshader"${AC}
 
-${Fgreen}PATH=~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/:\${PATH}${AC}
+${Fgreen}PATH=\\${AC}
+${Fgreen}~/dl.google.com/android/repository/platform-tools:\\${AC} 
+${Fgreen}~/dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio/bin/:\${PATH}${AC}
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 
 

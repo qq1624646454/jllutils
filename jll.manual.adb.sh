@@ -3,13 +3,29 @@
 #
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-less >&1 <<EOF
+more >&1 <<EOF
+
+${Bred}                                                              ${AC}
+${Bred} ${AC}no permissions (udev requires plugdev group membership)
+${Bred}                                                              ${AC}
+${Fyellow}提示当前用户没在plugdev组,可以将当前用户再追加到plugdev组${AC}
+sudo usermod -a -G plugdev jielong.lin
+exit 0 # re-login jielong.lin
+groups
+
+
+${Bred}                                                              ${AC}
+${Bred} ${AC}no permissions (verify udev rules)
+${Bred}                                                              ${AC}
+${Fyellow}提示当前用户没在plugdev组,可以将当前用户再追加到plugdev组${AC}
+
+
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ||      USB ADB Usage
