@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 10:55:23
+#   ModifiedTime: 2017-07-19 13:42:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -23,8 +23,8 @@ cd android-studio/
 
 #vim Install-Linux-tar.txt
 
-# insert the follows from line 8 to 18
 vim ./bin/studio.sh
+# insert the follows from line 8 to 18
 ${Fgreen}# JLL.S20170718: bind to one X server for renderring${AC}
 ${Fgreen}DISPLAY=192.168.1.11:0.0${AC}
 ${Fgreen}# JLL.E20170718: bind to one X server for renderring${AC}
@@ -36,6 +36,16 @@ ${Fgreen}[ x"\${_as_AVD_name}" != x ] \\${AC}
 ${Fgreen}&& ~/dl.google.com/android_sdk/emulator/emulator \\${AC}
 ${Fgreen}   -avd "\${_as_AVD_name}" -gpu swiftshader & ${AC}
 ${Fgreen}# JLL.E20170718: Customize to start AVD before AndroidStudio${AC}
+
+# insert the follows from line 200 to 206
+${Fgreen}# JLL.S20170718: Customize to start AVD before AS${AC}
+${Fgreen}__is_Alive=\$(ps -e | awk -F' ' '{print \$1}' | grep "\${__AVD_PID}" 2>/dev/null)${AC}
+${Fgreen}if [ x"\${__is_Alive}" != x ]; then${AC}
+${Fgreen}   echo "JLL: AVD should be killed. AVD_PID=\${__AVD_PID}"${AC}
+${Fgreen}   kill -9 \${__AVD_PID}${AC}
+${Fgreen}fi${AC}
+${Fgreen}# JLL.E20170718: Customize to start AVD before AS${AC}
+
 
 ./bin/studio.sh
 

@@ -11,6 +11,64 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+===============================================================================================
+1.首先需要在Android设备上使能USB方式的ADB功能，不同的android厂家设备有不同的方法：
+    以Philips TV为例：
+          (1).开机时按住SPACE键进入Uboot命令行模式，输入 
+                mt5890 #  addboot ssusb_adb=1
+          (2).确认使能信息已经配置到系统中
+                mt5890 #  pri
+                ... ssusb_adb=1 ...
+          (3).重启系统
+                 mt5890 # reset
+
+2.让Linux识别所有USB连接，这里有两种方法: 
+2.1.USB设备连接时，udev自动探测识别，在下强烈强烈推荐。
+    jielong.lin@TpvServer:~$  sudo vim /etc/udev/rules.d/50-android.rules
+    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", GROUP="plugdev"
+
+    jielong.lin@TpvServer:~$  sudo chmod 0777 /etc/udev/rules.d/50-android.rules
+
+2.2.USB设备连接时，手动地去获取USB设备的标识符并配置到udev规则当中，要是有多个USB设备，
+    会很麻烦，在下不推荐。
+(1).使用USB线（公对公）连接 Philips TV 和 Ubuntu，在Ubuntu系统上检查是否识别到PhilipsTV设备：
+    tpv@TpvUbuntu:~#  lsusb
+    Bus 004 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+    Bus 004 Device 001: ID 1d6b:0002 linux Foundation 2.0 root hub
+    Bus 003 Device 004: ID 04f2:b2fa Chicony Electronics Co., Ltd
+    Bus 003 Device 003: ID 147e:1002 Upek Biometric Touchchip/Touchstrip Fingerprint Sensor
+    Bus 003 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+    Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+    Bus 001 Device 006: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port
+    Bus 001 Device 003: ID 17ef:6019 Lenovo
+    Bus 001 Device 010: ID 18d1:0d02 Google Inc. Celkon A88
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+NOTE:   idVendor=0x18d1,    idProduct=0x0d02
+(2).让Ubuntu支持USB所连接的Android设备. 
+    tpv@TpvUbuntu:~#  sudo echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="0d02", MODE="0600" , OWNER=="jielong.lin" ' >  /etc/udev/rules.d/50-android.rules
+    tpv@TpvUbuntu:~#  chmod  0777  /etc/udev/rules.d/50-android.rules
+    tpv@TpvUbuntu:~#  mkdir  -pv  ~/.android
+    tpv@TpvUbuntu:~#  echo '0x18d1' >  ~/.android/adb_usb.ini
+
+3.保证当前用户在plugdev组当中
+    groups
+    # 如果没在plugdev，请加入：
+    chmod usermod -a -G plugdev \$(whoami)
+
+4.验证测试
+    # If failure but android studio has been installed, 
+    # you can use platform-tools/adb in Android Studio
+    sudo aptitude install android-tools-adb  
+    # 重新以普通用户账号登录...  
+    adb kill-server
+    adb devices
+    adb shell
+    xxx@QM16XE_U:/ # 
+
+
+
+
 ${Bred}                                                              ${AC}
 ${Bred} ${AC}no permissions (udev requires plugdev group membership)
 ${Bred}                                                              ${AC}
@@ -23,7 +81,12 @@ groups
 ${Bred}                                                              ${AC}
 ${Bred} ${AC}no permissions (verify udev rules)
 ${Bred}                                                              ${AC}
-${Fyellow}提示当前用户没在plugdev组,可以将当前用户再追加到plugdev组${AC}
+${Fyellow}配置文件/etc/udev/rules.d/50-android.rules存在问题,请参考如下配置${AC}
+${Fyellow}  注：Linux可以识别所有USB设备 ${AC}
+sudo vim /etc/udev/rules.d/50-android.rules
+${Fgreen}SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666", GROUP="plugdev"${AC}
+
+
 
 
 
