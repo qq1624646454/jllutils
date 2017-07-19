@@ -105,8 +105,8 @@ ${Fyellow} vim /etc/gitweb.conf ${AC}
 ${Fyellow} /etc/init.d/apache2 restart ${AC}
 
 ## Testing...type "http://localhost/gitweb"
-${Fyellow} m3w http://localhost:80/gitweb ${AC}
-${Fyellow} m3w http://localhost:8888/gitweb ${AC}
+${Fyellow} w3m http://localhost:80/gitweb ${AC}
+${Fyellow} w3m http://localhost:8888/gitweb ${AC}
 
 
 
