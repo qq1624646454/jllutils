@@ -15,11 +15,14 @@ more >&1 <<EOF
 ---------------------------------------
  install manual
 ---------------------------------------
-jl@S:~\$ ${Fyellow} mkdir -pv github${AC}
-jl@S:~/github\$ ${Fyellow}git clone https://github.com/qq1624646454/vicc_installer.git${AC}
+jl@S:~\$ ${Fyellow} mkdir -pv github.com/qq1624646454${AC}
+jl@S:~/github.com/qq1624646454\$ \
+${Fyellow}git clone https://github.com/qq1624646454/vicc_installer.git${AC}
 ...
-jl@S:~/github\$ ${Fyellow}cd vicc_installer${AC}
-jl@S:~/github/vicc_installer\$ ${Fyellow}./vicc_installer.sh${AC}
+jl@S:~/github.com/qq1624646454\$ \
+${Fyellow}cd vicc_installer${AC}
+jl@S:~/github.com/qq1624646454\$ \
+${Fyellow}./vicc_installer.sh${AC}
 ...
 ${Fred} Please re-login your system ${AC}
 
