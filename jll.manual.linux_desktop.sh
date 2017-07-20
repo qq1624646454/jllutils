@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-20 13:29:45
-#   ModifiedTime: 2017-07-20 14:14:54
+#   ModifiedTime: 2017-07-20 14:21:17
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -38,13 +38,15 @@ W: Possible missing firmware /lib/firmware/rtl_nic/rtl8411-2.fw for module r8169
 Processing triggers for libgdk-pixbuf2.0-0 ...
 Current status: 172 updates [-49].
 
+${Fseablue}sudo reboot${AC}
 
-${Fyellow}# if met the issue about "Failed to load session "ubuntu"${AC}
+${Fyellow}# login if met the issue about "Failed to load session "ubuntu"${AC}
 ${Fyellow}# please check if ubuntu-desktop is installed or not" ${AC}
 ${Fseablue}sudo dpkg --get-selections | grep -i ubuntu
-
-${Fseablue}sudo apt-get install -f install${AC}
-${Fseablue}sudo dpkg-reconfig ubuntu-desktop${AC}
+...
+ubuntu-desktop                                  install
+${Fyellow}# if ubuntu-desktop is not installed, maybe need to install it again.${AC}
+${Fseablue}sudo aptitude install ubuntu-desktop${AC}
 
 ${Fseablue}sudo reboot${AC}
 
