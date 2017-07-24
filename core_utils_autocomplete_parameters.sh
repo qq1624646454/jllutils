@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:08:10
+#   ModifiedTime: 2017-07-24 15:20:55
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -95,15 +95,17 @@ function _____cuap__symbol()
     # the previous word to the current cursor
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    case ${COMP_CWORD} in
-    1)
+    case ${cur} in
+    -s=*)
         # load the first level parameters into auto-completed list
         COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
         ;;
-    2)
-        echo " ==>${cur}"
+    -f=*)
         ;;
-    *)
+    -m=*)
+        __cmd_args="0 1"
+     
+        COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
         ;;
     esac
 
