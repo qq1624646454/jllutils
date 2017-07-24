@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:56:39
+#   ModifiedTime: 2017-07-24 15:57:22
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -56,6 +56,7 @@ function _____cuap__Git()
         return 0
     fi
 }
+complete -F _____cuap__Git  "jll.Git.sh"
 
 
 #
@@ -78,6 +79,7 @@ function _____cuap__hi_android_drm()
         return 0
     fi
 }
+complete -F _____cuap__hi_android_drm  "jll.hi.android.drm.sh"
 
 
 
