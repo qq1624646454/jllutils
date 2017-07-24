@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:57:22
+#   ModifiedTime: 2017-07-24 15:58:35
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -34,6 +34,7 @@ function _____cuap__query_git_log_with_grep()
         return 0
     fi
 }
+complete -o nospace -F _____cuap__query_git_log_with_grep  "jll.query.git_log_with_grep.sh"
 
 
 #
