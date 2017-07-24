@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:46:03
+#   ModifiedTime: 2017-07-24 15:48:25
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -101,12 +101,9 @@ function _____cuap__symbol()
         COMPREPLY=( $(compgen -W "${__cmd_args[*]}" -- ${cur}) )
         ;;
     esac
-
-
-    complete -o nospace  "jll.symbol.sh"
 }
 
-_____cuap__symbol
+complete -o nospace -F _____cuap__symbol  "jll.symbol.sh"
 
 
 #####################################################################
