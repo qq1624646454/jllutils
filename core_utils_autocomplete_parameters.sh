@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:03:42
+#   ModifiedTime: 2017-07-24 15:04:52
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -86,7 +86,7 @@ function _____cuap__hi_android_drm()
 #
 function _____cuap__symbol()
 {
-    local __command_first_parameters="-s= -f= -m="
+    local __cmd_args="-s= -f= -m="
     local cur prev opts
     # clean up completed cache
     COMPREPLY=()
@@ -98,7 +98,7 @@ function _____cuap__symbol()
     case ${COMP_CWORD} in
     1)
         # load the first level parameters into auto-completed list
-        COMPREPLY=( $(compgen -W "${__command_first_parameters}" -- ${cur}) )
+        COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
         ;;
     *)
         ;;
