@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:51:40
+#   ModifiedTime: 2017-07-24 15:54:05
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -87,7 +87,7 @@ function _____cuap__hi_android_drm()
 function _____cuap__symbol()
 {
     local __cmd_args=" "
-    local cur prev opts
+    local cur prev
     # clean up completed cache
     COMPREPLY=()
     # the word to the current cursor
@@ -97,7 +97,7 @@ function _____cuap__symbol()
 
     case ${cur} in
     -m=*)
-        __cmd_args_=("0 " "1 ")
+        __cmd_args_=("0" "1")
         COMPREPLY=( $(compgen -W "${__cmd_args_[*]}" -- ${cur#-m=}) )
         ;;
     *)
