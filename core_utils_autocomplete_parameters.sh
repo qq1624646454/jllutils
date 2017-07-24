@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:44:40
+#   ModifiedTime: 2017-07-24 15:45:50
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -103,9 +103,10 @@ function _____cuap__symbol()
     esac
 
 
-    complete -o nospace -F ${registed_table[i]}  "jll.symbol.sh"
+    complete -o nospace  "jll.symbol.sh"
 }
 
+_____cuap__symbol
 
 
 #####################################################################
@@ -159,7 +160,7 @@ declare -a registed_table=(
     "_____cuap__query_git_log_with_grep"    "jll.query.git_log_with_grep.sh"
     "_____cuap__Git"                        "jll.Git.sh"
     "_____cuap__hi_android_drm"             "jll.hi.android.drm.sh"
-    "_____cuap__symbol"                     "jll.symbol.sh"
+#    "_____cuap__symbol"                     "jll.symbol.sh"
 
     # vicc is an independent utils differred from jllutils.
     "_____cuap__vicc"                       "vicc"
