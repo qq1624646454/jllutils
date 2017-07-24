@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:54:40
+#   ModifiedTime: 2017-07-24 15:55:42
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -95,7 +95,7 @@ function _____cuap__symbol()
     # the previous word to the current cursor
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    case ${cur} in
+    case ${prev} in
     -m=*)
         __cmd_args_=("0" "1")
         COMPREPLY=( $(compgen -W "${__cmd_args_[*]}" -- ${cur#-m=}) )
