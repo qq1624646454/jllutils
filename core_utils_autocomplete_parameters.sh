@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-17 13:58:41
+#   ModifiedTime: 2017-07-24 11:59:58
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -103,6 +103,9 @@ function _____cuap__symbol()
 }
 
 
+#####################################################################
+##  vicc - auto-complete functions
+#####################################################################
 
 #
 # vicc -l          || vicc --list
@@ -112,23 +115,76 @@ function _____cuap__symbol()
 # vicc -u          || vicc --update
 # vicc --auto
 #
+__command_first_parameters="-l --list -c --create -d --delete -t --tag -u --update --auto"
+
 function _____cuap__vicc()
 {
-    local cur prev opts
+    # COMP_CWORD is the system variable, it implies the current command keyword index.
+    #    0: the first word
+    case ${COMP_CWORD} in
+    0) # Command name is typing by user, so nothing to do
+        ;;
+    1) # Command name has already been done, the first parameter can be started.
+        eval __cmd_${COMP_WORDS[0]}_1 #call __cmd_vicc_1
+        ;;
+    2) # next parameter can be started.
+        eval __cmd_${COMP_WORDS[0]}_2 #call __cmd_vicc_2
+        ;;
+    *)
+        ;;
+    esac
+}
+
+function __cmd_vicc_1()
+{
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+
+    # clean up completed cache
+    COMPREPLY=()
+    # the word to the current cursor
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    echo "${cur}"
+}
+
+# "-l --list -c --create -d --delete -t --tag -u --update --auto"
+function __cmd_vicc_2()
+{
+echo -e "\n__cmd_vicc_2"
+    local cur prev
     # clean up completed cache
     COMPREPLY=()
     # the word to the current cursor
     cur="${COMP_WORDS[COMP_CWORD]}"
     # the previous word to the current cursor
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    # argument list
-    opts="-l --list -c --create -d --delete -t --tag -u --update --auto"
+echo -e "cur=${cur} prev=${prev}"
 
-    if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-        return 0
-    fi
+
+    case ${cur} in
+    -l|--list)
+        ;;
+    -c|--create)
+        ;;
+    -d|--delete)
+        ;;
+    -t|--tag)
+        ;;
+    -u|--update)
+        ;;
+    --auto)
+        ;;
+    *)
+        ;;
+    esac
+
+#    if [[ ${cur} == * ]] ; then
+#        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+#        return 0
+#    fi
 }
+
+
 
 
 
