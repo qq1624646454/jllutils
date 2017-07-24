@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 12:01:06
+#   ModifiedTime: 2017-07-24 14:59:17
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -86,6 +86,7 @@ function _____cuap__hi_android_drm()
 #
 function _____cuap__symbol()
 {
+    local __command_first_parameters="-s= -f= -m="
     local cur prev opts
     # clean up completed cache
     COMPREPLY=()
@@ -93,18 +94,22 @@ function _____cuap__symbol()
     cur="${COMP_WORDS[COMP_CWORD]}"
     # the previous word to the current cursor
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    # argument list
-    opts="-s= -f= -m=0#precise"
 
-    if [[ ${cur} == * ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-        return 0
-    fi
+    case ${COMP_CWORD} in
+    1)
+        # load the first level parameters into auto-completed list
+        COMPREPLY=( $(compgen -W "${__command_first_parameters}" -- ${cur}) )
+        ;;
+    *)
+        ;;
+    esac
+
 }
 
 
+
 #####################################################################
-##  vicc - auto-complete functions
+## START|  vicc - auto-complete functions
 #####################################################################
 
 #
@@ -115,46 +120,35 @@ function _____cuap__symbol()
 # vicc -u          || vicc --update
 # vicc --auto
 #
-__command_first_parameters="-l --list -c --create -d --delete -t --tag -u --update --auto"
-
 function _____cuap__vicc()
 {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local prev="${COMP_WORDS[COMP_CWORD-1]}"
+
     # COMP_CWORD is the system variable, it implies the current command keyword index.
     #    0: the first word
     case ${COMP_CWORD} in
     0) # Command name is typing by user, so nothing to do
         ;;
     1) # Command name has already been done, the first parameter can be started.
-        eval __cmd_${COMP_WORDS[0]}_1 #call __cmd_vicc_1
-        ;;
-    2) # next parameter can be started.
-        eval __cmd_${COMP_WORDS[0]}_2 #call __cmd_vicc_2
+        local __command_first_parameters=""
+        if [ x"$(echo ${cur} | grep -E '^-')" != x ]; then
+            __command_first_parameters=
+                "-l -list -c --create -d --delete -t --tag -u --update --auto"
+        fi
+        if [ x"${cur}" = x ]; then
+            __command_first_parameters="$(ls)"
+        fi
+        # load the first level parameters into auto-completed list
+        COMPREPLY=( $(compgen -W "-l --list -c --create" -- ${cur}) )
         ;;
     *)
         ;;
     esac
 }
-
-function __cmd_vicc_1()
-{
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-
-    # the word to the current cursor
-    cur="${COMP_WORDS[COMP_CWORD]}"
-
-    # clean up completed cache
-    COMPREPLY=()
-
-    echo "${cur}"
-}
-
-# "-l --list -c --create -d --delete -t --tag -u --update --auto"
-function __cmd_vicc_2()
-{
-    echo "vicc_2"
-}
-
-
+#####################################################################
+## END|  vicc - auto-complete functions
+#####################################################################
 
 
 
