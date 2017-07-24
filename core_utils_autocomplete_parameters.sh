@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:54:05
+#   ModifiedTime: 2017-07-24 15:54:40
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -100,10 +100,10 @@ function _____cuap__symbol()
         __cmd_args_=("0" "1")
         COMPREPLY=( $(compgen -W "${__cmd_args_[*]}" -- ${cur#-m=}) )
         ;;
-    *)
-        __cmd_args=("-s=" "-f=" "-m=")
-        COMPREPLY=( $(compgen -W "${__cmd_args[*]}" -- ${cur}) )
-        ;;
+#    *)
+#        __cmd_args=("-s=" "-f=" "-m=")
+#        COMPREPLY=( $(compgen -W "${__cmd_args[*]}" -- ${cur}) )
+#        ;;
     esac
 }
 
