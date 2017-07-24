@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:01:34
+#   ModifiedTime: 2017-07-24 15:02:59
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -135,11 +135,11 @@ function _____cuap__vicc()
         if [ x"$(echo ${cur} | grep -E '^-')" != x ]; then
             __cmd_args="-l -list -c --create -d --delete -t --tag -u --update --auto"
         fi
-#        if [ x"${cur}" = x ]; then
-#            __command_first_parameters="$(ls)"
-#        fi
+        if [ x"${cur}" = x ]; then
+            __cmd_args="$(ls)"
+        fi
         # load the first level parameters into auto-completed list
-        COMPREPLY=( $(compgen -W "-l --list -c --create" -- ${cur}) )
+        COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
         ;;
     *)
         ;;
