@@ -199,6 +199,18 @@ saveenv
 reset
 
 
+
+${Bred}${Fblack}                                                                              ${AC}
+${Bred} ${AC}If multise USB devices, please use -s <deviceName> to specify the usb device.
+${Bred}${Fblack}                                                                              ${AC}
+${Fred}such as : ${AC}
+${Fgreen}adb devices ${AC}
+List of devices attached
+0123456789ABCDEF	device
+emulator-5554	device
+${Fgreen}adb -s emulator-5554 shell ${AC}
+
+
 EOF
 
 
