@@ -5,13 +5,39 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 15:58:35
+#   ModifiedTime: 2017-07-24 16:12:37
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
 
-JLLPATH="$(which core_utils_autocomplete_parameters.sh)"
-JLLPATH="$(dirname ${JLLPATH})"
+___CvPF4Script="`which core_utils_autocomplete_parameters.sh`"
+# ./xxx.sh
+# ~/xxx.sh
+# /home/xxx.sh
+# xxx.sh
+if [ x"${___CvPF4Script}" != x ]; then
+    ___CvScriptN=${___CvPF4Script##*/}
+    ___CvScriptP=${___CvPF4Script%/*}
+    if [ x"${___CvScriptP}" = x ]; then
+        ___CvScriptP="$(pwd)"
+    else
+        ___CvScriptP="$(cd ${___CvScriptP};pwd)"
+    fi
+    if [ x"${___CvScriptN}" = x ]; then
+        echo
+        echo "JLL-Exit:: Not recognize the command \"core_utils_autocomplete_parameters.sh\", \
+then exit - 0"
+        echo
+        exit 0
+    fi
+else
+    echo
+    echo "JLL-Exit:: Not recognize the command \"core_utils_autocomplete_parameters.sh\", \
+then exit - 1"
+    echo
+    exit 0
+fi
+____JLLPATH="${___CvScriptP}"
 
 
 #
@@ -34,8 +60,10 @@ function _____cuap__query_git_log_with_grep()
         return 0
     fi
 }
-complete -o nospace -F _____cuap__query_git_log_with_grep  "jll.query.git_log_with_grep.sh"
-
+if [ -e "${____JLLPATH}/jll.query.git_log_with_grep.sh" \
+     -o x"$(which jll.query.git_log_with_grep.sh)" != x ]; then
+  complete -o nospace -F _____cuap__query_git_log_with_grep  "jll.query.git_log_with_grep.sh"
+fi
 
 #
 # jll.Git.sh [push|pull]
@@ -57,8 +85,9 @@ function _____cuap__Git()
         return 0
     fi
 }
-complete -F _____cuap__Git  "jll.Git.sh"
-
+if [ -e "${____JLLPATH}/jll.Git.sh" -o x"$(which jll.Git.sh)" != x ]; then
+    complete -F _____cuap__Git  "jll.Git.sh"
+fi
 
 #
 # jll.hi.android.drm.sh [drm-scheme] [keyword-regular-expression] 
@@ -80,8 +109,9 @@ function _____cuap__hi_android_drm()
         return 0
     fi
 }
-complete -F _____cuap__hi_android_drm  "jll.hi.android.drm.sh"
-
+if [ -e "${____JLLPATH}/jll.hi.android.drm.sh" -o x"$(which jll.hi.android.drm.sh)" != x ]; then
+    complete -F _____cuap__hi_android_drm  "jll.hi.android.drm.sh"
+fi
 
 
 #
@@ -105,8 +135,9 @@ function _____cuap__symbol()
         ;;
     esac
 }
-complete -o nospace -F _____cuap__symbol  "jll.symbol.sh"
-
+if [ -e "${____JLLPATH}/jll.symbol.sh" -o x"$(which jll.symbol.sh)" != x ]; then
+    complete -o nospace -F _____cuap__symbol  "jll.symbol.sh"
+fi
 
 
 
@@ -158,9 +189,9 @@ function _____cuap__vicc()
 
 declare -a registed_table=(
     #Function                               #ShellFile
-    "_____cuap__query_git_log_with_grep"    "jll.query.git_log_with_grep.sh"
-    "_____cuap__Git"                        "jll.Git.sh"
-    "_____cuap__hi_android_drm"             "jll.hi.android.drm.sh"
+#    "_____cuap__query_git_log_with_grep"    "jll.query.git_log_with_grep.sh"
+#    "_____cuap__Git"                        "jll.Git.sh"
+#    "_____cuap__hi_android_drm"             "jll.hi.android.drm.sh"
 #    "_____cuap__symbol"                     "jll.symbol.sh"
 
     # vicc is an independent utils differred from jllutils.
@@ -169,9 +200,9 @@ declare -a registed_table=(
 
 GvRegTableCount=${#registed_table[@]}
 for((i=0; i<GvRegTableCount; i+=2)){
-    if [ -e "${JLLPATH}/${registed_table[i+1]}" ]; then
+    if [ -e "${____JLLPATH}/${registed_table[i+1]}" ]; then
         complete -F ${registed_table[i]} ${registed_table[i+1]}
-        # echo "JLL: ${JLLPATH}/${registed_table[i+1]}"
+        # echo "JLL: ${____JLLPATH}/${registed_table[i+1]}"
     else
         if [ x"$(which ${registed_table[i+1]})" != x ]; then
             complete -F ${registed_table[i]} ${registed_table[i+1]}
