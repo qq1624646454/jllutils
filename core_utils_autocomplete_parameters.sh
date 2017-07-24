@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 12:00:19
+#   ModifiedTime: 2017-07-24 12:01:06
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -144,7 +144,6 @@ function __cmd_vicc_1()
 
     # clean up completed cache
     COMPREPLY=()
- 
 
     echo "${cur}"
 }
