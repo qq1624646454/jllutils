@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-24 11:59:58
+#   ModifiedTime: 2017-07-24 12:00:19
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -139,10 +139,12 @@ function __cmd_vicc_1()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
 
-    # clean up completed cache
-    COMPREPLY=()
     # the word to the current cursor
     cur="${COMP_WORDS[COMP_CWORD]}"
+
+    # clean up completed cache
+    COMPREPLY=()
+ 
 
     echo "${cur}"
 }
@@ -150,38 +152,7 @@ function __cmd_vicc_1()
 # "-l --list -c --create -d --delete -t --tag -u --update --auto"
 function __cmd_vicc_2()
 {
-echo -e "\n__cmd_vicc_2"
-    local cur prev
-    # clean up completed cache
-    COMPREPLY=()
-    # the word to the current cursor
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    # the previous word to the current cursor
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-echo -e "cur=${cur} prev=${prev}"
-
-
-    case ${cur} in
-    -l|--list)
-        ;;
-    -c|--create)
-        ;;
-    -d|--delete)
-        ;;
-    -t|--tag)
-        ;;
-    -u|--update)
-        ;;
-    --auto)
-        ;;
-    *)
-        ;;
-    esac
-
-#    if [[ ${cur} == * ]] ; then
-#        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-#        return 0
-#    fi
+    echo "vicc_2"
 }
 
 
