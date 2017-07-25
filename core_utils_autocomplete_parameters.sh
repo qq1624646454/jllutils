@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:48:57
+#   ModifiedTime: 2017-07-25 09:49:24
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -158,7 +158,7 @@ function _____cuap__vicc()
     local cur="${COMP_WORDS[COMP_CWORD]}"
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    local __cmd_args="$(ls)"
+    local __cmd_args=""
     # COMP_CWORD is the system variable, it implies the current command keyword index.
     #    0: the first word
     case ${COMP_CWORD} in
@@ -177,7 +177,7 @@ function _____cuap__vicc()
     fi
 }
 if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
-    complete -o filenames -o plusdirs -F _____cuap__vicc  "vicc"
+    complete -o filenames -o dirnames -F _____cuap__vicc  "vicc"
 fi
 #####################################################################
 ## END|  vicc - auto-complete functions
