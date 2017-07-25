@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:56:01
+#   ModifiedTime: 2017-07-25 09:56:52
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -167,10 +167,12 @@ function _____cuap__vicc()
     1) # Command name has already been done, the first parameter can be started.
         if [ x"$(echo ${cur} | grep -E '^-')" != x ]; then
             __cmd_args="-l --list -c --create -d --delete -t --tag -u --update --auto"
+        else
+            __cmd_args="$(ls)"
         fi
         ;;
     *)
-        __cmd_args=""
+        __cmd_args="$(ls)"
         ;;
     esac
 
