@@ -182,7 +182,7 @@ function _____cuap__vicc()
     fi
 }
 if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
-    complete -F _____cuap__vicc  "vicc"
+    complete -o nospace -F _____cuap__vicc  "vicc"
 fi
 #####################################################################
 ## END|  vicc - auto-complete functions
