@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:40:24
+#   ModifiedTime: 2017-07-25 09:41:58
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -175,8 +175,8 @@ function _____cuap__vicc()
         ;;
     esac
 }
-if [ -e "${____JLLPATH}/jll.symbol.sh" -o x"$(which jll.symbol.sh)" != x ]; then
-    complete -o nospace -F _____cuap__symbol  "jll.symbol.sh"
+if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
+    complete -o nospace -F _____cuap__vicc  "vicc"
 fi
 #####################################################################
 ## END|  vicc - auto-complete functions
@@ -189,7 +189,7 @@ fi
 
 
 
-
+exit 0
 declare -a registed_table=(
     #Function                               #ShellFile
 #    "_____cuap__query_git_log_with_grep"    "jll.query.git_log_with_grep.sh"
