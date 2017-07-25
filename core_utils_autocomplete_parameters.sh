@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:47:44
+#   ModifiedTime: 2017-07-25 09:48:57
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -174,7 +174,7 @@ function _____cuap__vicc()
     if [ x"${__cmd_args}" != x ]; then
         # load the first level parameters into auto-completed list
         COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
-    fi 
+    fi
 }
 if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
     complete -o filenames -o plusdirs -F _____cuap__vicc  "vicc"
