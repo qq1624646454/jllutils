@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:39:12
+#   ModifiedTime: 2017-07-25 09:40:24
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -175,6 +175,9 @@ function _____cuap__vicc()
         ;;
     esac
 }
+if [ -e "${____JLLPATH}/jll.symbol.sh" -o x"$(which jll.symbol.sh)" != x ]; then
+    complete -o nospace -F _____cuap__symbol  "jll.symbol.sh"
+fi
 #####################################################################
 ## END|  vicc - auto-complete functions
 #####################################################################
@@ -195,7 +198,7 @@ declare -a registed_table=(
 #    "_____cuap__symbol"                     "jll.symbol.sh"
 
     # vicc is an independent utils differred from jllutils.
-    "_____cuap__vicc"                       "vicc"
+#    "_____cuap__vicc"                       "vicc"
 )
 
 GvRegTableCount=${#registed_table[@]}
