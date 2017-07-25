@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-04-28 15:42:49
-#   ModifiedTime: 2017-07-25 09:49:24
+#   ModifiedTime: 2017-07-25 09:52:17
 #
 # Abbreviation: cuap
 # source core_utils_autocomplete_parameters.sh in ~/.bashrc
@@ -177,7 +177,7 @@ function _____cuap__vicc()
     fi
 }
 if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
-    complete -o filenames -o dirnames -F _____cuap__vicc  "vicc"
+    complete -F _____cuap__vicc  "vicc" -o filenames
 fi
 #####################################################################
 ## END|  vicc - auto-complete functions
