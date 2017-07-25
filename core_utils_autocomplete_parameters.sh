@@ -176,7 +176,7 @@ function _____cuap__vicc()
     esac
 }
 if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
-    complete -o file -d -o nospace -F _____cuap__vicc  "vicc"
+    complete -o filenames -o dirnames -o nospace -F _____cuap__vicc  "vicc"
 fi
 #####################################################################
 ## END|  vicc - auto-complete functions
