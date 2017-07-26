@@ -141,57 +141,6 @@ fi
 
 
 
-#####################################################################
-## START|  vicc - auto-complete functions
-#####################################################################
-
-#
-# vicc -l          || vicc --list
-# vicc -c          || vicc --create 
-# vicc -d          || vicc --delete
-# vicc -t <Symbol> || vicc --tag <Symbol>
-# vicc -u          || vicc --update
-# vicc --auto
-#
-function _____cuap__vicc()
-{
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    local prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    local __cmd_args=""
-    # COMP_CWORD is the system variable, it implies the current command keyword index.
-    #    0: the first word
-    case ${COMP_CWORD} in
-    1) # Command name has already been done, the first parameter can be started.
-        if [ x"$(echo ${cur} | grep -E '^-')" != x ]; then
-            __cmd_args="-l --list -c --create -d --delete -t --tag -u --update --auto"
-        fi
-        ;;
-    *)
-        ;;
-    esac
-
-    if [ x"${__cmd_args}" != x ]; then
-        # load the first level parameters into auto-completed list
-        COMPREPLY=( $(compgen -W "${__cmd_args}" -- ${cur}) )
-    else
-        COMPREPLY=( $(compgen -f ${cur}) )
-    fi
-}
-if [ -e "${____JLLPATH}/vicc" -o x"$(which vicc)" != x ]; then
-    complete -F _____cuap__vicc -o filenames "vicc"
-fi
-#####################################################################
-## END|  vicc - auto-complete functions
-#####################################################################
-
-
-
-
-
-
-
-
 if [ 1 -eq 0 ]; then
 declare -a registed_table=(
     #Function                               #ShellFile
