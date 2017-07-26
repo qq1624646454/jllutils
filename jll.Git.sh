@@ -529,16 +529,16 @@ EOF
             git reset --hard HEAD;
         fi
     fi
-    cd - >/dev/null 
     __Fn_prepare_GIT pull
+    cd - >/dev/null 
     cd ${__GitPath}
     echo "JLL-Doing: trying to use \"git pull origin master\""
-    git pull origin master
+    git pull --rebase origin master
     if [ x"$?" != x"0" ]; then
-        echo "JLL-Fixing: trying to use \"git pull -u origin master\""
-        git pull -u origin master
+        echo "JLL-Fixxing: trying to use \"git pull -u origin master\""
+        git pull --rebase -u origin master
         if [ x"$?" != x"0" ]; then
-            echo "JLL-Fixing: trying to use \"git fetch origin\""
+            echo "JLL-Fixxing: trying to use \"git fetch origin\""
             git fetch origin
         fi
     fi
