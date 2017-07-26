@@ -62,6 +62,8 @@ fi
 JLLPATH="${__CvScriptPath}"
 source ${JLLPATH}/BashShellLibrary
 
+
+
 # Find the same level path which contains .git folder
 Lfn_Sys_GetSameLevelPath  __GitPath ".git"
 if [ ! -e "${__GitPath}" ]; then
@@ -87,29 +89,20 @@ declare -a __JLLCFG_SshKey_URLs=(
   "qq1624646454@csdn_github"        "git@github.com:qq1624646454/philipstv_tpv.git"
   "jielong.lin_nopassword@github"   "git@github.com:linjielong/iDSS.git"
 )
-if [ x"${__JLLCFG_SshKey_URLs}" = x ]; then
-more >&1<<EOF
 
-JLL-Exit:: Not found ${Fred}'__JLLCFG_SshKey_URLs[]'${AC}
-JLL-Exit:: exit 0
 
-EOF
-    unset __JLLCFG_SshKey_RootPath
-    exit 0
-fi
-__JLLCFG_NR_SshKey_URLs=${#__JLLCFG_SshKey_URLs[@]} 
-if [ ${__JLLCFG_NR_SshKey_URLs} -lt 1 ]; then
-more >&1<<EOF
 
-JLL-Exit:: ${Fred}'__JLLCFG_SshKey_URLs[]'${AC} is invalid because its count is 0.
-JLL-Exit::  exit 0
 
-EOF
-    unset __JLLCFG_NR_SshKey_URLs
-    unset __JLLCFG_SshKey_URLs
-    unset __JLLCFG_SshKey_RootPath
-    exit 0
-fi
+
+
+
+function Fn_Cleanup_GlobalVariable()
+{
+    [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
+    [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
+    [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
+}
+
 
 
 __ssh_package=.__ssh_R$(date +%Y_%m_%d__%H_%M_%S)
@@ -151,16 +144,6 @@ EOF
 
 function __Fn_prepare_GIT()
 {
-    if [ x"$1" != x"push" -a x"$1" != x"pull" ]; then
-more >&1<<EOF
-
-JLL-Prepare:: call prototype failure - ${Fred}__Fn_prepare_GIT "[push|pull]${AC}"
-JLL-Exit:: exit 0
-
-EOF
-        [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
-        exit 0
-    fi
 
 more>&1<<EOF
 
@@ -170,17 +153,10 @@ ${Bblue}${Fyellow}JLL-Prepare:: Start preparing the GIT environment contained th
 
 EOF
 
-    if [ x"$1" = x"push" ]; then
-        cd ${__GitPath}
-        __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Push[ \t]{1,}URL:')
-        cd - >/dev/null
-        __URL=${__URL##*URL: }
-    fi
-    if [ x"$1" = x"pull" ]; then
-        cd ${__GitPath}
-        __URL=$(git remote show origin | grep -Ei '^[ \t]{0,}Fetch[ \t]{1,}URL:')
-        cd - >/dev/null
-        __URL=${__URL##*URL: }
+    __URL=""
+    if [ -e "${__GitPath}/.git/config" ]; then
+        __URL=$(sed -n '/\[remote "origin"\]/,/url = /{p}' ${__GitPath}/.git/config)
+        __URL="${__URL##*url = }"
     fi
 
     __is_HTTPS_URL=$(echo "${__URL}" | grep -Ei '^[ \t]{0,}https://')
@@ -200,10 +176,8 @@ EOF
             echo
             if [ x"${__MyChoice}" = x"q" ]; then
                 unset __MyChoice
-                [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
-                [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
-                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                 [ x"${__URL}" != x ] && unset __URL
+                Fn_Cleanup_GlobalVariable
                 exit 0
             fi
         fi
@@ -242,17 +216,12 @@ EOF
                 if [ -e "${HOME}/.ssh/config" ]; then
                     chmod +w ${HOME}/.ssh/config*
                 fi
-                [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
-                [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
-                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             else
                 if [ -e "${HOME}/.ssh" ]; then
                     echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"~/${__ssh_package}\""
                     mv -fv ${HOME}/.ssh  ${HOME}/${__ssh_package}
                     echo
                 fi
-                [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
-                [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
                 mkdir -pv ${HOME}/.ssh
                 chmod 0777 ${HOME}/.ssh
  
@@ -280,6 +249,7 @@ EOF
 more >&1<<EOF
 JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
 EOF
+                        Fn_Cleanup_GlobalVariable
                         exit 0 
                     fi
                     [ -e "${__JLLCFG_SshKey_RootPath}" ] && rm -rf ${__JLLCFG_SshKey_RootPath}
@@ -304,10 +274,10 @@ EOF
                         if [ -e "${HOME}/.ssh/config" ]; then
                             chmod +w ${HOME}/.ssh/config*
                         fi
-                        [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                         [ x"${__result}" != x ] && unset __result
                         [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                         [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+                        Fn_Cleanup_GlobalVariable
                         exit 0
                     fi
                     # Change the https URL to git URL for Push
@@ -326,12 +296,10 @@ more >&1<<EOF
 JLL-Exit: Not obtain ${Fred}\"git@URL\"${AC} for the current .git
 EOF
                             [ x"${__RawCTX}" != x ] && unset __RawCTX
-                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] \
-                                && unset __JLLCFG_SshKey_RootPath
-                            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
                             [ x"${__result}" != x ] && unset __result
                             [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                             [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
+                            Fn_Cleanup_GlobalVariable
                             exit 0
                         fi
                         echo
@@ -360,7 +328,6 @@ EOF
                 [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                 [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
                 [ x"${__result}" != x ] && unset __result
-                [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
             fi
 more >&1<<EOF
 
@@ -371,10 +338,6 @@ EOF
         else
             # Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh
             [ x"${__URL}" != x ] && unset __URL
-            [ x"${__JLLCFG_SshKey_RootPath}" != x ] && unset __JLLCFG_SshKey_RootPath
-            [ x"${__JLLCFG_SshKey_URLs}" != x ] && unset __JLLCFG_SshKey_URLs
-            [ x"${__JLLCFG_NR_SshKey_URLs}" != x ] && unset __JLLCFG_NR_SshKey_URLs
-
 more >&1<<EOF
 
 JLL-Prepare:: Hold the origin SSH Key under ~/.ssh and not re-select the new SSH Key for ~/.ssh 
@@ -393,6 +356,37 @@ EOF
     fi
     [ x"${__is_HTTPS_URL}" != x ] && unset __is_HTTPS_URL
 }
+
+
+
+
+if [ x"${__JLLCFG_SshKey_URLs}" = x ]; then
+more >&1<<EOF
+
+JLL-Exit:: Not found ${Fred}'__JLLCFG_SshKey_URLs[]'${AC}
+JLL-Exit:: exit 0
+
+EOF
+    Fn_Cleanup_GlobalVariable
+    exit 0
+fi
+__JLLCFG_NR_SshKey_URLs=${#__JLLCFG_SshKey_URLs[@]} 
+if [ ${__JLLCFG_NR_SshKey_URLs} -lt 1 ]; then
+more >&1<<EOF
+
+JLL-Exit:: ${Fred}'__JLLCFG_SshKey_URLs[]'${AC} is invalid because its count is 0.
+JLL-Exit::  exit 0
+
+EOF
+    Fn_Cleanup_GlobalVariable
+    exit 0
+fi
+
+
+
+
+
+
 
 
 case x"$1" in
@@ -496,13 +490,14 @@ EOF
     echo
     if [ x"${__myChoice}" = x"q" ]; then
         cd - >/dev/null
+        Fn_Cleanup_GlobalVariable
         exit 0
     fi
     if [ x"${__myChoice}" = x"y" ]; then
         git commit --amend
     fi
     cd - >/dev/null 
-    __Fn_prepare_GIT push
+    __Fn_prepare_GIT
     cd ${__GitPath}
     git push -f -u origin master
     cd - >/dev/null 
@@ -529,7 +524,7 @@ EOF
             git reset --hard HEAD;
         fi
     fi
-    __Fn_prepare_GIT pull
+    __Fn_prepare_GIT
     cd - >/dev/null 
     cd ${__GitPath}
     echo "JLL-Doing: trying to use \"git pull origin master\""
@@ -572,5 +567,6 @@ EOF
 ;;
 esac
 
+Fn_Cleanup_GlobalVariable
 exit 0
 
