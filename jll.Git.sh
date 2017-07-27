@@ -500,12 +500,11 @@ EOF
     __Fn_prepare_GIT
     cd ${__GitPath}
     git push -f -u origin master
-    cd - >/dev/null 
-    __Fn_finalize_GIT
-    cd ${__GitPath}
+    echo
     git log \
     --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
+    __Fn_finalize_GIT
     echo
   break
   done
@@ -537,12 +536,11 @@ EOF
             git fetch origin
         fi
     fi
-    cd - >/dev/null 
-    __Fn_finalize_GIT
-    cd ${__GitPath}
+    echo
     git log \
         --pretty=format:'%Cred%h%Creset  %Cgreen%ce%Creset %Cblue(%cr)%Creset  %C(yellow)%s%Creset' -8
     cd - >/dev/null 
+    __Fn_finalize_GIT
     echo
 ;;
 *)
