@@ -410,15 +410,15 @@ x"push")
     echo -ne "JLL: Progressing For Collecting the legal files..."
     Lfn_Sys_Rotate_With_SIGNAL &
     __RotateBgPID_=$!
-    __FL_list=$(eval "${__doCMD_}")
-    sleep 1
+#    __FL_list=$(eval "${__doCMD_}")
+    sleep 10
     #kill -9 ${__RotateBgPID_} >/dev/null
     kill -12 ${__RotateBgPID_} >/dev/null
     sleep 1
     echo
     echo
     echo
-
+exit 0
     __Is_Start_SPLIT=0
     OIFS=${IFS}
     IFS=$'\n'
