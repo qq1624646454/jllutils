@@ -477,19 +477,19 @@ function Lfn_Sys_Rotate_With_SIGNAL()
         LvSrTcount=`expr ${LvSrTcount} + 1`
         case  ${LvSrTcount}  in
         1)
-            echo -ne "\b41m-[0m"
+            echo -ne "41m\b-[0m"
             sleep  ${LvSrInterval}
         ;;
         2)
-            echo -ne "\b[46m\\[0m"
+            echo -ne "[46m\b\\[0m"
             sleep  ${LvSrInterval}
         ;;
         3)
-            echo -ne "\b[43m|[0m"
+            echo -ne "[43m\b|[0m"
             sleep  ${LvSrInterval}
         ;;
         4)
-            echo -ne "\b[44m/[0m"
+            echo -ne "[44m\b/[0m"
             sleep  ${LvSrInterval}
         ;;
         *)
