@@ -499,6 +499,7 @@ function Lfn_Sys_Rotate_With_SIGNAL()
         ;;
         esac
     done
+    echo -e '[?25h'
 
     trap 12 # Restore signal SIGUSR2 to default action.
 }
