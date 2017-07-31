@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-19 13:42:34
+#   ModifiedTime: 2017-07-31 17:15:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -47,6 +47,30 @@ ${Fgreen}fi${AC}
 ${Fgreen}# JLL.E20170718: Customize to start AVD before AS${AC}
 
 
+studio_hw.sh
+===============================
+  8 # JLL.S20170718: Customize to start AVD before AS
+  9 ls ~/.android/avd | awk -F'.ini' '{print \$1}' | awk -F'.avd' '{print \$1}' | uniq
+ 10 #read -p "Please Type above AVD_name=" _as_AVD_name
+ 11 _as_AVD_name="Android_TV_720p_API_23"
+ 12 [ x"\${_as_AVD_name}" != x ] && ~/dl.google.com/android/repository/emulator/emulator \
+ 13 -avd "\${_as_AVD_name}" -gpu host &
+ 14 __AVD_PID=\$!
+ 15 # JLL.E20170718: Customize to start AVD before AS
+...
+201 # JLL.S20170718: Customize to start AVD before AS
+202 __is_Alive=\$(ps -e | awk -F' ' '{print \$1}' | grep "\${__AVD_PID}" 2>/dev/null)
+203 if [ x"\${__is_Alive}" != x ]; then
+204     echo "JLL: AVD should be killed. AVD_PID=\${__AVD_PID}"
+205     kill -9 \${__AVD_PID}
+206 fi
+207 # JLL.E20170718: Customize to start AVD before AS
+
+
+
+
+
+
 ./bin/studio.sh
 
 ${Fyellow}第一次运行需要进行很多配置,包含下载和安装SDK等等，建议保证网络通畅，时间上会比较久.${AC}
@@ -60,7 +84,7 @@ vim ~/.bashrc
 ${Fgreen}# JLL.S20170719: custom for android studio${AC}
 ${Fgreen}alias as_emulator=" \\${AC}
 ${Fgreen}ls ~/.android/avd |awk -F'.ini' '{print \\\$1}' |awk -F'.avd' '{print \\\$1}' |uniq;${AC}
-${Fgreen}[ x\"\\\${DISPLAY}\" = x ] && export DISPLAY=192.168.1.11:0.0
+${Fgreen}[ x\"\\\${DISPLAY}\" = x ] && export DISPLAY=192.168.1.11:0.0 ${AC}
 ${Fgreen}read -p \"AVD will be renderred by \\\${DISPLAY}; Please Type AVD=\" AVD_name;${AC}
 ${Fgreen}[ x\"\\\${AVD_name}\" != x ] \\${AC}
 ${Fgreen}&& ~/dl.google.com/android_sdk/emulator/emulator \\${AC}
@@ -80,26 +104,6 @@ ${Bred}  ${AC} ${Fred}for libnotify.so.4${AC} After Install Android Studio 2.3.3
 ${Bred}  ${AC} 64bit. 
 ${Bred}${Black}                                     ${AC}
 sudo apt-get install libnotify-dev
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
