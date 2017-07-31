@@ -477,7 +477,7 @@ function Lfn_Sys_Rotate_With_SIGNAL()
         LvSrTcount=`expr ${LvSrTcount} + 1`
         case  ${LvSrTcount}  in
         1)
-            echo -ne "41m\b-[0m"
+            echo -ne "[41m\b-[0m"
             sleep  ${LvSrInterval}
         ;;
         2)
