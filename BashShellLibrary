@@ -471,8 +471,9 @@ function Lfn_Sys_Rotate_With_SIGNAL()
     export __jllutil_rotate_status=1
 
     # When SIGUSR2(=12) is received, run "export __jllutil_rotate_status=0" 
-    trap "export __jllutil_rotate_status=0"  12
+    trap "export __jllutil_rotate_status=0;echo -e "  12
 
+    echo -e "[?25l"
     while [ x"${__jllutil_rotate_status}" = x"1" ]; do
         LvSrTcount=`expr ${LvSrTcount} + 1`
         case  ${LvSrTcount}  in
