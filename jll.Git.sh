@@ -407,7 +407,7 @@ x"push")
     echo -e "${Fyellow}${__doCMD_}${AC}"
     echo
     echo
-    echo -ne "JLL: Progressing For Collecting the legal files...  "
+    echo -ne "JLL: Progressing For Collecting the legal files..."
     Lfn_Sys_Rotate_With_SIGNAL &
     __RotateBgPID_=$!
     __FL_list=$(eval "${__doCMD_}")
