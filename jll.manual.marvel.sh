@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-01 15:16:23
-#   ModifiedTime: 2017-08-01 15:20:16
+#   ModifiedTime: 2017-08-01 15:54:01
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -13,6 +13,7 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
+${Fgreen}~/.ssh/config${AC}
 Host gerrit-xmmaster
        Hostname 172.20.30.2
         Port 29418
