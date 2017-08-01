@@ -13,6 +13,19 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
+Host gerrit-xmmaster
+       Hostname 172.20.30.2
+        Port 29418
+        User YourName
+       IdentityFile ~/.ssh/id_rsa
+
+Host gerrit
+        Hostname 172.20.30.2
+        Port 29419
+        User YourName
+       IdentityFile ~/.ssh/id_rsa
+
+
 ${Fgreen}Project Code is retrieved by the belows:${AC}
          mkdir  -pv  bg2qr1_ppr2_119
          cd bg2qr1_ppr2_119
