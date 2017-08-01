@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-01 15:16:23
-#   ModifiedTime: 2017-08-01 15:19:09
+#   ModifiedTime: 2017-08-01 15:20:16
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -25,8 +25,9 @@ ${Fgreen}Compile Commands as follows:${AC}
    source build/envsetup.sh
    lunch philipstv-userdebug
    ./device/tpvision/common/sde/upg/build_philipstv_A1.sh
-   ${Fseablue}( don’t use option –t userdebug.  ${AC}
-   ${Fseablue}  If you don’t use any option, by default it builds userdebug)${AC}
+
+${Fseablue}( don’t use option –t userdebug. ${AC}\
+${Fseablue}If you don’t use any option, by default it builds userdebug )${AC}
 
 
 
