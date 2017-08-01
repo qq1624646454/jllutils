@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-01 15:16:23
-#   ModifiedTime: 2017-08-01 15:18:01
+#   ModifiedTime: 2017-08-01 15:18:02
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,7 +16,7 @@ more >&1<<EOF
 Project Code is retrieved by the belows:
          mkdir  -pv  bg2qr1_ppr2_119
          cd bg2qr1_ppr2_119
-repo init -u ssh://gerrit/platform/manifest -b tpvision/bg2qr1_ppr2_119
+         repo init -u ssh://gerrit/platform/manifest -b tpvision/bg2qr1_ppr2_119
          repo sync -d
 
 Compile Commands as follows:
