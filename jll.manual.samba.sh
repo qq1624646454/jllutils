@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-02 14:39:02
-#   ModifiedTime: 2017-08-02 14:43:39
+#   ModifiedTime: 2017-08-02 16:18:26
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,7 +24,9 @@ root@S# ${Fseablue} vim /etc/samba/smb.conf ${AC}
 247 ${Fgreen}[homes]${AC}
 248 ${Fgreen}   comment = Home Directories${AC}
 249 ${Fgreen}   browseable = yes${AC}
-250
+...
+252 # next parameter to 'no' if you want to be able to write to them.
+253 ${Fgreen}   read only = no${AC}
 ...
 256 # create files with group=rw permissions, set next parameter to 0775.
 257 ${Fgreen}   create mask = 0700${AC}
@@ -34,10 +36,12 @@ root@S# ${Fseablue} vim /etc/samba/smb.conf ${AC}
 ...
 268 # This might need tweaking when using external authentication schemes
 269 ${Fgreen}   valid users = %S${AC}
+270
+271 ${Fgreen}# Disable show all files started with .${AC}
+272 ${Fgreen}   veto files=/.*/${AC}
+273
 ...
-
 root@S# ${Fseablue} service smbd restart${AC}
-
 
 ${Fred} IF Error message is 'stop: Unknown instance:' when service smbd stop${AC}
 ${Fred} Please check your configurate file '/etc/samba/smb.conf'${AC}
