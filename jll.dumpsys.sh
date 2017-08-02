@@ -56,7 +56,8 @@ free -t -m
 #"${Bseablue}${Fblack}                                                                       ${AC}"
 fi
 echo
-if [ x"$(which ps)" != x -a y"$(which sort)" != y -a z"$(which head)" != z -a w"$(which tail)" != w ]; 
+if [ x"$(which ps)" != x -a y"$(which sort)" != y -a z"$(which head)" != z \
+     -a w"$(which tail)" != w ];
 then
 echo -e \
 "${Bseablue}${Fblack}内存占用率前6名的进程(VSZ=虚拟内存-KB,RSZ=实际内存-KB,STIME=进程启动时间)${AC}"
