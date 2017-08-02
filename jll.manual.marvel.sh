@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-01 15:16:23
-#   ModifiedTime: 2017-08-01 15:54:01
+#   ModifiedTime: 2017-08-02 14:33:46
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -40,9 +40,13 @@ ${Fgreen}Compile Commands as follows:${AC}
    lunch philipstv-userdebug
    ./device/tpvision/common/sde/upg/build_philipstv_A1.sh
 
-${Fseablue}( don’t use option –t userdebug. ${AC}\
+
+${Fseablue}( don’t use option –t userdebug.${AC}\
 ${Fseablue}If you don’t use any option, by default it builds userdebug )${AC}
 
+${Fgreen}Generate upg file to upgrade ${AC}
+   ./device/tpvision/common/sde/upg/upgmaker.sh ${Fred}AND1E${AC} d f
+${Fseablue} AND1E can be referenced from ./device/tpvision/common/sde/upg/upgmaker.sh with \$1${AC}
 
 
 EOF
