@@ -21,6 +21,10 @@
   Bseablue=${ESC}[46m
   Bwhite=${ESC}[47m
 
+echo
+[ -e "/etc/issue" ] && cat /etc/issue 
+uname -r
+
 
 echo
 if [ x"$(which wc)" != x ]; then
