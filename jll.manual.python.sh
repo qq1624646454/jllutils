@@ -41,8 +41,8 @@ root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install libgdbm-dev ${AC
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install liblzma-dev ${AC}
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install libsqlite3-dev ${AC}
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install libreadline-dev ${AC}
-root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install aptitude install libssl-dev ${AC}
-root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install aptitude install tk-dev ${AC}
+root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install libssl-dev ${AC}
+root@S:/usr/local/src/Python-3.6.2# ${Fseablue}aptitude install tk-dev ${AC}
 ...
 root@S:/usr/local/src/Python-3.6.2#
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}make${Fpink} #re-compile it by make${AC}
