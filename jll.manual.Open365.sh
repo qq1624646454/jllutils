@@ -17,6 +17,8 @@ ${Bgreen}                                                     ${AC}
 ${Bgreen} ${AC} Installing Open365 For Online Web Office Platform on Ubuntu.12.04
 ${Bgreen}                                                     ${AC}
 
+Sorry, docker run bad on Ubuntu 12.04
+
 (1)
 After restoring system from v8.img.FinalRelease.GUI_jllVPN_smb.20170802 by CloneZilla tools,
 Please first install pip3 environment by reference to jll.manual.python.sh
