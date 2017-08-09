@@ -155,8 +155,18 @@ EOF
 
     __URL=""
     if [ -e "${__GitPath}/.git/config" ]; then
-        __URL=$(sed -n '/\[remote "origin"\]/,/url = /{p}' ${__GitPath}/.git/config)
-        __URL="${__URL##*url = }"
+        __URL=$(sed -n '/\[remote "origin"\]/,/pushurl = /{p}' ${__GitPath}/.git/config)
+        __URL=$(echo "${__URL}" | sed -n '/pushurl = /{p}')
+        __URL="${__URL##*pushurl = }"
+        if [ x"${__URL}" = x ]; then
+            __URL=$(sed -n '/\[remote "origin"\]/,/url = /{p}' ${__GitPath}/.git/config)
+            __URL=$(echo "${__URL}" | sed -n '/url = /{p}')
+            __URL="${__URL##*url = }"
+        fi
+        echo -e "JLL-Parse:: obtain url=${__URL} from"
+        echo -e "            ${__GitPath}"
+    else
+        echo -e "JLL-Parse:: obtain url=${__URL} from 3rd parameter"
     fi
 
     __is_HTTPS_URL=$(echo "${__URL}" | grep -Ei '^[ \t]{0,}https://')
