@@ -47,5 +47,20 @@ ${Fred} IF Error message is 'stop: Unknown instance:' when service smbd stop${AC
 ${Fred} Please check your configurate file '/etc/samba/smb.conf'${AC}
 
 
+
+
+
+${Fred}How to remove and purge samba${AC}
+ aptitude purge samba
+ aptitude search samba
+ dpkg --configure --pending
+ apt-get remove samba
+ dpkg -P samba samba-common samba-common-bin samba-dsdb-modules samba-liba samba-vfs-modules
+
+
+
+
+
+
 EOF
 
