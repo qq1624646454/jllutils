@@ -12,7 +12,12 @@ cat >&1 <<EOF
 
 Usage:
     $(basename $0) -s
-        Lookup status of samba
+        Lookup status of samba by 'smbstatus'
+
+    $(basename $0) -t
+        Check and test parameters for samba by 'testparm'
+
+
 
     $(basename $0) [help]
         Lookup the usage
@@ -32,6 +37,13 @@ if [ x"$1" = x"-s" ]; then
    echo
    exit 0
 fi
+if [ x"$1" = x"-t" ]; then
+   echo
+   testparm 
+   echo
+   exit 0
+fi
+
 
 Fn_Usage
 
