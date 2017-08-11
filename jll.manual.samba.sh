@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-02 14:39:02
-#   ModifiedTime: 2017-08-02 16:18:26
+#   ModifiedTime: 2017-08-11 11:15:35
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -58,8 +58,14 @@ ${Fred}How to remove and purge samba${AC}
  dpkg -P samba samba-common samba-common-bin samba-dsdb-modules samba-liba samba-vfs-modules
 
 
-
-
+${Fred} vim /var/log/samba/log.smbd ${AC}
+${Fred} Unable to connect to CUPS server localhost:631 - Bad file descriptor ${AC}
+ Please add the below configuration before Share Definitions in /etc/samba/smb.conf
+185
+186 printing = bsd
+187 printcap name = /dev/null
+188
+189 #======================= Share Definitions ======================= 
 
 
 EOF
