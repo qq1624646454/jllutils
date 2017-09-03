@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-09-03 16:14:29
-#   ModifiedTime: 2017-09-03 17:41:54
+#   ModifiedTime: 2017-09-03 20:29:31
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -33,6 +33,8 @@ ${Fgreen}Downloading jdk-8u144-linux-x64.tar.gz from the below linker:${AC}
 ${Fseablue}tar -zxvf jdk-8u144-linux-x64.tar.gz${AC}
 
 ${Fseablue}aptitude install tomcat7${AC}
+${Fseablue}w3m http://127.0.0.1:8080${AC}
+    Install Directory:  /usr/share/tomcat
 
 EOF
 
