@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-07-31 17:15:53
+#   ModifiedTime: 2017-09-28 15:05:50
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -105,6 +105,19 @@ ${Bred}  ${AC} 64bit.
 ${Bred}${Black}                                     ${AC}
 sudo apt-get install libnotify-dev
 
+
+
+
+
+${Bred}${Black}                                     ${AC}
+${Bred}  ${AC} AndroidStudio 2.3 使用Android-26时出现没有源代码的情况
+${Bred}  ${AC} ${Fred}Source for 'Android API 26 Platform' not found.${AC}
+${Bred}${Black}                                     ${AC}
+At present the Android-26 SDK don't provide the source code for Android Studio,
+So using Android-25 SDK source code to solve this issue, the details as follows:
+(1).copy a android-25 as android-26:
+jll@S:~$ ${Fgreen}cd ~/dl.google.com/android/repository/sources${AC}
+jll@S:~/dl.google.com/android/repository/sources$ ${Fgreen}cp -rvf android-25 android-26 ${AC}
 
 
 
