@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-09-28 15:10:52
+#   ModifiedTime: 2017-09-28 15:11:12
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -125,11 +125,11 @@ jll@S:~/dl.google.com/android/repository/sources/android-26$ ${Fgreen}vim packag
 <localPackage path="sources;android-${Fgreen}26${AC}" ... <api-level>${Fgreen}26${AC}</api-level>
 ...<display-name>Sources for Android ${Fgreen}26${AC}</display-name>
 ...
-jll@S:~/dl.google.com/android/repository/sources/android-26$ ${Fgreen}vim source.properties{AC}
+jll@S:~/dl.google.com/android/repository/sources/android-26$ ${Fgreen}vim source.properties${AC}
 ...
 AndroidVersion.ApiLevel=${Fgreen}26${AC}
 ...
-
+(3).reboot the Android Studio 2.3
 
 
 ${Bred}${Black}                                     ${AC}
