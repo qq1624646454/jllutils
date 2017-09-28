@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-23 14:08:54
-#   ModifiedTime: 2017-09-28 15:05:50
+#   ModifiedTime: 2017-09-28 15:10:52
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -118,11 +118,17 @@ So using Android-25 SDK source code to solve this issue, the details as follows:
 (1).copy a android-25 as android-26:
 jll@S:~$ ${Fgreen}cd ~/dl.google.com/android/repository/sources${AC}
 jll@S:~/dl.google.com/android/repository/sources$ ${Fgreen}cp -rvf android-25 android-26 ${AC}
+(2).modify the version to 26:
 jll@S:~/dl.google.com/android/repository/sources$ ${Fgreen}cd android-26 ${AC}
 jll@S:~/dl.google.com/android/repository/sources/android-26$ ${Fgreen}vim package.xml${AC}
 ...
 <localPackage path="sources;android-${Fgreen}26${AC}" ... <api-level>${Fgreen}26${AC}</api-level>
-...<display-name>Sources for Android ${Fgreen}26${AC}</display-name>...
+...<display-name>Sources for Android ${Fgreen}26${AC}</display-name>
+...
+jll@S:~/dl.google.com/android/repository/sources/android-26$ ${Fgreen}vim source.properties{AC}
+...
+AndroidVersion.ApiLevel=${Fgreen}26${AC}
+...
 
 
 
