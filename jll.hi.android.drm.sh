@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-01 19:43:06
-#   ModifiedTime: 2017-07-15 17:16:11
+#   ModifiedTime: 2017-09-28 11:09:26
 #
 # History:
 #   2017-6-5| Created
@@ -1019,6 +1019,7 @@ androidn_2k16_mtk_mainline)
   }
   ;;
 *)
+      echo "JLL-Error: not recognize the legal project name"
   ;;
 esac
 
