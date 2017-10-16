@@ -17,6 +17,9 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 less >&1 <<EOF
 
+在Windows7平台下， 如果安装后缺少more命令，请拷贝more.exe到/c/Program File/Git/usr/bin目录下
+
+
 ConEmu 简介
 ConEmu 即 Console Emulate, 一款终端模拟器, 完全免费, 可以通过他加载多种终端如 cmd, shell, bash, putty 而且便于管理!
 简而言之, 凡是喜欢用命令行方式的, windows就请使用这款软件, 分分钟变身geek或者hacker的感觉…
