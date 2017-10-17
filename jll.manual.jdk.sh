@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-17 09:36:32
-#   ModifiedTime: 2017-10-17 09:36:32
+#   ModifiedTime: 2017-10-17 09:44:15
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,6 +24,9 @@ ${Bgreen}${Fblack}                               ${AC}
 After jdk was installed on Win7, please run setenv_jdk_jre.bat to
 registe the system environment variables about jdk and jre. 
 
+    JAVA_HOME="C:\\Program Files\\Java\\jdk1.8.0_121"
+    CLASSPATH=".;%%JAVA_HOME%%\\lib\\tools.jar;%%JAVA_HOME%%%\\lib\\dt.jar"
+    PATH="%%JAVA_HOME%%\\bin;%%PATH%%"
 
 EOF
 
