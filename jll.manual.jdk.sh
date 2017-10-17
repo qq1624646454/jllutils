@@ -16,10 +16,9 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 cat >&1 <<EOF
-
-${Bgreen}${Fyellow}                               ${AC}
-${Bgreen}${Fyellow}  jdk is installed on Win7     ${AC}
-${Bgreen}${Fyellow}                               ${AC}
+${Bgreen}${Fblack}                               ${AC}
+${Bgreen}${Fblack}  jdk is installed on Win7     ${AC}
+${Bgreen}${Fblack}                               ${AC}
 
 
 EOF
