@@ -16,9 +16,13 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 cat >&1 <<EOF
+
 ${Bgreen}${Fblack}                               ${AC}
 ${Bgreen}${Fblack}  jdk is installed on Win7     ${AC}
 ${Bgreen}${Fblack}                               ${AC}
+
+After jdk was installed on Win7, please run setenv_jdk_jre.bat to
+registe the system environment variables about jdk and jre. 
 
 
 EOF
