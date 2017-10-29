@@ -13,8 +13,10 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
-${Bgreen}${Fblack} For Ubuntu 12.04 ${AC}
+${Bgreen}${Fblack} For Ubuntu 12.04, 14.04 ${AC}
 root@S# ${Fseablue} aptitude install samba ${AC}
+
+root@S# ${Fseablue} smbpasswd -a YOUR_ACCOUNT_USERNAME ${AC}
 
 root@S# ${Fseablue} vim /etc/samba/smb.conf ${AC}
 ...
@@ -47,7 +49,30 @@ ${Fred} IF Error message is 'stop: Unknown instance:' when service smbd stop${AC
 ${Fred} Please check your configurate file '/etc/samba/smb.conf'${AC}
 
 
+${Bred}                                       ${AC}
+${Bred}${Fyellow} Another configure is as follows       ${AC}
+${Bred}                                       ${AC}
+[jllim]
+  comment = jllim for windows7
+  path = /root/Desktop
+  browseable = yes
+  read only = no
+  create mask = 0700
+  directory mask = 0700
+  valid users = root 
+  veto files = /.*/
 
+${Fred}Suggestion: install winbind for using hostname to replace ip ${AC}
+${Fred}apt-get install winbind${AC}
+${Fred}cp -rvf /etc/nsswitch.conf /etc/nsswitch.conf.orig${AC}
+${Fred}vim /etc/nsswitch.conf${AC}
+...
+hosts:   files mdns4_minimal [NOTFOUND=return] dns ${Fred}wins${AC}
+...
+${Fred}hostname${AC}
+ubuntu
+
+${Fred}open link as \\\\ubuntu\\jllim ${AC}
 
 
 ${Fred}How to remove and purge samba${AC}
