@@ -9,13 +9,20 @@
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1 <<EOF
+
+
+${Fblue}svn st | grep '^?' | awk '{print $2}' | xargs rm -rf${AC}
+${Fblue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
+# git clean -df
+
+
 
 1、检出
 svn  co  http://路径(目录或文件的全路径)　[本地目录全路径] --username 用户名 --password 密码
