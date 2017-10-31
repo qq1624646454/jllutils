@@ -6,6 +6,20 @@ JLLPATH="$(dirname ${JLLPATH})"
 #source ${JLLPATH}/BashShellLibrary
 
 cat >&1 << EOF
+
+--------------------------------------
+bridge eth0
+--------------------------------------
+
+关闭网桥命令
+     brctl delif br0 eth0;
+     ifconfig br0 down;
+     brctl delbr br0;
+
+
+
+
+
 --------------------------------------
 domain
 --------------------------------------
