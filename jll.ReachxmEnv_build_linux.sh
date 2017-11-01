@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-01 21:16:36
+#   ModifiedTime: 2017-11-01 21:18:13
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -18,12 +18,14 @@ JLLPATH="$(dirname ${JLLPATH})"
 if [ -e "/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky" ]; then
     cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky 
     source build/conf/set_bb_env_L170H.sh
-fi
-
+    mbuild linux-quic
+else
 cat >&1<<EOF
-
-mbuild linux-quic
-
+    cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky 
+    source build/conf/set_bb_env_L170H.sh
+    mbuild linux-quic
 EOF
+
+fi
 
 
