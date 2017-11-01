@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:05:57
-#   ModifiedTime: 2017-11-01 21:05:57
+#   ModifiedTime: 2017-11-01 21:08:07
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -33,7 +33,8 @@ fi
 
 GvAccount=$1
 
-GvDevice=JllServer_P
+GvDevice=Reachxm_tun
+GvDeviceID=30
 
 GvIP=$(/sbin/ifconfig ${GvDevice} \
           | /bin/grep "inet addr:" \
@@ -45,7 +46,7 @@ if [ x"${GvIP}" = x ]; then
 fi
 echo "  JLL: Trying to build the session connection: ${GvIP}--->${GvIP%.*}.110"
 echo
-GvIP=${GvIP%.*}.110
+GvIP=${GvIP%.*}.${GvDeviceID}
 
 
 GvMTU=$(/sbin/ifconfig ${GvDevice} \
