@@ -33,7 +33,7 @@ fi
 
 GvAccount=$1
 
-GvDevice=Reachxm_tun
+GvDevice=Jllim_tun
 GvDeviceID=30
 
 GvIP=$(/sbin/ifconfig ${GvDevice} \
