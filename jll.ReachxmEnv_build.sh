@@ -15,8 +15,8 @@ JLLPATH="$(dirname ${JLLPATH})"
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-if [ -e "/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky/build/tmp-glibc/deploy/images/mdm9607" ]; then
-    cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky/build/tmp-glibc/deploy/images/mdm9607
+if [ -e "/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky" ]; then
+    cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky/bui
     ./fl.sh
 fi
 
