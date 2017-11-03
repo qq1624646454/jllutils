@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-17 09:36:32
-#   ModifiedTime: 2017-10-17 09:44:15
+#   ModifiedTime: 2017-11-03 19:34:58
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,6 +27,32 @@ registe the system environment variables about jdk and jre.
     JAVA_HOME="C:\\Program Files\\Java\\jdk1.8.0_121"
     CLASSPATH=".;%%JAVA_HOME%%\\lib\\tools.jar;%%JAVA_HOME%%%\\lib\\dt.jar"
     PATH="%%JAVA_HOME%%\\bin;%%PATH%%"
+
+
+${Bgreen}${Fblack}                                                             ${AC}
+${Bgreen}${Fblack}  multise java runtime environment alternatives on linux     ${AC}
+${Bgreen}${Fblack}                                                             ${AC}
+
+ ls /usr/bin/java -al
+
+ update-alternatives --install /usr/bin/java  java  /usr/share/java/jdk1.8.0_151/bin/java
+
+ update-alternatives --display java
+
+ update-alternatives --install /usr/bin/java  java  /usr/share/java/jdk1.8.0_151/bin/java 1070
+
+ update-alternatives --display java
+
+ update-alternatives --display
+
+ update-alternatives --help
+
+ update-alternatives --display java
+
+ update-alternatives --config java
+
+ ls /usr/bin/java -l
+
 
 EOF
 
