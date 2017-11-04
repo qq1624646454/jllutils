@@ -7,6 +7,8 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+ssh id_rsa password is ljl[B6] 
+
 ${Fpink}# Please install git tool ${AC}
 if [ x"\$(dpkg --get-selections | grep git)" = x ]; then \\
     aptitude install -y git git-svn git-doc git-email git-gui gitk gitweb \\
