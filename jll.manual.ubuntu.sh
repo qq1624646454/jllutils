@@ -24,7 +24,7 @@ ${Fseablue}Volume is too small ${AC}
 Run the command:
     pulseaudio --start --log-target=syslog
 Suggestion:
-    append this command into /etc/bash.bashrc
+    append this command into /etc/rc.local
 
 
 ${Fseablue}Waiting for network configuration…${AC}
