@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2017-11-05 11:45:25
+#   ModifiedTime: 2017-11-05 11:59:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -25,8 +25,10 @@ ${Fseablue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
 ${Fseablue}svn log -l20${AC}
 # git log -n 20
 
+${Fseablue}svn info .${AC}
+# repo info .
 
-${Fseablue}svn info https://192.168.0.10:8443/svn/Mangov2${AC}
+${Fseablue}svn list https://192.168.0.10:8443/svn/Mangov2${AC}
 # git branch -r
 
 
