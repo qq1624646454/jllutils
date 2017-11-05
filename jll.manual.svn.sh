@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2016-12-15 15:26:32
+#   ModifiedTime: 2017-11-05 11:45:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -18,9 +18,29 @@ source ${JLLPATH}/BashShellLibrary
 more >&1 <<EOF
 
 
-${Fblue}svn st | grep '^?' | awk '{print $2}' | xargs rm -rf${AC}
-${Fblue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
+${Fseablue}svn st | grep '^?' | awk '{print $2}' | xargs rm -rf${AC}
+${Fseablue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
 # git clean -df
+
+${Fseablue}svn log -l20${AC}
+# git log -n 20
+
+
+${Fseablue}svn info https://192.168.0.10:8443/svn/Mangov2${AC}
+# git branch -r
+
+
+${Fseablue}svn add YOUR_FILE${AC}
+${Fseablue}svn commit -m "提交内容：1.xxx 影响范围： 影响项目："${AC}
+##### svn commit = svn ci
+# git add YOUR_FILE
+# git commit -m "提交内容：1.xxx 影响范围： 影响项目："
+# git push -u origin master
+
+${Fseablue}svn checkout https://192.168.0.10:8443/svn/Mangov2/branches/DM2_DOCUMENT${AC} 
+##### svn checkout = svn co
+# git clone https://192.168.0.10:8443/svn/Mangov2/branches/DM2_DOCUMENT 
+
 
 
 
