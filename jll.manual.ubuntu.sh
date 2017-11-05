@@ -27,6 +27,13 @@ Suggestion:
     append this command into /etc/bash.bashrc
 
 
+${Fseablue}Waiting for network configuration…${AC}
+The eth0 is not linked on startup stage, so system will run /etc/init/failsafe.conf
+${Fred}Solved${AC}
+Solution-1: remove the unused eth0
+Solution-2: change the sleep time in /etc/init/failsafe.conf
+
+
 
 EOF
 
