@@ -33,6 +33,8 @@ ${Fred}Solved${AC}
 Solution-1: remove the unused eth0
 Solution-2: change the sleep time in /etc/init/failsafe.conf
 
+Note: wifi is started so slower is because eth0 is bad to delay checking.
+Hence please remove the unused eth0
 
 
 EOF
