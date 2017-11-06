@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:36:29
+#   ModifiedTime: 2017-11-07 00:37:50
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -19,7 +19,7 @@ more >&1<<EOF
 
 V4L2 - Video For Linux 2 Architect
 ${Bgreen}=====================================================================================${AC}
-
+                                        ${Fyellow}Made by jielong.lin   All rights reserved.${AC}
     +------------------------+
     |  /dev/videoX           |                                       User Space
 -----------------------------------------------------------------------------------
