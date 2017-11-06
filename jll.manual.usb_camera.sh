@@ -63,6 +63,7 @@ usb 1-1: Manufacturer: Etron Technology, Inc.
 ${Fseablue}uvcvideo: Found UVC 1.00 device USB2.0 Camera (1e4e:0102) ${AC}
 ${Fseablue}uvcvideo: UVC non compiance - GET_DEF(PROBE) not supported. Enabling workaround.${AC}
 ${Fseablue}input: USB2.0 Camera as /devices/platform/s5p-ohci/usb1/1-1/1-1:1.0/input/input1.${AC}
+${Fyellow}3).Search all driver source code files for UVC${AC}
 
 
 
