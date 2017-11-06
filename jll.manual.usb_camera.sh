@@ -17,7 +17,7 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
-V4L2 - Video For Linux 2 Architect
+${Fgreen}V4L2 - Video For Linux 2 Architect${AC}
 ${Bgreen}=====================================================================================${AC}
                                         ${Fyellow}Made by jielong.lin   All rights reserved.${AC}
     +------------------------+
@@ -52,7 +52,7 @@ ${Bgreen}=======================================================================
 ${Bgreen}=====================================================================================${AC}
 
 
-${Fseablue}How to Use Which Camera Driver${AC}
+${Fgreen}How to Use Which Camera Driver${AC}
 ${Fyellow}1).Insert the use-camera into linux system${AC}
 ${Fyellow}2).Type the dmesg | tail, then found the followwing information, and in last 3 lines${AC}
 ${Fyellow}   are only interested${AC}
