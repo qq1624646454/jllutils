@@ -67,6 +67,9 @@ ${Fyellow}3).Search all driver source code files for UVC${AC}
 It may be in drivers/media/usb/uvc/uvc_driver.c:1864
 
 
+${Fgreen}Check if uvc id is supported${AC}
+http://www.ideasonboard.org/uvc/
+
 
 
 EOF
