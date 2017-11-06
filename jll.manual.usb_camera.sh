@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:43:52
+#   ModifiedTime: 2017-11-07 00:43:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -54,7 +54,8 @@ ${Bgreen}=======================================================================
 
 ${Fseablue}How to Use Which Camera Driver${AC}
 ${Fyellow}1).Insert the use-camera into linux system${AC}
-${Fyellow}2).Type the dmesg | tail, then found the followwing information:${AC}
+${Fyellow}2).Type the dmesg | tail, then found the followwing information, and only last 3 lines${AC}
+${Fyellow}   are interested${AC}
 usb 1-1: New USB device found, idVendor=1e4e, idProduct=0102
 usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
 usb 1-1: Product: USB2.0 Camera
