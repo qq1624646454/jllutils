@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:18:17
+#   ModifiedTime: 2017-11-07 00:21:03
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -25,9 +25,25 @@ V4L2 - Video For Linux 2 Architect
 -------------------------+-------------------
     |  V4L2 DevNumber(81,x)  |
     +------------------------+
+                 |
+                 |       --------------------------
+                 |       |  Platform V4L2 Driver  |
+                 |       --------------------------
+                 |         ^          |
+                 |     call|   registe|
+                 |         |          V 
+                 |  +--------------------+
+                 |  |  V2L2 Driver Core  |
+                 |  +--------------------+
+                 |         ^          |
+                 |     call|   registe|
+                 |         |          V 
+     +---------------------------------------+ 
+     |  Character Device Driver Core (cdev)  |
+     +---------------------------------------+
 
 
 
-
+ 
 EOF
 
