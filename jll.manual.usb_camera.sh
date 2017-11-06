@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:32:25
+#   ModifiedTime: 2017-11-07 00:32:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -48,6 +48,17 @@ V4L2 - Video For Linux 2 Architect
                                              +--------------------------------+ 
                                              |     Camera sensor hardware     |
                                              +--------------------------------+
+
+=====================================================================================
+
+
+${Fseablue}How to Use Which Camera Driver${AC}
+1).Insert the use-camera into linux system
+2).Type the dmesg | tail, then found the followwing information:
+
+
+
+
 
 
 
