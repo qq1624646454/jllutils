@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:38:38
+#   ModifiedTime: 2017-11-07 00:43:52
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -53,10 +53,15 @@ ${Bgreen}=======================================================================
 
 
 ${Fseablue}How to Use Which Camera Driver${AC}
-1).Insert the use-camera into linux system
-2).Type the dmesg | tail, then found the followwing information:
-
-
+${Fyellow}1).Insert the use-camera into linux system${AC}
+${Fyellow}2).Type the dmesg | tail, then found the followwing information:${AC}
+usb 1-1: New USB device found, idVendor=1e4e, idProduct=0102
+usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+usb 1-1: Product: USB2.0 Camera
+usb 1-1: Manufacturer: Etron Technology, Inc.
+${Fseablue}uvcvideo: Found UVC 1.00 device USB2.0 Camera (1e4e:0102) ${AC}
+${Fseablue}uvcvideo: UVC non compiance - GET_DEF(PROBE) not supported. Enabling workaround.${AC}
+${Fseablue}input: USB2.0 Camera as /devices/platform/s5p-ohci/usb1/1-1/1-1:1.0/input/input1.${AC}
 
 
 
