@@ -5,11 +5,11 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-07 00:18:08
-#   ModifiedTime: 2017-11-07 00:32:28
+#   ModifiedTime: 2017-11-07 00:36:29
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -18,11 +18,11 @@ JLLPATH="$(dirname ${JLLPATH})"
 more >&1<<EOF
 
 V4L2 - Video For Linux 2 Architect
-=====================================================================================
+${Bgreen}=====================================================================================${AC}
 
     +------------------------+
     |  /dev/videoX           |                                       User Space
--------------------------+---------------------------------------------------------
+-----------------------------------------------------------------------------------
     |  V4L2 DevNumber(81,x)  |                                      Kernel Space
     +------------------------+
                  |
@@ -49,7 +49,7 @@ V4L2 - Video For Linux 2 Architect
                                              |     Camera sensor hardware     |
                                              +--------------------------------+
 
-=====================================================================================
+${Bgreen}=====================================================================================${AC}
 
 
 ${Fseablue}How to Use Which Camera Driver${AC}
