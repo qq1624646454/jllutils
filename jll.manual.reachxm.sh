@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2017-11-01 09:14:07
+#   ModifiedTime: 2017-11-07 14:50:39
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,6 +15,11 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 more >&1<<EOF
+
+${Bgreen}${Fblack} Custom the /etc/init.d/reachservice.sh${AC}
+/media/root/work/jllproject/trunk_xghd/apps_proc/poky/meta-qti-bsp-prop/recipes-bsp/reach-services/reach-services_0.0.bb
+/media/root/work/jllproject/trunk_xghd/apps_proc/mcm-api/mcm_sample/reach-services/reachservices.sh
+
 
 ${Bgreen}${Fblack}[Ctrl]+[Alt]+[T] ${Fred}# Run Terminate in a separated windows${AC}
 ~# ${Fyellow}cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky ${AC}
