@@ -143,10 +143,12 @@ function Reachxm_L170H_on_mdm9607_by_jllim()
                 "JLLim: Not found ${Fred}${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607/mdm9607-boot.img"
                 break;
             fi
+            cd ${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607
             adb reboot-bootloader
             fastboot devices
             fastboot flash boot mdm9607-boot.img
-            fastboot reboot 
+            fastboot reboot
+            cd - >/dev/null 
             echo
             break;
         fi
