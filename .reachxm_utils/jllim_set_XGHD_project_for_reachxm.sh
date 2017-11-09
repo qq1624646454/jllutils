@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-09 11:45:59
+#   ModifiedTime: 2017-11-09 11:52:37
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -143,10 +143,12 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
                 "JLLim: Not found ${Fred}${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607/mdm9607-boot.img"
                 break;
             fi
+            cd ${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607
             adb reboot-bootloader
             fastboot devices
             fastboot flash boot mdm9607-boot.img
-            fastboot reboot 
+            fastboot reboot
+            cd - >/dev/null 
             echo
             break;
         fi
