@@ -5,18 +5,18 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-09 11:33:48
+#   ModifiedTime: 2017-11-09 11:48:17
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-function reachxm_xghd_on_mdm9607_by_jllim()
+function Reachxm_L170H_on_mdm9607_by_jllim()
 {
-    jllProject="L170XGHD"  #
-    jllRoot="/media/root/work/jllproject/trunk_xghd/apps_proc"
+    jllProject="L170H"  #
+    jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
 
-
+    #####################################################################
 
     JLLPATH="$(which jll.god.sh)"
     JLLPATH="$(dirname ${JLLPATH})"
