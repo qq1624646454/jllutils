@@ -92,12 +92,15 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 
-#开放eth0和eth1接口
+#开放eth0
 iptables -A INPUT -i eth0 -j ACEPT
-iptables -A OUTPUT -o eth1 -j ACCEPT
-iptables -A FORWARD -i eth1 -j ACCEPT
-iptables -A FORWARD -0 eth1 -j ACCEPT
+iptables -A OUTPUT -o eth0 -j ACCEPT
+iptables -A FORWARD -i eth0 -j ACCEPT
+iptables -A FORWARD -o eth0 -j ACCEPT
 
+#在所有网卡上打开ping功能，便于维护和检测
+iptables -A INPUT -i eth+ -p icmp --icmp-type 8 -j ACCEPT
+iptables -A OUTPUT -o eth+ -p icmp --icmp-type 0 -j ACCEPT
 
 4、查看iptables规则：
 iptables -nL
