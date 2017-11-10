@@ -52,8 +52,11 @@ There are three types about NAT:
 SNAT: Source Network Address Translation
       Router will modify the source IP which is set to Router eth1.IP then dispatch to internet
 e.g:
-      iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source192.168.5.3
-      iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source192.168.5.3-192.168.5.5
+# Change Source IP=10.8.0.0/24 to 192.168.5.3 then dispatch to internet from eth0 
+${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3${AC}
+# Change Source IP=10.8.0.0/24 to one of 192.168.5.3-192.168.5.5 then dispatch to internet from eth0
+${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 192.168.5.3-192.168.5.5${AC}
+
 
 ${Fyellow}For SNAT, the Router.eth1 is got dynamic IP from Carrieroperator, and ${AC}
 ${Fyellow}Router will not re-configure the source IP address translation for every IP change${AC}
