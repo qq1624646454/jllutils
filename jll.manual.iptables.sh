@@ -61,6 +61,11 @@ ${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-sou
 ${Fyellow}For SNAT, the Router.eth1 is got dynamic IP from Carrieroperator, and ${AC}
 ${Fyellow}Router will not re-configure the source IP address translation for every IP change${AC}
 ${Fyellow}Hence Router will use the followwing MASQUERADE NAT, namely 伪装${AC}
+对于SNAT，不管是几个地址，必须明确的指定要SNAT的ip，假如当前系统用的是ADSL动态拨号方式，那么每次拨号，出口
+ip 192.168.5.3都会改变，而且改变的幅度很大，不一定是192.168.5.3到192.168.5.5范围内的地址，这个时候如果按照
+现在的方式来配置iptables就会出现问题了，因为每次拨号后，服务器地址都会变化，而iptables规则内的ip是不会随着
+自动变化的，每次地址变化后都必须手工修改一次iptables，把规则里边的固定ip改成新的ip，这样是非常不好用的。
+MASQUERADE就是针对这种场景而设计的，他的作用是，从服务器的网卡上，自动获取当前ip地址来做NAT。
 e.g:
 ${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/255.255.255.0 -o eth0 -j MASQUERADE${AC}
 
