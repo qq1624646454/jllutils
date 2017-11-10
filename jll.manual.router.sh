@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-11 01:08:26
-#   ModifiedTime: 2017-11-11 01:16:43
+#   ModifiedTime: 2017-11-11 01:30:29
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -45,6 +45,27 @@ R Reinstate Route，使用动态路由重新初始化的路由。
 D Dynamically,此路由是动态性地写入。 
 M Modified，此路由是由路由守护程序或导向器动态修改。 
 ! 表示此路由当前为关闭状态。
+
+Gateway: *表示目标是本主机所属网络,不需要路由
+         0.0.0.0表示直连到网络设备上的,目的地址是0.0.0.0的路由是你的缺省网关 
+
+
+i # ifconfig bridge0
+bridge0   Link encap:Ethernet  HWaddr 0A:55:0F:BF:CB:F1  
+          inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0
+          inet6 addr: fe80::855:fff:febc:c8ee/64 Scope:Link
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:76 (76.0 B)
+
+/ # ip route
+default dev rmnet_data0  scope link 
+10.112.209.16/28 dev rmnet_data0  proto kernel  scope link  src 10.112.209.24 
+192.168.10.0/24 dev bridge0  proto kernel  scope link  src 192.168.10.1 
+192.168.225.0/24 dev bridge0  proto kernel  scope link  src 192.168.225.1 
+
 
 
 EOF
