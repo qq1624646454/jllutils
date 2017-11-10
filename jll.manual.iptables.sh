@@ -3,7 +3,7 @@
 #
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
-#source ${JLLPATH}/BashShellLibrary
+source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
@@ -43,6 +43,16 @@ iptables -t nat -nL
 |                                Delete rule rulenum (1 = first) from chain
 -----------------------------------------------------------------------------
 EOF
+
+more >&1<<EOF
+
+There are three type about NAT:
+SNAT: Source Network Address Translation
+     Router will modify the source IP which is set to Router 
+
+
+EOF
+
 
 echo -e "root@TpvServer:~# \033[0m\033[31m\033[43m iptables -L -n --line-number \033[0m"
 
