@@ -50,11 +50,12 @@ There are three types about NAT:
 
 [ PC .eth0.] ----> [.eth0. Router .eth1.] -----> [ Internet ] ---> [.eth0. Server ]
 SNAT: Source Network Address Translation
-      Router will modify the source IP which is set to Router IP then dispatch to internet
+      Router will modify the source IP which is set to Router eth1.IP then dispatch to internet
 
 [ Server.eth0.] <--- [.eth0. Router .eth1.] <--- [ Internet ] ---> [.eth0. PC ]
 DNAT: Destionation Network Address Translation
-      Router will modify the destionation IP which is set to 
+      Router will modify the destionation IP which is set to Server eth0.IP then dispatch to Server
+
 
 
 EOF
