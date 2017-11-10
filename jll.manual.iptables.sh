@@ -91,6 +91,9 @@ net.ipv4.ip_forward = 1
 4、查看iptables规则：
 iptables -nL
 
+5、保存 (/etc/sysconfig/iptables)
+iptables save
+
 
 EOF
 
