@@ -51,10 +51,20 @@ There are three types about NAT:
 [ PC .eth0.] ----> [.eth0. Router .eth1.] -----> [ Internet ] ---> [.eth0. Server ]
 SNAT: Source Network Address Translation
       Router will modify the source IP which is set to Router eth1.IP then dispatch to internet
+e.g:
+      iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source192.168.5.3
+      iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source192.168.5.3-192.168.5.5
+
+${Fyellow}For SNAT, the Router.eth1 is got dynamic IP from Carrieroperator, and ${AC}
+${Fyellow}Router will not re-configure the source IP address translation for every IP change${AC}
+${Fyellow}Hence Router will use the followwing MASQUERADE NAT, namely 伪装${AC}
+
+
 
 [ Server.eth0.] <--- [.eth0. Router .eth1.] <--- [ Internet ] ---> [.eth0. PC ]
 DNAT: Destionation Network Address Translation
       Router will modify the destionation IP which is set to Server eth0.IP then dispatch to Server
+
 
 
 
