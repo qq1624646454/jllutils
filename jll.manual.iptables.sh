@@ -86,13 +86,26 @@ echo "1" > /proc/sys/net/ipv4/ip_forward
 net.ipv4.ip_forward = 1
 
 3、打开iptables的NAT功能:
-/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+#开放lo回环接口，由于回环接口不会经过FORWARD所以不配置FORWARD
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+#开放eth0和eth1接口
+iptables -A INPUT -i eth0 -j ACEPT
+iptables -A OUTPUT -o eth1 -j ACCEPT
+iptables -A FORWARD -i eth1 -j ACCEPT
+iptables -A FORWARD -0 eth1 -j ACCEPT
+
 
 4、查看iptables规则：
 iptables -nL
 
 5、保存 (/etc/sysconfig/iptables)
 iptables save
+
+
 
 
 EOF
