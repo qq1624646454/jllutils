@@ -61,7 +61,8 @@ ${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-sou
 ${Fyellow}For SNAT, the Router.eth1 is got dynamic IP from Carrieroperator, and ${AC}
 ${Fyellow}Router will not re-configure the source IP address translation for every IP change${AC}
 ${Fyellow}Hence Router will use the followwing MASQUERADE NAT, namely 伪装${AC}
-
+e.g:
+${Fseablue}iptables-t nat -A POSTROUTING -s 10.8.0.0/255.255.255.0 -o eth0 -j MASQUERADE${AC}
 
 
 [ Server.eth0.] <--- [.eth0. Router .eth1.] <--- [ Internet ] ---> [.eth0. PC ]
