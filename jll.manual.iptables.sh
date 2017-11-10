@@ -75,6 +75,18 @@ DNAT: Destionation Network Address Translation
       Router will modify the destionation IP which is set to Server eth0.IP then dispatch to Server
 
 
+===============================================================
+    通常的配置：  eth0是连接外网或Internet的网卡
+===============================================================
+1、打开包转发功能:
+echo "1" > /proc/sys/net/ipv4/ip_forward
+
+2、修改/etc/sysctl.conf文件，让包转发功能在系统启动时自动生效:
+# Controls IP packet forwarding
+net.ipv4.ip_forward = 1
+
+3、打开iptables的NAT功能:
+/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 
 EOF
