@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-12 00:00:01
+#   ModifiedTime: 2017-11-12 00:00:56
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -234,10 +234,13 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
             [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
             [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
             echo
-            if [ ! -e "${jllRoot}/.svn" ]; then
-                echo -e "JLLim: not found ${Fred}${jllRoot}/.svn${AC}"
+            if [ ! -e "${jllRoot}/../.svn" ]; then
+                echo -e "JLLim: Not found ${Fred}${jllRoot}/../.svn${AC}"
+                break;
             fi
-            cd ${jllRoot}
+            cd ${jllRoot}/../
+
+            cd - >/dev/null
             echo
             break;
         fi
