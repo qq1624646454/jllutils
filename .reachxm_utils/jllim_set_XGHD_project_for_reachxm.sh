@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-12 00:00:56
+#   ModifiedTime: 2017-11-12 00:02:43
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -239,7 +239,11 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
                 break;
             fi
             cd ${jllRoot}/../
-
+            if [ x"$(svn status)" != x ]; then
+                echo -e "JLLim: Fount the changes as follows:"
+                svn status
+                echo
+            fi 
             cd - >/dev/null
             echo
             break;
