@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-09 14:40:30
+#   ModifiedTime: 2017-11-12 00:00:01
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -34,6 +34,7 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
         "Kernel:   Flash"
         "All:      Build"
         "All:      Flash"
+        "All:      Update and reBuild"
         "Usage:    Help Information"
     )
     GvMenuUtilsContentCnt=${#GvMenuUtilsContent[@]}
@@ -227,6 +228,20 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
             break;
         fi
 
+        # "All:      Update and reBuild"
+        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            clear
+            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
+            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            echo
+            if [ ! -e "${jllRoot}/.svn" ]; then
+                echo -e "JLLim: not found ${Fred}${jllRoot}/.svn${AC}"
+            fi
+            cd ${jllRoot}
+            echo
+            break;
+        fi
+
         # "Usage:    Help Information"
         if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
             clear
@@ -260,7 +275,7 @@ bitbake uarttest
 
 
 EOF
-
+            break 
         fi
  
     done

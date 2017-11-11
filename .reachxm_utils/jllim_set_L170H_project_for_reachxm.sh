@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-09 11:48:17
+#   ModifiedTime: 2017-11-11 23:55:30
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -14,7 +14,8 @@
 function Reachxm_L170H_on_mdm9607_by_jllim()
 {
     jllProject="L170H"  #
-    jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
+    #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
+    jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
 
     #####################################################################
 
@@ -260,7 +261,8 @@ bitbake uarttest
 
 
 EOF
-
+            
+            break;
         fi
  
     done
