@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-12 00:05:37
+#   ModifiedTime: 2017-11-12 00:06:24
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -250,6 +250,9 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
                 svn status | grep -e '^?' | xargs rm -rvf
                 svn status | grep -e '^M' | xargs svn revert 
             fi
+            echo "JLLim: Updating all to the latest version..."
+            svn update
+            
             cd - >/dev/null
             echo
             break;
