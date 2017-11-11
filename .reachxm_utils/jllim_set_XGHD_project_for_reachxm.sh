@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-12 00:06:24
+#   ModifiedTime: 2017-11-12 00:07:29
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -252,7 +252,26 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
             fi
             echo "JLLim: Updating all to the latest version..."
             svn update
-            
+            if [ ! -e "${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh" ]; then
+                echo -e \
+                "JLLim: Not found ${Fred}${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh${AC}"
+                break;
+            fi
+            if [ 1 -eq 1 ]; then
+                cd ${jllRoot}/poky
+                source build/conf/set_bb_env_${jllProject}.sh
+                buildclean
+                build-9607-image
+            else
+                if [ ! -e "${jllRoot}/buildapp/build${jllProject}SHIP" ]; then
+                    echo -e \
+                    "JLLim: Not found ${Fred}${jllRoot}/buildapp/build${jllProject}SHIP${AC}"
+                    break;
+                fi
+                cd ${jllRoot}/buildapp
+                ./build${jllProject}SHIP app
+            fi
+            echo "JLLim: Okay"
             cd - >/dev/null
             echo
             break;
