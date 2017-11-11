@@ -35,6 +35,7 @@ function Reachxm_L170H_on_mdm9607_by_jllim()
         "Kernel:   Flash"
         "All:      Build"
         "All:      Flash"
+        "All:      Update and reBuild"
         "Usage:    Help Information"
     )
     GvMenuUtilsContentCnt=${#GvMenuUtilsContent[@]}
@@ -228,6 +229,55 @@ function Reachxm_L170H_on_mdm9607_by_jllim()
             break;
         fi
 
+        # "All:      Update and reBuild"
+        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            clear
+            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
+            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            echo
+            if [ ! -e "${jllRoot}/../.svn" ]; then
+                echo -e "JLLim: Not found ${Fred}${jllRoot}/../.svn${AC}"
+                break;
+            fi
+            cd ${jllRoot}/../
+            if [ x"$(svn status)" != x ]; then
+                echo -e "JLLim: Fount the changes as follows:"
+                svn status
+                echo
+                read -p "JLLim: cleanup those changes if [y] or exit" -n 1 _my_choice_
+                if [ x"${_my_choice_}" != x"y" ]; then
+                    break;
+                fi
+                svn status | grep -e '^?' | xargs rm -rvf
+                svn status | grep -e '^M' | xargs svn revert 
+            fi
+            echo "JLLim: Updating all to the latest version..."
+            svn update
+            if [ ! -e "${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh" ]; then
+                echo -e \
+                "JLLim: Not found ${Fred}${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh${AC}"
+                break;
+            fi
+            if [ 1 -eq 1 ]; then
+                cd ${jllRoot}/poky
+                source build/conf/set_bb_env_${jllProject}.sh
+                buildclean
+                build-9607-image
+            else
+                if [ ! -e "${jllRoot}/buildapp/build${jllProject}SHIP" ]; then
+                    echo -e \
+                    "JLLim: Not found ${Fred}${jllRoot}/buildapp/build${jllProject}SHIP${AC}"
+                    break;
+                fi
+                cd ${jllRoot}/buildapp
+                ./build${jllProject}SHIP app
+            fi
+            echo "JLLim: Okay"
+            cd - >/dev/null
+            echo
+            break;
+        fi
+
         # "Usage:    Help Information"
         if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
             clear
@@ -261,8 +311,7 @@ bitbake uarttest
 
 
 EOF
-            
-            break;
+            break 
         fi
  
     done
