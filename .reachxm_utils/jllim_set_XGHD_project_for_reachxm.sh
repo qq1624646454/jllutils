@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-12 00:02:43
+#   ModifiedTime: 2017-11-12 00:05:37
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -243,7 +243,13 @@ function Reachxm_XGHD_on_mdm9607_by_jllim()
                 echo -e "JLLim: Fount the changes as follows:"
                 svn status
                 echo
-            fi 
+                read -p "JLLim: cleanup those changes if [y] or exit" -n 1 _my_choice_
+                if [ x"${_my_choice_}" != x"y" ]; then
+                    break;
+                fi
+                svn status | grep -e '^?' | xargs rm -rvf
+                svn status | grep -e '^M' | xargs svn revert 
+            fi
             cd - >/dev/null
             echo
             break;
