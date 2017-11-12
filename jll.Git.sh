@@ -478,6 +478,8 @@ in ${Fred}${__GitPath}/.gitignore${AC}"
     fi
 
     if [ x"${__GitCHANGE}" != x ]; then
+        Lfn_Sys_Rotate_With_SIGNAL &
+        __RotateBgPID_=$!
         git add -A
         __GitCHANGE="$(git status -s)"
         git commit -m \
@@ -487,7 +489,7 @@ Commited by using ${__CvScriptName} @ $(date +%Y-%m-%d\ %H:%M:%S)
 Changes as follows: 
 ${__GitCHANGE}
 "
- 
+        kill -12 ${__RotateBgPID_} >/dev/null
     fi
 more >&1<<EOF
 
@@ -529,8 +531,11 @@ JLL-Action:: Remove all changes via ${Fseablue}git clean -dfx; git reset --hard 
 EOF
         read -p "              YourChoice:___" -n 1 __MyChoice
         if [ x"${__MyChoice}" = x"y" ]; then
+            Lfn_Sys_Rotate_With_SIGNAL &
+            __RotateBgPID_=$!
             git clean -dfx;
             git reset --hard HEAD;
+            kill -12 ${__RotateBgPID_} >/dev/null
         fi
     fi
     __Fn_prepare_GIT
