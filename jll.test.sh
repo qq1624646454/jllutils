@@ -34,7 +34,7 @@ function Fn_vimide_Progressbar_MonitorByte()
 
     Fn_PathUtils_ConvertToAbsolutePath LvPbPath "$1" 
     if [ -z "${LvPbPath}" -o ! -e "${LvPbPath}" ]; then
-        Lfn_Sys_DbgEcho "Sorry, Exit because of the invalid path\"${LvPbPath}\""
+        echo "Sorry, Exit because of the invalid path\"${LvPbPath}\""
         exit 0
     fi
 
@@ -82,4 +82,9 @@ function Fn_vimide_Progressbar_MonitorByte()
 }
 
 
+ Fn_vimide_Progressbar_MonitorByte "~/.vimide/mrvl/C_CPlusPlus" &
+ GvBgPid=$!
+ sleep 20
+ echo
+ kill -12 ${GvBgPid} 
 
