@@ -298,6 +298,8 @@ git revert是提交一个新的版本，将需要revert的版本的内容再反�
 
 
 
+${Fred} Agent admitted failure to sign using the key  ${AC}
+ssh-add ~/.ssh/id_rsa
 
 
 EOF
