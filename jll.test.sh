@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-12 23:26:08
-#   ModifiedTime: 2017-11-12 23:26:08
+#   ModifiedTime: 2017-11-13 00:58:59
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -82,7 +82,7 @@ function Fn_vimide_Progressbar_MonitorByte()
 }
 
 
- Fn_vimide_Progressbar_MonitorByte "~/.vimide/mrvl/C_CPlusPlus" &
+ Fn_vimide_Progressbar_MonitorByte "~/Desktop" &
  GvBgPid=$!
  sleep 20
  echo
