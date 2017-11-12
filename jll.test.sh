@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-12 23:26:08
-#   ModifiedTime: 2017-11-13 00:58:59
+#   ModifiedTime: 2017-11-13 01:04:35
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,13 +16,13 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 
-## Fn_vimide_Progressbar_MonitorByte "~/.vimide/mrvl/C_CPlusPlus" &
+## Lfn_Progressbar_MonitorByte "~/.vicc" &
 ## GvBgPid=$!
 ## sleep 20
 ## echo ""
 ## kill -12 ${GvBgPid} 
 ##
-function Fn_vimide_Progressbar_MonitorByte()
+function Lfn_Progressbar_MonitorByte()
 {
     LvPbInterval=0.05
     LvPbTcount="0"
@@ -32,7 +32,7 @@ function Fn_vimide_Progressbar_MonitorByte()
         exit 0
     fi
 
-    Fn_PathUtils_ConvertToAbsolutePath LvPbPath "$1" 
+    Lfn_Sys_PathConvertToAbsolutePath LvPbPath "$1" 
     if [ -z "${LvPbPath}" -o ! -e "${LvPbPath}" ]; then
         echo "Sorry, Exit because of the invalid path\"${LvPbPath}\""
         exit 0
@@ -82,7 +82,7 @@ function Fn_vimide_Progressbar_MonitorByte()
 }
 
 
- Fn_vimide_Progressbar_MonitorByte "~/Desktop" &
+ Lfn_Progressbar_MonitorByte "~/.vicc" &
  GvBgPid=$!
  sleep 20
  echo

@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-07-14 10:06:43
-#   ModifiedTime: 2017-07-15 17:52:37
+#   ModifiedTime: 2017-11-13 01:16:05
 JLLPATH="$(which $0)"
 # ./xxx.sh
 # ~/xxx.sh
@@ -204,11 +204,19 @@ JLL: Please type Big File with ${Fyellow}PATH${Fblack} for split(q: Quit)${AC}  
     cd ${__TargetFile}
     echo
     echo -e "${Bgreen}${Fblack}md5sum -b ${__BigFile} > origin.md5sum${AC}"
+    Lfn_Progressbar_MonitorByte "$(pwd)" &
+    __pbmb_bgpid=$!
     md5sum -b ${__BigFile} > origin.md5sum
+    kill -12 ${__pbmb_bgpid}  >/dev/null
+    echo
     echo -e "\
 ${Bgreen}${Fblack}split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} \
 ${__BigFile} ${JLLCFG_PREFIX_NAME} ${AC}"
+    Lfn_Progressbar_MonitorByte "$(pwd)" &
+    __pbmb_bgpid=$!
     split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} ${__BigFile} ${JLLCFG_PREFIX_NAME}
+    kill -12 ${__pbmb_bgpid}  >/dev/null
+    echo
     cd - >/dev/null
     echo 
 break
@@ -339,11 +347,19 @@ while [ x"${__result%%:*}" = x"Split_From_Current" ]; do
     cd ${__TargetFile}
     echo
     echo -e "${Bgreen}${Fblack}md5sum -b ${__BigFile} > origin.md5sum${AC}"
+    Lfn_Progressbar_MonitorByte "$(pwd)" &
+    __pbmb_bgpid=$!
     md5sum -b ${__BigFile} > origin.md5sum
+    kill -12 ${__pbmb_bgpid}  >/dev/null
+    echo
     echo -e "\
 ${Bgreen}${Fblack}split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} \
 ${__BigFile} ${JLLCFG_PREFIX_NAME} ${AC}"
+    Lfn_Progressbar_MonitorByte "$(pwd)" &
+    __pbmb_bgpid=$!
     split -a${JLLCFG_SUFFIX_LENGTH} -b ${JLLCFG_UNIT_SIZE} ${__BigFile} ${JLLCFG_PREFIX_NAME}
+    kill -12 ${__pbmb_bgpid}  >/dev/null
+    echo
     cd - >/dev/null
     echo 
 break
@@ -391,8 +407,11 @@ started with ${Fgreen}${JLLCFG_PREFIX_NAME} ${AC}"
     echo -e "${Bseablue}  ${AC}JLL: ${Fseablue}${__TargetFile}${AC} will be spliced."
     echo -e "${Bseablue}                                        ${AC}"
     echo
+    Lfn_Progressbar_MonitorByte "$(pwd)" &
+    __pbmb_bgpid=$!
     cat _sp_* >${__TargetFile}
     md5sum -b ${__TargetFile} > ${__TargetFile}.md5sum
+    kill -12 ${__pbmb_bgpid}  >/dev/null
     if [ -e "$(pwd)/origin.md5sum" ]; then
         __CHK_Orig=$(cat origin.md5sum | awk -F ' ' '{print $1}')
         __CHK_Cur=$(cat ${__TargetFile}.md5sum | awk -F ' ' '{print $1}')
