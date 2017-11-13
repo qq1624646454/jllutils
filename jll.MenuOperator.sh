@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #Copyright(c) 2016-2100, jielong_lin,  All rights reserved.
 #
 
@@ -207,28 +207,28 @@ function Lfn_MenuUtils()
                     if [ ${LvVisuFocus} -eq ${LvVisuIdx} ]; then
                         if [ ${LvVisuFocus} -ne ${LvVisuNextFocus} ]; then
                             # Cancel the focus item reversed style
-                            echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                            echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
                             LvVisuFocus=99999 # lose the focus
                         else
                             # When Focus is the same to Next Focus, such as only exist one item
                             # Echo By Reversing its color
-                            echo -ne "├── ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            echo -ne " |--- ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         fi
                     else
                         if [ ${LvVisuNextFocus} -eq ${LvVisuIdx} ]; then
                             # Echo By Reversing its color
-                            echo -ne "├── ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            echo -ne " |--- ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         else
-                            echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                            echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
                         fi
                     fi
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
                 if [ x"$2" = x"Input" ]; then
                     Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine}
-                    echo -ne "├── ${GvMenuUtilsContent[LvVisuIdx]}"
+                    echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
             done
@@ -445,15 +445,16 @@ function Lfn_Stdin_GetDigit()
 #  Entry     main 
 #-------------------------------------
 if [ x"$1" = x"-h" ]; then
-cat >&1 <<EOF
+cat >&1<<EOF
 
 / # jllim_L170H.sh
 
       ***** Actions (q: quit) *****
 EOF
-echo -e "├── ${CvAccOff}${CvFgSeaBule}${CvBgRed}Flash.Kernel: ...${CvAccOff}"
-echo -e "├── ..."
-echo -e "├── ..."
+
+echo -e " ${CvAccOff}${CvFgSeaBule}${CvBgRed}Flash.Kernel: ...${CvAccOff}"
+echo -e " ..."
+echo -e " ..."
 echo
 echo
     exit 0
@@ -470,16 +471,42 @@ declare -a GvPageMenuUtilsContent=(
     "test: test-3"
 )
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
+if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
     unset GvPageUnit
     unset GvPageMenuUtilsContent
     echo
-    echo "JLLim: test-1"
+    echo "JLLim: test-$i"
     echo
     exit 0
 fi
 
-[ x"${GvPageUnit}" != x ] && unset GvPageUnit
+if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+    unset GvPageUnit
+    unset GvPageMenuUtilsContent
+    echo
+    echo "JLLim: test-$i"
+    echo
+    exit 0
+fi
+
+if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+    unset GvPageUnit
+    unset GvPageMenuUtilsContent
+    echo
+    echo "JLLim: test-$i"
+    echo
+    exit 0
+fi
+
+if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+    unset GvPageUnit
+    unset GvPageMenuUtilsContent
+    echo
+    echo "JLLim: test-$i"
+    echo
+    exit 0
+fi
+
+[ x"${GvPageUnit}" != x ] && unset GvPageUnit                  
 [ x"${GvPageMenuUtilsContent}" != x"${GvPageMenuUtilsContent}" ] && unset GvPageMenuUtilsContent
 
-exit 0
