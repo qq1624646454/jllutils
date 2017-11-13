@@ -451,10 +451,9 @@ cat >&1 <<EOF
 
       ***** Actions (q: quit) *****
 EOF
-echo -e "├── ${CvAccOff}${CvFgSeaBule}${CvBgRed}Flash.Kernel: ${CvAccOff}"
-echo -e "├── sshkey use: csdn_free@linjielong2009"
-echo -e "├── sshkey use: csdn_free@qq1624646454"
-echo -e "├── sshkey use: tpv_copyright@jielong.lin"
+echo -e "├── ${CvAccOff}${CvFgSeaBule}${CvBgRed}Flash.Kernel: ...${CvAccOff}"
+echo -e "├── ..."
+echo -e "├── ..."
 echo
 echo
     exit 0
@@ -465,21 +464,10 @@ fi
 
 i=0
 declare -i GvPageUnit=10
-declare -a GvPageMenuUtilsContent
-if [ ! -e "${GvCONF_Proj}" ]; then
-    echo
-    echo "JLL@Error | Exit, don't exist \"${GvCONF_Proj}\""
-    echo
-else
-    echo
-    echo "JLL@Checking | Probe all the ssh-config items from $(basename ${GvCONF_Proj})"
-    GvList=$(ls -l "${GvCONF_Proj}" 2>/dev/null | grep -E '^d' | awk -F ' ' '{print $9}')
-    for GvItem in ${GvList}; do
-        echo "JLL@Testing | $i: ${GvItem}" 
-        GvPageMenuUtilsContent[i]="sshkey use: ${GvItem}"
-        ((i++))
-    done
-fi
+declare -a GvPageMenuUtilsContent=(
+    ""
+)
+
 GvPageMenuUtilsContent[i]="installing: setup ssh keys then let jllutils over SSH"
 unset GvList 
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
