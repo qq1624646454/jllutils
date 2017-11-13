@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #Copyright(c) 2016-2100, jielong_lin,  All rights reserved.
 #
 
@@ -467,9 +467,6 @@ declare -i GvPageUnit=10
 declare -a GvPageMenuUtilsContent=(
     ""
 )
-
-GvPageMenuUtilsContent[i]="installing: setup ssh keys then let jllutils over SSH"
-unset GvList 
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
     unset GvPageUnit
