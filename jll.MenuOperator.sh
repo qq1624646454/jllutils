@@ -465,120 +465,21 @@ fi
 i=0
 declare -i GvPageUnit=10
 declare -a GvPageMenuUtilsContent=(
-    ""
+    "test: test-1"
+    "test: test-2"
+    "test: test-3"
 )
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
     unset GvPageUnit
     unset GvPageMenuUtilsContent
-    if [ ! -e "${CvScriptPath}/.sshconf/qq1624646454@csdn_github" ]; then
-        echo
-        echo "JLL: Install failue then Exit"
-        echo "JLL:    ${CvScriptPath}/.sshconf/qq1624646454@csdn_github is not present"
-        echo
-        unset GvCONF_Proj
-        unset CvScriptPath
-        unset CvScriptName
-        unset CvPathFileForScript
-        exit 0
-    fi
-    [ -e "${GvCONF_Proj}" ] && rm -rf ${GvCONF_Proj}
-    cp -rf ${CvScriptPath}/.sshconf  ${GvCONF_Proj}
-    [ -e "${HOME}/.ssh" ] && rm -rf ${HOME}/.ssh
-    cp -rf ${GvCONF_Proj}/qq1624646454@csdn_github  ${HOME}/.ssh
-    chmod -R 0500 ${HOME}/.ssh/*
-    if [ -e "${HOME}/.ssh/config" ]; then
-        chmod +w ${HOME}/.ssh/config*
-    fi
-    unset GvCONF_Proj
     echo
-    echo "JLL: Change for letting jllutils over SSH"
+    echo "JLLim: test-1"
     echo
-
-    if [ ! -e "${CvScriptPath}/.git/" ]; then
-        echo
-        echo "JLL: Exit because not present ${CvScriptPath}/.git"
-        echo
-        exit 0
-    fi
-    echo
-    echo "JLL: current .git path is \"${CvScriptPath}\""
-    echo
-    # Push  URL: https://github.com/qq1624646454/jllutils.git
-    __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
-               git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL:[ ]{0,}git")
-    if [ x"${__RawCTX}" = x ]; then
-      __RawCTX=$(cd ${CvScriptPath} >/dev/null;\
-                 git remote show origin | grep -E "^[ ]{0,}Push[ ]{1,}URL: ")
-      __RawCTX=${__RawCTX#*URL:}
-      __RawCTX=${__RawCTX/https:\/\//git@}
-      __RawCTX=${__RawCTX/\//:}
-      if [ x"${__RawCTX}" = x ]; then
-        echo
-        echo "JLL: Exit because not obtain git@URL for the current .git"
-        echo
-        unset CvScriptPath
-        unset CvScriptName
-        unset CvPathFileForScript
-        unset __RawCTX
-        exit 0
-      fi
-      echo
-      cd ${CvScriptPath}
-      git remote set-url --push origin ${__RawCTX}
-      echo
-      git remote show origin
-      cd - >/dev/null
-    else
-      cd ${CvScriptPath}
-      git remote show origin
-      cd - >/dev/null
-    fi
-    echo
-    echo
-    unset CvScriptPath
-    unset CvScriptName
-    unset CvPathFileForScript
-    unset __RawCTX
     exit 0
 fi
 
-unset GvPageUnit
-unset GvPageMenuUtilsContent
-if [ ! -e "${GvCONF_Proj}/${GvResult##*: }" ]; then
-    echo
-    echo "JLL@Error | Exit, don't exist \"${GvCONF_Proj}/${GvResult##*: }\""
-    echo
-    unset GvCONF_Proj
-    unset CvScriptPath
-    unset CvScriptName
-    unset CvPathFileForScript
-    exit 0
-fi
-
-echo
-echo "JLL@Action | Clean up the current ssh-config under \"~/.ssh/\""
-if [ ! -e "${HOME}/.ssh" ]; then
-    mkdir -pv ${HOME}/.ssh
-fi
-if [ x"$(ls ${HOME}/.ssh/)" != x ]; then
-    rm -rvf ${HOME}/.ssh/*
-fi
-echo
-echo
-
-echo "JLL@Action | Setup the \"${GvResult##*: }\" ssh-config under \"~/.ssh/\""
-if [ x"$(ls ${GvCONF_Proj}/${GvResult##*: }/)" = x ]; then
-    echo "JLL@Action | Nothing exist @ ${GvResult}" 
-else
-    cp -rvf ${GvCONF_Proj}/${GvResult##*: }/*  ~/.ssh/
-    chmod -R 0500 ${HOME}/.ssh/*
-    if [ -e "${HOME}/.ssh/config" ]; then
-        chmod +w ${HOME}/.ssh/config*
-    fi
-fi
-echo
-echo
+[ x"${GvPageUnit}" != x ] && unset GvPageUnit
+[ x"${GvPageMenuUtilsContent}" != x"${GvPageMenuUtilsContent}" ] && unset GvPageMenuUtilsContent
 
 exit 0
-
