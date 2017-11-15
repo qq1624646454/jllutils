@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:27:00
+#   ModifiedTime: 2017-11-15 09:28:28
 
 
 #------------- Start Of UI Library ---------------
@@ -444,15 +444,11 @@ function _F_Stdin_GetDigit()
 
 
 
-
-
-
-
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
-function Reachxm_MDM9x07_by_jllim()
+function Reach_MDM9x07_BY_JLLim()
 {
     if [ -e "$(pwd)/.Reachxm_MDM9x07_by_jllim" ]; then
         source $(pwd)/.Reachxm_MDM9x07_by_jllim
@@ -785,4 +781,4 @@ EOF
     [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
     [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
 }
-export -f Reachxm_L170H_on_mdm9607_by_jllim
+export -f Reach_MDM9x07_BY_JLLim
