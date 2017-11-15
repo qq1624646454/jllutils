@@ -30,7 +30,7 @@ ___BgGreen="\033[42m"
 ___BgYellow="\033[43m"
 ___BgBlue="\033[44m"
 ___BgPink="\033[45m"
-___BgSeaBule="\033[46m"
+___BgSeaBlue="\033[46m"
 ___BgWhite="\033[47m"
 
 

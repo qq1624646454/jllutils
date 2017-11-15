@@ -194,7 +194,7 @@ CvBgGreen="\033[42m"
 CvBgYellow="\033[43m"
 CvBgBlue="\033[44m"
 CvBgPink="\033[45m"
-CvBgSeaBule="\033[46m"
+CvBgSeaBlue="\033[46m"
 CvBgWhite="\033[47m"
 
 # adapt to more/echo/less and so on
