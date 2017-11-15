@@ -13,25 +13,25 @@
 # 海蓝:SeaBlue
 # 白:White
 
-____CvAccOff="\033[0m"
+___AccOff="\033[0m"
 
-____CvFgBlack="\033[30m"
-____CvFgRed="\033[31m"
-____CvFgGreen="\033[32m"
-____CvFgYellow="\033[33m"
-____CvFgBlue="\033[34m"
-____CvFgPink="\033[35m"
-____CvFgSeaBule="\033[36m"
-____CvFgWhite="\033[37m"
+___FgBlack="\033[30m"
+___FgRed="\033[31m"
+___FgGreen="\033[32m"
+___FgYellow="\033[33m"
+___FgBlue="\033[34m"
+___FgPink="\033[35m"
+___FgSeaBule="\033[36m"
+___FgWhite="\033[37m"
 
-____CvBgBlack="\033[40m"
-____CvBgRed="\033[41m"
-____CvBgGreen="\033[42m"
-____CvBgYellow="\033[43m"
-____CvBgBlue="\033[44m"
-____CvBgPink="\033[45m"
-____CvBgSeaBule="\033[46m"
-____CvBgWhite="\033[47m"
+___BgBlack="\033[40m"
+___BgRed="\033[41m"
+___BgGreen="\033[42m"
+___BgYellow="\033[43m"
+___BgBlue="\033[44m"
+___BgPink="\033[45m"
+___BgSeaBule="\033[46m"
+___BgWhite="\033[47m"
 
 
 
@@ -42,10 +42,10 @@ function Lfn_Cursor_EchoConfig()
         exit 0
     fi
     if [ x"$1" = x"off" ]; then
-        echo -e "${____CvAccOff}\033[?25l${____CvAccOff}"
+        echo -e "${___AccOff}\033[?25l${___AccOff}"
     fi
     if [ x"$1" = x"on" ]; then
-        echo -e "${____CvAccOff}\033[?25h${____CvAccOff}"
+        echo -e "${___AccOff}\033[?25h${___AccOff}"
     fi
 }
 
@@ -72,7 +72,7 @@ function Lfn_Cursor_Move()
     fi
 
     #'\c' or '-n' - dont break line
-    LvCmTargetLocation="${____CvAccOff}\033[$2;$1H${____CvAccOff}"
+    LvCmTargetLocation="${___AccOff}\033[$2;$1H${___AccOff}"
     echo -ne "${LvCmTargetLocation}"
 }
 
@@ -212,13 +212,13 @@ function Lfn_MenuUtils()
                         else
                             # When Focus is the same to Next Focus, such as only exist one item
                             # Echo By Reversing its color
-                            echo -ne " |--- ${____CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${____CvAccOff}"
+                            echo -ne " |--- ${___AccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${___AccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         fi
                     else
                         if [ ${LvVisuNextFocus} -eq ${LvVisuIdx} ]; then
                             # Echo By Reversing its color
-                            echo -ne " |--- ${____CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${____CvAccOff}"
+                            echo -ne " |--- ${___AccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${___AccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         else
                             echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
@@ -346,7 +346,7 @@ function Lfn_MenuUtils()
 
 ##
 ##  declare -i ___PU=10
-##  declare -a GvPageMenuUtilsContent=(
+##  declare -a ___PMUC=(
 ##        "userdebug: It will enable the most debugging features for tracing the platform."
 ##        "user1:      It is offically release, and it only disable debugging features."
 ##        "user2:      It is offically release, and it only disable debugging features."
@@ -359,7 +359,7 @@ function Lfn_MenuUtils()
 ##        "user9:      It is offically release, and it only disable debugging features."
 ##  )
 ##  Lfn_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
-##  if [ x"${LvpcResult}" = x"${GvPageMenuUtilsContent[0]}" ]; then
+##  if [ x"${LvpcResult}" = x"${___PMUC[0]}" ]; then
 ##      LvpcOptionBuild=userdebug
 ##      echo "hit"
 ##  fi
@@ -385,7 +385,7 @@ function Lfn_PageMenuUtils()
         exit 0
     fi
 
-    LvPageMenuUtilsContentCount=${#GvPageMenuUtilsContent[@]}
+    LvPageMenuUtilsContentCount=${#___PMUC[@]}
     LvPageIdx=0
     LvPageCount=$((LvPageMenuUtilsContentCount/___PU)) 
     while [ ${LvPageMenuUtilsContentCount} -gt 0 ]; do
@@ -393,7 +393,7 @@ function Lfn_PageMenuUtils()
         declare -a GvMenuUtilsContent
         for(( LvIdx=$((___PU*LvPageIdx)); LvIdx < LvPageMenuUtilsContentCount; LvIdx++ )) {
             if [ ${LvIdx} -lt $((___PU*LvPageIdx+___PU)) ]; then
-                GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="${GvPageMenuUtilsContent[${LvIdx}]}"
+                GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="${___PMUC[${LvIdx}]}"
             else
                 break
             fi
@@ -452,7 +452,7 @@ cat >&1<<EOF
       ***** Actions (q: quit) *****
 EOF
 
-echo -e " ${____CvAccOff}${____CvFgSeaBule}${____CvBgRed}Flash.Kernel: ...${____CvAccOff}"
+echo -e " ${___AccOff}${___FgSeaBule}${___BgRed}Flash.Kernel: ...${___AccOff}"
 echo -e " ..."
 echo -e " ..."
 echo
@@ -465,42 +465,42 @@ fi
 
 i=0
 declare -i ___PU=10
-declare -a GvPageMenuUtilsContent=(
+declare -a ___PMUC=(
     "test: test-1"
     "test: test-2"
     "test: test-3"
 )
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
-    unset GvPageMenuUtilsContent
+    unset ___PMUC
     echo
     echo "JLLim: test-$i"
     echo
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
-    unset GvPageMenuUtilsContent
+    unset ___PMUC
     echo
     echo "JLLim: test-$i"
     echo
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
-    unset GvPageMenuUtilsContent
+    unset ___PMUC
     echo
     echo "JLLim: test-$i"
     echo
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
+if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
-    unset GvPageMenuUtilsContent
+    unset ___PMUC
     echo
     echo "JLLim: test-$i"
     echo
@@ -508,5 +508,5 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
 fi
 
 [ x"${___PU}" != x ] && unset ___PU                  
-[ x"${GvPageMenuUtilsContent}" != x"${GvPageMenuUtilsContent}" ] && unset GvPageMenuUtilsContent
+[ x"${___PMUC}" != x"${___PMUC}" ] && unset ___PMUC
 
