@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:15:29
+#   ModifiedTime: 2017-11-15 09:16:46
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -25,6 +25,16 @@ function Reachxm_MDM9x07_by_jllim()
            if [ x"${_xx_choice_}" != x"y" ]; then
                return 
            fi
+cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
+
+declare -a 
+    jllProject="L170H"  #
+    #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
+    jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
+
+
+
+EOF
        fi
     fi
 
