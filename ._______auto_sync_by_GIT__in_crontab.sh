@@ -5,9 +5,13 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-05-11 14:34:27
-#   ModifiedTime: 2017-07-18 22:32:55
+#   ModifiedTime: 2017-11-15 14:40:00
 
 JLLCFG_RemoteGit_URL="https://github.com/qq1624646454/jllutils/commits/master"
+
+if [ x"$(which w3m)" = x ]; then
+    apt-get install -y w3m
+fi
 
 # _FN_retrieve_git_commits_by_GitURL \
 #     "https://github.com/qq1624646454/jllutils/commits/master"
