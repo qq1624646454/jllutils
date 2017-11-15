@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:35:33
+#   ModifiedTime: 2017-11-15 09:36:45
 
 
 #------------- Start Of UI Library ---------------
@@ -475,8 +475,8 @@ declare -i ___PU=10
 declare -a ___PMUC=(
   #Project_Identifier  #Project_Path
   "L170H => /media/root/work/jllproject/trunk_L170H/apps_proc"
-  ""
-##  )
+  "L170XGHD => /media/root/work/jllproject/trunk_xghd/apps_proc"
+)
 ##  _F_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
 #
 
