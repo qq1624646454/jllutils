@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:33:30
+#   ModifiedTime: 2017-11-15 09:35:33
 
 
 #------------- Start Of UI Library ---------------
@@ -469,23 +469,13 @@ cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
     jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
 
 ## Project_Identifier
-#source build/conf/set_bb_env_\${Project_Identifier}.sh
+##     source build/conf/set_bb_env_\${Project_Identifier}.sh
 
 declare -i ___PU=10
 declare -a ___PMUC=(
-  #Project_Identifier   #Project_Path
-  #source build/conf/set_bb_env_${jllProject}.sh
-  "L170H"
-##        "userdebug: It will enable the most debugging features for tracing the platform."
-##        "user1:      It is offically release, and it only disable debugging features."
-##        "user2:      It is offically release, and it only disable debugging features."
-##        "user3:      It is offically release, and it only disable debugging features."
-##        "user4:      It is offically release, and it only disable debugging features."
-##        "user5:      It is offically release, and it only disable debugging features."
-##        "user6:      It is offically release, and it only disable debugging features."
-##        "user7:      It is offically release, and it only disable debugging features."
-##        "user8:      It is offically release, and it only disable debugging features."
-##        "user9:      It is offically release, and it only disable debugging features."
+  #Project_Identifier  #Project_Path
+  "L170H => /media/root/work/jllproject/trunk_L170H/apps_proc"
+  ""
 ##  )
 ##  _F_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
 #
