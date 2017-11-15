@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:29:47
+#   ModifiedTime: 2017-11-15 09:32:10
 
 
 #------------- Start Of UI Library ---------------
@@ -464,11 +464,28 @@ function Reach_MDM9x07_BY_JLLim()
            fi
 cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
 
-declare -a 
-
     jllProject="L170H"  #
     #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
     jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
+
+declare -i ___PU=10
+declare -a ___PMUC=(
+  #Project_Identifier   #Project_Path
+  #
+  "L170H"
+##        "userdebug: It will enable the most debugging features for tracing the platform."
+##        "user1:      It is offically release, and it only disable debugging features."
+##        "user2:      It is offically release, and it only disable debugging features."
+##        "user3:      It is offically release, and it only disable debugging features."
+##        "user4:      It is offically release, and it only disable debugging features."
+##        "user5:      It is offically release, and it only disable debugging features."
+##        "user6:      It is offically release, and it only disable debugging features."
+##        "user7:      It is offically release, and it only disable debugging features."
+##        "user8:      It is offically release, and it only disable debugging features."
+##        "user9:      It is offically release, and it only disable debugging features."
+##  )
+##  _F_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
+#
 
 
 
