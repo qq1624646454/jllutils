@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:32:10
+#   ModifiedTime: 2017-11-15 09:33:30
 
 
 #------------- Start Of UI Library ---------------
@@ -468,10 +468,13 @@ cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
     #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
     jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
 
+## Project_Identifier
+#source build/conf/set_bb_env_\${Project_Identifier}.sh
+
 declare -i ___PU=10
 declare -a ___PMUC=(
   #Project_Identifier   #Project_Path
-  #
+  #source build/conf/set_bb_env_${jllProject}.sh
   "L170H"
 ##        "userdebug: It will enable the most debugging features for tracing the platform."
 ##        "user1:      It is offically release, and it only disable debugging features."
