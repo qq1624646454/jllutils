@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:36:45
+#   ModifiedTime: 2017-11-15 09:38:14
 
 
 #------------- Start Of UI Library ---------------
@@ -462,14 +462,16 @@ function Reach_MDM9x07_BY_JLLim()
            if [ x"${_xx_choice_}" != x"y" ]; then
                return 
            fi
+
 cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
 
-    jllProject="L170H"  #
-    #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
-    jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
-
 ## Project_Identifier
-##     source build/conf/set_bb_env_\${Project_Identifier}.sh
+##   it is used for "source build/conf/set_bb_env_\${Project_Identifier}.sh"
+##
+## Project_Path
+##   it references to the path of apps_proc in a project, for example:
+##        /media/root/work/jllproject/trunk_L170H/apps_proc
+## 
 
 declare -i ___PU=10
 declare -a ___PMUC=(
