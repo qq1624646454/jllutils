@@ -7,6 +7,9 @@
 #   DateTime:     2017-11-01 21:11:31
 #   ModifiedTime: 2017-11-15 09:17:07
 
+
+
+
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
