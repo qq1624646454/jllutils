@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:28:28
+#   ModifiedTime: 2017-11-15 09:29:47
 
 
 #------------- Start Of UI Library ---------------
@@ -476,21 +476,7 @@ EOF
        fi
     fi
 
-    jllProject="L170H"  #
-    #jllRoot="/media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc"
-    jllRoot="/media/root/work/jllproject/trunk_L170H/apps_proc"
 
-    #####################################################################
-
-    JLLPATH="$(which jll.god.sh)"
-    JLLPATH="$(dirname ${JLLPATH})"
-    if [ ! -e "${JLLPATH}/BashShellLibrary" ]; then
-        echo
-        echo -e "[0m[31mjllim: Error - not found BashShellLibrary[0m"
-        echo
-        exit 0
-    fi
-    source ${JLLPATH}/BashShellLibrary
 
     declare -a GvMenuUtilsContent=(
         "CodeTree: Enter"
