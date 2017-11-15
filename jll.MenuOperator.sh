@@ -35,8 +35,8 @@ ___BgWhite="\033[47m"
 
 
 
-## Lfn_Cursor_EchoConfig [on|off] 
-function Lfn_Cursor_EchoConfig()
+## _F_Cursor_EchoConfig [on|off] 
+function _F_Cursor_EchoConfig()
 {
     if [ -z "$1" ]; then
         exit 0
@@ -49,7 +49,7 @@ function Lfn_Cursor_EchoConfig()
     fi
 }
 
-function Lfn_Cursor_Move()
+function _F_Cursor_Move()
 {
     if [ -z "$1" -o -z "$2" ]; then
         
@@ -77,7 +77,7 @@ function Lfn_Cursor_Move()
 }
 
 
-function Lfn_Stdin_Read()
+function _F_Stdin_Read()
 {
     if [ -z "$1" ]; then
         echo "Sorry, Exit due to the bad usage"
@@ -147,13 +147,13 @@ function Lfn_Stdin_Read()
 ##        "userdebug: It will enable the most debugging features for tracing the platform."
 ##        "user:      It is offically release, and it only disable debugging features."
 ##    )
-##    Lfn_MenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
+##    _F_MenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
 ##    if [ x"${LvpcResult}" = x"${GvMenuUtilsContent[0]}" ]; then
 ##        LvpcOptionBuild=userdebug
 ##        echo "hit"
 ##    fi
 ##
-function Lfn_MenuUtils()
+function _F_MenuUtils()
 {
     if [ $# -gt 5 ]; then
         exit 0
@@ -191,19 +191,19 @@ function Lfn_MenuUtils()
         ## Render UI
         ##
         if [ x"$2" = x"Select" ]; then # Input Mode
-            Lfn_Cursor_EchoConfig "off"
+            _F_Cursor_EchoConfig "off"
         fi
         clear
         LvRenderLine=${LvVisuY}
         if [ x"$5" != x ]; then # exist title
-            Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine}
+            _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
             echo "$5"
             LvRenderLine=$(( LvRenderLine + 1 ))
         fi
         if [ ${LvVisuCount} -gt 0 ]; then
             for (( LvVisuIdx=0 ; LvVisuIdx<LvVisuCount ; LvVisuIdx++ )) do
                 if [ x"$2" = x"Select" ]; then
-                    Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine}
+                    _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
                     if [ ${LvVisuFocus} -eq ${LvVisuIdx} ]; then
                         if [ ${LvVisuFocus} -ne ${LvVisuNextFocus} ]; then
                             # Cancel the focus item reversed style
@@ -227,7 +227,7 @@ function Lfn_MenuUtils()
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
                 if [ x"$2" = x"Input" ]; then
-                    Lfn_Cursor_Move ${LvVisuX} ${LvRenderLine}
+                    _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
                     echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
@@ -237,10 +237,10 @@ function Lfn_MenuUtils()
             ##
 
             if [ x"$2" = x"Select" ]; then
-                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 4 ))"
+                _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 4 ))"
                 # echo "Focus:${LvVisuFocus} NextFocus:${LvVisuNextFocus} Count:${LvVisuCount}"
                 echo "Focus:${LvVisuFocus} Count:${LvVisuCount}"
-                Lfn_Stdin_Read LvCustuiData
+                _F_Stdin_Read LvCustuiData
                 case "${LvCustuiData}" in
                 "KeyUp"|"k")
                     if [ ${LvVisuNextFocus} -eq 0 ]; then
@@ -257,7 +257,7 @@ function Lfn_MenuUtils()
                 "KeySpaceOrEnter")
                     echo ""
                     LvVisuFocus=${LvVisuNextFocus}
-                    Lfn_Cursor_EchoConfig "on"
+                    _F_Cursor_EchoConfig "on"
                     break
                     ;;
                 "q")
@@ -265,18 +265,18 @@ function Lfn_MenuUtils()
                     echo ""
                     echo "Exit: Quit due to your choice: q"
                     echo ""
-                    Lfn_Cursor_EchoConfig "on"
+                    _F_Cursor_EchoConfig "on"
                     exit 0
                     ;;
                 *)
                     ;;
                 esac
-                Lfn_Cursor_EchoConfig "on"
+                _F_Cursor_EchoConfig "on"
             fi
             if [ x"$2" = x"Input" ]; then
-                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
                 echo "[Please Input A String (Dont repeat name with the above)]"
-                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
                 read LvVisuData
                 if [ -z "${LvVisuData}" ]; then
                     echo ""
@@ -313,9 +313,9 @@ function Lfn_MenuUtils()
                 return
             fi
             if [ x"$2" = x"Input" ]; then
-                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
                 echo "[Please Input A String (Dont repeat name with the above)]"
-                Lfn_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
                 read LvVisuData
                 echo ""
                 if [ x"${LvVisuData}" != x ]; then
@@ -358,13 +358,13 @@ function Lfn_MenuUtils()
 ##        "user8:      It is offically release, and it only disable debugging features."
 ##        "user9:      It is offically release, and it only disable debugging features."
 ##  )
-##  Lfn_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
+##  _F_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
 ##  if [ x"${LvpcResult}" = x"${___PMUC[0]}" ]; then
 ##      LvpcOptionBuild=userdebug
 ##      echo "hit"
 ##  fi
 ##
-function Lfn_PageMenuUtils()
+function _F_PageMenuUtils()
 {
     if [ $# -gt 5 ]; then
         exit 0
@@ -401,7 +401,7 @@ function Lfn_PageMenuUtils()
         if [ ${LvIdx} -ne ${LvPageMenuUtilsContentCount} ]; then
             GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
         fi
-        Lfn_MenuUtils LvResult  "$2" $3 $4 "$5"
+        _F_MenuUtils LvResult  "$2" $3 $4 "$5"
         unset GvMenuUtilsContent
         if [ x"${LvResult}" = x"NextPage.$((LvPageIdx+1))" ]; then
             LvPageIdx=$((LvPageIdx+1))
@@ -413,11 +413,11 @@ function Lfn_PageMenuUtils()
 }
 
 
-## Lfn_Stdin_GetDigit <oResult> [<prompt>]
+## _F_Stdin_GetDigit <oResult> [<prompt>]
 ##
-## Lfn_Stdin_GetDigit  oResult  "hello world: "
+## _F_Stdin_GetDigit  oResult  "hello world: "
 ## echo "Result: $oResult"
-function Lfn_Stdin_GetDigit()
+function _F_Stdin_GetDigit()
 {
     if [ ! -z "$2" ]; then 
         LvSgdCmd='read -p "$2 " LvSgdNum'
@@ -470,8 +470,8 @@ declare -a ___PMUC=(
     "test: test-2"
     "test: test-3"
 )
-Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
-if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
+_F_PageMenuUtils ___res  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
+if [ x"${___res}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
     unset ___PMUC
     echo
@@ -480,7 +480,7 @@ if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
+if [ x"${___res}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
     unset ___PMUC
     echo
@@ -489,7 +489,7 @@ if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
+if [ x"${___res}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
     unset ___PMUC
     echo
@@ -498,7 +498,7 @@ if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
     exit 0
 fi
 
-if [ x"${GvResult}" = x"${___PMUC[i++]}" ]; then
+if [ x"${___res}" = x"${___PMUC[i++]}" ]; then
     unset ___PU
     unset ___PMUC
     echo
