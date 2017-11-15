@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 08:58:26
+#   ModifiedTime: 2017-11-15 09:10:31
 
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
@@ -14,7 +14,11 @@
 function Reachxm_MDM9x07_by_jllim()
 {
     if [ -e "$(pwd)/.Reachxm_MDM9x07_by_jllim" ]; then
-        source $(pwd)/.Reachxm_MDM9x07_by_jllim 
+        source $(pwd)/.Reachxm_MDM9x07_by_jllim
+    else
+       if [ -e "${HOME}/.Reachxm_MDM9x07_by_jllim" ]; then
+           source ${HOME}/.Reachxm_MDM9x07_by_jllim 
+       fi
     fi
 
     jllProject="L170H"  #
