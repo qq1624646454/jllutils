@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 21:11:31
-#   ModifiedTime: 2017-11-15 09:38:41
+#   ModifiedTime: 2017-11-15 11:43:02
 
 
 #------------- Start Of UI Library ---------------
@@ -45,7 +45,7 @@ ___BgWhite="\033[47m"
 function _F_Cursor_EchoConfig()
 {
     if [ -z "$1" ]; then
-        exit 0
+        return 1
     fi
     if [ x"$1" = x"off" ]; then
         echo -e "${___AccOff}\033[?25l${___AccOff}"
@@ -53,33 +53,34 @@ function _F_Cursor_EchoConfig()
     if [ x"$1" = x"on" ]; then
         echo -e "${___AccOff}\033[?25h${___AccOff}"
     fi
+    return 0
 }
 
 function _F_Cursor_Move()
 {
     if [ -z "$1" -o -z "$2" ]; then
-        
         echo "Sorry,Exit due to the invalid usage" 
-        exit 0
+        return 1 
     fi
 
     echo $1 | grep -E '[^0-9]' >/dev/null && LvCmFlag="0" || LvCmFlag="1";
     if [ x"${LvCmFlag}" = x"0" ]; then
         
         echo "Sorry,Return because the parameter1 isn't digit" 
-        return; 
+        return 1
     fi
 
     echo $2 | grep -E '[^0-9]' >/dev/null && LvCmFlag="0" || LvCmFlag="1";
     if [ x"${LvCmFlag}" = x"0" ]; then
-        
         echo "Sorry,Return because the parameter2 isn't digit" 
-        return; 
+        return 1
     fi
 
     #'\c' or '-n' - dont break line
     LvCmTargetLocation="${___AccOff}\033[$2;$1H${___AccOff}"
     echo -ne "${LvCmTargetLocation}"
+
+    return 0
 }
 
 
@@ -87,8 +88,7 @@ function _F_Stdin_Read()
 {
     if [ -z "$1" ]; then
         echo "Sorry, Exit due to the bad usage"
-        
-        exit 0
+        return 1 
     fi
 
     LvSrData=""
@@ -144,17 +144,18 @@ function _F_Stdin_Read()
     done
     trap "" 2  # disable to capture the singal from keyboard input ctrl_c
     eval $1="${LvSrData}"
+    return 0
 }
 
 
 
 ##
-##    declare -a GvMenuUtilsContent=(
+##    declare -a __PMUC=(
 ##        "userdebug: It will enable the most debugging features for tracing the platform."
 ##        "user:      It is offically release, and it only disable debugging features."
 ##    )
 ##    _F_MenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
-##    if [ x"${LvpcResult}" = x"${GvMenuUtilsContent[0]}" ]; then
+##    if [ x"${LvpcResult}" = x"${__PMUC[0]}" ]; then
 ##        LvpcOptionBuild=userdebug
 ##        echo "hit"
 ##    fi
@@ -162,7 +163,7 @@ function _F_Stdin_Read()
 function _F_MenuUtils()
 {
     if [ $# -gt 5 ]; then
-        exit 0
+        return 1 
     fi
 
     # Check if parameter is digit and Converse it to a valid parameter
@@ -177,15 +178,15 @@ function _F_MenuUtils()
 
     # Check if parameter is a valid
     if [ x"$2" != x"Input" -a x"$2" != x"Select" ]; then
-        exit 0
+        return 1 
     fi
 
-    #LvVisuCount=$[${#GvMenuUtilsContent[@]} / 2]
-    LvVisuCount=$(( ${#GvMenuUtilsContent[@]} / 1 ))
+    #LvVisuCount=$[${#__PMUC[@]} / 2]
+    LvVisuCount=$(( ${#__PMUC[@]} / 1 ))
     if [ x"$2" = x"Select" -a ${LvVisuCount} -lt 1 ]; then
         # Select Mode but none item to be selected
         echo "Sorry, Cant Run Select Mode Because of None items to be selected."
-        return
+        return 1
     fi
 
     # Select for configuration guide
@@ -198,11 +199,15 @@ function _F_MenuUtils()
         ##
         if [ x"$2" = x"Select" ]; then # Input Mode
             _F_Cursor_EchoConfig "off"
+            if [ x"$?" = x"1" ]; then
+                return 1
+            fi
         fi
         clear
         LvRenderLine=${LvVisuY}
         if [ x"$5" != x ]; then # exist title
             _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
+            [ x"$?" != x"0" ] && return 1
             echo "$5"
             LvRenderLine=$(( LvRenderLine + 1 ))
         fi
@@ -210,31 +215,33 @@ function _F_MenuUtils()
             for (( LvVisuIdx=0 ; LvVisuIdx<LvVisuCount ; LvVisuIdx++ )) do
                 if [ x"$2" = x"Select" ]; then
                     _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
+                    [ x"$?" != x"0" ] && return 1
                     if [ ${LvVisuFocus} -eq ${LvVisuIdx} ]; then
                         if [ ${LvVisuFocus} -ne ${LvVisuNextFocus} ]; then
                             # Cancel the focus item reversed style
-                            echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
+                            echo -ne " |--- ${__PMUC[LvVisuIdx]}"
                             LvVisuFocus=99999 # lose the focus
                         else
                             # When Focus is the same to Next Focus, such as only exist one item
                             # Echo By Reversing its color
-                            echo -ne " |--- ${___AccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${___AccOff}"
+                            echo -ne " |--- ${___AccOff}\033[07m${__PMUC[LvVisuIdx]}${___AccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         fi
                     else
                         if [ ${LvVisuNextFocus} -eq ${LvVisuIdx} ]; then
                             # Echo By Reversing its color
-                            echo -ne " |--- ${___AccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${___AccOff}"
+                            echo -ne " |--- ${___AccOff}\033[07m${__PMUC[LvVisuIdx]}${___AccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         else
-                            echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
+                            echo -ne " |--- ${__PMUC[LvVisuIdx]}"
                         fi
                     fi
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
                 if [ x"$2" = x"Input" ]; then
                     _F_Cursor_Move ${LvVisuX} ${LvRenderLine}
-                    echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
+                    [ x"$?" != x"0" ] && return 1
+                    echo -ne " |--- ${__PMUC[LvVisuIdx]}"
                     LvRenderLine=$(( LvRenderLine + 1 ))
                 fi
             done
@@ -244,9 +251,11 @@ function _F_MenuUtils()
 
             if [ x"$2" = x"Select" ]; then
                 _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 4 ))"
+                [ x"$?" != x"0" ] && return 1
                 # echo "Focus:${LvVisuFocus} NextFocus:${LvVisuNextFocus} Count:${LvVisuCount}"
                 echo "Focus:${LvVisuFocus} Count:${LvVisuCount}"
                 _F_Stdin_Read LvCustuiData
+                [ x"$?" != x"0" ] && return 1
                 case "${LvCustuiData}" in
                 "KeyUp"|"k")
                     if [ ${LvVisuNextFocus} -eq 0 ]; then
@@ -264,6 +273,9 @@ function _F_MenuUtils()
                     echo ""
                     LvVisuFocus=${LvVisuNextFocus}
                     _F_Cursor_EchoConfig "on"
+                    if [ x"$?" = x"1" ]; then
+                        return 1;
+                    fi
                     break
                     ;;
                 "q")
@@ -272,17 +284,22 @@ function _F_MenuUtils()
                     echo "Exit: Quit due to your choice: q"
                     echo ""
                     _F_Cursor_EchoConfig "on"
-                    exit 0
+                    return 1
                     ;;
                 *)
                     ;;
                 esac
                 _F_Cursor_EchoConfig "on"
+                if [ x"$?" = x"1" ]; then
+                    return 1;
+                fi
             fi
             if [ x"$2" = x"Input" ]; then
                 _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                [ x"$?" != x"0" ] && return 1
                 echo "[Please Input A String (Dont repeat name with the above)]"
                 _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                [ x"$?" != x"0" ] && return 1
                 read LvVisuData
                 if [ -z "${LvVisuData}" ]; then
                     echo ""
@@ -292,12 +309,12 @@ function _F_MenuUtils()
                     echo ""
                     echo "Exit: due to your choice: q"
                     echo ""
-                    exit 0
+                    return 1 
                 fi
                 LvVisuIsLoop=0
                 if [ ${LvVisuCount} -gt 0 ]; then
                     for (( LvVisuIdx=0 ; LvVisuIdx<LvVisuCount ; LvVisuIdx++ )) do
-                        if [ x"${GvMenuUtilsContent[LvVisuIdx]}" = x"${LvVisuData}" ]; then
+                        if [ x"${__PMUC[LvVisuIdx]}" = x"${LvVisuData}" ]; then
                             LvVisuIsLoop=1
                             echo "Sorry, Dont repeat to name the above Items:\"${LvVisuData}\""
                             echo ""
@@ -316,12 +333,14 @@ function _F_MenuUtils()
         else
             if [ x"$2" = x"Select" ]; then
                 eval $1=""
-                return
+                return 1
             fi
             if [ x"$2" = x"Input" ]; then
                 _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 1 ))"
+                [ x"$?" != x"0" ] && return 1
                 echo "[Please Input A String (Dont repeat name with the above)]"
                 _F_Cursor_Move ${LvVisuX} "$(( LvRenderLine + 2 ))"
+                [ x"$?" != x"0" ] && return 1
                 read LvVisuData
                 echo ""
                 if [ x"${LvVisuData}" != x ]; then
@@ -340,7 +359,7 @@ function _F_MenuUtils()
     if [ x"$2" = x"Select" ]; then
         if [ ${LvVisuFocus} -ge 0 -a ${LvVisuFocus} -lt ${LvVisuCount} ]; then
             echo ""
-            eval $1=$(echo -e "${GvMenuUtilsContent[LvVisuFocus]}" | sed "s:\ :\\\\ :g")
+            eval $1=$(echo -e "${__PMUC[LvVisuFocus]}" | sed "s:\ :\\\\ :g")
         fi
     fi
 
@@ -373,7 +392,7 @@ function _F_MenuUtils()
 function _F_PageMenuUtils()
 {
     if [ $# -gt 5 ]; then
-        exit 0
+        return 1 
     fi
 
     # Check if parameter is digit and Converse it to a valid parameter
@@ -388,7 +407,7 @@ function _F_PageMenuUtils()
 
     # Check if parameter is a valid
     if [ x"$2" != x"Input" -a x"$2" != x"Select" ]; then
-        exit 0
+        return 1 
     fi
 
     LvPageMenuUtilsContentCount=${#___PMUC[@]}
@@ -396,19 +415,20 @@ function _F_PageMenuUtils()
     LvPageCount=$((LvPageMenuUtilsContentCount/___PU)) 
     while [ ${LvPageMenuUtilsContentCount} -gt 0 ]; do
         # Loading the specified page to display
-        declare -a GvMenuUtilsContent
+        declare -a __PMUC
         for(( LvIdx=$((___PU*LvPageIdx)); LvIdx < LvPageMenuUtilsContentCount; LvIdx++ )) {
             if [ ${LvIdx} -lt $((___PU*LvPageIdx+___PU)) ]; then
-                GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="${___PMUC[${LvIdx}]}"
+                __PMUC[LvIdx-$((___PU*LvPageIdx))]="${___PMUC[${LvIdx}]}"
             else
                 break
             fi
         }
         if [ ${LvIdx} -ne ${LvPageMenuUtilsContentCount} ]; then
-            GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
+            __PMUC[LvIdx-$((___PU*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
         fi
         _F_MenuUtils LvResult  "$2" $3 $4 "$5"
-        unset GvMenuUtilsContent
+        unset __PMUC
+        [ x"$?" != x"0" ] && return 1
         if [ x"${LvResult}" = x"NextPage.$((LvPageIdx+1))" ]; then
             LvPageIdx=$((LvPageIdx+1))
             continue
@@ -416,6 +436,7 @@ function _F_PageMenuUtils()
         break
     done
     eval $1=$(echo -e "${LvResult}" | sed "s:\ :\\\\ :g")
+    return 0
 }
 
 
@@ -473,62 +494,94 @@ cat >${HOME}/.Reachxm_MDM9x07_by_jllim<<EOF
 ##        /media/root/work/jllproject/trunk_L170H/apps_proc
 ## 
 
-declare -i ___PU=10
 declare -a ___PMUC=(
   #Project_Identifier  #Project_Path
-  "L170H => /media/root/work/jllproject/trunk_L170H/apps_proc"
-  "L170XGHD => /media/root/work/jllproject/trunk_xghd/apps_proc"
-  "L170XY => /media/root/work/jllproject/trunk_yx/apps_proc"
+  "L170H = /media/root/work/jllproject/trunk_L170H/apps_proc"
+  "L170XGHD = /media/root/work/jllproject/trunk_xghd/apps_proc"
+  "L170YX = /media/root/work/jllproject/trunk_yx/apps_proc"
 )
-##  _F_PageMenuUtils LvpcResult  "Select" 7 4 "***** PhilipsTV Product Type (q: quit) *****"
-#
 
 
+# Please not need to modify ___PU which is page unit lines
+declare -i ___PU=10
 
 EOF
+           chmod +w ${HOME}/.Reachxm_MDM9x07_by_jllim
+           vim ${HOME}/.Reachxm_MDM9x07_by_jllim
        fi
     fi
+    jllProject=""
+    jllRoot=""
+    if [ x"${___PMUC}" != x ]; then
+        [ x"${___PU}" = x ] && ___PU=10
+        _F_PageMenuUtils _sel  "Select" 7 4 "***** Which Project Configuration (q: quit) *****"
+        [ x"${___PMUC}" != x ] && unset ___PMUC
+        [ x"${___PU}" != x ] && unset ___PU
+        [ x"$?" != x"0" ] && return 1
 
+        jllProject="${_sel%% = *}"
+        jllRoot="${_sel#* = }"
+    fi
+    [ x"${___PMUC}" != x ] && unset ___PMUC
+    [ x"${___PU}" != x ] && unset ___PU
 
+    if [ x"${jllProject}" = x -o x"${jllRoot}" = x ]; then
+        echo
+        echo -e "JLLim: [0m[31mError, not found the valid Project_Identifier or Project_Path[0m"
+        echo
+        return 
+    fi
 
-    declare -a GvMenuUtilsContent=(
-        "CodeTree: Enter"
-        "Kernel:   Build"
-        "Kernel:   Flash"
-        "All:      Build"
-        "All:      Flash"
-        "All:      Update and reBuild"
-        "Usage:    Help Information"
-    )
-    GvMenuUtilsContentCnt=${#GvMenuUtilsContent[@]}
+    echo "JLLim: Project_Identifier=${jllProject}"
+    echo "JLLim: Project_Path=${jllRoot}"
 
     while [ 1 -eq 1 ]; do
-        Lfn_MenuUtils GvResult  "Select" 7 4 \
-            "***** ${jllProject} Main MENU (q: quit no matter what) *****"
-        GvResultID=0
+        declare -a ___PMUC=(
+            "CodeTree: Enter"
+            "Kernel:   Build"
+            "Kernel:   Flash"
+            "All:      Build"
+            "All:      Flash"
+            "All:      Update and reBuild"
+            "Usage:    Help Information"
+        )
+        declare -i ___PU=10
+        ___PMUCCnt=${#___PMUC[@]}
+        _F_PageMenuUtils _sel  "Select" 7 4 \
+            "***** ${jllProject} Action Menu (q: quit) *****"
+        if [ x"$?" != x"0" ]; then
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
+            return 1;
+        fi
+
+        _resID=0
 
         # "CodeTree: Enter"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
 
-            declare -a GvMenuUtilsContent=(
+            declare -a ___PMUC=(
                 "kernel path"
                 "mcm-api path"
                 "build path"
                 "images path"
             )
-            GvMenuUtilsContentCnt=${#GvMenuUtilsContent[@]}
-            Lfn_MenuUtils GvResult  "Select" 7 4 \
+            ___PU=10
+            ___PMUCCnt=${#___PMUC[@]}
+            _F_PageMenuUtils _sel  "Select" 7 4 \
                 "***** ${jllProject} CodeTree MENU (q: quit no matter what) *****"
-            GvResultID=0
+            _resID=0
             #kernel path
-            if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
                 clear
-                [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-                [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+                [ x"${___PU}" != x ] && unset ___PU
+                [ x"${___PMUC}" != x ] && unset ___PMUC
+                [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
                 jllTarget="${jllRoot}/kernel/msm-3.18"
                 if [ -e "${jllTarget}" ]; then
                     cd ${jllTarget}
@@ -538,10 +591,11 @@ EOF
                 break 
             fi
             #mcm-api path
-            if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
                 clear
-                [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-                [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+                [ x"${___PU}" != x ] && unset ___PU
+                [ x"${___PMUC}" != x ] && unset ___PMUC
+                [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
                 jllTarget="${jllRoot}/mcm-api"
                 if [ -e "${jllTarget}" ]; then
                     cd ${jllTarget}
@@ -551,10 +605,11 @@ EOF
                 break 
             fi
             #build path
-            if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
                 clear
-                [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-                [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+                [ x"${___PU}" != x ] && unset ___PU
+                [ x"${___PMUC}" != x ] && unset ___PMUC
+                [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
                 jllTarget="${jllRoot}/poky"
                 if [ -e "${jllTarget}" ]; then
                     cd ${jllTarget}
@@ -564,10 +619,11 @@ EOF
                 break 
             fi
             #images path
-            if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+            if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
                 clear
-                [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-                [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+                [ x"${___PU}" != x ] && unset ___PU
+                [ x"${___PMUC}" != x ] && unset ___PMUC
+                [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
                 jllTarget="${jllRoot}/poky/build/tmp-glibc/deploy/images"
                 if [ -e "${jllTarget}" ]; then
                     cd ${jllTarget}
@@ -581,10 +637,11 @@ EOF
         fi
 
         #"Kernel:   Build"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
             if [ ! -e "${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh" ]; then
                 echo -e \
@@ -599,10 +656,11 @@ EOF
         fi
 
         #"Kernel:   Flash"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
             if [ ! -e "${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607/mdm9607-boot.img" ];
             then
@@ -621,10 +679,11 @@ EOF
         fi
 
         #"All:      Build"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
             if [ ! -e "${jllRoot}/poky/build/conf/set_bb_env_${jllProject}.sh" ]; then
                 echo -e \
@@ -650,10 +709,11 @@ EOF
         fi
 
         # "All:      Flash"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
             if [ ! -e "${jllRoot}/poky/build/tmp-glibc/deploy/images/mdm9607/appsboot.mbn" ];
             then
@@ -692,10 +752,11 @@ EOF
         fi
 
         # "All:      Update and reBuild"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
             if [ ! -e "${jllRoot}/../.svn" ]; then
                 echo -e "JLLim: Not found ${Fred}${jllRoot}/../.svn${AC}"
@@ -741,10 +802,11 @@ EOF
         fi
 
         # "Usage:    Help Information"
-        if [ x"${GvResult}" = x"${GvMenuUtilsContent[GvResultID++]}" ]; then
+        if [ x"${_sel}" = x"${___PMUC[_resID++]}" ]; then
             clear
-            [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-            [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+            [ x"${___PU}" != x ] && unset ___PU
+            [ x"${___PMUC}" != x ] && unset ___PMUC
+            [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
             echo
 cat >&1<<EOF
 
@@ -775,9 +837,9 @@ bitbake uarttest
 EOF
             break 
         fi
- 
     done
-    [ x"${GvMenuUtilsContent}" != x ] && unset GvMenuUtilsContent
-    [ x"${GvMenuUtilsContentCnt}" != x ] && unset GvMenuUtilsContentCnt
+    [ x"${___PU}" != x ] && unset ___PU
+    [ x"${___PMUC}" != x ] && unset ___PMUC
+    [ x"${___PMUCCnt}" != x ] && unset ___PMUCCnt
 }
 export -f Reach_MDM9x07_BY_JLLim
