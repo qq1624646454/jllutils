@@ -13,25 +13,25 @@
 # 海蓝:SeaBlue
 # 白:White
 
-CvAccOff="\033[0m"
+____CvAccOff="\033[0m"
 
-CvFgBlack="\033[30m"
-CvFgRed="\033[31m"
-CvFgGreen="\033[32m"
-CvFgYellow="\033[33m"
-CvFgBlue="\033[34m"
-CvFgPink="\033[35m"
-CvFgSeaBule="\033[36m"
-CvFgWhite="\033[37m"
+____CvFgBlack="\033[30m"
+____CvFgRed="\033[31m"
+____CvFgGreen="\033[32m"
+____CvFgYellow="\033[33m"
+____CvFgBlue="\033[34m"
+____CvFgPink="\033[35m"
+____CvFgSeaBule="\033[36m"
+____CvFgWhite="\033[37m"
 
-CvBgBlack="\033[40m"
-CvBgRed="\033[41m"
-CvBgGreen="\033[42m"
-CvBgYellow="\033[43m"
-CvBgBlue="\033[44m"
-CvBgPink="\033[45m"
-CvBgSeaBule="\033[46m"
-CvBgWhite="\033[47m"
+____CvBgBlack="\033[40m"
+____CvBgRed="\033[41m"
+____CvBgGreen="\033[42m"
+____CvBgYellow="\033[43m"
+____CvBgBlue="\033[44m"
+____CvBgPink="\033[45m"
+____CvBgSeaBule="\033[46m"
+____CvBgWhite="\033[47m"
 
 
 
@@ -42,10 +42,10 @@ function Lfn_Cursor_EchoConfig()
         exit 0
     fi
     if [ x"$1" = x"off" ]; then
-        echo -e "${CvAccOff}\033[?25l${CvAccOff}"
+        echo -e "${____CvAccOff}\033[?25l${____CvAccOff}"
     fi
     if [ x"$1" = x"on" ]; then
-        echo -e "${CvAccOff}\033[?25h${CvAccOff}"
+        echo -e "${____CvAccOff}\033[?25h${____CvAccOff}"
     fi
 }
 
@@ -72,7 +72,7 @@ function Lfn_Cursor_Move()
     fi
 
     #'\c' or '-n' - dont break line
-    LvCmTargetLocation="${CvAccOff}\033[$2;$1H${CvAccOff}"
+    LvCmTargetLocation="${____CvAccOff}\033[$2;$1H${____CvAccOff}"
     echo -ne "${LvCmTargetLocation}"
 }
 
@@ -212,13 +212,13 @@ function Lfn_MenuUtils()
                         else
                             # When Focus is the same to Next Focus, such as only exist one item
                             # Echo By Reversing its color
-                            echo -ne " |--- ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            echo -ne " |--- ${____CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${____CvAccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         fi
                     else
                         if [ ${LvVisuNextFocus} -eq ${LvVisuIdx} ]; then
                             # Echo By Reversing its color
-                            echo -ne " |--- ${CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${CvAccOff}"
+                            echo -ne " |--- ${____CvAccOff}\033[07m${GvMenuUtilsContent[LvVisuIdx]}${____CvAccOff}"
                             LvVisuFocus=${LvVisuNextFocus}
                         else
                             echo -ne " |--- ${GvMenuUtilsContent[LvVisuIdx]}"
@@ -345,7 +345,7 @@ function Lfn_MenuUtils()
 
 
 ##
-##  declare -i GvPageUnit=10
+##  declare -i ___PU=10
 ##  declare -a GvPageMenuUtilsContent=(
 ##        "userdebug: It will enable the most debugging features for tracing the platform."
 ##        "user1:      It is offically release, and it only disable debugging features."
@@ -387,19 +387,19 @@ function Lfn_PageMenuUtils()
 
     LvPageMenuUtilsContentCount=${#GvPageMenuUtilsContent[@]}
     LvPageIdx=0
-    LvPageCount=$((LvPageMenuUtilsContentCount/GvPageUnit)) 
+    LvPageCount=$((LvPageMenuUtilsContentCount/___PU)) 
     while [ ${LvPageMenuUtilsContentCount} -gt 0 ]; do
         # Loading the specified page to display
         declare -a GvMenuUtilsContent
-        for(( LvIdx=$((GvPageUnit*LvPageIdx)); LvIdx < LvPageMenuUtilsContentCount; LvIdx++ )) {
-            if [ ${LvIdx} -lt $((GvPageUnit*LvPageIdx+GvPageUnit)) ]; then
-                GvMenuUtilsContent[LvIdx-$((GvPageUnit*LvPageIdx))]="${GvPageMenuUtilsContent[${LvIdx}]}"
+        for(( LvIdx=$((___PU*LvPageIdx)); LvIdx < LvPageMenuUtilsContentCount; LvIdx++ )) {
+            if [ ${LvIdx} -lt $((___PU*LvPageIdx+___PU)) ]; then
+                GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="${GvPageMenuUtilsContent[${LvIdx}]}"
             else
                 break
             fi
         }
         if [ ${LvIdx} -ne ${LvPageMenuUtilsContentCount} ]; then
-            GvMenuUtilsContent[LvIdx-$((GvPageUnit*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
+            GvMenuUtilsContent[LvIdx-$((___PU*LvPageIdx))]="NextPage.$((LvPageIdx+1))"
         fi
         Lfn_MenuUtils LvResult  "$2" $3 $4 "$5"
         unset GvMenuUtilsContent
@@ -452,7 +452,7 @@ cat >&1<<EOF
       ***** Actions (q: quit) *****
 EOF
 
-echo -e " ${CvAccOff}${CvFgSeaBule}${CvBgRed}Flash.Kernel: ...${CvAccOff}"
+echo -e " ${____CvAccOff}${____CvFgSeaBule}${____CvBgRed}Flash.Kernel: ...${____CvAccOff}"
 echo -e " ..."
 echo -e " ..."
 echo
@@ -464,7 +464,7 @@ fi
 
 
 i=0
-declare -i GvPageUnit=10
+declare -i ___PU=10
 declare -a GvPageMenuUtilsContent=(
     "test: test-1"
     "test: test-2"
@@ -472,7 +472,7 @@ declare -a GvPageMenuUtilsContent=(
 )
 Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: quit) *****"
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
-    unset GvPageUnit
+    unset ___PU
     unset GvPageMenuUtilsContent
     echo
     echo "JLLim: test-$i"
@@ -481,7 +481,7 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
 fi
 
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
-    unset GvPageUnit
+    unset ___PU
     unset GvPageMenuUtilsContent
     echo
     echo "JLLim: test-$i"
@@ -490,7 +490,7 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
 fi
 
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
-    unset GvPageUnit
+    unset ___PU
     unset GvPageMenuUtilsContent
     echo
     echo "JLLim: test-$i"
@@ -499,7 +499,7 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
 fi
 
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
-    unset GvPageUnit
+    unset ___PU
     unset GvPageMenuUtilsContent
     echo
     echo "JLLim: test-$i"
@@ -507,6 +507,6 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i++]}" ]; then
     exit 0
 fi
 
-[ x"${GvPageUnit}" != x ] && unset GvPageUnit                  
+[ x"${___PU}" != x ] && unset ___PU                  
 [ x"${GvPageMenuUtilsContent}" != x"${GvPageMenuUtilsContent}" ] && unset GvPageMenuUtilsContent
 
