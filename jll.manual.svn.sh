@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2017-11-08 00:41:01
+#   ModifiedTime: 2017-11-20 09:03:02
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,6 +24,9 @@ ${Fseablue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
 
 ${Fseablue}svn log -l20${AC}
 # git log -n 20
+
+${Fseablue}svn diff -r r174:r173${AC}
+# git diff CABC01:CABC00
 
 ${Fseablue}svn info .${AC}
 # repo info .
