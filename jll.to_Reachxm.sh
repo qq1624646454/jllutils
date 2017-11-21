@@ -33,7 +33,7 @@ fi
 
 GvAccount=$1
 
-GvDevice=Jllim_tun
+GvDevice=JLLim_tun
 GvDeviceID=30
 
 GvIP=$(/sbin/ifconfig ${GvDevice} \
