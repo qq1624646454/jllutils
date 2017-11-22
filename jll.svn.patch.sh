@@ -288,7 +288,10 @@ for GvSvnFile in ${GvCompChoice}; do
             echo "${GvSvnFile}"         | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
+read -p "diff \${PatchPath}${GvSvnFile##${GvCurPath}} if press [y], or exit " -n 1 _CH_
+if [ x"\${_CH_}" = x"y" ]; then
     vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##*/}
+fi
 
 EOF
         else
