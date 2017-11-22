@@ -138,8 +138,17 @@ declare -a GvCompSources
 declare -i GvCompSourceCount=0
 GvPatchRawSources=$(svn status | awk '{print $NF}')
 for GvPatchS in ${GvPatchRawSources}; do
+
+    GvIsPath=${GvPatchS%/*}
+    GvIsFile=${GvPatchS##*/}
+    if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
+        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" != x ]; then
+
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
     GvCompSourceCount=$[GvCompSourceCount+1]
+
+        fi
+    fi
 done
 unset GvPatchRawSources
 unset GvpatchS
