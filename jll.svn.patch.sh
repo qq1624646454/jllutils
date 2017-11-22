@@ -142,7 +142,7 @@ for GvPatchS in ${GvPatchRawSources}; do
     GvIsPath=${GvPatchS%/*}
     GvIsFile=${GvPatchS##*/}
     if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
-        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" != x ]; then
+        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
 
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
     GvCompSourceCount=$[GvCompSourceCount+1]
@@ -283,7 +283,7 @@ for GvSvnFile in ${GvCompChoice}; do
     GvIsPath=${GvSvnFile%/*}
     GvIsFile=${GvSvnFile##*/}
     if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
-        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" != x ]; then
+        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
             cp -rvf  ${GvSvnFile}       ${GvPatchPath}/SourceFiles/
             echo "${GvSvnFile}"         | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
