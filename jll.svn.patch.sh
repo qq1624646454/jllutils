@@ -237,7 +237,7 @@ fi
 
 cat > ${GvPatchPath}/FileList.txt <<EOF
 
-===== Readme by jielong.lin @ $(date +%Y/%m/%d %H:%M:%S) =====
+===== Readme by jielong.lin @ $(date +%Y/%m/%d\ %H:%M:%S) =====
 
  Please do the follows if apply this patch
    (1) Enter the root of the git reposity :
