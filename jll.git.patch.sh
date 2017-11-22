@@ -129,7 +129,7 @@ echo
 echo
 
 #
-# Dump all difference contains modification based on the current git reposity 
+# Dump all difference contains modification based on the current git repository 
 #
 echo "=== git status ===" 
 git status -s 
@@ -251,7 +251,7 @@ cat > ${GvPatchPath}/FileList.txt <<EOF
 ===== Readme by jielong.lin @ $(date +%Y/%m/%d %H:%M:%S) =====
 
  Please do the follows if apply this patch
-   (1) Enter the root of the git reposity :
+   (1) Enter the root of the git repository :
        $ cd ${GvRootPath}
    (2) Check the patch named 1
        $ git apply --stat 1
@@ -359,16 +359,16 @@ unset GvMenu
 unset GvMenuIdx
 
 if [ ! -e \${GvRootPath} ]; then
-    echo "Error-Exit: Dont exist the target git reposity \"\${GvRootPath}\""
+    echo "Error-Exit: Dont exist the target git repository \"\${GvRootPath}\""
     exit 0
 fi
 
 echo 
-echo "(1) Enter the path of the git reposity : "
+echo "(1) Enter the path of the git repository : "
 cd \${GvRootPath}
 pwd
 echo
-echo "(2) Copy the patch named 1 into the specified git reposity :"
+echo "(2) Copy the patch named 1 into the specified git repository :"
 cp -rvf \${GvCurrentPath}/1  \${GvRootPath}/
 echo
 echo "(3) Apply the patch named 1 :"

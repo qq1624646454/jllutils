@@ -112,7 +112,7 @@ echo
 
 echo "JLLim: Found SVN Root Path is \"${GvRootPath}\"" 
 echo "JLLim: Enter PATH:\"${GvRootPath}\" if press [y], or stay in current path  "
-read -p "JLLim: Your Choice is " GvYourChoice
+read -p "JLLim: Your Choice is " -n 1 GvYourChoice
 echo
 if [ x"${GvYourChoice}" = x"y" ]; then
     cd ${GvRootPath}
@@ -185,7 +185,12 @@ while [ ${GvCompFlag} -eq 1 ]; do
             continue
         fi
         Lfn_Cursor_Mov "${GvCompX}" "right"
-        echo "├── ${GvCompIdx}: ${GvCompSources[GvCompIdx]}" 
+        if [ x"$((GvCompIdx % 2))" = x"0" ]; then
+            echo -e "├── ${GvCompIdx}:[36m${GvCompSources[GvCompIdx]}[0m" 
+        else
+            echo -e "├── ${GvCompIdx}:[35m${GvCompSources[GvCompIdx]}[0m" 
+        fi
+        #echo "├── ${GvCompIdx}: ${GvCompSources[GvCompIdx]}" 
         GvCompFlag=1
     done
     if [ ${GvCompFlag} -ne 1 ]; then
@@ -228,8 +233,8 @@ if [ x"${GvCompChoice}" = x ]; then
     exit 0
 fi
 
-GvPatchDate="$(date +%Y.%m.%d_%H.%M.%S)"
-GvPatchPath="${GvPatchRootPath}/${GvPatchDate}"
+GvPatchDate="$(date +%Y.%m.%d___%H.%M.%S)"
+GvPatchPath="${GvPatchRootPath}/R_${GvPatchDate}"
 if [ ! -e "${GvPatchPath}" ]; then
     mkdir -pv ${GvPatchPath}
     chmod -R 0777 ${GvPatchPath}
@@ -284,18 +289,37 @@ for GvSvnFile in ${GvCompChoice}; do
     GvIsFile=${GvSvnFile##*/}
     if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
         if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
-            cp -rvf  ${GvSvnFile}       ${GvPatchPath}/SourceFiles/
-            echo "${GvSvnFile}"         | tee -a ${GvPatchPath}/FileList.txt
+            targetPath="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+            targetPath="${targetPath%/*}"
+            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
+            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
+            echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-read -p "diff \${PatchPath}${GvSvnFile##${GvCurPath}} if press [y], or exit " -n 1 _CH_
-if [ x"\${_CH_}" = x"y" ]; then
-    vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##*/}
-fi
+echo "\${PatchPath}${GvSvnFile##${GvCurPath}}:"
+echo "  [y]:     vimdiff SourceCode Patch"
+echo "  [c]:     COPY Patch TO SourceCode"
+echo "  [q]:     Quit from current"
+echo "  [other]: Skip to next"
+read -p "JLLim Choice:  "  -n 1 _CH_
+case x"\${_CH_}" in
+x"y")
+    vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
+    ;;
+x"c")
+    cp -rvf  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}} \${PatchPath}${GvSvnFile##${GvCurPath}}
+    ;;
+x"q")
+    exit 0
+    ;;
+*)
+    ;; 
+esac
+
 
 EOF
         else
-            echo "JLLim: Skipping fold: ${GvSvnFile}"
+            echo "JLLim: Skipping folder: ${GvSvnFile}"
         fi
     fi
 done
@@ -303,7 +327,7 @@ done
 chmod +x ${GvPatchPath}/ApplySvnPatch.sh
 
 echo
-echo "OK"
+echo "OKay"
 echo      
 
 #################################################################################
