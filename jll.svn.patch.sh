@@ -288,7 +288,7 @@ for GvSvnFile in ${GvCompChoice}; do
             echo "${GvSvnFile}"         | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-    vim \${PatchPath}/${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##*/}
+    vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##*/}
 
 EOF
         else
