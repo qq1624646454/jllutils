@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-06-16 20:49:53
+#   ModifiedTime: 2017-11-25 20:09:09
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -13,6 +13,35 @@ source ${JLLPATH}/BashShellLibrary
 
 
 more >&1 <<EOF
+
+All projects for qq1624646454 and linjielong
+    update @2017-11-25
+=============================================================================================
+
+  git@github.com:qq1624646454/jllutils.git
+  https://github.com/qq1624646454/jllutils.git
+
+  git@github.com:qq1624646454/vicc_installer.git
+  git@github.com:qq1624646454/JoyfulPuTTY.git 
+  git@github.com:qq1624646454/vpn_n2n.git
+
+    git@github.com:qq1624646454/philipstv_tpv.git
+    git@github.com:qq1624646454/music_sheet_guitar.git
+    git@github.com:qq1624646454/software_for_win7.git
+    git@github.com:qq1624646454/programming_study.git
+    git@github.com:qq1624646454/StudyStudio.git
+    git@github.com:qq1624646454/players.git
+
+
+  git@github.com:linjielong/linux.git
+
+    git@github.com:linjielong/git_repository_utils4win32.git
+    git@github.com:linjielong/codes4jll.git
+    git@github.com:linjielong/PreStudyNews.git
+    git@github.com:linjielong/CodeFlowchart4RelaxBrainpower.git
+    git@github.com:linjielong/iDSS.git
+
+
 
 
 =============================================================================================
