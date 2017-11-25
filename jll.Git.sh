@@ -88,6 +88,8 @@ declare -a __JLLCFG_SshKey_URLs=(
   "qq1624646454@csdn_github"        "git@github.com:qq1624646454/JoyfulPuTTY.git"
   "qq1624646454@csdn_github"        "git@github.com:qq1624646454/philipstv_tpv.git"
   "jielong.lin_nopassword@github"   "git@github.com:linjielong/iDSS.git"
+  "jielong.lin_nopassword@github"   "git@github.com:linjielong/linux.git"
+  "jielong.lin_nopassword@github"   "git@github.com:linjielong/reachutils.git"
 )
 
 
