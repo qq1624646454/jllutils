@@ -17,6 +17,9 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+aptitude install subversion
+
+
 
 ${Fseablue}svn st | grep '^?' | awk '{print $2}' | xargs rm -rf${AC}
 ${Fseablue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
