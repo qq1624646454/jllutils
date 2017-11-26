@@ -534,6 +534,8 @@ function Lfn_Sys_PathConvertToAbsolutePath()
     if [ x"${LvSpctapTarget}" != x"/" ]; then
         LvSpctapTarget="${LvSpctapTarget%%/}"
     fi
+    LvSpctapTarget=$(echo ${LvSpctapTarget} | sed -e "s#(#\\\(#g")
+    LvSpctapTarget=$(echo ${LvSpctapTarget} | sed -e "s#)#\\\)#g")
     eval $1="${LvSpctapTarget}"
 }
 

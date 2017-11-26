@@ -84,3 +84,8 @@ echo -e "${Fgreen}Howto_Set_Display_Manager: ${AC} /etc/X11/default-display-mana
 echo
 fi
 echo
+echo
+dmidecode
+echo
+
+
