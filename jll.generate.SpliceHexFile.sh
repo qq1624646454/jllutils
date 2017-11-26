@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-16 19:00:37
-#   ModifiedTime: 2016-12-06 11:00:20
+#   ModifiedTime: 2017-11-27 00:35:18
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -19,7 +19,7 @@ declare -i GvPageUnit=10
 declare -a GvPageMenuUtilsContent=(
     "RESET:  reset dump_dev_by_jll.rescue to dump_dev_by_jll"
     "NEW:    remove dump_dev_by_jll.rescue then copy dump_dev_by_jll to dump_dev_by_jll.rescue"
-    "ClEAN:  remove dump_dev_by_jll,dump_dev_by_jll.rescue,dump_orig_by_jll, and so on"
+    "CLEAN:  remove dump_dev_by_jll,dump_dev_by_jll.rescue,dump_orig_by_jll, and so on"
 )
 Lfn_PageMenuUtils _GvAction "Select" 7 4 "***** Operation Selector (q: quit) *****"
 
