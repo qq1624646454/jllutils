@@ -125,6 +125,7 @@ EOF
         if [ -e "${HOME}/.ssh/config" ]; then
             chmod +w ${HOME}/.ssh/config*
         fi
+        ssh-add ${HOME}/.ssh/id_rsa
 
 more>&1<<EOF
 
@@ -272,6 +273,7 @@ EOF
                     if [ -e "${HOME}/.ssh/config" ]; then
                         chmod +w ${HOME}/.ssh/config*
                     fi
+                    ssh-add ${HOME}/.ssh/id_rsa
                     echo
                     echo "JLL-GIT: Change for letting jllutils over SSH"
                     echo
@@ -287,6 +289,7 @@ EOF
                         if [ -e "${HOME}/.ssh/config" ]; then
                             chmod +w ${HOME}/.ssh/config*
                         fi
+                        ssh-add ${HOME}/.ssh/id_rsa
                         [ x"${__result}" != x ] && unset __result
                         [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                         [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
@@ -337,6 +340,7 @@ EOF
                     if [ -e "${HOME}/.ssh/config" ]; then
                         chmod +w ${HOME}/.ssh/config*
                     fi
+                    ssh-add ${HOME}/.ssh/id_rsa
                 fi
                 [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                 [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
