@@ -228,6 +228,7 @@ EOF
                 if [ -e "${HOME}/.ssh/config" ]; then
                     chmod +w ${HOME}/.ssh/config*
                 fi
+                ssh-add ${HOME}/.ssh/id_rsa
             else
                 if [ -e "${HOME}/.ssh" ]; then
                     echo "JLL-SSHKey: \"~/.ssh\" is being moved to \"~/${__ssh_package}\""
