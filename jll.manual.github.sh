@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-11-27 09:01:36
+#   ModifiedTime: 2017-11-27 09:01:42
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -158,12 +158,15 @@ ${Fgreen}(2).查看workspace和index/stage状态：${AC}
 
 
 
-remote: error: GH001: Large files detected. You may want to try Git Large File Storage
-        - https://git-lfs.github.com.
-...
-remote: error: File books/Android/深入理解Android(卷2).pdf is 175.20 MB;
-        this exceeds GitHub's file size limit of 100.00 MB
-
+${Fred}======================================================================================${AC}
+${Fred}remote: error: GH001: Large files detected. You may want to try Git Large File Storage${AC}
+        ${Fred}- https://git-lfs.github.com.${AC}
+${Fred}...${AC}
+${Fred}remote: error: File books/Android/深入理解Android(卷2).pdf is 175.20 MB;${AC}
+        ${Fred}this exceeds GitHub's file size limit of 100.00 MB${AC}
+${Fred}--------------------------------------------------------------------------------------${AC}
+${Fpink}you met the below error when git rm --cached books/Android/深入理解Android\(卷2\).pdf${AC}
+git log -- books/Android/深入理解Android\(卷2\).pdf
 
 
 
