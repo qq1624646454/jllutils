@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-11-27 09:01:42
+#   ModifiedTime: 2017-11-27 15:31:01
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -165,9 +165,10 @@ ${Fred}...${AC}
 ${Fred}remote: error: File books/Android/深入理解Android(卷2).pdf is 175.20 MB;${AC}
         ${Fred}this exceeds GitHub's file size limit of 100.00 MB${AC}
 ${Fred}--------------------------------------------------------------------------------------${AC}
-${Fpink}you met the below error when git rm --cached books/Android/深入理解Android\(卷2\).pdf${AC}
+${Fpink}you maybe meet the error when git rm --cached books/Android/深入理解Android\(卷2\).pdf${AC}
 git log -- books/Android/深入理解Android\(卷2\).pdf
-
+git filter-branch -f --index-filter 'git rm --cached \
+    --ignore-unmatch books/Android/深入理解Android\(卷2\).pdf'
 
 
 
