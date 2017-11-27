@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2017-11-25 20:09:09
+#   ModifiedTime: 2017-11-27 09:00:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -155,6 +155,10 @@ jl@S:~/github/philipstv_tpv$ ${Fgreen}du -h -d 1 ${AC}
 117M    ./DRM_OpenSource
 767M    .
 ${Fgreen}(2).查看workspace和index/stage状态：${AC}
+
+
+
+remote: error: File books/Android/深入理解Android(卷2).pdf is 175.20 MB; this exceeds GitHub's file size limit of 100.00 MB
 
 
 
