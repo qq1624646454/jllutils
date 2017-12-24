@@ -48,7 +48,7 @@ Disk identifier: 0x8d55b9cb
 
 Command (m for help): a
 Partition number (1-4): 1
-​
+
 Command (m for help): p
 
 
@@ -99,7 +99,6 @@ sudo lilo -M /dev/sdb mbr
 下次启动的时候，选择这个USB启动就会出现windows的安装界面了！
 
 另外，我自己也试了unetbootin，不过没有成功，选择从U盘启动后，一直卡在一个选择界面。大家有试成功的麻烦推荐下
-
 
 
 EOF
