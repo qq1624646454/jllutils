@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2017-11-07 14:50:39
+#   ModifiedTime: 2017-12-11 15:30:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,7 +24,24 @@ ${Bgreen}${Fblack} Custom the /etc/init.d/reachservice.sh${AC}
 ${Bgreen}${Fblack}[Ctrl]+[Alt]+[T] ${Fred}# Run Terminate in a separated windows${AC}
 ~# ${Fyellow}cd /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky ${AC}
 /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky# ${Fyellow}source build/conf/set_bb_env_L170H.sh${AC}
+
+# mbuild will first clean then compile
 /media/root/work/mdm9607/mangov2/trunk_yxlog/apps_proc/poky/build# ${Fyellow}mbuild linux-quic${AC}
+
+# originial method to build all
+buildclean
+build-9607-image
+
+# script method to build all
+cd buildapp
+./buildL170HSHIP app
+
+#out: apps_proc/poky/build/tmp-glibc/deploy/images/mdm9607
+
+
+
+
+
 
 ${Bgreen}${Fblack}[Ctrl]+[Shift]+[T] ${Fred}# Run Terminate in a separated table of the same windows${AC}
    adb reboot-bootloader
@@ -39,6 +56,20 @@ ${Fseablue} Suggestion: make a script to run the above commands ${AC}
   ${Fyellow}fastboot devices${AC}
   ${Fyellow}fastboot flash boot mdm9607-boot.img${AC}
   ${Fyellow}fastboot reboot${AC}
+
+
+Lk:      fastboot flash aboot  appsboot.mbn
+Kernel:  fastboot flash boot   mdm9607-boot.img
+System:  fastboot flash system mdm9607-sysfs.ubi
+
+# fast compile kernel
+# 可以在apps_proc\oe-core\build\tmp-glibc\work-shared\mdm9607\kernel-source修改代码
+# 验证正确后，需要手动把代码同步到apps_proc/kernel目录
+# 使用以下命令编译
+bitbake linux-quic -c compile -f   //编译kernel
+bitbake linux-quic -c deploy -f    // 更新镜像
+
+
   
 
 EOF

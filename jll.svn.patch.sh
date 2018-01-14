@@ -137,18 +137,21 @@ echo
 declare -a GvCompSources
 declare -i GvCompSourceCount=0
 GvPatchRawSources=$(svn status | awk '{print $NF}')
+
+#Handling ignored filter
+
 for GvPatchS in ${GvPatchRawSources}; do
 
-    GvIsPath=${GvPatchS%/*}
-    GvIsFile=${GvPatchS##*/}
-    if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
-        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
+    #GvIsPath=${GvPatchS%/*}
+    #GvIsFile=${GvPatchS##*/}
+    #if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
+        #if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
 
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
     GvCompSourceCount=$[GvCompSourceCount+1]
 
-        fi
-    fi
+        #fi
+    #fi
 done
 unset GvPatchRawSources
 unset GvpatchS
@@ -296,30 +299,82 @@ for GvSvnFile in ${GvCompChoice}; do
             echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-echo "\${PatchPath}${GvSvnFile##${GvCurPath}}:"
-echo "  [y]:     vimdiff SourceCode Patch"
-echo "  [c]:     COPY Patch TO SourceCode"
-echo "  [q]:     Quit from current"
-echo "  [other]: Skip to next"
-read -p "JLLim Choice:  "  -n 1 _CH_
-case x"\${_CH_}" in
-x"y")
-    vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
-    ;;
-x"c")
-    cp -rvf  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}} \${PatchPath}${GvSvnFile##${GvCurPath}}
-    ;;
-x"q")
-    exit 0
-    ;;
-*)
-    ;; 
-esac
+if [ -e "\${PatchPath}${GvSvnFile##${GvCurPath}}" ]; then
+    if [ ! -e "${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
+        _SRC_PATH="\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}"
+    else
+        _SRC_PATH="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+    fi
 
+    echo
+    echo "[F] \${PatchPath}${GvSvnFile##${GvCurPath}}:"
+    echo "  [v]:     vimdiff SourceCode Patch"
+    echo "  [c]:     COPY Patch TO SourceCode"
+    echo "  [q]:     Quit from current"
+    echo "  [other]: Skip to next"
+    read -p "JLLim Choice:  "  -n 1 _CH_
+    echo
+    case x"\${_CH_}" in
+    x"v")
+        if [ ! -e "\${_SRC_PATH}" ]; then
+            echo
+            echo "JLLim: Sorry, not found \${_SRC_PATH}"
+            echo
+            cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
+            echo
+        fi
+        vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d \${_SRC_PATH}
+        ;;
+    x"c")
+        cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
+        ;;
+    x"q")
+        exit 0
+        ;;
+    *)
+        ;; 
+    esac
+fi
 
 EOF
         else
-            echo "JLLim: Skipping folder: ${GvSvnFile}"
+            #echo "JLLim: Skipping folder: ${GvSvnFile}"
+            targetPath="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+            targetPath="${targetPath%/*}"
+            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
+            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
+            echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
+cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
+
+#if [ -e "\${PatchPath}${GvSvnFile##${GvCurPath}}" ]; then
+    if [ ! -e "${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
+        _SRC_PATH="\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}"
+    else
+        _SRC_PATH="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+    fi
+
+    echo
+    echo "[D] \${PatchPath}${GvSvnFile##${GvCurPath}}:"
+    echo "  [c]:     COPY Patch TO SourceCode"
+    echo "  [q]:     Quit from current"
+    echo "  [other]: Skip to next"
+    read -p "JLLim Choice:  "  -n 1 _CH_
+    echo
+    case x"\${_CH_}" in
+    x"c")
+        cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
+        ;;
+    x"q")
+        exit 0
+        ;;
+    *)
+        ;; 
+    esac
+#fi
+
+EOF
+
+
         fi
     fi
 done
