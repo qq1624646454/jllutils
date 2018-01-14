@@ -12,6 +12,19 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+
+
+---------------------------------------
+ hotkey
+---------------------------------------
+Shift + # : search for next with highlight 
+\\ + m : select/unselect keyword for remark highlight
+
+
+Ctrl+X Ctrl+O <=> Tab : Auto complete
+Ctrl+\\ S : list all references about current symbol
+Ctrl+n : jump the next 
+
 ---------------------------------------
  install manual
 ---------------------------------------

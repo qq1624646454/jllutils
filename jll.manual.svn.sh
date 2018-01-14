@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2017-11-20 09:03:02
+#   ModifiedTime: 2017-12-18 10:24:59
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -20,9 +20,12 @@ more >&1 <<EOF
 aptitude install subversion
 
 
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
-${Fseablue}svn st | grep '^?' | awk '{print $2}' | xargs rm -rf${AC}
-${Fseablue}svn st | grep '^M' | awk '{print $2}' | xargs svn revert -R${AC}
+
+${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
+${Fseablue}svn st | grep '^~' | awk '{print $2}' | xargs svn revert -R 2>/dev/null${AC}
 # git clean -df
 
 ${Fseablue}svn log -l20${AC}
