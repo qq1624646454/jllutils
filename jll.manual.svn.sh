@@ -5,7 +5,11 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
+<<<<<<< HEAD
 #   ModifiedTime: 2018-01-04 22:02:33
+=======
+#   ModifiedTime: 2017-12-18 10:24:59
+>>>>>>> 456bfe7b7648df55de68f5428013fb4a25794d59
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -20,9 +24,18 @@ more >&1 <<EOF
 aptitude install subversion
 
 
+<<<<<<< HEAD
 ${Fseablue}svn st | grep -E '^\M.*\.o$' | awk '{print \$2}' | xargs rm -rf ${AC}
 ${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rf${AC}
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R${AC}
+=======
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
+
+
+${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
+${Fseablue}svn st | grep '^~' | awk '{print $2}' | xargs svn revert -R 2>/dev/null${AC}
+>>>>>>> 456bfe7b7648df55de68f5428013fb4a25794d59
 # git clean -df
 
 ${Fseablue}svn log -l20${AC}
