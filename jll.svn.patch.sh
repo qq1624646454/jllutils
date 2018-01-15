@@ -294,10 +294,10 @@ for GvSvnFile in ${GvCompChoice}; do
     GvIsFile=${GvSvnFile##*/}
     if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
         if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
-            targetPath="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+            targetPath="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
             targetPath="${targetPath%/*}"
             [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
-            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
+            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}
             echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
@@ -309,7 +309,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
             _PATCH_FILE="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
             break
         fi
-        if [ -e "\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
+        if [ -e "\$(pwd)/SourceFiles${GvSvnFile##${GvCurPath}}" ]; then
             _PATCH_FILE="\$(pwd)/SourceFiles${GvSvnFile##${GvCurPath}}"
             break
         fi
@@ -337,13 +337,13 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
     if [ x"\${_PATCH_FILE}" != x -a -e "\${_PATCH_FILE}" ]; then
         echo
-        echo -e  "${AC}${Byellow}${Fblack}                ${AC}"
-        echo -e  "${AC}${Byellow}${Fblack}[F]_SOURCE_FILE=\${_SOURCE_FILE}${AC}"
-        echo -e  "${AC}${Byellow}${Fblack}                ${AC}"
+        echo -e "${AC}${Byellow}${Fblack}Patch=\${_PATCH_FILE}${AC}"
+        echo -e "${AC}${Byellow}${Fblack}Source=\${_SOURCE_FILE}${AC}"
+ 
         if [ x"\${_SOURCE_FILE}" != x -a -e "\${_SOURCE_FILE}" ]; then
-            echo "  [v]:     \${CMPTOOL} \${_PATCH_FILE} \\\${_SOURCE_FILE}"
+            echo "  [v]:     \${CMPTOOL}  \\\${Patch}  \\\${Source}"
         fi
-        echo     "  [c]:     cp -rvf \${_PATCH_FILE} \\\${_SOURCE_FILE}"
+        echo     "  [c]:     cp -rvf  \\\${Patch}  \\\${Source}"
         echo     "  [q]:     quit from current"
         echo     "  [other]: skip current to next"
         read -p  "JLLim: Choice="  -n 1 _CH_
