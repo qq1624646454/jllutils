@@ -280,8 +280,10 @@ cat >${GvPatchPath}/ApplySvnPatch.sh << EOF
 
 SvnPath=${GvRootPath}
 
-PatchPath=${GvCurPath}
+ProjectPath=${GvCurPath}
 
+#CMPTOOL="vim -d"
+CMPTOOL="bcompare"
 
 EOF
 
@@ -299,81 +301,69 @@ for GvSvnFile in ${GvCompChoice}; do
             echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-if [ -e "\${PatchPath}${GvSvnFile##${GvCurPath}}" ]; then
-    if [ ! -e "${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
-        _SRC_PATH="\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}"
-    else
-        _SRC_PATH="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
-    fi
-
-    echo
-    echo "[F] \${PatchPath}${GvSvnFile##${GvCurPath}}:"
-    echo "  [v]:     vimdiff SourceCode Patch"
-    echo "  [c]:     COPY Patch TO SourceCode"
-    echo "  [q]:     Quit from current"
-    echo "  [other]: Skip to next"
-    read -p "JLLim Choice:  "  -n 1 _CH_
-    echo
-    case x"\${_CH_}" in
-    x"v")
-        if [ ! -e "\${_SRC_PATH}" ]; then
-            echo
-            echo "JLLim: Sorry, not found \${_SRC_PATH}"
-            echo
-            cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
-            echo
+######################################################################################
+    #Found patch file
+    _PATCH_FILE=""
+    while [ 1 -eq 1 ]; do 
+        if [ -e "${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}" ]; then
+            _PATCH_FILE="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
+            break
         fi
-        vim \${PatchPath}${GvSvnFile##${GvCurPath}} -d \${_SRC_PATH}
-        ;;
-    x"c")
-        cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
-        ;;
-    x"q")
+        if [ -e "\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
+            _PATCH_FILE="\$(pwd)/SourceFiles${GvSvnFile##${GvCurPath}}"
+            break
+        fi
+        echo "JLLim Error: Not found the PatchFile"
+        echo "             ${GvSvnFile##${GvCurPath}}"
+        echo
+        read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        if [ x"\${_SEL_}" = x"y" ]; then
+            break
+        fi
         exit 0
-        ;;
-    *)
-        ;; 
-    esac
-fi
+    done
 
-EOF
-        else
-            #echo "JLLim: Skipping folder: ${GvSvnFile}"
-            targetPath="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
-            targetPath="${targetPath%/*}"
-            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
-            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}
-            echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
-cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
+    #Found source file
+    while [ x"\${_PATCH_FILE}" != x -a -e "\${_PATCH_FILE}" ]; do
+        _SOURCE_FILE="\${ProjectPath}${GvSvnFile##${GvCurPath}}"
+        if [ -e "\${_SOURCE_FILE}" ]; then
+            break
+        fi
+        echo "JLLim: Not found the PatchFile, and to use COPY for applying patch"
+        echo "       \${_SOURCE_FILE}"
+        echo
+        break
+    done
 
-#if [ -e "\${PatchPath}${GvSvnFile##${GvCurPath}}" ]; then
-    if [ ! -e "${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}" ]; then
-        _SRC_PATH="\$(pwd)/SourceFiles/${GvSvnFile##${GvCurPath}}"
-    else
-        _SRC_PATH="${GvPatchPath}/SourceFiles/${GvSvnFile##${GvCurPath}}"
+    if [ x"\${_PATCH_FILE}" != x -a -e "\${_PATCH_FILE}" ]; then
+        echo
+        echo -e  "${AC}${Byellow}${Fblack}                ${AC}"
+        echo -e  "${AC}${Byellow}${Fblack}[F]_SOURCE_FILE=\${_SOURCE_FILE}${AC}"
+        echo -e  "${AC}${Byellow}${Fblack}                ${AC}"
+        if [ x"\${_SOURCE_FILE}" != x -a -e "\${_SOURCE_FILE}" ]; then
+            echo "  [v]:     \${CMPTOOL} \${_PATCH_FILE} \\\${_SOURCE_FILE}"
+        fi
+        echo     "  [c]:     cp -rvf \${_PATCH_FILE} \\\${_SOURCE_FILE}"
+        echo     "  [q]:     quit from current"
+        echo     "  [other]: skip current to next"
+        read -p  "JLLim: Choice="  -n 1 _CH_
+        echo
+        case x"\${_CH_}" in
+        x"v")
+            \${CMPTOOL} \${_PATCH_FILE} \${_SOURCE_FILE}
+            ;;
+        x"c")
+            cp -rvf \${_PATCH_FILE} \${_SOURCE_FILE}
+            ;;
+        x"q")
+            exit 0
+            ;;
+        *)
+            ;; 
+        esac
     fi
 
-    echo
-    echo "[D] \${PatchPath}${GvSvnFile##${GvCurPath}}:"
-    echo "  [c]:     COPY Patch TO SourceCode"
-    echo "  [q]:     Quit from current"
-    echo "  [other]: Skip to next"
-    read -p "JLLim Choice:  "  -n 1 _CH_
-    echo
-    case x"\${_CH_}" in
-    x"c")
-        cp -rvf \${_SRC_PATH} \${PatchPath}${GvSvnFile##${GvCurPath}}
-        ;;
-    x"q")
-        exit 0
-        ;;
-    *)
-        ;; 
-    esac
-#fi
-
 EOF
-
 
         fi
     fi
