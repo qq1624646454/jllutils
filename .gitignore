@@ -1,3 +1,5 @@
 desktop.ini
 *.log
 _______auto_sync_by_GIT__in_crontab.log
+*.pdf
+*.xlsx
