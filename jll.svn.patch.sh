@@ -171,7 +171,8 @@ for GvPatchS in ${GvPatchRawSources}; do
     
     #Check if entry should be ignored or not
     if [ x"${_GvPatchS}" = x ]; then
-
+        [ x"${GvPatchS}" != x ] && echo -e "JLLim: \"${GvPatchS}\" is not valid"
+         
     fi 
 
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
