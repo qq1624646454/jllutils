@@ -168,14 +168,12 @@ for GvPatchS in ${GvPatchRawSources}; do
     #if [ x"${_GvPatchS}" = x ]; then
     if [ -e "${GvCurPath}/${GvPatchS}" ]; then
         [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not valid0m"
-        continue 
+        continue
     fi 
 
-    GvCompSources[GvCompSourceCount]="${_GvPatchS}"
+    GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
 
-        #fi
-    #fi
 done
 [ x"${GvPatchRawSources}" != x ] && unset GvPatchRawSources
 [ x"${GvPatchS}" != x ] && unset GvPatchS
