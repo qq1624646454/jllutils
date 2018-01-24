@@ -161,6 +161,12 @@ EOF
 fi
 [ x"${_choice_y}" != x ] && unset _choice_y
 
+if [ x"${_JLLim_Ignore_List}" != x ]; then
+    _IGNORE_CNT=${#_JLLim_Ignore_List[@]}
+    if [ ${_IGNORE_CNT} -lt 1 ]; then
+
+    fi
+fi 
 
 #Collect all legal resources
 for GvPatchS in ${GvPatchRawSources}; do
