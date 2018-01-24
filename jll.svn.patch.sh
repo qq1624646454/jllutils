@@ -157,6 +157,7 @@ EOF
     else
         vim ${GvCurPath}/ignore.for.jll.svn.patch.sh
     fi
+    source ${GvCurPath}/ignore.for.jll.svn.patch.sh 
 fi
 [ x"${_choice_y}" != x ] && unset _choice_y
 
@@ -171,7 +172,7 @@ for GvPatchS in ${GvPatchRawSources}; do
     if [ -e "${GvCurPath}/${GvPatchS}" ]; then
         [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not valid0m"
         continue
-    fi 
+    fi
 
     GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
