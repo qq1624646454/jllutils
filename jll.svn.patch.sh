@@ -165,14 +165,15 @@ fi
 #Collect all legal resources
 for GvPatchS in ${GvPatchRawSources}; do
 
-    #_GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
-    
-    #Check if entry should be ignored or not
-    #if [ x"${_GvPatchS}" = x ]; then
     if [ -e "${GvCurPath}/${GvPatchS}" ]; then
         [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not valid0m"
         continue
     fi
+
+    #_GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
+    
+    #Check if entry should be ignored or not
+
 
     GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
