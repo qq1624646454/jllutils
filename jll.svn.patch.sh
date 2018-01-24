@@ -178,9 +178,9 @@ for GvPatchS in ${GvPatchRawSources}; do
     #_GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
     
     #Check if entry should be ignored or not
-    if [ x"${_JLLim_Ignore_List}" != x ]; then
-    _chk_=$(echo "${GvCurPath}/${GvPatchS}" | grep -E )
-    fi
+    for((_I=0; _I<_IGNORE_CNT; _I++)) {
+        _chk_=$(echo "${GvCurPath}/${GvPatchS}" )
+    }
 
     GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
