@@ -167,10 +167,12 @@ for GvPatchS in ${GvPatchRawSources}; do
     #GvIsFile=${GvPatchS##*/}
     #if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
         #if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
-    GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
+    _GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
     
     #Check if entry should be ignored or not
-    if [   ] 
+    if [ x"${_GvPatchS}" = x ]; then
+
+    fi 
 
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
     GvCompSourceCount=$[GvCompSourceCount+1]
