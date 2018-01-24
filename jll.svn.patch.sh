@@ -148,6 +148,9 @@ if [ x"${_choice_y}" = x"y" ]; then
 cat >${GvCurPath}/ignore.for.jll.svn.patch.sh<<EOF
 #!/bin/bash
 
+declare -a _JLLim_Ignore_List=(
+    ""
+) 
 
 EOF
         chmod +x ${GvCurPath}/ignore.for.jll.svn.patch.sh
