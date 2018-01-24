@@ -168,14 +168,14 @@ declare -a _JLLim_Ignore_List=(
     "*\.mbn"
     "*\.deps"
     "*\.dirstamp"
-    "apps_proc/bootable/bootloader/lk/target/mdm9607/init.h"
-    "apps_proc/filesystems/bin"
+    "apps_proc\/bootable\/bootloader\/lk\/target\/mdm9607\/init\.h"
+    "apps_proc\/filesystems\/bin"
     "Images"
-    "apps_proc/Images"
-    "BuildProducts.txt"
-    "conf/sanity_info"
-    "conf/bblayers.conf"
-    "templateconf.cfg"
+    "apps_proc\/Images"
+    "BuildProducts\.txt"
+    "conf\/sanity_info"
+    "conf\/bblayers\.conf"
+    "templateconf\.cfg"
 )
 
 EOF
