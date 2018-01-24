@@ -141,7 +141,8 @@ GvPatchRawSources=$(svn status | awk '{print $NF}')
 
 
 #Handling ignored filter
-
+declare -a GvCompSourcesIgnore
+declare -i GvCompSourceIgnoreCount=0
 
 
 
