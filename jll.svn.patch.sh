@@ -171,8 +171,8 @@ for GvPatchS in ${GvPatchRawSources}; do
     
     #Check if entry should be ignored or not
     if [ x"${_GvPatchS}" = x ]; then
-        [ x"${GvPatchS}" != x ] && echo -e "JLLim: \"${GvPatchS}\" is not valid"
-         
+        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvPatchS}\" is not valid0m"
+        continue 
     fi 
 
     GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
@@ -183,6 +183,7 @@ for GvPatchS in ${GvPatchRawSources}; do
 done
 unset GvPatchRawSources
 unset GvpatchS
+unset _GvPatchS
 if [ ${GvCompSourceCount} -lt 1 ]; then
     Lfn_Sys_DbgEcho "JLLim: Dont find any different files exist and then exit" 
     unset GvCompSources
