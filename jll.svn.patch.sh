@@ -171,12 +171,15 @@ fi
 for GvPatchS in ${GvPatchRawSources}; do
 
     if [ -e "${GvCurPath}/${GvPatchS}" ]; then
-        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not valid0m"
+        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not found0m"
+        continue
+    fi
+    _GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
+    if [ x"${_GvPatchS}" = x -o ! -e "${_GvPatchS}" ]; then
+        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvPatchS}\" is invalid0m"
         continue
     fi
 
-    #_GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
-    
     #Check if entry should be ignored or not
     for((_I=0; _I<_IGNORE_CNT; _I++)) {
         _chk_=$(echo "${GvPatchS}" | grep -E "${_JLLim_Ignore_List[_I]}")
@@ -195,6 +198,9 @@ done
 [ x"${GvPatchRawSources}" != x ] && unset GvPatchRawSources
 [ x"${GvPatchS}" != x ] && unset GvPatchS
 [ x"${_GvPatchS}" != x ] && unset _GvPatchS
+[ x"${_I}" != x ] && unset _I
+[ x"${_chk_}" != x ] && unset _chk_
+[ x"${_IGNORE_CNT}" != x ] && unset _IGNORE_CNT
 
 if [ ${GvCompSourceCount} -lt 1 ]; then
     Lfn_Sys_DbgEcho "JLLim: Dont find any different files exist and then exit" 
@@ -303,7 +309,7 @@ cat > ${GvPatchPath}/FileList.txt <<EOF
 
 EOF
 
-echo "===== Status ====="
+echo "===== svn status ====="
 svn status | tee -a ${GvPatchPath}/FileList.txt
 echo       | tee -a ${GvPatchPath}/FileList.txt
 echo "===== Dump Commit Files As Follows ===== "  | tee -a ${GvPatchPath}/FileList.txt
@@ -320,7 +326,7 @@ cat >${GvPatchPath}/ApplySvnPatch.sh << EOF
 #
 # The script will used to apply the patch
 
-SvnPath=${GvRootPath}
+SvnPath=${GvRootPath}  #Reseverd for unuse at present
 
 ProjectPath=${GvCurPath}
 
@@ -331,11 +337,14 @@ EOF
 
 
 for GvSvnFile in ${GvCompChoice}; do
+
+    _GvSvnFile="${GvCurPath}/${GvSvnFile}"
+    GvParent=${_GvSvnFile%/*}
+    GvThis=${_GvSvnFile##*/}
     
-    GvIsPath=${GvSvnFile%/*}
-    GvIsFile=${GvSvnFile##*/}
-    if [ x"${GvIsPath}" != x  -a y"${GvIsFile}" != y ]; then
-        if [ x"$(ls -l ${GvIsPath} | grep ${GvIsFile} | grep -e '^d')" = x ]; then
+    if [ x"${GvParent}" != x -a y"${GvThis}" != y ]; then
+        if [ x"$(ls -l ${GvParent} | grep ${GvThis} | grep -e '^-')" != x ]; then #be file
+            GvSvnFile=$(realpath "${GvSvnFile}")
             targetPath="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
             targetPath="${targetPath%/*}"
             [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
@@ -406,8 +415,105 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
     fi
 
 EOF
+        fi
+
+        if [ x"$(ls -l ${GvParent} | grep ${GvThis} | grep -e '^l')" != x ]; then #be linker
+            #      link name ---> link to target
+            # /l/m/n/
+            #        A ----------> /l/m/n/A1
+            #        A ----------> /x/y/A2
+            #        A ----------> A3
+            _link_to_target=$(readlink "${GvSvnFile}")
+            targetPath="${GvPatchPath}/SourceFiles${_link_to_target##${GvCurPath}}"
+            targetPath="${targetPath%/*}"
+            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
+ 
+            _link_name="${GvSvnFile}"
+
+
+            GvSvnFile="${_GvSvnFile}"
+            targetPath="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
+            targetPath="${targetPath%/*}"
+            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
+            #cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}
+
+            GvSvnFile=$(readlink "${GvParent}/${GvThis}")
+            targetPath="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
+            targetPath="${targetPath%/*}"
+            [ ! -e "${targetPath}" ] &&  mkdir -pv ${targetPath}
+            cp -rvf  ${GvSvnFile}  ${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}
+            ln -sv  ${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}/${GvThis} 
+
+            echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
+cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
+
+######################################################################################
+    #Found patch file
+    _PATCH_FILE=""
+    while [ 1 -eq 1 ]; do 
+        if [ -e "${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}" ]; then
+            _PATCH_FILE="${GvPatchPath}/SourceFiles${GvSvnFile##${GvCurPath}}"
+            break
+        fi
+        if [ -e "\$(pwd)/SourceFiles${GvSvnFile##${GvCurPath}}" ]; then
+            _PATCH_FILE="\$(pwd)/SourceFiles${GvSvnFile##${GvCurPath}}"
+            break
+        fi
+        echo "JLLim Error: Not found the PatchFile"
+        echo "             ${GvSvnFile##${GvCurPath}}"
+        echo
+        read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        if [ x"\${_SEL_}" = x"y" ]; then
+            break
+        fi
+        exit 0
+    done
+
+    #Found source file
+    while [ x"\${_PATCH_FILE}" != x -a -e "\${_PATCH_FILE}" ]; do
+        _SOURCE_FILE="\${ProjectPath}${GvSvnFile##${GvCurPath}}"
+        if [ -e "\${_SOURCE_FILE}" ]; then
+            break
+        fi
+        echo "JLLim: Not found the PatchFile, and to use COPY for applying patch"
+        echo "       \${_SOURCE_FILE}"
+        echo
+        break
+    done
+
+    if [ x"\${_PATCH_FILE}" != x -a -e "\${_PATCH_FILE}" ]; then
+        echo
+        echo -e "${AC}${Byellow}${Fblack}Patch=\${_PATCH_FILE}${AC}"
+        echo -e "${AC}${Byellow}${Fblack}Source=\${_SOURCE_FILE}${AC}"
+ 
+        if [ x"\${_SOURCE_FILE}" != x -a -e "\${_SOURCE_FILE}" ]; then
+            echo "  [v]:     \${CMPTOOL}  \\\${Patch}  \\\${Source}"
+        fi
+        echo     "  [c]:     cp -rvf  \\\${Patch}  \\\${Source}"
+        echo     "  [q]:     quit from current"
+        echo     "  [other]: skip current to next"
+        read -p  "JLLim: Choice="  -n 1 _CH_
+        echo
+        case x"\${_CH_}" in
+        x"v")
+            \${CMPTOOL} \${_PATCH_FILE} \${_SOURCE_FILE}
+            ;;
+        x"c")
+            cp -rvf \${_PATCH_FILE} \${_SOURCE_FILE}
+            ;;
+        x"q")
+            exit 0
+            ;;
+        *)
+            ;; 
+        esac
+    fi
+
+EOF
 
         fi
+ 
+
     fi
 done
 
