@@ -141,6 +141,8 @@ GvPatchRawSources=$(svn status | awk '{print $NF}')
 
 
 #Handling ignored filter
+echo
+echo "JLLim: to handle someone ignored in filter if press [y], or skip:  "
 declare -a GvCompSourcesIgnore
 declare -i GvCompSourceIgnoreCount=0
 
