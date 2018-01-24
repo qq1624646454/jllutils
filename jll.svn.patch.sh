@@ -168,6 +168,11 @@ declare -a _JLLim_Ignore_List=(
     "*\.mbn"
     "*\.deps"
     "*\.dirstamp"
+    "apps_proc/filesystems/bin"
+    "apps_proc/Images"
+    "conf/sanity_info"
+    "conf/bblayers.conf"
+    "templateconf.cfg"
 )
 
 EOF
