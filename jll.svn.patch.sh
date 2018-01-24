@@ -163,10 +163,9 @@ fi
 
 if [ x"${_JLLim_Ignore_List}" != x ]; then
     _IGNORE_CNT=${#_JLLim_Ignore_List[@]}
-    if [ ${_IGNORE_CNT} -lt 1 ]; then
-
-    fi
-fi 
+else
+    _IGNORE_CNT=0
+fi
 
 #Collect all legal resources
 for GvPatchS in ${GvPatchRawSources}; do
