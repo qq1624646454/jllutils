@@ -388,6 +388,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         echo "             ${GvSvnFile##${GvCurPath}}"
         echo
         read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        echo
         if [ x"\${_SEL_}" = x"y" ]; then
             break
         fi
@@ -463,6 +464,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         echo "             ${GvSvnFile##${GvCurPath}}"
         echo
         read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        echo
         if [ x"\${_SEL_}" = x"y" ]; then
             break
         fi
@@ -555,6 +557,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         echo "             Linker File=${_PATCH_LINK_NAME}"
         echo
         read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        echo
         if [ x"\${_SEL_}" = x"y" ]; then
             break
         fi
@@ -576,6 +579,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         echo "             Linker to Target=${_PATCH_LINK_TO_TARGET}"
         echo
         read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+        echo
         if [ x"\${_SEL_}" = x"y" ]; then
             break
         fi
