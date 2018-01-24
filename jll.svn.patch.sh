@@ -177,6 +177,7 @@ declare -a _JLLim_Ignore_List=(
     "conf/bblayers\.conf"
     "templateconf\.cfg"
     "apps_proc/log"
+    "poky/build/downloads"
 )
 
 EOF
