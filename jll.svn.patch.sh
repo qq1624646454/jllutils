@@ -166,8 +166,8 @@ for GvPatchS in ${GvPatchRawSources}; do
     
     #Check if entry should be ignored or not
     #if [ x"${_GvPatchS}" = x ]; then
-    if [ -e "$(${GvCurPath})/${_GvPatchS}" ]; then
-        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvPatchS}\" is not valid0m"
+    if [ -e "${GvCurPath}/${GvPatchS}" ]; then
+        [ x"${GvPatchS}" != x ] && echo -e "JLLim: [31m\"${GvCurPath}/${GvPatchS}\" is not valid0m"
         continue 
     fi 
 
