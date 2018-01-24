@@ -160,6 +160,9 @@ declare -a _JLLim_Ignore_List=(
     "bitbake\.lock"
     "*\.done"
     "build\/cache"
+    "\.dirstamp"
+    "*\.ubi"
+    "*\.ubifs"
 )
 
 EOF
