@@ -154,6 +154,8 @@ declare -a _JLLim_Ignore_List=(
 
 EOF
         chmod +x ${GvCurPath}/ignore.for.jll.svn.patch.sh
+    else
+        vim ${GvCurPath}/ignore.for.jll.svn.patch.sh
     fi
 fi
 [ x"${_choice_y}" != x ] && unset _choice_y
