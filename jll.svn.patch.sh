@@ -383,7 +383,7 @@ for GvSvnFile in ${GvCompChoice}; do
             echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-######################################################################################
+echo ######################################################################################
     #Found patch file
     _PATCH_FILE=""
     while [ 1 -eq 1 ]; do 
@@ -459,7 +459,7 @@ EOF
             echo "${GvSvnFile}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-######################################################################################
+echo ######################################################################################
     #Found patch file
     _PATCH_FILE=""
     while [ 1 -eq 1 ]; do 
@@ -544,36 +544,36 @@ EOF
             targetPath="${targetPath%/*}"
             [ ! -e "${targetPath}" ] && mkdir -pv ${targetPath}
             #cp -rvf ${_link_name} ${targetPath}
-            ln -sv ${_link_to_target}  ${targetPath}/${_link_name##*/}
+            #ln -sv ${_link_to_target}  ${targetPath}/${_link_name##*/}
             _link_name=${targetPath}/${_link_name##*/}
 
             echo "${_link_name}" | tee -a ${GvPatchPath}/FileList.txt
             echo "${_link_to_target}" | tee -a ${GvPatchPath}/FileList.txt
 cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
 
-######################################################################################
+echo ######################################################################################
     #Found patch file
     _PATCH_LINK_NAME=""
-    while [ 1 -eq 1 ]; do
-        #Linker File
-        if [ -e "${_link_name}" ]; then
-            _PATCH_LINK_NAME="${_link_name}"
-            break
-        fi
-        if [ -e "\$(pwd)/SourceFiles/${_link_name##*/SourceFiles/}" ]; then
+    #while [ 1 -eq 1 ]; do
+    #    #Linker File
+    #    if [ -e "${_link_name}" ]; then
+    #        _PATCH_LINK_NAME="${_link_name}"
+    #        break
+    #    fi
+    #    if [ -e "\$(pwd)/SourceFiles/${_link_name##*/SourceFiles/}" ]; then
             _PATCH_LINK_NAME="\$(pwd)/SourceFiles/${_link_name##*/SourceFiles/}"
-            break
-        fi
-        echo "JLLim Error: Not found the PatchFile"
-        echo "             Linker File=${_PATCH_LINK_NAME}"
-        echo
-        read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
-        echo
-        if [ x"\${_SEL_}" = x"y" ]; then
-            break
-        fi
-        exit 0
-    done
+    #        break
+    #    fi
+    #    echo "JLLim Error: Not found the PatchFile"
+    #    echo "             Linker File=\${_PATCH_LINK_NAME}"
+    #    echo
+    #    read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
+    #    echo
+    #    if [ x"\${_SEL_}" = x"y" ]; then
+    #        break
+    #    fi
+    #    exit 0
+    #done
 
     while [ x"\${_PATCH_LINK_NAME}" != x ]; do
         #Linker to Target 
@@ -587,7 +587,7 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         fi
 
         echo "JLLim Error: Not found the PatchFile"
-        echo "             Linker to Target=${_PATCH_LINK_TO_TARGET}"
+        echo "             Linker to Target=\${_PATCH_LINK_TO_TARGET}"
         echo
         read -p "JLLim Choice: Skip this for continuing next if [y], or Quit:  "  -n 1 _SEL_
         echo
@@ -598,9 +598,9 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
     done
 
     #Found source file
-    while [ x"\${_PATCH_LINK_NAME}" != x -a -e "\${_PATCH_LINK_NAME}" \
+    while [ x"\${_PATCH_LINK_NAME}" != x  \\
             -a y"\${_PATCH_LINK_TO_TARGET}" != y -a -e "\${_PATCH_LINK_TO_TARGET}" ]; do
-        _SOURCE_FILE="\${ProjectPath}${GvSvnFile##${GvCurPath}}"
+        _SOURCE_FILE="\${ProjectPath}/${GvSvnFile##${GvCurPath}}"
         if [ -e "\${_SOURCE_FILE}" ]; then
             break
         fi
@@ -610,17 +610,17 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         break
     done
 
-    if [ x"\${_PATCH_LINK_NAME}" != x -a -e "\${_PATCH_LINK_NAME}" \
+    if [ x"\${_PATCH_LINK_NAME}" != x  \\
             -a y"\${_PATCH_LINK_TO_TARGET}" != y -a -e "\${_PATCH_LINK_TO_TARGET}" ]; then
         echo
-        echo -e "${AC}${Byellow}${Fblack}Patch=\${_PATCH_LINK_NAME}${AC}"
+        echo -e "${AC}${Byellow}${Fblack}Patch=\${_PATCH_LINK_TO_TARGET}${AC}"
         echo -e "${AC}${Byellow}${Fblack}Source=\${_SOURCE_FILE}${AC}"
  
         if [ x"\${_SOURCE_FILE}" != x -a -e "\${_SOURCE_FILE}" ]; then
         #    echo "  [v]:     \${CMPTOOL}  \\\${Patch}  \\\${Source}"
-            rm -rvf \${_SOURCE_FILE} 
+            rm -rvf \${_SOURCE_FILE}
         fi
-        echo     "  [c]:     cp -rvf  \\\${Patch}  \\\${Source}"
+        echo     "  [l]:     ln -sv  \\\${Patch}  \\\${Source}"
         echo     "  [q]:     quit from current"
         echo     "  [other]: skip current to next"
         read -p  "JLLim: Choice="  -n 1 _CH_
@@ -629,8 +629,8 @@ cat >>${GvPatchPath}/ApplySvnPatch.sh<<EOF
         #x"v")
         #    \${CMPTOOL} \${_PATCH_FILE} \${_SOURCE_FILE}
         #    ;;
-        x"c")
-            cp -rvf \${_PATCH_LINK_NAME} \${_SOURCE_FILE}
+        x"l")
+            ln -sv \${_PATCH_LINK_TO_TARGET} \${_SOURCE_FILE}
             ;;
         x"q")
             exit 0
