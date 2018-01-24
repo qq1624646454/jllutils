@@ -163,6 +163,7 @@ declare -a _JLLim_Ignore_List=(
     "\.dirstamp"
     "*\.ubi"
     "*\.ubifs"
+    "*\.cmm"
 )
 
 EOF
