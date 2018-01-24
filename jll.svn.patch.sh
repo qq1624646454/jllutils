@@ -181,13 +181,16 @@ for GvPatchS in ${GvPatchRawSources}; do
     for((_I=0; _I<_IGNORE_CNT; _I++)) {
         _chk_=$(echo "${GvPatchS}" | grep -E "${_JLLim_Ignore_List[_I]}")
         if [ x"${_chk_}" != x ]; then
-
+            echo -e "JLLim: [31m\"${GvPatchS}\" should be ignored.[0m"
+            break
         fi
     }
+    if [ x"${_chk_}" != x ]; then
+        continue
+    fi
 
     GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
-
 done
 [ x"${GvPatchRawSources}" != x ] && unset GvPatchRawSources
 [ x"${GvPatchS}" != x ] && unset GvPatchS
