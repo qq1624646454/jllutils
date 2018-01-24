@@ -138,8 +138,9 @@ declare -a GvCompSources
 declare -i GvCompSourceCount=0
 GvPatchRawSources=$(svn status | awk '{print $NF}')
 
-#Handling ignored filter
 
+
+#Handling ignored filter
 for GvPatchS in ${GvPatchRawSources}; do
 
     #GvIsPath=${GvPatchS%/*}
@@ -162,12 +163,6 @@ if [ ${GvCompSourceCount} -lt 1 ]; then
     exit 0
 fi
 
-#
-# Ignore Some Paths or Files
-#
-if [ -e "" ]; then
-
-fi
 
 #
 # Choice Component
