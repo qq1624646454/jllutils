@@ -159,7 +159,6 @@ fi
 [ x"${_choice_y}" != x ] && unset _choice_y
 
 
-
 #Collect all legal resources
 for GvPatchS in ${GvPatchRawSources}; do
 
@@ -175,7 +174,7 @@ for GvPatchS in ${GvPatchRawSources}; do
         continue 
     fi 
 
-    GvCompSources[GvCompSourceCount]="$(realpath ${GvPatchS})"
+    GvCompSources[GvCompSourceCount]="${_GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
 
         #fi
