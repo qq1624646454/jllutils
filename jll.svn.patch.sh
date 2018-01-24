@@ -181,9 +181,10 @@ for GvPatchS in ${GvPatchRawSources}; do
         #fi
     #fi
 done
-unset GvPatchRawSources
-unset GvpatchS
-unset _GvPatchS
+[ x"${GvPatchRawSources}" != x ] && unset GvPatchRawSources
+[ x"${GvPatchS}" != x ] && unset GvPatchS
+[ x"${_GvPatchS}" != x ] && unset _GvPatchS
+
 if [ ${GvCompSourceCount} -lt 1 ]; then
     Lfn_Sys_DbgEcho "JLLim: Dont find any different files exist and then exit" 
     unset GvCompSources
