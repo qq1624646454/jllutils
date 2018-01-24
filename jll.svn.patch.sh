@@ -141,6 +141,11 @@ GvPatchRawSources=$(svn status | awk '{print $NF}')
 
 
 #Handling ignored filter
+
+
+
+
+#Collect all legal resources
 for GvPatchS in ${GvPatchRawSources}; do
 
     #GvIsPath=${GvPatchS%/*}
