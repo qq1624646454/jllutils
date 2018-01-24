@@ -282,7 +282,7 @@ while [ ${GvCompFlag} -eq 1 ]; do
     fi
     for (( GvCompIdx=0 ; GvCompIdx<GvCompSourceCount ; GvCompIdx++ )) do
         if [ ${GvCompAnChoice} -eq ${GvCompIdx} ]; then
-            if [ x"${GvCompChoice}" != x ]; then 
+            if [ x"${GvCompChoice}" != x ]; then
                 for GvCompChoiceEntry in ${GvCompChoice}; do
                     if [ x"${GvCompChoiceEntry}" = x"${GvCompSources[GvCompAnChoice]}" ]; then 
                         GvCompItem="Hit.DontDisplay"
