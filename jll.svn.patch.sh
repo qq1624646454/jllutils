@@ -173,7 +173,7 @@ for GvPatchS in ${GvPatchRawSources}; do
     #_GvPatchS="$(realpath ${GvPatchS} 2>/dev/null)"
     
     #Check if entry should be ignored or not
-
+    if [ x"$(echo ${GvCurPath}/${GvPatchS} | grep -E "")" ]
 
     GvCompSources[GvCompSourceCount]="${GvPatchS}"
     GvCompSourceCount=$[GvCompSourceCount+1]
