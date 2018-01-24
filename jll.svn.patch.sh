@@ -144,8 +144,13 @@ GvPatchRawSources=$(svn status | awk '{print $NF}')
 echo
 read -n 1 -p "JLLim: to handle someone ignored in filter if press [y], or skip:  " _choice_y
 if [ x"${_choice_y}" = x"y" ]; then
-    if [ -e "" ]; then
+    if [ ! -e "${GvCurPath}/ignore.for.jll.svn.patch.sh" ]; then
+cat >${GvCurPath}/ignore.for.jll.svn.patch.sh<<EOF
+#!/bin/bash
 
+
+EOF
+        chmod +x ${GvCurPath}/ignore.for.jll.svn.patch.sh
     fi
 fi
 declare -a GvCompSourcesIgnore
