@@ -163,6 +163,13 @@ if [ ${GvCompSourceCount} -lt 1 ]; then
 fi
 
 #
+# Ignore Some Paths or Files
+#
+if [ -e "" ]; then
+
+fi
+
+#
 # Choice Component
 # Please select Your Patch Sources contain modification files
 #
