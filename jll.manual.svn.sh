@@ -25,7 +25,7 @@ ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
 ${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
-${Fseablue}svn st | grep '^~' | awk '{print $2}' | xargs svn revert -R 2>/dev/null${AC}
+${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
 # git clean -df
 
 ${Fseablue}svn log -l20${AC}
