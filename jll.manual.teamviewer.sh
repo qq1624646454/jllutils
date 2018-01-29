@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-03 20:11:44
-#   ModifiedTime: 2017-11-03 20:11:44
+#   ModifiedTime: 2018-01-29 11:21:58
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -19,6 +19,32 @@ more >&1<<EOF
 
 Account: english name qq mail
 Password: X[IL6][domain10_lowercase]
+
+Install on Ubuntu-14
+============================================
+apt-get install libc6:i386 \\
+                libgcc1:i386 \\
+                libasound2:i386 \\
+                libexpat1:i386 \\
+                libfontconfig1:i386 \\
+                libfreetype6:i386 \\
+                libjpeg62:i386 \\
+                libpng12-0:i386 \\
+                libsm6:i386 \\
+                libxdamage1:i386 \\
+                libxext6:i386 \\
+                libxfixes3:i386 \\
+                libxinerama1:i386 \\
+                libxrandr2:i386 \\
+                libxrender1:i386 \\
+                libxtst6:i386 \\
+                zlib1g:i386
+
+wget http://download.teamviewer.com/download/teamviewer_i386.deb
+
+dpkg -i teamviewer_i386.deb
+
+
 
 EOF
 
