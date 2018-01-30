@@ -19,7 +19,7 @@ more >&1<<EOF
 
 Run teamviewer on Ubuntu-14
 ============================================
-teamviewer --daemon enable enable
+teamviewer --daemon enable
 teamviewer
 
 
