@@ -17,8 +17,15 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more >&1<<EOF
 
+Run teamviewer on Ubuntu-14
+============================================
+teamviewer --daemon enable enable
+teamviewer
+
+
 Account: english name qq mail
 Password: X[IL6][domain10_lowercase]
+
 
 Install on Ubuntu-14
 ============================================
