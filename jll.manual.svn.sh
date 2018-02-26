@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2018-01-15 13:56:02
+#   ModifiedTime: 2018-02-26 09:09:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -20,6 +20,9 @@ more >&1 <<EOF
 aptitude install subversion
 
 
+#列出项目所有路径下所有修改过的文件
+#通常[开始条件]是2, [代码所有svn路径]缺省时为当前路径
+#svn diff -r 2:HEAD --summarize
 svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径] 
 
 
