@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2018-02-26 09:09:33
+#   ModifiedTime: 2018-02-26 09:09:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -23,8 +23,7 @@ aptitude install subversion
 #列出项目所有路径下所有修改过的文件
 #通常[开始条件]是2, [代码所有svn路径]缺省时为当前路径
 #svn diff -r 2:HEAD --summarize
-svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径] 
-
+${Fseablue}svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径]${AC} 
 
 
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
