@@ -20,8 +20,11 @@ more >&1 <<EOF
 aptitude install subversion
 
 
-${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
+svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径] 
 
+
+
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
 ${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
