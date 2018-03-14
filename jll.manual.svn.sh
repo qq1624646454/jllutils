@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2018-02-26 09:09:34
+#   ModifiedTime: 2018-03-14 14:34:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -44,6 +44,11 @@ ${Fseablue}svn info .${AC}
 
 ${Fseablue}svn list https://192.168.0.10:8443/svn/Mangov2${AC}
 # git branch -r
+
+
+
+${Fseablue}svn import L170LQ_trunk https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk${AC}
+# Import the new project named L170LQ_trunk into  https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk
 
 
 ${Fseablue}svn add YOUR_FILE${AC}
