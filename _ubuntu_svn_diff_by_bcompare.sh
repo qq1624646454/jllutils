@@ -5,11 +5,12 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-01-19 15:14:09
-#   ModifiedTime: 2018-01-19 15:14:09
+#   ModifiedTime: 2018-03-30 20:24:14
 
 
 # Configure your favorite diff program here.
-DIFF=/usr/bin/bcompare
+#DIFF=/usr/bin/bcompare
+DIFF=/usr/bin/meld
 
 # Subversion provides the paths we need as the sixth and seventh 
 # parameters.
