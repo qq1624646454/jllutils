@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:04:15
+#   ModifiedTime: 2018-04-01 21:05:57
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -38,12 +38,16 @@ modprobe nandsim first_id_byte=0x20 second_id_byte=0xaa third_id_byte=0x00 fourt
 modprobe nandsim first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15 #512MiB, 2048 bytes page;
 modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95 #1GiB, 2048 bytes page;
 
-
+---------------------
 挂载ubi镜像
-modprobe nandsim first_id_byte=0x2c second_id_byte=0xda third_id_byte=0x00 fourth_id_byte=0x15
+---------------------
+modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95 #1GiB, 2048 bytes page;
+
 cat /proc/mtd
-dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
+#dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
+
 mtdinfo /dev/mtd0
+
 modprobe ubi mtd=0
 ubidetach /dev/ubi_ctrl -m 0
 ubiformat /dev/mtd0 -s 2048 -f Angstrom-x11-at91sam9-image-eglibc-ipk-v20110624-at91sam9x5ek.rootfs.ubi
