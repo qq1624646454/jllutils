@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 20:58:34
+#   ModifiedTime: 2018-04-01 21:04:15
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -19,27 +19,31 @@ more>&1<<EOF
 
 apt-get install mtd-utils
 
-modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x10 fourth_id_byte=0xa6   
-cat /proc/mtd
-dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
-mtdinfo /dev/mtd0
-
 -----------------------------------------------------------------------------------------------
-modprobe nandsim first_id_byte=0x20 second_id_byte=0x33    #16MiB, 512 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0x35    #32MiB, 512 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0x36    #64MiB, 512 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0x78    #128MiB, 512 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0x71    #256MiB, 512 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0xa2 third_id_byte=0x00 fourth_id_byte=0x15    #64MiB, 2048 bytes page;
-modprobe nandsim first_id_byte=0xec second_id_byte=0xa1 third_id_byte=0x00 fourth_id_byte=0x15    #128MiB, 2048 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0xaa third_id_byte=0x00 fourth_id_byte=0x15    #256MiB, 2048 bytes page;
-modprobe nandsim first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15    #512MiB, 2048 bytes page;
-modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95    #1GiB, 2048 bytes page;
+How do I use NAND simulator?
 
+NAND simulator (nandsim) is an extremely useful debugging and development tool which simulates 
+NAND flashes in RAM or a file. To select the simulated flash type one should specify ID bytes 
+of your flash - the ones which are returned by the "Read ID" command (0x90) - consult the flash
+manual. The following are examples of input parameters:
+
+modprobe nandsim first_id_byte=0x20 second_id_byte=0x33 #16MiB, 512 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0x35 #32MiB, 512 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0x36 #64MiB, 512 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0x78 #128MiB, 512 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0x71 #256MiB, 512 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0xa2 third_id_byte=0x00 fourth_id_byte=0x15 #64MiB, 2048 bytes page;
+modprobe nandsim first_id_byte=0xec second_id_byte=0xa1 third_id_byte=0x00 fourth_id_byte=0x15 #128MiB, 2048 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0xaa third_id_byte=0x00 fourth_id_byte=0x15 #256MiB, 2048 bytes page;
+modprobe nandsim first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15 #512MiB, 2048 bytes page;
+modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95 #1GiB, 2048 bytes page;
 
 
 挂载ubi镜像
 modprobe nandsim first_id_byte=0x2c second_id_byte=0xda third_id_byte=0x00 fourth_id_byte=0x15
+cat /proc/mtd
+dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
+mtdinfo /dev/mtd0
 modprobe ubi mtd=0
 ubidetach /dev/ubi_ctrl -m 0
 ubiformat /dev/mtd0 -s 2048 -f Angstrom-x11-at91sam9-image-eglibc-ipk-v20110624-at91sam9x5ek.rootfs.ubi
