@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:53:11
+#   ModifiedTime: 2018-04-01 21:53:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -82,7 +82,8 @@ echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文�
 #(2).通过mkfs.ubifs生成临时的ubi镜像:
 #    -m - Minimum I/O unit size. 即页大小，由前面得知为 2KB。  
 #    -e - Logical Erase Block (LEB) size. 由前面计算得为 248KB，即 253952。  
-#    -c - Max LEB count. (vol_size/LEB). 通过 mtdinfo /dev/mtd0 输出结果中的 Amount of eraseblocks 可得。 
+#    -c - Max LEB count. (vol_size/LEB). 通过 mtdinfo /dev/mtd0 输出结果中的 Amount of eraseblocks
+#         可得。 
 #    -r - Path.    ubifs_new.img - Temporary image file
 mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img 
 
@@ -99,6 +100,13 @@ mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img
 #    vol_flags=autoresize
 #
 #  ubinize的参数：
+#    -o - Output file.  
+#    -p - Physical Erase Block (PEB) size. 由前面分析得 PEB 为 256KB，即 262144。
+#    -m - Minimum I/O unit size. 即页大小 4KB。 
+#    -s - Minimum I/O size for UBI headers, eg. sub-page size. Sub-page size，从 mtdinfo /dev/mtd0 
+#         的结果中可以得知。
+#    -O - VID header offset from start of PEB. UBI_VID_HDR 的偏移，由前面分析得为 4KB。
+#    ubi.ini - UBI image configuration file.
 #  
 ubinize -o userdata.ubi -p 262144 -m 2048 -s 1024 -O 2048 ubi.ini
 
