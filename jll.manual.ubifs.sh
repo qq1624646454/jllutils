@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 22:01:07
+#   ModifiedTime: 2018-04-01 23:20:01
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -61,21 +61,42 @@ mtdinfo /dev/mtd0
   #Character device major/minor:   90:0
   #Bad blocks are allowed:         true
   #Device is writable:             true
-
+#注:根据我对ubi文件格式的分析得出：
+#   EC_HDR: 即UBI Erase Count Header - 标识符为"UBI#"，占据第一个页大小
+#   VID_HDR: 即Volume Identifier Header -  标识符为"UBI!" 占据第二个页大小
+#   LEB: 即Logical Erase Block - 有效的数据内容段从第三个页开始算起
+# Minimum input/output unit size: 从某个程度上代表LEB距离头部的偏移值 - data offset
+# Sub-page size: 表示的就是页大小 
 
 #(3).将ubi与/dev/mtd0进行关联，即在ubifs文件系统中让ubi_ctrl代表/dev/mtd0这个设备
+#    此命令执行成功后，/dev/ubi0 和 /dev/ubi_ctrl 将被生成
 modprobe ubi mtd=0
 
 #(4).格式化前先解绑定,因为关联时会默认绑定/dev/ubi_ctrl和/dev/mtd0
+#    此命令执行成功后，/dev/ubi0 将被移除
 ubidetach /dev/ubi_ctrl -m 0
 
 #(5).格式化：意思就是把镜像文件按照/dev/mtd0的页大小等硬件flash格式烧写到这个设备空间中.注意：这里要加上 -O 2048 的选项，
 #            显式表明 UBI_VID_HDR 的偏移位置是 2KB，而不是默认值。从上面 mtdinfo /dev/mtd0 的输出结果中，有一项
 #            Sub-page size 的选项，如果不用 -O 显示指定，默认偏移值则是 sub-page size
-ubiformat /dev/mtd0 -s 2048 -f mdm9607-sysfs.ubi
+ubiformat /dev/mtd0 -f mdm9607-sysfs.ubi -O 2048
+  #ubiformat: mtd0 (nand), size 1073741824 bytes (1024.0 MiB), 8192 eraseblocks of 131072 bytes (128.0 KiB), min. 
+  #           I/O size 2048 bytes
+  #libscan: scanning eraseblock 8191 -- 100 % complete
+  #ubiformat: 8192 eraseblocks have valid erase counter, mean value is 1
+  #ubiformat: warning!: VID header and data offsets on flash are 512 and 2048, which is different to requested 
+  #                     offsets 2048 and 4096
+  #ubiformat: use new offsets 2048 and 4096? (yes/no) yes #选择yes，表示让nand设备的硬件参数适配镜像文件的格式
+  #ubiformat: use offsets 2048 and 4096
+  #ubiformat: flashing eraseblock 330 -- 100 % complete
+  #ubiformat: formatting eraseblock 8191 -- 100 % complete
+
 
 #(6).重新绑定/dev/ubi_ctrl和/dev/mtd0,注意：仍然要显式加上 -O 2048 的选项
 ubiattach /dev/ubi_ctrl -m 0 -O 2048
+  #UBI device number 0, total 8192 LEBs (1040187392 bytes, 992.0 MiB), available 0 LEBs (0 bytes), 
+  #LEB size 126976 bytes (124.0 KiB)
+
 
 #(7).创建一个挂载点,并按照ubi文件系统格式进行挂载
 mkdir ubifs_mnt 
@@ -93,12 +114,12 @@ cd ubifs_mnt
 echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文件
 
 #(2).通过mkfs.ubifs生成临时的ubi镜像:
-#    -m - Minimum I/O unit size. 即页大小，由前面得知为 2KB。  
-#    -e - Logical Erase Block (LEB) size. 由前面计算得为 248KB，即 253952。  
+#    -m - Minimum I/O unit size. 即页大小，由前面得知为 4KB。  
+#    -e - Logical Erase Block (LEB) size. 由前面计算得为 124.0KB，即 126976 
 #    -c - Max LEB count. (vol_size/LEB). 通过 mtdinfo /dev/mtd0 输出结果中的 Amount of eraseblocks
 #         可得。 
 #    -r - Path.    ubifs_new.img - Temporary image file
-mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img 
+mkfs.ubifs -m 4096 -e 126976 -c 8192 -r ubifs_mnt ubifs_new.img 
 
 #(3).通过ubinize生成ubi镜像: 
 #    首先要准备一个配置文件，内容如下，文件名为 ubi.ini
