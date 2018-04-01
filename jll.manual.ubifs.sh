@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:40:28
+#   ModifiedTime: 2018-04-01 21:40:41
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -67,6 +67,9 @@ ubiattach /dev/ubi_ctrl -m 0 -O 2048
 #(7).创建一个挂载点,并按照ubi文件系统格式进行挂载
 mkdir ubifs_mnt 
 mount -t ubifs ubi0 ubifs_mnt 
+
+至此，挂载完成，进入ubifs_mnt就可以看到mdm9607_sysfs.ubi的文件系统的具体内容了
+
 
 
 
