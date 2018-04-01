@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:38:39
+#   ModifiedTime: 2018-04-01 21:39:22
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -64,7 +64,7 @@ ubiformat /dev/mtd0 -s 2048 -f mdm9607-sysfs.ubi
 #(6).重新绑定/dev/ubi_ctrl和/dev/mtd0,注意：仍然要显式加上 -O 2048 的选项
 ubiattach /dev/ubi_ctrl -m 0 -O 2048
 
-#(7).创建一个挂载点,并进行挂载
+#(7).创建一个挂载点,并按照ubi文件系统格式进行挂载
 mkdir /mnt/loop
 mount -t ubifs ubi0 /mnt/loop
 cp -R /mnt/loop/* /new/directory 
