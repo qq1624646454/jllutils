@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:53:33
+#   ModifiedTime: 2018-04-01 21:57:20
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -91,9 +91,9 @@ mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img
 #    首先要准备一个配置文件，内容如下，文件名为 ubi.ini
 #    [ubi_rfs]
 #    mode=ubi
-#    image=ubifs.img
+#    image=ubifs_new.img
 #    vol_id=0
-#    vol_size=6856704   // ubifs.img 的大小
+#    vol_size=6856704   // ubifs_new.img 的大小
 #    vol_type=dynamic
 #    vol_name=userdata  //分区卷标名，可以随便取，但最好与原来的镜像保持一致 
 #    vol_alignment=1 
@@ -108,7 +108,7 @@ mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img
 #    -O - VID header offset from start of PEB. UBI_VID_HDR 的偏移，由前面分析得为 4KB。
 #    ubi.ini - UBI image configuration file.
 #  
-ubinize -o userdata.ubi -p 262144 -m 2048 -s 1024 -O 2048 ubi.ini
+ubinize -o mdm9607_sysfs_new.ubi -p 262144 -m 2048 -s 1024 -O 2048 ubi.ini
 
 
 --------------------------------
