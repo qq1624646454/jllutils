@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:28:20
+#   ModifiedTime: 2018-04-01 21:30:22
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -53,8 +53,10 @@ mtdinfo /dev/mtd0
 #(3).将ubi与/dev/mtd0进行关联，即在ubifs文件系统中让ubi_ctrl代表/dev/mtd0这个设备
 modprobe ubi mtd=0
 
-#(4).
+#(4).格式化前先解绑定,因为关联时会默认绑定/dev/ubi_ctrl和/dev/mtd0
 ubidetach /dev/ubi_ctrl -m 0
+
+#(5).
 ubiformat /dev/mtd0 -s 2048 -f Angstrom-x11-at91sam9-image-eglibc-ipk-v20110624-at91sam9x5ek.rootfs.ubi
 ubiattach /dev/ubi_ctrl -m 0 -O 2048
 mkdir /mnt/loop
