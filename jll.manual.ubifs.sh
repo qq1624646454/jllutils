@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:57:20
+#   ModifiedTime: 2018-04-01 22:00:31
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -46,9 +46,22 @@ modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourt
 
 #(2).查看nandflash设备信息
 cat /proc/mtd
-#dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
+  #dev:    size   erasesize  name
+  #mtd0: 40000000 00020000 "NAND simulator partition 0"
 
 mtdinfo /dev/mtd0
+  #mtd0
+  #Name:                           NAND simulator partition 0
+  #Type:                           nand
+  #Eraseblock size:                131072 bytes, 128.0 KiB
+  #Amount of eraseblocks:          8192 (1073741824 bytes, 1024.0 MiB)
+  #Minimum input/output unit size: 2048 bytes
+  #Sub-page size:                  512 bytes
+  #OOB size:                       64 bytes
+  #Character device major/minor:   90:0
+  #Bad blocks are allowed:         true
+  #Device is writable:             true
+
 
 #(3).将ubi与/dev/mtd0进行关联，即在ubifs文件系统中让ubi_ctrl代表/dev/mtd0这个设备
 modprobe ubi mtd=0
