@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:05:57
+#   ModifiedTime: 2018-04-01 21:26:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -41,8 +41,10 @@ modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourt
 ---------------------
 挂载ubi镜像
 ---------------------
+#(1).模拟一个基于nandflash的设备: /dev/mtd0,大小1GB,页大小为2KB
 modprobe nandsim first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95 #1GiB, 2048 bytes page;
 
+#(2).查看nandflash设备信息
 cat /proc/mtd
 #dev:    size   erasesize  name  mtd0: 40000000 00040000 "NAND simulator partition 0"   
 
