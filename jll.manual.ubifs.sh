@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:48:03
+#   ModifiedTime: 2018-04-01 21:53:11
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -87,7 +87,20 @@ echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文�
 mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img 
 
 #(3).通过ubinize生成ubi镜像: 
-首先要准备一个配置文件，内容如下，文件名为 ubi.ini
+#    首先要准备一个配置文件，内容如下，文件名为 ubi.ini
+#    [ubi_rfs]
+#    mode=ubi
+#    image=ubifs.img
+#    vol_id=0
+#    vol_size=6856704   // ubifs.img 的大小
+#    vol_type=dynamic
+#    vol_name=userdata  //分区卷标名，可以随便取，但最好与原来的镜像保持一致 
+#    vol_alignment=1 
+#    vol_flags=autoresize
+#
+#  ubinize的参数：
+#  
+ubinize -o userdata.ubi -p 262144 -m 2048 -s 1024 -O 2048 ubi.ini
 
 
 --------------------------------
