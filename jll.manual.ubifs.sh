@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:43:28
+#   ModifiedTime: 2018-04-01 21:46:02
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -75,10 +75,12 @@ mount -t ubifs ubi0 ubifs_mnt
 反向制作ubi镜像:
     由前面挂载了一个ubi镜像后，经过定制，需要重新打包生成ubi镜像
 ---------------------------------------------------------------------------------------------
-(1).定制内容：
+#(1).定制内容：
 cd ubifs_mnt
 echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文件
 
+#(2).生成ubi镜像
+mkfs.ubifs -m 2048 -e 253952 -c 4096 -r /mnt/ubi ubifs.img 
 
 
 
