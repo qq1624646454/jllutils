@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:46:02
+#   ModifiedTime: 2018-04-01 21:47:48
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -79,8 +79,12 @@ mount -t ubifs ubi0 ubifs_mnt
 cd ubifs_mnt
 echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文件
 
-#(2).生成ubi镜像
-mkfs.ubifs -m 2048 -e 253952 -c 4096 -r /mnt/ubi ubifs.img 
+#(2).通过mkfs.ubifs生成ubi镜像:
+#    -m - Minimum I/O unit size. 即页大小，由前面得知为 2KB。  
+#    -e - Logical Erase Block (LEB) size. 由前面计算得为 248KB，即 253952。  
+#    -c - Max LEB count. (vol_size/LEB). 通过 mtdinfo /dev/mtd0 输出结果中的 Amount of eraseblocks 可得。 
+#    -r - Path
+mkfs.ubifs -m 2048 -e 253952 -c 4096 -r ubifs_mnt ubifs_new.img 
 
 
 
