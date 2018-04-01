@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-03-29 17:19:01
-#   ModifiedTime: 2018-04-01 21:40:41
+#   ModifiedTime: 2018-04-01 21:43:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -69,6 +69,17 @@ mkdir ubifs_mnt
 mount -t ubifs ubi0 ubifs_mnt 
 
 至此，挂载完成，进入ubifs_mnt就可以看到mdm9607_sysfs.ubi的文件系统的具体内容了
+
+
+*********************************************************************************************
+反向制作ubi镜像:
+    由前面挂载了一个ubi镜像后，经过定制，需要重新打包生成ubi镜像
+---------------------------------------------------------------------------------------------
+(1).定制内容：
+cd ubifs_mnt
+echo "hello" > hello #假如我的定制就是加个带有“hello"的hello文件
+
+
 
 
 
