@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2018-03-14 14:34:25
+#   ModifiedTime: 2018-04-04 09:36:40
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -33,8 +33,11 @@ ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/n
 ${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
 # git clean -df
 
-${Fseablue}svn log -l20${AC}
+${Fseablue}svn log -l 20${AC}
+${Fseablue}svn log -r 485 -v  #查看第485条记录提交的文件信息${AC}
 # git log -n 20
+
+
 
 ${Fseablue}svn diff -r r174:r173${AC}
 # git diff CABC01:CABC00
