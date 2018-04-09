@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright(c) 2016-2100.  root.  All rights reserved.
 #
-#   FileName:     jll.manual.errnor.sh
+#   FileName:     jll.manual.errno.sh
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-01-08 15:59:32
