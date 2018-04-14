@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2018-04-14 22:42:44
+#   ModifiedTime: 2018-04-15 00:56:58
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -210,6 +210,12 @@ Usage: push an existing repository from the command line
 About github web
 ============================
 https://hexo.io/docs/setup.html
+
+(1)
+npm config set strict-ssl false
+npm install -g hexo-cli
+
+
 
 
 EOF
