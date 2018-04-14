@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2018-04-15 00:58:28
+#   ModifiedTime: 2018-04-15 01:20:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -207,20 +207,32 @@ Usage: push an existing repository from the command line
 
 
 
-About github web
-============================
+==============================================================================================
+About Building A github Blog Platform that Hexo is a fast, simple and powerful blog framework 
+
 https://hexo.io/docs/setup.html
+==============================================================================================
 
 (1) Install git
 apt-get install git-core
 
-(2) Install Hexo
+(2) Install Node.js
+(2-1)
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+OR
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+(2-2)
+nvm install stable
+
+(3) Install Hexo
 npm config set strict-ssl false
 npm install -g hexo-cli
 
-(3) Install Node.js
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-nvm install stable
+(4) Setup to initialise Hexo in the target the below:
+cd /root/.github.com/qq1624646454/
+hexo init github_hexo
+cd github_hexo
+npm install
 
 
 
