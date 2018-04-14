@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-11-12 09:24:44
-#   ModifiedTime: 2018-04-15 00:56:58
+#   ModifiedTime: 2018-04-15 00:57:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -214,6 +214,10 @@ https://hexo.io/docs/setup.html
 (1)
 npm config set strict-ssl false
 npm install -g hexo-cli
+
+(2)
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+nvm install stable
 
 
 
