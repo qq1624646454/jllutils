@@ -12,6 +12,11 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+Prevent from automatically formating text for paste, please first type
+  :set paste
+Then perform pasting in insert mode
+
+
 
 
 ---------------------------------------
