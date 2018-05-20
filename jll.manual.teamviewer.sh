@@ -27,8 +27,10 @@ Account: english name qq mail
 Password: X[IL6][domain10_lowercase]
 
 
-Install on Ubuntu-14
+Install on Ubuntu-14 64bit
 ============================================
+
+
 apt-get install libc6:i386 \\
                 libgcc1:i386 \\
                 libasound2:i386 \\
@@ -51,6 +53,30 @@ wget http://download.teamviewer.com/download/teamviewer_i386.deb
 
 dpkg -i teamviewer_i386.deb
 
+ERROR:
+-------------------------------------------------------------------------
+Selecting previously unselected package teamviewer.
+(Reading database ... 172493 files and directories currently installed.)
+Preparing to unpack teamviewer_i386.deb ...
+Unpacking teamviewer (12.0.93330) ...
+dpkg: dependency problems prevent configuration of teamviewer:
+ teamviewer depends on libdbus-1-3.
+
+dpkg: error processing package teamviewer (--install):
+ dependency problems - leaving unconfigured
+Processing triggers for gnome-menus (3.10.1-0ubuntu2) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu1) ...
+Processing triggers for bamfdaemon (0.5.1+14.04.20140409-0ubuntu1) ...
+Rebuilding /usr/share/applications/bamf-2.index...
+Processing triggers for mime-support (3.54ubuntu1.1) ...
+Processing triggers for hicolor-icon-theme (0.13-1) ...
+Errors were encountered while processing:
+ teamviewer
+-------------------------------------------------------------------------
+dpkg --add-architecture i386
+apt-get update
+apt-get -f install
+dpkg -i teamviewer_i386.deb
 
 
 EOF
