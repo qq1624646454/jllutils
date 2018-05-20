@@ -238,6 +238,9 @@ ${Fyellow} aptitude install git-doc ${AC}
 ${Fyellow} aptitude install git-email ${AC}
 ${Fyellow} aptitude install gitweb ${AC}
 ${Fyellow} aptitude install git-man ${AC}
+${Fyellow} git config --global push.default matching ${AC}
+${Fyellow} git config --global push.default simple ${AC}
+${Fyellow} git config --global user.name "Jielong Lin" ${AC}
 
 
 \$${Bred} ERROR ${AC}
