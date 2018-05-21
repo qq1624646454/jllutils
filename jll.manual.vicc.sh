@@ -17,6 +17,8 @@ Prevent from automatically formating text for paste, please first type
 Then perform pasting in insert mode
 
 
+https://gitee.com/jllim/vicc_for_linux64.git
+https://github.com/qq1624646454/vicc_installer.git
 
 
 ---------------------------------------
