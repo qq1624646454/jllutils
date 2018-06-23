@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-30 15:59:57
-#   ModifiedTime: 2017-11-05 14:42:06
+#   ModifiedTime: 2018-06-23 10:54:17
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -28,6 +28,14 @@ Run the command:
     pulseaudio --start --log-target=syslog
 Suggestion:
     append this command into /etc/rc.local
+
+Modifying the below configurated file:
+vim /etc/modprobe.d/alsa-base.conf
+   ...
+   #add by jllim
+   options snd-hda-intel model=auto
+   :w
+/sbin/alsa force-reload
 
 
 ${Fseablue}Waiting for network configuration…${AC}
