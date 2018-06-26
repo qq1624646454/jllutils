@@ -90,6 +90,7 @@ declare -a __JLLCFG_SshKey_URLs=(
   "jielong.lin_nopassword@github"   "git@github.com:linjielong/iDSS.git"
   "jielong.lin_nopassword@github"   "git@github.com:linjielong/linux.git"
   "jielong.lin_nopassword@github"   "git@github.com:linjielong/reachutils.git"
+  "jllim_password@gitee.com"        "git@gitee.com:jllim/vicc_for_linux64.git"
 )
 
 
