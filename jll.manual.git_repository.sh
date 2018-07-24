@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-28 16:43:38
-#   ModifiedTime: 2017-07-04 14:46:41
+#   ModifiedTime: 2018-07-24 19:03:38
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -13,6 +13,30 @@ source ${JLLPATH}/BashShellLibrary
 issueID=0
 
 more >&1 << EOF
+
+******************************************************************
+** How to build repo tool 
+**   Linux(Debian,Ubuntu) as git remote repository
+******************************************************************
+${Fyellow}git clone https://gerrit-googlesource.lug.ustc.edu.cn/git-repo${AC}
+${Fyellow}cd git-repo/${AC}
+${Fyellow}cp -rvf repo /usr/bin/${AC}
+${Fyellow}chmod +x /usr/bin/repo${AC}
+#添加红色部分，否则每次repo init ... 时，都会访问google服务器导致init failure.
+${Fyellow}vi /usr/bin/repo${AC}
+  ...
+  5 import os
+  6 REPO_URL = os.environ.get('REPO_URL', None)
+  7 ${Fred}#JLLim.S 20180724${AC}
+  8 ${Fred}REPO_URL = 'https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'${AC}
+  9 ${Fred}#JLLim.E 20180724${AC}
+ 10 if not REPO_URL:
+ 11   REPO_URL = 'https://gerrit.googlesource.com/git-repo'
+ 12 REPO_REV = 'stable'
+ ...
+
+
+
 
 ******************************************************************
 ** How to build git project management:
