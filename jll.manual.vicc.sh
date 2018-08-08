@@ -17,12 +17,18 @@ Prevent from automatically formating text for paste, please first type
 Then perform pasting in insert mode
 
 
+<<<<<<< HEAD
 ---------------------------
 How to Install vicc
 ---------------------------
 git clone https://gitee.com/jllim/vicc_for_linux64_installer.git
   OR
 git clone https://github.com/qq1624646454/vicc_installer.git
+=======
+Installation vicc:
+https://gitee.com/jllim/vicc_for_linux64_installer.git
+https://github.com/qq1624646454/vicc_installer.git
+>>>>>>> b064a1bbaa5c63555921e097181014379c39d1f7
 
 
 ---------------------------------------
