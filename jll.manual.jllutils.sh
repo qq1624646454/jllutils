@@ -27,9 +27,7 @@ cd ~/github.com/qq1624646454/jllutils
 ./____install_jllutils.sh
 cd - >/dev/null
 
-
 ${Fpink}# For a developer, maybe need to setup ssh keys into ~/.ssh and ~/.sshconf ${AC}
-${Fpink}# and meanwhile Push URL will be changed to ssh format rather than https ${AC}
 ${Fpink}# please next to do the follows: ${AC}
 cd ~/github.com/qq1624646454/jllutils
 ./jll.sshconf.sh
