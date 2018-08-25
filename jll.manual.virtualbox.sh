@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-08-25 17:46:14
-#   ModifiedTime: 2018-08-25 17:46:14
+#   ModifiedTime: 2018-08-25 23:34:20
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,11 +17,12 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more>&1<<EOF
 
- apt-get  install virtualbox-dkms virtualbox-dbg
+ apt-get install -y virtualbox-dkms virtualbox-dbg virtualbox-guest-additions-iso
 
  # Observed owner for /usr if launch virtualbox met error:
  #   Failed to load VMMR0.r0 (VERR_SUPLIB_OWNER_NOT_ROOT)
  ls -l /usr/
- chown -r root:root /usr
+ chown -R root:root /usr
+
 EOF
 
