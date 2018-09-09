@@ -22,6 +22,7 @@ Howto Install:
   vim /readme.txt 
   mv  /libflashplayer.so /usr/lib/mozilla/plugins/
   rm -rvf /readme.txt
+  rm -rvf /license.pdf
 
   re-launch firefox
 
