@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-02 14:39:02
-#   ModifiedTime: 2017-08-11 11:15:35
+#   ModifiedTime: 2018-11-25 11:01:36
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -92,6 +92,9 @@ ${Fred} Unable to connect to CUPS server localhost:631 - Bad file descriptor ${A
 188
 189 #======================= Share Definitions ======================= 
 
+
+
+${Fred} IF login failure, please check the share fold from /etc/samba/smb.conf ${AC}
 
 EOF
 
