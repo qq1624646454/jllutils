@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-08-25 17:46:14
-#   ModifiedTime: 2018-08-25 23:34:20
+#   ModifiedTime: 2018-11-25 12:49:47
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -23,6 +23,11 @@ more>&1<<EOF
  #   Failed to load VMMR0.r0 (VERR_SUPLIB_OWNER_NOT_ROOT)
  ls -l /usr/
  chown -R root:root /usr
+
+ Right Ctrl + F      -- 切换到全屏模式
+ Right Ctrl + L      -- 切换到无缝模式
+ Right Ctrl + C      -- 切换到比例模式
+ Right Ctrl + Home   -- 显示控制菜单
 
 EOF
 
