@@ -5,13 +5,23 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-07 20:56:02
-#   ModifiedTime: 2017-06-07 21:01:57
+#   ModifiedTime: 2018-09-19 15:54:45
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
+
+${AC}${Fgreen}
+文件内部替换: 处理 ' cd apps_proc; ls -l >../apps_proc.list' 文件列表${AC}
+vim apps_proc.list
+:%s/.*://g
+:%s/^[0-9]\{2,\} /apps_proc\//g
+
+
+
+
 ${AC}${Fgreen}
 文件内部替换${AC}
 ${Fseablue}1)在全部内容的行首添加//号：${Fyellow}

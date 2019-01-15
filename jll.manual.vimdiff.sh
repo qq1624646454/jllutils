@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-26 08:50:49
-#   ModifiedTime: 2017-06-16 20:29:05
+#   ModifiedTime: 2018-10-10 19:46:40
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -45,6 +45,24 @@ zo          (folding open, z这个字母看上去比较像折叠的纸）
 
 然后可以用下列命令来重新折叠： 
 zc          (folding close)
+
+
+
+${Fyellow}=====================================${AC}
+${Fyellow} 如何比较两个二进制/十六进制文件${AC}
+${Fyellow}-------------------------------------${AC}
+cd /workspace2/jllproject/L170/Mangov2/branches/L170HQA2_YuTong.1
+cd apps_proc/poky/build/tmp-glibc.orig/work
+vim -bd \\
+ tmp-glibc.1/work/armv7a-vfp-neon-oe-linux-gnueabi/perl/5.22.0-r0/image/usr/lib/libperl.so.5.22.0 \\
+ tmp-glibc/work/armv7a-vfp-neon-oe-linux-gnueabi/perl/5.22.0-r0/image/usr/lib/libperl.so.5.22.0
+
+#在左侧窗口通过如下命令切换为十六进制格式
+:%!xxd -g 1
+#通过Ctrl+W+W跳转到右侧窗口并通过如下命令切换为十六进制格式
+:%!xxd -g 1
+#通过如下命令重新激活对比功能，就会使用不同颜色显示差异的内容
+:diffupdate
 
 
 -------------------------------------------------------------

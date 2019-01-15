@@ -6,13 +6,62 @@ JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 
-mount >&1 << EOF
+more >&1 << EOF
 
+
+------------------------------------------------------
+ How to check if the new harddisk is the new or old?
+------------------------------------------------------
+root@REACHXM82:.# ${AC}${Fred}aptitude install smartmontools${AC}
+The following NEW packages will be installed:
+  heirloom-mailx{a} smartmontools 
+0 packages upgraded, 2 newly installed, 0 to remove and 176 not upgraded.
+Need to get 664 kB of archives. After unpacking 2,168 kB will be used.
+Do you want to continue? [Y/n/?] y
+Get: 1 http://cn.archive.ubuntu.com/ubuntu/ trusty-updates/universe heirloom-mailx amd64 12.5-2+deb7u1build0.14.04.1 [219 kB]
+...
+Setting up smartmontools (6.2+svn3841-1.2ubuntu0.1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+                                         
+root@REACHXM82:.# 
+root@REACHXM82:.# ${AC}${Fred}smartctl -A /dev/sdd${AC}
+sdd   sdd1  sdd2  
+root@REACHXM82:.# ${AC}${Fred}smartctl -A /dev/sdd${AC}
+smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-134-generic] (local build)
+Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x002f   100   253   051    Pre-fail  Always       -       0
+  3 Spin_Up_Time            0x0027   100   253   021    Pre-fail  Always       -       0
+  4 Start_Stop_Count        0x0032   100   100   000    Old_age   Always       -       3
+  5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0
+  7 Seek_Error_Rate         0x002e   100   253   000    Old_age   Always       -       0
+  9 Power_On_Hours          0x0032   100   100   000    Old_age   Always       -       0
+ 10 Spin_Retry_Count        0x0032   100   253   000    Old_age   Always       -       0
+ 11 Calibration_Retry_Count 0x0032   100   253   000    Old_age   Always       -       0
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       3
+192 Power-Off_Retract_Count 0x0032   200   200   000    Old_age   Always       -       0
+193 Load_Cycle_Count        0x0032   200   200   000    Old_age   Always       -       15
+194 Temperature_Celsius     0x0022   112   112   000    Old_age   Always       -       31
+196 Reallocated_Event_Count 0x0032   200   200   000    Old_age   Always       -       0
+197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0030   100   253   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x0032   200   200   000    Old_age   Always       -       0
+200 Multi_Zone_Error_Rate   0x0008   100   253   000    Old_age   Offline      -       0
+
+You can check the Power_On_Hours for confirm your harddisk is the new nor old.
+
+
+
+--------------------------------------------------------------------------------------
 fdisk /dev/sdX
 ...
 
 partprobe
-mkfs.ext4  /dev/sdXn
+mkfs.ext4 -L VolumeName  /dev/sdXn
 
 
 # bootable windows7 installer over udisk

@@ -21,6 +21,17 @@ ${Fseablue}git add folder${AC}
 ${Fseablue}git rm -r --cached folder${AC}
 
 
+##
+## Empty folder is not be tracking by git
+##
+${Fseablue}mkdir -pv empty_folder${AC}
+${Fseablue}echo "# Ignore everything in this directory" >empty_folder/.gitkeep${AC} 
+${Fseablue}echo "*" >>empty_folder/.gitkeep${AC}
+${Fseablue}echo "# Except this file !.gitkeep" >>empty_folder/.gitkeep${AC}
+${Fseablue}git add -A${AC}
+${Fseablue}git commit -m "Commit empty_folder"${AC}
+${Fseablue}git push -u origin master${AC}
+
 
 ###
 ### sometimes, must use git rebase origin/2k17_mtk_archer_m_refdev 

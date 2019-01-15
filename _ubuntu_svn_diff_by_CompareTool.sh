@@ -1,11 +1,11 @@
 #!/bin/bash
 # Copyright(c) 2016-2100.  root.  All rights reserved.
 #
-#   FileName:     _ubuntu_svn_diff_by_bcompare.sh
+#   FileName:     _ubuntu_svn_diff_by_CompareTool.sh
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-01-19 15:14:09
-#   ModifiedTime: 2018-03-30 20:24:14
+#   ModifiedTime: 2019-01-15 15:12:43
 
 
 # Configure your favorite diff program here.

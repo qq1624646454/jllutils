@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-30 15:59:57
-#   ModifiedTime: 2018-06-23 10:54:17
+#   ModifiedTime: 2018-08-29 11:31:14
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -55,6 +55,7 @@ ${Fwhite}${Bgreen} Auto-mount partitions  ${AC}
 # <file system> <mount point>   <type>  <options>          <dump>  <pass>
   /dev/sda4     /fight4honor    ext4    errors=remount-ro  0       1
   /dev/sda3     /ibbyte         ext4    errors=remount-ro  0       1
+  /dev/sda2     /my             ext4    defaults           0       2 
 :w
 
 
@@ -109,6 +110,10 @@ JLL: select Input Sources About EN and CN
 # reboot
 
 
+${Fgreen} Which desktop subsystem ${AC}
+    echo \$DESKTOP_SESSION
+
+
 ${Fwhite}${Bgreen} Install git tools ${AC}
  apt-get install git git-svn git-doc git-email gitweb git-man 
  git config --global push.default matching 
@@ -124,6 +129,15 @@ Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
 in /etc/ssh/sshd_config or /etc/ssh/ssh_config
 
 
+${Fred} the permission of the setuid helper is not correct解决办法 ${AC}
+chmod u+s,a+r /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+apt-get -f install
+
+
+${Fred} How to download Ubuntu 14.04 ${AC}
+Open link to https://www.ubuntu.com/download/alternative-downloads
+Download BitTorrent and Open BitTorrent to Download Ubuntu image is very fast
+I recommend that it is performed by firefox on ubuntu 14.04
 
 EOF
 

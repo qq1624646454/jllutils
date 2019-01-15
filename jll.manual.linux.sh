@@ -89,7 +89,8 @@ function set_m() {
     export PATH=\${JAVA_HOME}/bin:\${MAKE382}:\$PATH:\$(get_path_minus_java);
     java -version;
     echo PATH=\$PATH
-} 
+}
+export -f set_m 
 ...
 jielong.lin@xmbuilder03:~$
 +------------------------------------------------------------------------------------

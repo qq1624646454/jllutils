@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-03 20:11:44
-#   ModifiedTime: 2018-01-29 11:21:58
+#   ModifiedTime: 2018-08-08 17:53:55
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -30,7 +30,23 @@ Password: X[IL6][domain10_lowercase]
 Install on Ubuntu-14 64bit
 ============================================
 
+----------------------------
+  Install teamviewer 64bit 
+----------------------------
 
+dpkg -i teamviewer_13.2.13582_amd64.deb
+
+#If met errors during installation, please do it follows:
+apt-get update
+apt-get -f install #handling all dependence installing and re-install teamviewer
+
+/opt/teamviewer/tv_bin/teamviewer-config #registe this computer to teamviewer 
+/opt/teamviewer/tv_bin/teamviewerd
+
+
+----------------------------
+  Install teamviewer 32bit 
+----------------------------
 apt-get install libc6:i386 \\
                 libgcc1:i386 \\
                 libasound2:i386 \\

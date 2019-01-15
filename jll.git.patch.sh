@@ -400,7 +400,7 @@ EOF
 # Restore the uncommit environment
 #
 echo
-echo "jll: Retore uncommit environment if press [y], or exit " 
+echo "jll: Restore uncommit environment if press [y], or exit " 
 read -p "jll: Your Choice is " GvYourChoice
 echo
 if [ x"${GvYourChoice}" = x"y" ]; then

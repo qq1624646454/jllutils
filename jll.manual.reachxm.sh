@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2017-12-11 15:30:44
+#   ModifiedTime: 2018-10-17 18:00:17
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,6 +15,20 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 more >&1<<EOF
+
+${Bgreen}${Fblack} How to build recovery${AC}
+1.modify source code under apps_proc/bootable/recovery
+2.set environment variabiles:
+    cd apps_proc/poky
+    source build/conf/set_bb_env_L170H.sh
+3.clean then compile target - recovery
+    MACHINE=mdm9607 rebake recovery 
+    cdbitbake machine-recovery-image 
+4.Retrieve target:
+    apps_proc/poky/build/tmp-glibc/deploy/images/mdm9607/mdm9607-recovery.ubi 
+5.Flash:
+    adb reboot bootloader
+    fastboot flash recoveryfs apps_proc/poky/build/tmp-glibc/deploy/images/mdm9607/mdm9607-recovery.ubi
 
 ${Bgreen}${Fblack} Custom the /etc/init.d/reachservice.sh${AC}
 /media/root/work/jllproject/trunk_xghd/apps_proc/poky/meta-qti-bsp-prop/recipes-bsp/reach-services/reach-services_0.0.bb
@@ -70,7 +84,40 @@ bitbake linux-quic -c compile -f   //编译kernel
 bitbake linux-quic -c deploy -f    // 更新镜像
 
 
-  
+adb reboot bootloader
+fastboot erase efs2 #如果出现无法擦除，说明是被tz锁住了，请重新编译tz即可
+fastboot reboot
+
+
+
+####################################################################
+    L170L_2plus1
+####################################################################
+1).项目配置环境安装：
+   在~/.ssh/目录下新建config文件
+         Host          L170L_2plus1.reachxm.com
+         HostName      gerrit.reachxm.com
+         User          你的Gerrit账号的用户名
+         Port          29418
+         IdentityFile  ~/.ssh/id_rsa
+   把SSH Private Key放入~/.ssh/目录下
+2).下载项目：L170L 2+1
+   git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+   mkdir -pv L170L_2plus1
+   cd L170L_2plus1
+   ../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/L170L_2plus1/platform/manifest \\
+                    -b master --config-name --repo-url=\$(pwd)/../git-repo
+   ../git-repo/repo sync
+   ../git-repo/repo start master --all
+
+3).编译项目：L170L 2+1
+  在L170L_2plus1项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
+  ./make_by_reachxm h #查看工具的用法
+
+  #编译APSS和MPSS并打包为QPST和QMSCT软件包
+  ./make_by_reachxm APSS MPSS 9607.lwgniag.prod for2K hasClean hasPackingForQPST hasPackingForQMSCT
+
+
 
 EOF
 

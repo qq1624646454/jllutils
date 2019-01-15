@@ -82,14 +82,15 @@ echo
 # KeyName Url_with_SSH_rather_than_https 
 __JLLCFG_SshKey_RootPath="${HOME}/.sshconf"
 declare -a __JLLCFG_SshKey_URLs=(
-  "qq1624646454@csdn_github"        "git@github.com:qq1624646454/jllutils.git"
-  "qq1624646454@csdn_github"        "git@github.com:qq1624646454/vicc.git"
-  "qq1624646454@csdn_github"        "git@github.com:qq1624646454/vicc_installer.git"
-  "qq1624646454@csdn_github"        "git@github.com:qq1624646454/JoyfulPuTTY.git"
-  "qq1624646454@csdn_github"        "git@github.com:qq1624646454/philipstv_tpv.git"
-  "jielong.lin_nopassword@github"   "git@github.com:linjielong/iDSS.git"
-  "jielong.lin_nopassword@github"   "git@github.com:linjielong/linux.git"
-  "jielong.lin_nopassword@github"   "git@github.com:linjielong/reachutils.git"
+  "github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6."           "git@github.com:qq1624646454/jllutils.git"
+  "github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6."           "git@github.com:qq1624646454/vicc.git"
+  "github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6."           "git@github.com:qq1624646454/vicc_installer.git"
+  "github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6."           "git@github.com:qq1624646454/JoyfulPuTTY.git"
+  "github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6."           "git@github.com:qq1624646454/philipstv_tpv.git"
+  "github__NP__U..jielong.lin@qq.com.__P..X.IL6.Domain6."          "git@github.com:linjielong/iDSS.git"
+  "github__NP__U..jielong.lin@qq.com.__P..X.IL6.Domain6."          "git@github.com:linjielong/linux.git"
+  "github__NP__U..jielong.lin@qq.com.__P..X.IL6.Domain6."          "git@github.com:linjielong/reachutils.git"
+  "gitee__P..MyName5.__U..jielong.lin@qq.com.__P..X.IL6.Domain5."  "git@gitee.com:jllim/vicc_for_linux64.git"
 )
 
 

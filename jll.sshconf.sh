@@ -528,10 +528,10 @@ Lfn_PageMenuUtils GvResult  "Select" 7 4 "***** Configure Under \"~/.ssh/\" (q: 
 if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
     unset GvPageUnit
     unset GvPageMenuUtilsContent
-    if [ ! -e "${CvScriptPath}/.sshconf/qq1624646454@csdn_github" ]; then
+    if [ ! -e "${CvScriptPath}/.sshconf/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6." ]; then
         echo
         echo "JLL: Install failue then Exit"
-        echo "JLL:    ${CvScriptPath}/.sshconf/qq1624646454@csdn_github is not present"
+        echo "JLL:    ${CvScriptPath}/.sshconf/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6. is not present"
         echo
         unset GvCONF_Proj
         unset CvScriptPath
@@ -542,7 +542,7 @@ if [ x"${GvResult}" = x"${GvPageMenuUtilsContent[i]}" ]; then
     [ -e "${GvCONF_Proj}" ] && rm -rf ${GvCONF_Proj}
     cp -rf ${CvScriptPath}/.sshconf  ${GvCONF_Proj}
     [ -e "${HOME}/.ssh" ] && rm -rf ${HOME}/.ssh
-    cp -rf ${GvCONF_Proj}/qq1624646454@csdn_github  ${HOME}/.ssh
+    cp -rf ${GvCONF_Proj}/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6.  ${HOME}/.ssh
     chmod -R 0500 ${HOME}/.ssh/*
     if [ -e "${HOME}/.ssh/config" ]; then
         chmod +w ${HOME}/.ssh/config*

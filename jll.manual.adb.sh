@@ -11,6 +11,14 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+Network ADB:
+================================
+adb connect 192.168.0.147:5555
+adb devices
+adb -s 192.168.0.147:5555 shell
+
+
+
 ===============================================================================================
 1.首先需要在Android设备上使能USB方式的ADB功能，不同的android厂家设备有不同的方法：
     以Philips TV为例：

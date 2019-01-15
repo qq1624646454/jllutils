@@ -202,5 +202,39 @@ int memcmp(const void *buf1, const void *buf2, unsigned int count);
 
 
 
+
+/*JLLim.S reach Revision tracking */
+#define LOG_TAG "lora_app"
+#include "cutils/log.h"
+
+#define int_YEAR ((((__DATE__ [7] - '0') * 10  \\
+                    + (__DATE__ [8] - '0')) * 10 \\
+                    + (__DATE__ [9] - '0')) * 10 \\
+                    + (__DATE__ [10] - '0'))
+#define int_MONTH  ( __DATE__ [2] == 'c' ? 12 \\
+                     : __DATE__ [2] == 'b' ? 2 \\
+                     : __DATE__ [2] == 'r' ? (__DATE__ [0] == 'M' ? 3 : 4) \\
+                     : __DATE__ [2] == 'y' ? 5 \\
+                     : __DATE__ [2] == 'n' ? (__DATE__ [1] == 'a' ? 1 : 6) \\
+                     : __DATE__ [2] == 'l' ? 7 \\
+                     : __DATE__ [2] == 'g' ? 8 \\
+                     : __DATE__ [2] == 'p' ? 9 \\
+                     : __DATE__ [2] == 't' ? 10 \\
+                     : __DATE__ [2] == 'v' ? 11 : 0)
+#define int_DAY  ( (__DATE__ [4] == ' ' ? 0 : __DATE__ [4] - '0') * 10 + (__DATE__ [5] - '0') )
+
+#ifdef MSG 
+#    undef  MSG
+#    define MSG(fmt, ...) ((void)ALOG(LOG_INFO, LOG_TAG, "R%d%02d%02d." fmt, \\
+                          int_YEAR, int_MONTH, int_DAY, ##__VA_ARGS__))
+#endif
+
+
+MSG("hello"); //I/lora_app(13975): R20190108.ERROR: hello
+
+/*JLLim.E reach Revision tracking */
+
+
+
 EOF
 

@@ -17,6 +17,13 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more>&1<<EOF
 
+#Install Virtualbox: please first download the latest version image from official website
+dpkg -i virtualbox-5.2_5.2.18-124319~Ubuntu~trusty_amd64.deb
+
+#Support for usb 2.0, so please download the extension package, then double click it to install
+
+
+#Abandon
  apt-get install -y virtualbox-dkms virtualbox-dbg virtualbox-guest-additions-iso
 
  # Observed owner for /usr if launch virtualbox met error:
