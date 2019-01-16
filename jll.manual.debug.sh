@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-15 09:14:38
-#   ModifiedTime: 2019-01-15 09:18:08
+#   ModifiedTime: 2019-01-16 17:10:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -36,6 +36,21 @@ do { \
         pr_debug(msg); \
 } while (0)
 --------------------------------------------------
+
+
+
+
+--------------------------------------------------
+ Format String With Function Line to locate code position
+--------------------------------------------------
+#ifndef JLLimLOGE
+#define JLLimLOGE(fmt, ...) printf("E %-*s %05u " fmt, 24, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#endif
+
+#ifndef JLLimLOGI
+//#define JLLimLOGI(fmt, args...)  printf("I %s,%d " fmt, __FUNCTION__, __LINE__, args)
+#define JLLimLOGI(fmt, ...) printf("I %-24.24s %05u " fmt, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#endif
 
 
 
