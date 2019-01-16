@@ -66,15 +66,17 @@ if [ ${GvIdx} -gt 0 ]; then
     echo
     echo
     echo
+    if [ x"$2" = x"killall" ]; then
     echo  "===== Killing the unused Processes"
-    for((k=1; k<GvIdx; k++)) {
-        if [ x"$$" = x"${GvArrayPID[k]}" ]; then 
-            echo "Skipping | PID=${GvArrayPID[k]} Due to Itself PName=${GvArrayName[k]}"
-        else
-            echo "Killed   | PID=${GvArrayPID[k]} PName=${GvArrayName[k]}"
-            kill -9 ${GvArrayPID[k]}
-        fi
-    }
+        for((k=1; k<GvIdx; k++)) {
+            if [ x"$$" = x"${GvArrayPID[k]}" ]; then 
+                echo "Skipping | PID=${GvArrayPID[k]} Due to Itself PName=${GvArrayName[k]}"
+            else
+                echo "Killed   | PID=${GvArrayPID[k]} PName=${GvArrayName[k]}"
+                kill -9 ${GvArrayPID[k]}
+            fi
+        }
+    fi
 
     unset GvArrayPID
     unset GvArrayName
@@ -83,6 +85,9 @@ echo
 echo
 echo  "===== Simple Http Server Is Running..."
 echo
+if [ x"$1" = x ]; then
 python -m SimpleHTTPServer 8080
-
+else
+python -m SimpleHTTPServer $1 
+fi
 
