@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2018-04-04 09:36:40
+#   ModifiedTime: 2019-01-17 09:17:03
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -293,6 +293,12 @@ svn st 各个状态解释：
   是否过期的信息出现的位置是第九栏(与 -u 并用时): 
       “*” 服务器上有更新版本
       “ ” 工作副本是最新版的
+
+
+=========================================================
+ relocate svn server in project after svn server changed
+---------------------------------------------------------
+svn relocate https://192.168.0.10:8443/svn/rivpiebase/branches/lora_gateway  https://172.16.11.10:8443/svn/rivpiebase/branches/lora_gateway
 
 
 EOF
