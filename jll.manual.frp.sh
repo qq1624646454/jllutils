@@ -5,7 +5,7 @@
 #   Author:       JLLim 
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-22 23:12:35
-#   ModifiedTime: 2019-01-23 00:32:07
+#   ModifiedTime: 2019-01-23 00:32:31
 
 more >&1<<EOF
 
@@ -108,6 +108,15 @@ more >&1<<EOF
         #subdomain = ibbyte
         #ibbyte.freenat.bid亲测是可以的 by JLLim
         #custom_domains = ibbyte.freenat.bid
+
+        [tcp_ssh_ibbyte_22]
+        type = tcp
+        local_ip = 127.0.0.1
+        local_port = 22
+        use_compression = true
+        use_encryption = true
+        remote_port = 59156 
+        custom_domains = ssh.ibbyte.com
 
 EOF
 
