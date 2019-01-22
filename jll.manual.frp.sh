@@ -5,7 +5,7 @@
 #   Author:       JLLim 
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-22 23:12:35
-#   ModifiedTime: 2019-01-23 00:32:31
+#   ModifiedTime: 2019-01-23 00:34:24
 
 more >&1<<EOF
 
@@ -97,6 +97,7 @@ more >&1<<EOF
         #                    web.ibbyte.com 访问本机上的80端口对应的web服务
         custom_domains = web.ibbyte.com
 
+
         #web2.ibbyte.com to releasing version for customers
         [http_web2_ibbyte_com_9988]
         type = http
@@ -109,14 +110,22 @@ more >&1<<EOF
         #ibbyte.freenat.bid亲测是可以的 by JLLim
         #custom_domains = ibbyte.freenat.bid
 
+
+        #
+        #其它的电脑可以通过 ssh -oPort=59156 root@ssh.ibbyte.com 远程登录本机
+        #
         [tcp_ssh_ibbyte_22]
         type = tcp
         local_ip = 127.0.0.1
         local_port = 22
         use_compression = true
         use_encryption = true
+        #由于远程端口可能被别人使用，所以很容易冲突
         remote_port = 59156 
         custom_domains = ssh.ibbyte.com
 
+4.启动:
+     ./frpc -c ./frpc__freenat.bid
+ 
 EOF
 
