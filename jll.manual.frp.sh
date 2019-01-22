@@ -5,7 +5,7 @@
 #   Author:       JLLim 
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-22 23:12:35
-#   ModifiedTime: 2019-01-23 00:21:56
+#   ModifiedTime: 2019-01-23 00:24:01
 
 more >&1<<EOF
 
@@ -91,6 +91,10 @@ more >&1<<EOF
         #                自定义一个可用的子域名，你的访问地址将会是http://ibbyte.freenat.bid
         #subdomain = ibbyte
 
-        #
+        #域名访问方式二：需要申请域名，假如为ibbyte.com，请先在域名管理上创建一条域名为
+        #                    CNAME  web.ibbyte.com  freenat.bid
+        #                通过配置如下custom_domains = web.ibbyte.com 即可以通过访问
+        #                    web.ibbyte.com 访问本机上的80端口对应的web服务
+        custom_domains = web.ibbyte.com
 EOF
 
