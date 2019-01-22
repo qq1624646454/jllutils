@@ -5,7 +5,7 @@
 #   Author:       JLLim 
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-22 23:12:35
-#   ModifiedTime: 2019-01-23 00:17:27
+#   ModifiedTime: 2019-01-23 00:21:56
 
 more >&1<<EOF
 
@@ -82,7 +82,15 @@ more >&1<<EOF
 
         #对传输内容进行压缩，可以有效减小 frpc 与 frps 之间的网络流量，加快流量转发速度，
         #但是会额外消耗一些 cpu 资源
- 
+        use_compression = true
 
+        #将 frpc 与 frps 之间的通信内容加密传输
+        use_encryption = true
+
+        #域名访问方式一：不需要申请域名的方法
+        #                自定义一个可用的子域名，你的访问地址将会是http://ibbyte.freenat.bid
+        #subdomain = ibbyte
+
+        #
 EOF
 
