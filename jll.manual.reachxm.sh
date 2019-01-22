@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2018-10-17 18:00:17
+#   ModifiedTime: 2019-01-22 10:32:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,6 +15,39 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 more >&1<<EOF
+
+${Bgreen}${Fblack} How to retrieve L170L 2+1 Project ${AC}
+${Fgreen}1).项目配置环境安装：${AC}
+   1-1).请安装好git, repo,ssh工具
+   1-2).请管理员忙新建gerrit账号，生成SSH KEY并在Gerrit上绑定SSH Public Key及邮箱，
+        同时将账号归入到L170_Member组中.完成gerrit服务器账号创建后，管理员会向各位
+        提供SSH Private Key及gerrit的用户名及密码
+   1-3).在~/.ssh/目录下新建config文件
+         Host          L170L_2plus1.reachxm.com
+         HostName     gerrit.reachxm.com
+         User          你的Gerrit账号的用户名
+         Port          29418
+         IdentityFile  ~/.ssh/id_rsa
+       把SSH Private Key放入~/.ssh/目录下
+
+${Fgreen}2).下载项目：L170L 2+1${AC}
+mkdir -pv L170L_2plus1
+cd L170L_2plus1
+
+repo init -u ssh://L170L_2plus1.reachxm.com/L170L_2plus1/platform/manifest -b master --config-name
+repo sync
+repo start master --all
+
+${Fgreen}3).编译项目：L170L 2+1${AC}
+在L170L_2plus1项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
+
+./make_by_reachxm h #查看工具的用法
+
+#编译APSS和MPSS并打包为QPST和QMSCT软件包
+./make_by_reachxm APSS MPSS 9607.lwgniag.prod for2K hasClean hasPackingForQPST hasPackingForQMSCT 
+
+
+
 
 ${Bgreen}${Fblack} How to build recovery${AC}
 1.modify source code under apps_proc/bootable/recovery
