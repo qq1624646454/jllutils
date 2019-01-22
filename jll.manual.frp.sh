@@ -5,7 +5,7 @@
 #   Author:       JLLim 
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-22 23:12:35
-#   ModifiedTime: 2019-01-23 00:24:01
+#   ModifiedTime: 2019-01-23 00:32:07
 
 more >&1<<EOF
 
@@ -96,5 +96,18 @@ more >&1<<EOF
         #                通过配置如下custom_domains = web.ibbyte.com 即可以通过访问
         #                    web.ibbyte.com 访问本机上的80端口对应的web服务
         custom_domains = web.ibbyte.com
+
+        #web2.ibbyte.com to releasing version for customers
+        [http_web2_ibbyte_com_9988]
+        type = http
+        local_ip = 127.0.0.1
+        local_port = 9988 
+        use_compression = true
+        use_encryption = true
+        custom_domains = web2.ibbyte.com 
+        #subdomain = ibbyte
+        #ibbyte.freenat.bid亲测是可以的 by JLLim
+        #custom_domains = ibbyte.freenat.bid
+
 EOF
 
