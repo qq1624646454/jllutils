@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-21 21:37:24
-#   ModifiedTime: 2019-02-21 22:46:46
+#   ModifiedTime: 2019-02-27 22:41:26
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -145,6 +145,60 @@ root@ibbyte:.# pavucontrol
     #Devices from Output Devices
 root@ibbyte:.# alsamixer
     Setting parameters for audio device, nothing to do by me
+
+
+----------------------------------------------------------
+Customize some initialized startup utils 
+Suggestion as follows:
+----------------------------------------------------------
+It seems to not be initialized for profile on ubuntu-18,
+so those startup utils will be taken into bashrc.
+root@ibbyte:.#
+root@ibbyte:.# cd ~ 
+root@ibbyte:.# mkdir -pv .bashrc.d 
+root@ibbyte:.# cd .bashrc.d 
+root@ibbyte:.#
+root@ibbyte:.# vim audio_on.sh
+# Copyright(c) 2016-2100.  root.  All rights reserved.
+#
+#   FileName:     audio_on.sh
+#   Author:       JLLim 
+#   Email:        493164984@qq.com
+#   DateTime:     2019-02-14 21:43:49
+#   ModifiedTime: 2019-02-14 21:44:46
+
+function audio_on()
+{
+    pulseaudio --start --log-target=syslog
+}
+export -f audio_on
+
+root@ibbyte:.#
+root@ibbyte:.# vim to_anywhere.sh
+# Copyright(c) 2016-2100.  root.  All rights reserved.
+#
+#   FileName:     to_anywhere.sh
+#   Author:       JLLim 
+#   Email:        493164984@qq.com
+#   DateTime:     2019-01-11 00:15:03
+#   ModifiedTime: 2019-01-22 23:17:37
+
+function to_ws()
+{
+    cd /rescue/projects 
+}
+export -f to_ws
+
+function to_L170L_2plus1()
+{
+    cd /repository/corporation/Reachxm/L170L_2plus1 
+}
+export -f to_L170L_2plus1
+
+
+root@ibbyte:.#
+root@ibbyte:.#
+root@ibbyte:.#
 
 
 EOF
