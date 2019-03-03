@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-01-22 10:32:33
+#   ModifiedTime: 2019-03-03 22:42:55
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,6 +15,23 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 more >&1<<EOF
+
+   git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+   mkdir -pv L170L
+   cd L170L
+   ../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/L170L/platform/manifest \\
+                    -b master --config-name --repo-url=\$(pwd)/../git-repo
+   ../git-repo/repo sync
+   ../git-repo/repo start master --all
+   cd .repo/manifests
+   git checkout -b master
+   cd ../repo
+   git checkout -b master
+   cd ../.. 
+
+
+
+
 
 ${Bgreen}${Fblack} How to retrieve L170L 2+1 Project ${AC}
 ${Fgreen}1).项目配置环境安装：${AC}
