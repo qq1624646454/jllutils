@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-14 15:23:40
-#   ModifiedTime: 2019-02-25 19:32:20
+#   ModifiedTime: 2019-03-03 23:36:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -236,6 +236,23 @@ Continue with the User Guide.
 requirements, apt, installation, ubuntu, install, uninstall, upgrade, update
 
 
+--------------------------------
+|  download ubuntu-14.04 on bash 
+--------------------------------
+docker images
+docker pull registry.docker-cn.com/library/ubuntu:14.04
+
+--------------------------------
+|  download then run ubuntu which the latest version on bash 
+--------------------------------
+docker images
+docker run -it registry.docker-cn.com/library/ubuntu /bin/bash
+
+--------------------------------
+|  run ubuntu-14.04 on bash 
+--------------------------------
+docker images
+docker run -it 5dbc3f318ea5 /bin/bash
 
 EOF
 
