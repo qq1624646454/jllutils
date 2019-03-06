@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-14 15:23:40
-#   ModifiedTime: 2019-03-03 23:36:53
+#   ModifiedTime: 2019-03-06 08:40:13
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -253,6 +253,11 @@ docker run -it registry.docker-cn.com/library/ubuntu /bin/bash
 --------------------------------
 docker images
 docker run -it 5dbc3f318ea5 /bin/bash
+
+# run ubuntu-14.04 with shared localhost current path to docker
+docker run -it -v \$(pwd):/mdm9x07 5dbc3f318ea5 /bin/bash
+
+
 
 EOF
 
