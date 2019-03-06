@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-14 15:23:40
-#   ModifiedTime: 2019-03-06 08:40:13
+#   ModifiedTime: 2019-03-06 14:58:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -256,7 +256,18 @@ docker run -it 5dbc3f318ea5 /bin/bash
 
 # run ubuntu-14.04 with shared localhost current path to docker
 docker run -it -v \$(pwd):/mdm9x07 5dbc3f318ea5 /bin/bash
-
+# add aliyun apt sources after logining ubuntu-14.04 from docker
+vi /etc/apt/sources.list.d/aliyun.list
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse 
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse 
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse 
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse 
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse 
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
 
 
 EOF
