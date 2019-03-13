@@ -5,13 +5,20 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-06-07 20:56:02
-#   ModifiedTime: 2018-09-19 15:54:45
+#   ModifiedTime: 2019-03-13 19:18:31
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
 source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
+
+
+${AC}${Fgreen}
+去除dmesg生成的内核日志文件的每行开头的时间戳${AC}
+:%s/^\\[[ 0-9\\.]\\{1,\\}\\]//g
+
+
 
 ${AC}${Fgreen}
 文件内部替换: 处理 ' cd apps_proc; ls -l >../apps_proc.list' 文件列表${AC}
