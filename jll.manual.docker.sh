@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-14 15:23:40
-#   ModifiedTime: 2019-03-06 08:40:13
+#   ModifiedTime: 2019-03-14 22:51:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -256,6 +256,26 @@ docker run -it 5dbc3f318ea5 /bin/bash
 
 # run ubuntu-14.04 with shared localhost current path to docker
 docker run -it -v \$(pwd):/mdm9x07 5dbc3f318ea5 /bin/bash
+
+
+docker ubuntu-14.04 with python-mini lacking of libpython2.7-dev
+please:
+     apt-get install libpython2.7-dev
+
+
+
+--------------------------------
+|  customization docker image for running ubuntu-14.04 on bash 
+--------------------------------
+root@ibbyte:~# 
+root@ibbyte:~# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+d2876b8d40c8        fc803e0fe8db        "/bin/bash"         15 minutes ago      Up 15 minutes                           vibrant_merkle
+root@ibbyte:~# docker commit -a "jielong.lin@qq.com" -p -m "Customization for mdm9x07 developping environment" d2876b8d40c8 ubuntu-14:for_mdm9x07_DE
+sha256:7f49941b8067753f7de82c48a49e09cf14463ec1cbc5e621531d38be7c62c8a8
+root@ibbyte:~#
+
+
 
 
 
