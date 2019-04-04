@@ -8,6 +8,25 @@ JLLPATH="$(dirname ${JLLPATH})"
 cat >&1 << EOF
 
 --------------------------------------
+dhcp to retrieve ipv4 and dns
+有时配置的DNS=114.114.114.114并不能访问时，
+需要切换为动态获取的方式
+--------------------------------------
+  cat /etc/resolv.conf
+    nameserver 114.114.114.114
+
+#reset DNS settings
+  /etc/init.d/resolvconf restart
+  dhclient eth0 
+
+#lookup ip and dns
+  ifconfig
+  cat /var/lib/dhcp/dhclient.leases
+  cat /etc/resolv.conf
+
+
+
+--------------------------------------
 bridge eth0
 --------------------------------------
 
