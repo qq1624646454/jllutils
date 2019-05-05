@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-03-18 14:31:51
+#   ModifiedTime: 2019-05-06 00:21:43
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -41,6 +41,10 @@ more >&1<<EOF
    cd ../.. 
 
 
+
+${Bgreen}${Fblack} How to create the new remote branch ${AC}
+   ../git-repo/repo start --all  new-branch-name
+   ../git-repo/repo forall -c 'git push -u origin new-branch-name'
 
 
 
