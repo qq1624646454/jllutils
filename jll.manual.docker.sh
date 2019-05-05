@@ -5,11 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-02-14 15:23:40
-<<<<<<< HEAD
-#   ModifiedTime: 2019-03-06 14:58:25
-=======
-#   ModifiedTime: 2019-03-14 22:51:25
->>>>>>> 243ba485859a6949f51f3c84fe18ede18b843e30
+#   ModifiedTime: 2019-05-06 00:26:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
