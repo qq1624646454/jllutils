@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-05-06 00:21:43
+#   ModifiedTime: 2019-05-06 00:21:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -46,6 +46,12 @@ ${Bgreen}${Fblack} How to create the new remote branch ${AC}
    ../git-repo/repo start --all  new-branch-name
    ../git-repo/repo forall -c 'git push -u origin new-branch-name'
 
+${Bgreen}${Fblack} How to sync the new remote branch from master branch ${AC}
+   ../git-repo/repo start --all  master 
+   ../git-repo/repo sync
+   ../git-repo/repo start --all  new-branch-name
+   ../git-repo/repo forall -c 'git push -u origin new-branch-name'
+   
 
 
 ${Bgreen}${Fblack} How to retrieve L170L 2+1 Project ${AC}
