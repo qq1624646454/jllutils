@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-05-06 00:21:44
+#   ModifiedTime: 2019-05-06 13:49:52
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -40,6 +40,12 @@ more >&1<<EOF
    git checkout -b master
    cd ../.. 
 
+
+${Bgreen}${Fblack} How to switch another branch ${AC}
+   repo start --all ammeter-concentrator
+   
+${Bgreen}${Fblack} How to commit to another branch from master ${AC}
+   git push -u origin master:refs/for/ammeter-concentrator
 
 
 ${Bgreen}${Fblack} How to create the new remote branch ${AC}
