@@ -64,6 +64,19 @@ else
 #    | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \
 #    | grep "$1[ ]\{0,\}," --color
 
+cat >&1<<EOF
+
+  find . \( ${CONF_ARGS1} \) -prune \\
+         -o \( -type f  -a  -name '*.C' -print \\
+         -o -name '*.c' -print \\
+         -o -name '*.cpp' -print \\
+         -o -name '*.s' -print \\
+         -o -name '*.S' -print \) \\
+    | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \\
+    | grep "$1[ ]\{0,\}," --color
+
+EOF
+
   find . \( ${CONF_ARGS1} \) -prune \
          -o \( -type f  -a  -name '*.C' -print \
          -o -name '*.c' -print \
