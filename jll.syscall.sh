@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-05-25 16:10:53
-#   ModifiedTime: 2019-05-25 17:13:28
+#   ModifiedTime: 2019-05-25 17:26:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,6 +27,7 @@ more >&1<<EOF
   ForExample:
     sw/L170L_baseline/apps_proc/kernel# jll.syscall.sh socket
 
+    sw/L170L_baseline/apps_proc/kernel# jll.syscall.sh socket drivers
     sw/L170L_baseline/apps_proc/kernel# jll.syscall.sh socket tools Documentation include
 
 EOF
@@ -42,6 +43,18 @@ start=$(date +%s%N)
 start_ms=${start:0:16}
 
 if [ $# -eq 1 ]; then
+cat >&1<<EOF
+
+-----------------------------------------------------------------------
+RUNing the followwing command
+-----------------------------------------------------------------------
+  find . -type f -a -name *.c \\
+    | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \\
+    | grep "$1[ ]\{0,\}," --color
+-----------------------------------------------------------------------
+
+EOF
+
   find . -type f -a -name *.c | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \
     | grep "$1[ ]\{0,\}," --color
 else
@@ -66,6 +79,9 @@ else
 
 cat >&1<<EOF
 
+-----------------------------------------------------------------------
+RUNing the followwing command
+-----------------------------------------------------------------------
   find . \( ${CONF_ARGS1} \) -prune \\
          -o \( -type f  -a  -name '*.C' -print \\
          -o -name '*.c' -print \\
@@ -74,6 +90,7 @@ cat >&1<<EOF
          -o -name '*.S' -print \) \\
     | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \\
     | grep "$1[ ]\{0,\}," --color
+-----------------------------------------------------------------------
 
 EOF
 
