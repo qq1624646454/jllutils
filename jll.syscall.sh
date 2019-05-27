@@ -100,7 +100,7 @@ EOF
          -o -name '*.cpp' -print \
          -o -name '*.s' -print \
          -o -name '*.S' -print \) \
-    | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -nH {} \
+    | xargs -i grep "SYSCALL_DEFINE[0-9]\{1,\}[ ]\{0,\}(" -C 5 -nH {} \
     | grep "$1[ ]\{0,\}," --color
 
   [ x"${CONF_ARGS1}" != x ] && unset CONF_ARGS1
