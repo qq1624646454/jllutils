@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-05-29 20:55:56
+#   ModifiedTime: 2019-05-29 20:58:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -41,7 +41,10 @@ more >&1<<EOF
 
    #Switch to ammeter-concentrator from remotes/origin/ammeter-concentrator
    ../git-repo/repo forall -c 'git checkout -b ammeter-concentrator remotes/origin/ammeter-concentrator'
- 
+
+
+   #push to ammeter-concentrator branch on origin repository which present remote repository URL.
+   git push -u origin ammeter-concentrator:refs/for/ammeter-concentrator
 
 
 
