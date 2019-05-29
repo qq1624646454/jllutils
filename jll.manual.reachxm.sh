@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-05-06 13:49:52
+#   ModifiedTime: 2019-05-29 20:55:56
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -21,9 +21,11 @@ more >&1<<EOF
    cd lora_endnode_dev/
    ../git-repo/repo init -u ssh://lora.reachxm.com/lora_endnode/platform/manifest -m reach.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
-   #../git-repo/repo start master --all
+
    #Switch to ATcmd from remotes/origin/ATcmd
    ../git-repo/repo forall -c 'git checkout -b ATcmd remotes/origin/ATcmd'
+
+
 
 
 
@@ -33,7 +35,17 @@ more >&1<<EOF
    ../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/L170L/platform/manifest \\
                     -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
-   ../git-repo/repo start master --all
+
+   #Switch to pub-net-intercom from remotes/origin/pub-net-intercom
+   ../git-repo/repo forall -c 'git checkout -b pub-net-intercom remotes/origin/pub-net-intercom'
+
+   #Switch to ammeter-concentrator from remotes/origin/ammeter-concentrator
+   ../git-repo/repo forall -c 'git checkout -b ammeter-concentrator remotes/origin/ammeter-concentrator'
+ 
+
+
+
+   #../git-repo/repo start master --all
    cd .repo/manifests
    git checkout -b master
    cd ../repo
