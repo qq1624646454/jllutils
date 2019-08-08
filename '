@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-30 15:59:57
-#   ModifiedTime: 2019-08-08 22:48:42
+#   ModifiedTime: 2019-08-08 22:48:27
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -45,7 +45,7 @@ export -f audio_on
 
 
 
-============================================================================================
+
 
 ${Fseablue}Ctrl + Alt + T ${AC}: populate a new terminate console window
 ${Fseablue}Ctrl + Shift + T ${AC}: create a new terminate console table in current window
