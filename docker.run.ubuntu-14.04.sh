@@ -7,15 +7,25 @@
 REPOSITORY=ubuntu
 TAG=
 
+i=0
 imageinfo=$(docker images | grep "^${REPOSITORY}[ ]\{1,\}${TAG}")
+echo "===== Docker Menu ====="    
+for imginfo in ${imageinfo}; do
+    echo "[$((i++))] ${imginfo}"
+ 
+    imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
+
+done
+
+exit 0
 imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
 if [ x"${imageid}" != x ]; then
-    echo "${imageinfo}"
-    sleep 2
-    echo
-    echo "JLLim: REPOSITORY=${REPOSITORY}"
-    echo "JLLim: TAG=${TAG}"
-    for imgid in ${imageid}; do
+    #echo "${imageinfo}"
+    #sleep 2
+    #echo
+    #echo "JLLim: REPOSITORY=${REPOSITORY}"
+    #echo "JLLim: TAG=${TAG}"
+    for imgid in ${imageinfo}; do
         echo "${imgid}"
     done 
 read -n 1 "yes" 
