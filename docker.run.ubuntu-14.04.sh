@@ -15,6 +15,11 @@ if [ x"${imageid}" != x ]; then
     echo
     echo "JLLim: REPOSITORY=${REPOSITORY}"
     echo "JLLim: TAG=${TAG}"
+    for imgid in ${imageid}; do
+        echo "${imgid}"
+    done 
+read -n 1 "yes" 
+exit 0
     echo "JLLim: RUNing \"docker run -it -v /:/ibs ${imageid} /bin/bash\""
     echo
     docker run -it -v /:/ibs ${imageid} /bin/bash
