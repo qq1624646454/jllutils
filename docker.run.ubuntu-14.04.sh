@@ -7,15 +7,16 @@
 REPOSITORY=ubuntu
 TAG=
 
-i=0
 imageinfo=$(docker images | grep "^${REPOSITORY}[ ]\{1,\}${TAG}")
 echo "===== Docker Menu ====="    
+i=0
 for imginfo in ${imageinfo}; do
     echo "[$((i++))] ${imginfo}"
- 
-    imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
-
 done
+read -p "YourChoice from [*]:  " yourCH
+
+
+imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
 
 exit 0
 imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
