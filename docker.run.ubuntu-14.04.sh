@@ -14,7 +14,14 @@ for imginfo in ${imageinfo}; do
     echo "[$((i++))] ${imginfo}"
 done
 read -p "YourChoice from [*]:  " yourCH
-
+i=0
+for imginfo in ${imageinfo}; do
+    if [ x"$i" = x"${yourCH}" ]; then
+        imageid=$(echo "${imginfo}" | awk -F ' ' '{print $3}')
+        
+    fi
+    $((i++))
+done
 
 imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
 
