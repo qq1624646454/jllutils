@@ -5,7 +5,7 @@
 #Docker Technology
 
 REPOSITORY=ubuntu
-TAG=14.04
+TAG=
 
 imageinfo=$(docker images | grep "^${REPOSITORY}[ ]\{1,\}${TAG}")
 imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
