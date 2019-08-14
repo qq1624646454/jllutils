@@ -8,22 +8,36 @@ REPOSITORY=ubuntu
 TAG=
 
 imageinfo=$(docker images | grep "^${REPOSITORY}[ ]\{1,\}${TAG}")
-echo "===== Docker Menu ====="    
+echo "===== Docker Menu ====="
+ 
+OldIFS="${IFS}"
+IFS=$'\n'
 i=0
 for imginfo in ${imageinfo}; do
     echo "[$((i++))] ${imginfo}"
 done
+IFS="${OldIFS}"
 read -p "YourChoice from [*]:  " yourCH
+
+OldIFS="${IFS}"
+IFS=$'\n'
 i=0
 for imginfo in ${imageinfo}; do
-    if [ x"$i" = x"${yourCH}" ]; then
+    if [ x"$((i++))" = x"${yourCH}" ]; then
         imageid=$(echo "${imginfo}" | awk -F ' ' '{print $3}')
-        
+        if [ x"${imageid}" != x ]; then
+            echo
+            echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs ${imageid} /bin/bash\""
+            echo
+            docker run -it --name root --privileged=true -p 11022:22 -v /:/ibs ${imageid} /bin/bash
+            docker rm $(docker ps -a -q)
+            echo
+            IFS="${OldIFS}"
+            exit 0
+        fi
     fi
-    $((i++))
 done
-
-imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
+IFS="${OldIFS}"
 
 exit 0
 imageid=$(echo "${imageinfo}" | awk -F ' ' '{print $3}')
