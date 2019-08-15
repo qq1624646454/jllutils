@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-07-17 15:56:55
+#   ModifiedTime: 2019-08-15 14:21:23
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -14,6 +14,13 @@ JLLPATH="$(dirname ${JLLPATH})"
 ### Color Echo Usage ###
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
+
+more >&1<<EOF
+
+wget -nH -m –restrict-file-names=nocontrol --ftp-user=reach --ftp-password=reach2019 ftp://ftp.reachxm.com/open/RD/
+
+EOF
+
 
 echo -e "root@S:.# \033[31mftp ftp.reachxm.com\033[0m"
 more >&1<<EOF
