@@ -46,8 +46,11 @@ root@ibbyte:.# ./____install_jllutils.sh
 root@ibbyte:.# 
 root@ibbyte:.# 
 
+#for command ifconfig
+aptitude install net-tools -y
 
-
+#for vim
+apt-get install libpython2.7-dev -y
 
 ----------------------------------------------------------
 Settings for wubi input-method
