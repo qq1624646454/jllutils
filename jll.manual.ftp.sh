@@ -17,7 +17,7 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more >&1<<EOF
 
-wget -nH -m –restrict-file-names=nocontrol --ftp-user=reach --ftp-password=reach2019 ftp://ftp.reachxm.com/open/RD/
+wget -nH -m -–restrict-file-names=nocontrol --ftp-user=reach --ftp-password=reach2019 ftp://ftp.reachxm.com/open/RD/
 
 EOF
 
