@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-05-29 20:58:34
+#   ModifiedTime: 2019-08-21 18:05:15
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,9 +17,33 @@ source ${JLLPATH}/BashShellLibrary
 more >&1<<EOF
 
 
+====================================================================
+${Bgreen}${Fblack} NBIOT_CN-M50 ${AC}
+====================================================================
+
+git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+
+${Fgreen}从gerrit上获取项目 - checkout${AC}
+mkdir -pv NBIOT_CN-M50
+cd NBIOT_CN-M50
+
+../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/NBIOT_CN-M50/platform/manifest \\
+                 -m default.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
+
+../git-repo/repo sync
+
+${Fgreen}基于remotes/origin/master创建并切换为master分支，否则会导致日后项目提交时出现一些问题${AC}
+../git-repo/repo forall -c 'git checkout -b master remotes/origin/master'
+
+
+====================================================================
+${Bgreen}${Fblack} lora_endnode ${AC}
+====================================================================
+
    mkdir -pv lora_endnode_dev
    cd lora_endnode_dev/
-   ../git-repo/repo init -u ssh://lora.reachxm.com/lora_endnode/platform/manifest -m reach.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
+   ../git-repo/repo init -u ssh://lora.reachxm.com/lora_endnode/platform/manifest \\
+                    -m reach.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
 
    #Switch to ATcmd from remotes/origin/ATcmd
@@ -27,7 +51,9 @@ more >&1<<EOF
 
 
 
-
+====================================================================
+${Bgreen}${Fblack} L170L ${AC}
+====================================================================
 
    git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
    mkdir -pv L170L
