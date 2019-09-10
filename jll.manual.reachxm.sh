@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-08-21 18:05:15
+#   ModifiedTime: 2019-09-10 21:06:03
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -234,6 +234,18 @@ fastboot reboot
 
   #编译APSS和MPSS并打包为QPST和QMSCT软件包
   ./make_by_reachxm APSS MPSS 9607.lwgniag.prod for2K hasClean hasPackingForQPST hasPackingForQMSCT
+
+
+############################################################################
+编译 sbl1 for L170
+----------------------------------------------------------------------------
+注：需要有授权license的armcc支持(DS-5进行安装 ) 验证: armcc --version
+----------------------------------------------------------------------------
+root@DaliyBuild169:/media/src2/workspace/L170HQA2_YuTong.1/# cd boot_images/build/ms#
+root@DaliyBuild169:/media/src2/workspace/L170HQA2_YuTong.1/boot_images/build/ms#
+root@DaliyBuild169:/media/src2/workspace/L170HQA2_YuTong.1/boot_images/build/ms# source setenv_reach.sh
+...
+root@DaliyBuild169:/media/src2/workspace/L170HQA2_YuTong.1/boot_images/build/ms# ./build_9x07.sh sbl1
 
 
 
