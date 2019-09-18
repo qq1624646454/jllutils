@@ -35,35 +35,41 @@ for imginfo in ${imageinfo}; do
             echo "[*] bridge    default by Network Address Translation(NAT)"
             read -p "YourChoice from [*]:  " yourNet
             if [ x"${yourNet}" = x"0" ]; then
-                dockerNet="--network host --hostname docker"
+                dockerNet="--network host --hostname host-net"
+                dockerCmd=""
             else
-                dockerNet="--network bridge -p 11022:22"
+                dockerNet="--network bridge -p 11022:22 --hostname bridge-net"
+                dockerCmd="-c \"/etc/init.d/ssh status; sed -e 's/PermitRootLogin without-password/PermitRootLogin yes/g' -e 's/UsePAM yes/UsePAM no/g' -i /etc/ssh/sshd_config; echo -e '\n\nSet password of root for ssh'; passwd root; echo -e '\n\n'; /etc/init.d/ssh restart; /bin/bash --login -i\""
             fi
-            dockerComm="-it --name root --privileged=true --hostname docker -v /:/HostSystem"
-            echo
-            echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
-                 "${dockerNet} ${imageid} /bin/bash\""
-            echo
-            echo "       LOGIN DOCKER UBUNTU BY docker attach root OR ssh root@YOUR_IP -p 11022"
-            if [ x"${HostAddr}" != x ]; then
-                echo "           ssh root@${HostAddr} -p 11022"
-                echo
-                echo "           IF Failure, please check the follows in docker ubuntu system"
-                echo "               aptitude search openssh"
-                echo "               Modify PermitRootLogin from without-password to yes in"
-                echo "                   /etc/ssh/sshd_config"
-                echo "               passwd root"
-                echo "               /etc/init.d/ssh restart"
-                echo
-            fi
-            echo "           / will be mapped to /ibs in docker ubuntu"
-            echo
-            echo
 
-            eval docker run -it --name root --privileged=true \
-                        -v /:/ibs \
-                        ${dockerNet} ${imageid} /bin/bash
-            docker rm -f $(docker ps -a -q)
+            dockerComm="-it --name root --privileged=true --hostname docker -v /:/HostSystem"
+
+            dockerComm="${dockerComm} --memory-swap -1 --rm"
+
+            echo
+            echo "docker run ${dockerComm} ${dockerNet} ${imageid} /bin/bash ${dockerCmd}"
+            echo
+            echo " ==============================================================================="
+            echo "       LOGIN DOCKER UBUNTU BY docker attach root"
+            if [ x"${yourNet}" != x"0" ]; then
+                if [ x"${HostAddr}" != x ]; then
+                    echo "           ssh root@${HostAddr} -p 11022"
+                    echo
+                    echo "           IF Failure, please check the follows in docker ubuntu system"
+                    echo "               1.aptitude search openssh"
+                    echo "               2.Modify PermitRootLogin from without-password to yes in"
+                    echo "                    /etc/ssh/sshd_config"
+                    echo "               3.passwd root"
+                    echo "               4./etc/init.d/ssh restart"
+                fi
+            fi
+            echo
+            echo "      Host:/ will be mapped to Docker:/HostSystem"
+            echo " ==============================================================================="
+            echo
+            echo
+            eval docker run ${dockerComm} ${dockerNet} ${imageid} /bin/bash ${dockerCmd}
+            docker rm -f $(docker ps -a -q) 2>/dev/null
             echo
             IFS="${OldIFS}"
             exit 0
