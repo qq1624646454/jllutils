@@ -35,9 +35,9 @@ for imginfo in ${imageinfo}; do
             echo "[*] bridge    default by Network Address Translation(NAT)"
             read -p "YourChoice from [*]:  " yourNet
             if [ x"${yourNet}" = x"0" ]; then
-                dockerNet="--network host"
+                dockerNet=--network host
             else
-                dockerNet="--network bridge -p 11022:22"
+                dockerNet=--network bridge -p 11022:22
             fi
             echo
             echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
