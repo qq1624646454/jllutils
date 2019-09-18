@@ -35,7 +35,7 @@ for imginfo in ${imageinfo}; do
             echo "[*] bridge    default by Network Address Translation(NAT)"
             read -p "YourChoice from [*]:  " yourNet
             if [ x"${yourNet}" = x"0" ]; then
-                dockerNet="--network host"
+                dockerNet="--network host --hostname docker"
             else
                 dockerNet="--network bridge -p 11022:22"
             fi
