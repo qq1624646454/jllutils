@@ -19,6 +19,9 @@ done
 IFS="${OldIFS}"
 read -p "YourChoice from [*]:  " yourCH
 
+
+HostAddr=$(ifconfig | grep -e '^eth' -A 1 | grep -e 'inet addr:' | awk -F':' '{print $2}' \
+                    | awk -F' ' '{print $1}')
 OldIFS="${IFS}"
 IFS=$'\n'
 i=0
@@ -28,6 +31,13 @@ for imginfo in ${imageinfo}; do
         if [ x"${imageid}" != x ]; then
             echo
             echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs ${imageid} /bin/bash\""
+            echo
+            echo "       LOGIN DOCKER UBUNTU BY docker attach root OR ssh root@YOUR_IP -p 11022"
+            if [ x"${HostAddr}" != x ]; then
+                echo "           ssh root@${HostAddr} -p 11022"
+            fi
+            echo "           / will be mapped to /ibs in docker ubuntu"
+            echo
             echo
             docker run -it --name root --privileged=true -p 11022:22 -v /:/ibs ${imageid} /bin/bash
             docker rm $(docker ps -a -q)
