@@ -30,7 +30,18 @@ for imginfo in ${imageinfo}; do
         imageid=$(echo "${imginfo}" | awk -F ' ' '{print $3}')
         if [ x"${imageid}" != x ]; then
             echo
-            echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs ${imageid} /bin/bash\""
+            echo "===== Docker Network ====="
+            echo "[0] host      by sharing physical network device"
+            echo "[*] bridge    default by Network Address Translation(NAT)"
+            read -p "YourChoice from [*]:  " yourNet
+            if [ x"${yourNet}" = x"0" ]; then
+                dockerNet="--network host"
+            else
+                dockerNet="--network bridge -p 11022:22"
+            fi
+            echo
+            echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
+                 "${dockerNet} ${imageid} /bin/bash\""
             echo
             echo "       LOGIN DOCKER UBUNTU BY docker attach root OR ssh root@YOUR_IP -p 11022"
             if [ x"${HostAddr}" != x ]; then
@@ -47,13 +58,12 @@ for imginfo in ${imageinfo}; do
             echo "           / will be mapped to /ibs in docker ubuntu"
             echo
             echo
-                       #-p 11022:22 \
 
             docker run -it --name root --privileged=true \
                        -v /:/ibs \
-                       --network host \
+                       ${dockerNet} \
                        ${imageid} /bin/bash
-            docker rm $(docker ps -a -q)
+            docker rm -f $(docker ps -a -q)
             echo
             IFS="${OldIFS}"
             exit 0
