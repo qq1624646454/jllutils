@@ -35,6 +35,14 @@ for imginfo in ${imageinfo}; do
             echo "       LOGIN DOCKER UBUNTU BY docker attach root OR ssh root@YOUR_IP -p 11022"
             if [ x"${HostAddr}" != x ]; then
                 echo "           ssh root@${HostAddr} -p 11022"
+                echo
+                echo "           IF Failure, please check the follows in docker ubuntu system"
+                echo "               aptitude search openssh"
+                echo "               Modify PermitRootLogin from without-password to yes in"
+                echo "                   /etc/ssh/sshd_config"
+                echo "               passwd root"
+                echo "               /etc/init.d/ssh restart"
+                echo
             fi
             echo "           / will be mapped to /ibs in docker ubuntu"
             echo
