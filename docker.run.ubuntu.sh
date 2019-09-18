@@ -47,8 +47,9 @@ for imginfo in ${imageinfo}; do
             echo "           / will be mapped to /ibs in docker ubuntu"
             echo
             echo
+                       #-p 11022:22 \
+
             docker run -it --name root --privileged=true \
-                       -p 11022:22 \
                        -v /:/ibs \
                        --network host \
                        ${imageid} /bin/bash
