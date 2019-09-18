@@ -35,7 +35,7 @@ for imginfo in ${imageinfo}; do
             echo "[*] bridge    default by Network Address Translation(NAT)"
             read -p "YourChoice from [*]:  " yourNet
             if [ x"${yourNet}" = x"0" ]; then
-                dockerNet=--network host
+                dockerNet=host
             else
                 dockerNet=--network bridge -p 11022:22
             fi
@@ -59,7 +59,7 @@ for imginfo in ${imageinfo}; do
             echo
             echo
 
-            docker run -it --name root --privileged=true -v /:/ibs ${dockerNet} ${imageid} /bin/bash
+            docker run -it --name root --privileged=true -v /:/ibs --network ${dockerNet} ${imageid} /bin/bash
             docker rm -f $(docker ps -a -q)
             echo
             IFS="${OldIFS}"
