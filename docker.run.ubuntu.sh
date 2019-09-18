@@ -59,10 +59,7 @@ for imginfo in ${imageinfo}; do
             echo
             echo
 
-            docker run -it --name root --privileged=true \
-                       -v /:/ibs \
-                       ${dockerNet} \
-                       ${imageid} /bin/bash
+            docker run -it --name root --privileged=true -v /:/ibs ${dockerNet} ${imageid} /bin/bash
             docker rm -f $(docker ps -a -q)
             echo
             IFS="${OldIFS}"
