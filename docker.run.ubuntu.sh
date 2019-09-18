@@ -39,6 +39,7 @@ for imginfo in ${imageinfo}; do
             else
                 dockerNet="--network bridge -p 11022:22"
             fi
+            dockerComm="-it --name root --privileged=true --hostname docker"
             echo
             echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
                  "${dockerNet} ${imageid} /bin/bash\""
