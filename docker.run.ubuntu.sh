@@ -37,8 +37,7 @@ for imginfo in ${imageinfo}; do
             if [ x"${yourNet}" = x"0" ]; then
                 dockerNet="host"
             else
-                dockerNet="bridge"
-                dockerPortMapping="11022:22"
+                dockerNet="bridge -p 11022:22"
             fi
             echo
             echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
@@ -60,7 +59,7 @@ for imginfo in ${imageinfo}; do
             echo
             echo
 
-            docker run -it --name root --privileged=true -v /:/ibs --network ${dockerNet} ${imageid} /bin/bash
+            eval docker run -it --name root --privileged=true -v /:/ibs --network ${dockerNet} ${imageid} /bin/bash
             docker rm -f $(docker ps -a -q)
             echo
             IFS="${OldIFS}"
