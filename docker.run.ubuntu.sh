@@ -37,7 +37,8 @@ for imginfo in ${imageinfo}; do
             if [ x"${yourNet}" = x"0" ]; then
                 dockerNet="host"
             else
-                dockerNet="bridge -p 11022:22"
+                dockerNet="bridge"
+                dockerPortMapping="11022:22"
             fi
             echo
             echo "JLLim: RUNing \"docker run -it --name root --privileged=true -v /:/ibs" \
