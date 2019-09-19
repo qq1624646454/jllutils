@@ -32,7 +32,7 @@ if [ x"$1" = x"add" ]; then
 
     echo "Creating New User:$GvNewUser for system and samba"
     #/usr/sbin/useradd -s /bin/bash -m $GvNewUser
-    /usr/sbin/adduser --system $GvNewUser
+    /usr/sbin/adduser --system --shell /bin/bash --group $GvNewUser
     /usr/bin/passwd  $GvNewUser
     /usr/bin/smbpasswd -a $GvNewUser 
 
