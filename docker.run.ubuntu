@@ -52,17 +52,15 @@ for imginfo in ${imageinfo}; do
             echo
             echo " ==============================================================================="
             echo "       LOGIN DOCKER UBUNTU BY docker attach root"
-            if [ x"${yourNet}" != x"0" ]; then
-                if [ x"${HostAddr}" != x ]; then
-                    echo "           ssh root@${HostAddr} -p 11022"
-                    echo
-                    echo "           IF Failure, please check the follows in docker ubuntu system"
-                    echo "               1.aptitude search openssh"
-                    echo "               2.Modify PermitRootLogin from without-password to yes in"
-                    echo "                    /etc/ssh/sshd_config"
-                    echo "               3.passwd root"
-                    echo "               4./etc/init.d/ssh restart"
-                fi
+            if [ x"${HostAddr}" != x ]; then
+                echo "           ssh root@${HostAddr} -p 11022"
+                echo
+                echo "           IF Failure, please check the follows in docker ubuntu system"
+                echo "               1.aptitude search openssh"
+                echo "               2.Modify PermitRootLogin from without-password to yes in"
+                echo "                    /etc/ssh/sshd_config"
+                echo "               3.passwd root"
+                echo "               4./etc/init.d/ssh restart"
             fi
             echo
             echo "      Host:/ will be mapped to Docker:/HostSystem"
