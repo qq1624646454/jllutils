@@ -34,8 +34,12 @@ if [ x"$1" = x"add" ]; then
     #/usr/sbin/useradd -s /bin/bash -m $GvNewUser
     /usr/sbin/adduser --system --shell /bin/bash --group $GvNewUser
     /usr/bin/passwd  $GvNewUser
-    /usr/bin/smbpasswd -a $GvNewUser 
-
+    if [ -e "/usr/bin/smbpasswd" ]; then
+        read -n 1 -p "jll: set samba password if press [y], or skip:  " myC
+        if [ x"${myC}" = x"y" ]; then 
+            /usr/bin/smbpasswd -a $GvNewUser
+        fi
+    fi
     if [ ! -e "/home/$GvNewUser" ]; then
         echo
         Lfn_Sys_ColorEcho ${CvBgBlue}  ${CvFgRed} "Error-Exit: Donot found home directory for the New User:$GvNewUser"
