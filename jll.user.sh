@@ -31,7 +31,8 @@ if [ x"$1" = x"add" ]; then
     fi
 
     echo "Creating New User:$GvNewUser for system and samba"
-    /usr/sbin/useradd -s /bin/bash -m $GvNewUser
+    #/usr/sbin/useradd -s /bin/bash -m $GvNewUser
+    /usr/sbin/adduser --system $GvNewUser
     /usr/bin/passwd  $GvNewUser
     /usr/bin/smbpasswd -a $GvNewUser 
 
