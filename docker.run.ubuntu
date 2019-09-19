@@ -37,7 +37,7 @@ for imginfo in ${imageinfo}; do
             if [ x"${yourNet}" = x"0" ]; then
                 dockerNet="--network host --hostname host-net"
                 #dockerCmd=""
-                dockerCmd="-c \"/etc/init.d/ssh status; sed -e 's/PermitRootLogin without-password/PermitRootLogin yes/g' -e 's/UsePAM yes/UsePAM no/g' -e 's/Port 22/Port 11022/g' -i /etc/ssh/sshd_config; echo -e '\n\nSet password of root for ssh'; passwd root; echo -e '\n\n'; /etc/init.d/ssh restart; /bin/bash --login -i\""
+                dockerCmd="-c \"if [ ! -e '/etc/init.d/ssh' ]; then apt-get install -y openssh-client openssh-server; fi;/etc/init.d/ssh status; sed -e 's/PermitRootLogin without-password/PermitRootLogin yes/g' -e 's/UsePAM yes/UsePAM no/g' -e 's/Port 22/Port 11022/g' -i /etc/ssh/sshd_config; echo -e '\n\nSet password of root for ssh'; passwd root; echo -e '\n\n'; /etc/init.d/ssh restart; /bin/bash --login -i\""
             else
                 dockerNet="--network bridge -p 11022:22 --hostname bridge-net"
                 dockerCmd="-c \"/etc/init.d/ssh status; sed -e 's/PermitRootLogin without-password/PermitRootLogin yes/g' -e 's/UsePAM yes/UsePAM no/g' -i /etc/ssh/sshd_config; echo -e '\n\nSet password of root for ssh'; passwd root; echo -e '\n\n'; /etc/init.d/ssh restart; /bin/bash --login -i\""
