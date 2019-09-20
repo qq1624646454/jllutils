@@ -36,7 +36,7 @@ if [ x"$1" = x"add" ]; then
     /usr/bin/passwd  $GvNewUser
     if [ -e "/usr/bin/smbpasswd" ]; then
         read -n 1 -p "jll: set samba password if press [y], or skip:  " myC
-        if [ x"${myC}" = x"y" ]; then 
+        if [ x"${myC}" = x"y" ]; then
             /usr/bin/smbpasswd -a $GvNewUser
         fi
     fi
