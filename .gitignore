@@ -4,3 +4,4 @@ _______auto_sync_by_GIT__in_crontab.log
 *.pdf
 *.xlsx
 .sshconf
+gerrit_project_builder/*
