@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-09-10 21:06:03
+#   ModifiedTime: 2019-11-01 10:51:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,7 +27,7 @@ ${Fgreen}从gerrit上获取项目 - checkout${AC}
 mkdir -pv NBIOT_CN-M50
 cd NBIOT_CN-M50
 
-../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/NBIOT_CN-M50/platform/manifest \\
+../git-repo/repo init -u ssh://gerrit29418.reachxm.com/NBIOT_CN-M50/platform/manifest \\
                  -m default.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
 
 ../git-repo/repo sync
@@ -42,12 +42,35 @@ ${Bgreen}${Fblack} lora_endnode ${AC}
 
    mkdir -pv lora_endnode_dev
    cd lora_endnode_dev/
-   ../git-repo/repo init -u ssh://lora.reachxm.com/lora_endnode/platform/manifest \\
+   ../git-repo/repo init -u ssh://gerrit29418.reachxm.com/lora_endnode/platform/manifest \\
                     -m reach.xml -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
 
    #Switch to ATcmd from remotes/origin/ATcmd
    ../git-repo/repo forall -c 'git checkout -b ATcmd remotes/origin/ATcmd'
+
+
+====================================================================
+${Bgreen}${Fblack} L170H ${AC}
+====================================================================
+
+   git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+   mkdir -pv L170H
+   cd L170H
+   ../git-repo/repo init -u ssh://gerrit29418.reachxm.com/L170H/platform/manifest \\
+                    -b master --config-name --repo-url=\$(pwd)/../git-repo
+   ../git-repo/repo sync
+
+   #Switch to master from remotes/origin/master
+   ../git-repo/repo forall -c 'git checkout -b master remotes/origin/master'
+
+
+
+   #push to master branch on origin repository which present remote repository URL.
+   git push -u origin master:refs/for/master
+
+
+
 
 
 
@@ -58,7 +81,7 @@ ${Bgreen}${Fblack} L170L ${AC}
    git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
    mkdir -pv L170L
    cd L170L
-   ../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/L170L/platform/manifest \\
+   ../git-repo/repo init -u ssh://gerrit29418.reachxm.com/L170L/platform/manifest \\
                     -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
 
@@ -108,23 +131,23 @@ ${Fgreen}1).项目配置环境安装：${AC}
         同时将账号归入到L170_Member组中.完成gerrit服务器账号创建后，管理员会向各位
         提供SSH Private Key及gerrit的用户名及密码
    1-3).在~/.ssh/目录下新建config文件
-         Host          L170L_2plus1.reachxm.com
-         HostName     gerrit.reachxm.com
+         Host          gerrit29418.reachxm.com
+         HostName      gerrit.reachxm.com
          User          你的Gerrit账号的用户名
          Port          29418
          IdentityFile  ~/.ssh/id_rsa
        把SSH Private Key放入~/.ssh/目录下
 
 ${Fgreen}2).下载项目：L170L 2+1${AC}
-mkdir -pv L170L_2plus1
-cd L170L_2plus1
+mkdir -pv L170L_2plus1 
+cd L170L_2plus1 
 
-repo init -u ssh://L170L_2plus1.reachxm.com/L170L_2plus1/platform/manifest -b master --config-name
+repo init -u ssh://gerrit29418.reachxm.com/L170L_2plus1/platform/manifest -b master --config-name
 repo sync
 repo start master --all
 
 ${Fgreen}3).编译项目：L170L 2+1${AC}
-在L170L_2plus1项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
+在项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
 
 ./make_by_reachxm h #查看工具的用法
 
@@ -209,11 +232,11 @@ fastboot reboot
 
 
 ####################################################################
-    L170L_2plus1
+    L170L_2plus1 
 ####################################################################
 1).项目配置环境安装：
    在~/.ssh/目录下新建config文件
-         Host          L170L_2plus1.reachxm.com
+         Host          gerrit29418.reachxm.com
          HostName      gerrit.reachxm.com
          User          你的Gerrit账号的用户名
          Port          29418
@@ -221,15 +244,15 @@ fastboot reboot
    把SSH Private Key放入~/.ssh/目录下
 2).下载项目：L170L 2+1
    git clone  https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
-   mkdir -pv L170L_2plus1
-   cd L170L_2plus1
-   ../git-repo/repo init -u ssh://L170L_2plus1.reachxm.com/L170L_2plus1/platform/manifest \\
+   mkdir -pv L170L_2plus1 
+   cd L170L_2plus1 
+   ../git-repo/repo init -u ssh://gerrit29418.reachxm.com/L170L_2plus1/platform/manifest \\
                     -b master --config-name --repo-url=\$(pwd)/../git-repo
    ../git-repo/repo sync
    ../git-repo/repo start master --all
 
 3).编译项目：L170L 2+1
-  在L170L_2plus1项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
+  在项目根目录下，通过make_by_reachxm编译脚本可以完成整套项目的编译，打包等工作:
   ./make_by_reachxm h #查看工具的用法
 
   #编译APSS和MPSS并打包为QPST和QMSCT软件包
