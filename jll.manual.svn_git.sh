@@ -42,6 +42,7 @@ URL	      git://host/path/to/repos.git	  svn://host/path/to/repos
 删除文件	git rm <path>							svn rm <path>
 移动文件	git mv <old> <new>						svn mv <old><new>
 清除未跟踪文件	git clean -df						svn st | grep '^?' | awk '{print \$2}' | xargs rm -rf
+恢复已跟踪文件  git reset --hard HEAD               svn revert --recursive .
 清除工作锁定	_									svn clean
 读取文件历史版本	git show <commit>:<path>><output>	svn cat -r<rev><url/of/file>@<rev>><output>
 反删除文件			git add <path>						svn cp -r
