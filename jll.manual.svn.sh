@@ -33,6 +33,9 @@ ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/n
 ${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
 # git clean -df
 
+${Fseablue}svn revert --recursive .${AC}
+# git reset --hard HEAD
+
 ${Fseablue}svn log -l 20${AC}
 ${Fseablue}svn log -r 485 -v  #查看第485条记录提交的文件信息${AC}
 # git log -n 20
