@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-12-12 01:10:42
-#   ModifiedTime: 2019-12-12 01:10:57
+#   ModifiedTime: 2019-12-12 13:18:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -30,6 +30,12 @@ more >&1<<EOF
                                         \\) -print  \\
     ) #| sed "1d")
     echo \${_tmp2}
+
+
+    find apps_proc \\( -name 'poky' -o -name '.*' -o -name 'kernel' \\) -prune -o -type f -print \\
+    | xargs grep -w -i '0x0024' -C 3 --color 2>/dev/null
+
+
 
 
 EOF
