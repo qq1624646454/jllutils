@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2019-01-17 09:17:03
+#   ModifiedTime: 2019-12-12 11:34:21
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -28,10 +28,11 @@ ${Fseablue}svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径]${
 
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
-${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
-${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
-${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
-# git clean -df
+${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove added files without tracking
+${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file modify
+${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file new
+${Fseablue}svn st | grep '^!' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for files deleted
+# git clean -df; git reset --hard HEAD
 
 ${Fseablue}svn revert --recursive .${AC}
 # git reset --hard HEAD
