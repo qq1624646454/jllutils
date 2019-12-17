@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-08-15 14:21:23
+#   ModifiedTime: 2019-12-17 13:26:56
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,7 +17,7 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more >&1<<EOF
 
-wget -nH -m -–restrict-file-names=nocontrol --ftp-user=reach --ftp-password=reach2019 ftp://ftp.reachxm.com/open/RD/
+wget -nH  -m  --restrict-file-names=nocontrol --ftp-user=linjielong --ftp-password=ib***e ftp://ftp.reachxm.com/open/RD/
 
 EOF
 
