@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-12-17 13:26:56
+#   ModifiedTime: 2019-12-23 17:56:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,38 @@ JLLPATH="$(dirname ${JLLPATH})"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor# ftp
+ftp> help lcd
+lcd             change local working directory
+ftp> help binary
+binary          set binary transfer type
+ftp> help mput
+mput            send multiple files
+ftp> help mget
+mget            get multiple files
+ftp> help bye
+bye             terminate ftp session and exit
+ftp>
+ftp> bye
+root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor#
+
+##
+## ftp upload  without interact
+##
+root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor#
+root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor# ftp -i -n <<!
+> open ftp.reachxm.com
+> user linjielong ib***e
+> cd /img/L170L/uvrm2m.com/
+> lcd /ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor
+> binary
+> mput readme
+> bye
+> !
+Local directory now /ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor
+
+
 
 wget -nH  -m  --restrict-file-names=nocontrol --ftp-user=linjielong --ftp-password=ib***e ftp://ftp.reachxm.com/open/RD/
 
