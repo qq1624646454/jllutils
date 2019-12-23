@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-08 16:01:43
-#   ModifiedTime: 2019-12-22 18:31:02
+#   ModifiedTime: 2019-12-23 13:33:41
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -36,7 +36,8 @@ if '%errorlevel%' NEQ '0' (
     exit /B
 :gotAdmin
 
-
+REM Disable sleep feature
+powercfg -h off
 
 set /a _i=0
 set /a _j=1
