@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-12-23 17:56:04
+#   ModifiedTime: 2019-12-26 15:05:37
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -46,6 +46,20 @@ root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_p
 > bye
 > !
 Local directory now /ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor
+
+######## Upload file for example, noted it only can be file rather than folder #######################
+# upload QMSCT_L170HQA2.4K_Wisec.1_Q2.0_R0.0.a0_R20191226.0.zip to ftp.reachxm.com/img/QA/L170H/
+# from /ibbyte512MB/projects/svn/Mangov2/branches/L170HQL2_Wisec.1/images_by_reachxm/L170HQL2.4K_Wisec.1_Q2.0_R0.0.a0_20191226.13_D/FactoryImage
+ftp -i -n <<!
+open ftp.reachxm.com
+user linjielong ibbyte
+cd /img/QA/L170H/
+lcd /ibbyte512MB/projects/svn/Mangov2/branches/L170HQL2_Wisec.1/images_by_reachxm/L170HQL2.4K_Wisec.1_Q2.0_R0.0.a0_20191226.13_D/FactoryImage
+binary
+mput QMSCT_L170HQA2.4K_Wisec.1_Q2.0_R0.0.a0_R20191226.0.zip
+bye
+!
+
 
 
 
