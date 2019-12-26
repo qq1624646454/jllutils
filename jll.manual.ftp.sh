@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-12-26 15:05:37
+#   ModifiedTime: 2019-12-26 17:27:37
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,7 +17,30 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 more >&1<<EOF
 
-root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor# ftp
+
+##
+## Download test.txt to current local path from ftp.reachxm.com/open/RD/test.txt 
+##
+wget -nH  -m  --restrict-file-names=nocontrol --ftp-user=linjielong --ftp-password=ib***e ftp://ftp.reachxm.com/open/RD/test.txt
+
+
+##
+## Upload NON-HLOS.ubi to ftp.reachxm.com/img/QA/L170H/ without interact from current local path
+##
+ftp -i -n <<!
+open ftp.reachxm.com
+user linjielong  ib***e
+cd /img/QA/L170H/
+lcd ./
+binary
+mput NON-HLOS.ubi
+bye
+!
+
+
+
+
+root@REACHXM82:.# ftp
 ftp> help lcd
 lcd             change local working directory
 ftp> help binary
@@ -30,31 +53,30 @@ ftp> help bye
 bye             terminate ftp session and exit
 ftp>
 ftp> bye
-root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor#
+root@REACHXM82:.#
 
 ##
 ## ftp upload  without interact
 ##
-root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor#
-root@REACHXM82:/ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor# ftp -i -n <<!
+root@REACHXM82:.#
+root@REACHXM82:.# ftp -i -n <<!
 > open ftp.reachxm.com
 > user linjielong ib***e
-> cd /img/L170L/uvrm2m.com/
-> lcd /ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor
+> cd /img/L170L/
+> lcd ~/vendor
 > binary
 > mput readme
 > bye
 > !
-Local directory now /ibbyte1024MB/projects/gerrit.reachxm.com/L170L/uvrm2m.com/apps_proc/vendor
+Local directory now ~/vendor
 
 ######## Upload file for example, noted it only can be file rather than folder #######################
-# upload QMSCT_L170HQA2.4K_Wisec.1_Q2.0_R0.0.a0_R20191226.0.zip to ftp.reachxm.com/img/QA/L170H/
-# from /ibbyte512MB/projects/svn/Mangov2/branches/L170HQL2_Wisec.1/images_by_reachxm/L170HQL2.4K_Wisec.1_Q2.0_R0.0.a0_20191226.13_D/FactoryImage
+# upload QMSCT_L170HQA2.4K_Wisec.1_Q2.0_R0.0.a0_R20191226.0.zip to ftp.reachxm.com/img/QA/L170H/ from ~/FactoryImage
 ftp -i -n <<!
 open ftp.reachxm.com
-user linjielong ibbyte
+user linjielong i****e
 cd /img/QA/L170H/
-lcd /ibbyte512MB/projects/svn/Mangov2/branches/L170HQL2_Wisec.1/images_by_reachxm/L170HQL2.4K_Wisec.1_Q2.0_R0.0.a0_20191226.13_D/FactoryImage
+lcd ~/FactoryImage
 binary
 mput QMSCT_L170HQA2.4K_Wisec.1_Q2.0_R0.0.a0_R20191226.0.zip
 bye
