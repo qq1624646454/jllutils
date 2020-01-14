@@ -1,9 +1,9 @@
 #!/bin/bash
-# Copyright(c) 2016-2100.  root.  All rights reserved.
+# Copyright(c) 2016-2100.  JLLim.  All rights reserved.
 #
-#   FileName:     JLLim.L170H.code.sh
-#   Author:       root
-#   Email:        493164984@qq.com
+#   FileName:     JLLim.RIV.code.sh
+#   Author:       jielong lin 
+#   Email:        jielong.lin@qq.com
 #   DateTime:     2020-01-13 16:39:21
 #   ModifiedTime: 2020-01-13 17:09:46
 
