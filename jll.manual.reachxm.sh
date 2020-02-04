@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2019-12-17 22:48:54
+#   ModifiedTime: 2020-02-04 18:03:17
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -15,6 +15,18 @@ source ${JLLPATH}/BashShellLibrary
 # Lfn_Sys_ColorEcho ${CvFgRed} ${CvBgWhite} "hello"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 more >&1<<EOF
+
+
+#Retrieve code project downloader
+cd /usr/bin/
+wget -nH   --restrict-file-names=nocontrol --ftp-user=linjielong --ftp-password=123 ftp://ftp.reachxm.com/open/RD/TECH/ProductionSupportTools/Misc/JLLim.RIV.code.sh
+
+chmod +x JLLim.RIV.code.sh
+
+JLLim.RIV.code.sh
+
+JLLim.RIV.code.sh L170H
+
 
 
 ====================================================================
