@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-08-25 17:46:14
-#   ModifiedTime: 2018-11-25 12:49:47
+#   ModifiedTime: 2020-02-16 23:43:47
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -35,6 +35,18 @@ dpkg -i virtualbox-5.2_5.2.18-124319~Ubuntu~trusty_amd64.deb
  Right Ctrl + L      -- 切换到无缝模式
  Right Ctrl + C      -- 切换到比例模式
  Right Ctrl + Home   -- 显示控制菜单
+
+
+##############
+############## not support for qualcomm usb driver on win7/win10
+##############     Menu/Settings/USB/Enable USB Controller/USB 2.0 (EHCI) Controller
+##############         Qualcomm CDMA Technologies MSM QHSUSB_BULK
+############## run failed 
+##############
+At first, it should be installed from 
+https://download.virtualbox.org/virtualbox/5.2.36/Oracle_VM_VirtualBox_Extension_Pack-5.2.36.vbox-extpack
+(https://www.virtualbox.org/wiki/Download_Old_Builds_5_2)
+
 
 EOF
 
