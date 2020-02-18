@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-12-12 01:13:31
-#   ModifiedTime: 2019-12-12 01:15:16
+#   ModifiedTime: 2020-02-18 10:30:18
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -50,6 +50,45 @@ function FN_EXIT_DestroyAllVarious()
 
 
 
+
+
+
+
+#==============================================================================================
+# Get some symbol information from the blocks in file 
+# started with CLEAR_VARS and end with BUILD_EXECUTABLE
+#==============================================================================================
+
+kws=\$(grep -En "^[ "\$'\\t'"]{0,}include[ "$'\\t'"]{1,}\\\\$\\(" AndrX.mk | \\
+      sed -e "s/:[ "\$'\\t'"]\\\\{0,\\\\}include[ "\$'\\t'"]\\\\{1,\\\\}\\\$(/:/g" -e 's/)//g')
+
+
+echo "-------------"
+echo "\${kws}"
+echo "-------------"
+kw_clear_vars=
+kw_build_executable=
+for kw in \${kws}; do
+    if [ x"\${kw_clear_vars}" = x ]; then
+        kw_clear_vars=\${kw##*:}
+        if [ x"\${kw_clear_vars}" = x"CLEAR_VARS" ]; then
+            kw_clear_vars=\${kw%%:*}
+        fi
+    else
+        kw_build_executable=\${kw##*:}
+        if [ x"\${kw_build_executable}" = x"BUILD_EXECUTABLE" ]; then
+            kw_build_executable=\${kw%%:*}
+            echo "HIT: {\${kw_clear_vars}:\${kw_build_executable}}"
+            sed -n "\${kw_clear_vars},\${kw_build_executable}p" AndrX.mk \\
+              | grep -E "^[ "$'\\t'"]{0,}LOCAL_SRC_FILE"
+        fi
+        kw_clear_vars=
+        kw_build_executable=
+    fi
+done
+
+echo '----------------'
+sed -n "1,2p" AndrX.mk
 
 
 EOF
