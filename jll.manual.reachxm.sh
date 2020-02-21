@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2020-02-04 18:03:17
+#   ModifiedTime: 2020-02-21 10:05:36
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -300,6 +300,8 @@ root@DaliyBuild169:/media/src2/workspace/L170HQA2_YuTong.1/boot_images/build/ms#
 git config --global core.compression -1
 
 
+#The follows can be removed.
+poky/build/tmp-glibc/work
 
 EOF
 
