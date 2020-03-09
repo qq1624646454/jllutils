@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-07-17 15:38:33
-#   ModifiedTime: 2019-12-26 17:27:37
+#   ModifiedTime: 2020-03-10 01:06:41
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,16 @@ JLLPATH="$(dirname ${JLLPATH})"
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+
+root@ibbyte:~# lftp -u linjielong,i****e ftp.reachxm.com
+lftp linjielong@ftp.reachxm.com:~> set ftp:use-feat no; set ftp:ssl-allow no; 
+lftp linjielong@ftp.reachxm.com:~> ls
+drwxrwxrwx   1 user     group           0 Mar  3 23:44 img
+drwxrwxrwx   1 user     group           0 Dec 27 16:14 open
+lftp linjielong@ftp.reachxm.com:/>
+
+
 
 
 ##
