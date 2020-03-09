@@ -7,7 +7,7 @@
 REPOSITORY=ubuntu
 TAG=
 
-imageinfo=$(docker images | grep "^${REPOSITORY}[ ]\{1,\}${TAG}")
+imageinfo=$(docker images | grep "^${REPOSITORY}[-0-9.]\{0,\}[ ]\{1,\}${TAG}")
 echo "===== Docker Menu ====="
  
 OldIFS="${IFS}"
