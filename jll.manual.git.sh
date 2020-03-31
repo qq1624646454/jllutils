@@ -7,6 +7,35 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+######################
+### git push usage ###
+######################
+git push <远程主机名> <本地分支名>  <远程分支名> 
+
+例如:
+     git push origin master:refs/for/master ，
+即是将本地的master分支推送到远程主机origin上的对应master分支，
+origin 是远程主机名，
+第一个master是本地分支名，
+第二个master是远程分支名
+
+#远程分支名被省略，将本地分支推送到与之存在追踪关系的远程分支（通常两者同名），
+#如果该远程分支不存在，则会被新建
+git push origin master
+
+
+#如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略，将当前分支
+#推送到origin主机的对应分支
+git push origin
+
+#如果当前分支只有一个远程分支，那么主机名都可以省略，形如 git push，可以使用
+#git branch -r ，查看远程的分支名
+git push
+
+#将本地的所有分支都推送到远程主机，这时需要 -all 选项
+git push --all origin
+
+
 ###
 ### folder
 ### |--- 1.file
