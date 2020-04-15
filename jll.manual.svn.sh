@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2019-12-12 11:34:21
+#   ModifiedTime: 2020-04-15 21:49:57
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -56,6 +56,11 @@ ${Fseablue}svn list https://192.168.0.10:8443/svn/Mangov2${AC}
 
 ${Fseablue}svn import L170LQ_trunk https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk${AC}
 # Import the new project named L170LQ_trunk into  https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk
+
+
+${Fseablue}svn st | cut -c 8- > my.txt ${AC}
+...modify my.txt...
+${Fseablue}svn ci -m "commit features" --targets my.txt ${AC}
 
 
 ${Fseablue}svn add YOUR_FILE${AC}
