@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright(c) 2016-2100.  JLLim.  All rights reserved.
 #
-#   FileName:     JLLim.RIV.code.sh
+#   FileName:     JLLim.RIV_master.code.sh
 #   Author:       jielong lin 
 #   Email:        jielong.lin@qq.com
 #   DateTime:     2020-01-13 16:39:21
