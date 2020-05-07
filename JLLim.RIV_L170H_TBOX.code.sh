@@ -66,10 +66,13 @@ function CODE_Download_By_repo()
         if [ x"$1" = x"reachxm.com" -o x"$1" = x"itrackstar.com" ]; then
             _GerritProjectName="L170H-TBOX"
             _GerritManifestBranch="master"
+            echo "
+
+
+"  |  \
             ${_GitRepoTool}/repo init \
                 -u ssh://gerrit29418.reachxm.com/${_GerritProjectName}/platform/manifest \
                 -b ${_GerritManifestBranch} --config-name --repo-url=$(pwd)/${_GitRepoTool}
-
             ${_GitRepoTool}/repo sync
 
             #Switch to tbox from remotes/origin/tbox

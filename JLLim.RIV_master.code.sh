@@ -57,8 +57,10 @@ function CODE_Download_master_By_repo()
         cd $1/master
         _GitRepoTool=../../git-repo
     fi
-    
+    echo "
 
+
+"  | \
     ${_GitRepoTool}/repo init -u ssh://gerrit29418.reachxm.com/$1/platform/manifest \
                     -b master --config-name --repo-url=$(pwd)/${_GitRepoTool}
     ${_GitRepoTool}/repo sync
