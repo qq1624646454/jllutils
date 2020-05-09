@@ -19,6 +19,13 @@ more >&1 <<EOF
 
 aptitude install subversion
 
+#subversion默认对静态库和动态库进行忽略，因此直接svn status看不到库文件,状态为I
+${Fseablue}svn status --no-ignore${AC} 
+#提交被忽略的库文件，只需要svn add <指定被忽略的文件> 再svn commit -m "..."就可以了
+${Fseablue}svn status --no-ignore | grep -E '^I ' | awk -F' ' '{print \$1}' | xargs svn add${AC} 
+${Fseablue}svn commit -m "..."${AC} 
+
+
 
 #列出项目所有路径下所有修改过的文件
 #通常[开始条件]是2, [代码所有svn路径]缺省时为当前路径
