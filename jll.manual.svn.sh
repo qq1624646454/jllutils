@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2020-04-15 21:49:57
+#   ModifiedTime: 2020-05-20 10:19:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -35,10 +35,11 @@ ${Fseablue}svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径]${
 
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
-${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove added files without tracking
-${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file modify
-${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file new
-${Fseablue}svn st | grep '^!' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for files deleted
+${Fseablue}svn st --no-ignore | grep '^? ' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove added files without tracking
+${Fseablue}svn st --no-ignore | grep '^I ' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove ignored files without tracking
+${Fseablue}svn st --no-ignore | grep '^M ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file modify
+${Fseablue}svn st --no-ignore | grep '^~ ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file new
+${Fseablue}svn st --no-ignore | grep '^! ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for files deleted
 # git clean -df; git reset --hard HEAD
 
 ${Fseablue}svn revert --recursive .${AC}
