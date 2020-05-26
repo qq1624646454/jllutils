@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2020-05-20 10:19:05
+#   ModifiedTime: 2020-05-26 23:07:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -317,6 +317,20 @@ svn st 各个状态解释：
 ---------------------------------------------------------
 svn relocate https://192.168.0.10:8443/svn/rivpiebase/branches/lora_gateway  https://172.16.11.10:8443/svn/rivpiebase/branches/lora_gateway
 
+
+
+
+======================================================================================================
+ How to commit your work result into svn server
+
+workdir: change some code files , such apps_proc/
+subdir:  latest pure code without any changed which sync with svn server, 
+         such as /ws/https_172.16.11.10_8443_svn/Mangov2/branches/L170HQA2_TianZe.1/apps_proc/ 
+======================================================================================================
+svn status --no-ignore | grep -Ev 'vendor\\/qcom' | grep -Ev '*pyc$' | grep -Ev '*\\.done$' | grep -Ev 'poky\\/bitbake|poky\\/build|filesystem|bootloader' | awk -F' ' '{print \$2}' | xargs -i cp --parents -r {} /ws/https_172.16.11.10_8443_svn/Mangov2/branches/L170HQA2_TianZe.1/apps_proc/
+
+svn status --no-ignore | grep '^? ' | awk -F' ' '{print \$2}' | xargs svn add
+svn commit -m "xxx"
 
 EOF
 
