@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-07 11:02:26
-#   ModifiedTime: 2017-08-07 14:03:04
+#   ModifiedTime: 2020-06-02 18:56:00
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -64,6 +64,40 @@ pip 9.0.1 from /usr/local/python3/lib/python3.6/site-packages (python 3.6)
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}python3 --version${AC}
 Python 3.6.2
 
+在python（>=3.4）版本开始，pip和setuptools默认会安装的，
+如果在安装过程中python的安装环境不正确，可能就会导致pip和setuptools安装失败。
+例如在make的时候会输出丢失的模块。
+
+
+
+subprocess.CalledProcessError: Command 'lsb_release -a' returned non-zero exit status 1.
+cp -rvf /usr/lib/python3/dist-packages/lsb_release.py  /usr/local/python3/lib/python3.6/ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+root@S:/usr/local/src/Python-3.6.2# ${Fseablue}vi /usr/bin/lsb_release${AC}
+#! /usr/bin/python3.4m -Es
+
+pip3 install --upgrade pip
 
 ${Fpink}在python（>=3.4）版本开始，pip和setuptools默认会安装的，${AC}
 ${Fpink}如果在安装过程中python的安装环境不正确，可能就会导致pip和setuptools安装失败。${AC}
