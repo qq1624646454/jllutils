@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:41:48
+#   ModifiedTime: 2020-06-11 00:42:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -26,8 +26,11 @@ I recommend that it is performed by firefox on ubuntu 14.04
 
 
 ${Fseablue} Settings for basic ${AC}
+#set root password
+sudo passwd root
 
-
+#network tool
+apt-get install net-tools -y
 
 
 ${Fseablue}Waiting for network configuration…${AC}
