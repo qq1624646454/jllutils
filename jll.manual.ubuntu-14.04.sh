@@ -188,11 +188,6 @@ apt-get install -y openjdk-7-jdk \\
  git config --global user.name "Jielong Lin"
 
 
-
-
-${Fwhite}${Bgreen} Install ssh tools ${AC} 
- apt-get install openssh-client openssh-server
-
 ${Fred} Can't signing in by root ${AC}
 Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
 in /etc/ssh/sshd_config or /etc/ssh/ssh_config
