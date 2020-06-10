@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:35:19
+#   ModifiedTime: 2020-06-11 00:35:36
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -96,14 +96,6 @@ JLL: select Input Sources About EN and CN
 
 
 # reboot
-
-
-${Fgreen} Which desktop subsystem ${AC}
-    echo \$DESKTOP_SESSION
-
-
-
-
 
 
 ${Fgreen} Which desktop subsystem ${AC}
