@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:54:48
+#   ModifiedTime: 2020-06-11 00:55:54
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -59,8 +59,12 @@ modify the "mesg n" line to "tty -s && mesg n" then reboot system
 
 
 ${Fwhite}${Bgreen} Enable root auto-login after installing Ubuntu-14.04 ${AC}
+
 \$ sudo passwd root
-${Bred}${Fyellow}for Ubuntu (using lightdm)${AC}
+
+${Bred}${Fyellow}for Ubuntu (default by using lightdm)${AC}
+lightdm.conf can be created if it not exist
+
 # vi /etc/lightdm/lightdm.conf
 [SeatDefaults]
 autologin-guest=false
@@ -97,7 +101,6 @@ JLL: Select fcitx and the update for /etc/X11/xinit/xinputrc
 JLL: select Input Sources About EN and CN
 # /usr/bin/fcitx-autostart
 # fcitx-configtool
-
 
 # reboot
 
