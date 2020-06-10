@@ -550,10 +550,12 @@ EOF
     cd - >/dev/null 
     cd ${__GitPath}
     echo "JLL-Doing: trying to use \"git pull origin master\""
-    git pull --rebase origin master
+    #git pull --rebase -u origin master
+    git pull origin master
     if [ x"$?" != x"0" ]; then
-        echo "JLL-Fixxing: trying to use \"git pull -u origin master\""
-        git pull --rebase -u origin master
+        echo "JLL-Fixxing: trying to use \"git pull origin master\""
+        #git pull --rebase origin master
+        git pull origin master
         if [ x"$?" != x"0" ]; then
             echo "JLL-Fixxing: trying to use \"git fetch origin\""
             git fetch origin
@@ -581,7 +583,7 @@ more >&1 <<EOF
 
      # If change is checked by 'git status -s', the follows will be run: 
      # 'git clean -dfx;git reset --hard HEAD' if approve to cleanup all changes
-     # 'git pull -u origin master' is always run
+     # 'git pull origin master' is always run
      ${Fyellow}${__CvScriptName} pull${AC}
 
 EOF

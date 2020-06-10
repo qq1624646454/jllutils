@@ -223,7 +223,12 @@ pip --version
 lsb_release -a
 
 
+whiptail --yesno "hello by JLLim" 10 50
+
+
 EOF
+
+whiptail --yesno "$(lsb_release -a)" 10 50
 
 
 
