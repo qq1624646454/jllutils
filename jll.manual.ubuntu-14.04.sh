@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:24:30
+#   ModifiedTime: 2020-06-11 00:25:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -53,7 +53,6 @@ JLLim@S.#
 apt-get update
 
 apt-get install -y openjdk-7-jdk \\
-                   git-core \\
                    gnupg \\
                    flex \\
                    bison \\
@@ -73,7 +72,6 @@ apt-get install -y openjdk-7-jdk \\
                    libgl1-mesa-dev \\
                    libxml2-utils \\
                    xsltproc \\
-                   unzip  \\
                    chrpath \\
                    coreutils \\
                    cvs \\
@@ -100,8 +98,9 @@ apt-get install -y openjdk-7-jdk \\
                    texi2html \\
                    texinfo \\
                    unzip \\
-                   wget
-
+                   wget \\
+                   openssh-client \\
+                   openssh-server
 
 
 
