@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:27:22
+#   ModifiedTime: 2020-06-11 00:29:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,6 +17,13 @@ JLLPATH="$(dirname ${JLLPATH})"
 
 
 more >&1<<EOF
+
+${Fred} How to download Ubuntu 14.04 ${AC}
+Open link to https://www.ubuntu.com/download/alternative-downloads
+Download BitTorrent and Open BitTorrent to Download Ubuntu image is very fast
+I recommend that it is performed by firefox on ubuntu 14.04
+
+
 
 
 ----------------------------------------------------------------------------------------------
@@ -102,6 +109,12 @@ apt-get install -y openjdk-7-jdk \\
                    openssh-client \\
                    openssh-server
 
+${Fwhite}${Bgreen} Install ssh tools ${AC} 
+ apt-get install openssh-client openssh-server
+
+${Fred} Can't signing in by root ${AC}
+Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
+in /etc/ssh/sshd_config or /etc/ssh/ssh_config
 
 
 
