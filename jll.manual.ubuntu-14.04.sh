@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:31:07
+#   ModifiedTime: 2020-06-11 00:31:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -24,6 +24,10 @@ Download BitTorrent and Open BitTorrent to Download Ubuntu image is very fast
 I recommend that it is performed by firefox on ubuntu 14.04
 
 
+
+
+${Fgreen} Which desktop subsystem ${AC}
+    echo \$DESKTOP_SESSION
 
 
 ${Fwhite}${Bgreen}  update apt-source ${AC}
