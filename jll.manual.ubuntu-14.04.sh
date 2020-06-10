@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:43:28
+#   ModifiedTime: 2020-06-11 00:52:33
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -201,7 +201,27 @@ Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
 in /etc/ssh/sshd_config or /etc/ssh/ssh_config
 
 
+${Fred}---------------------------------${AC}
+${Fred} python3.6 for ubuntu-14.04 :    ${AC}
+${Fred}---------------------------------${AC}
 
+apt-get install -y libbz2-dev libgdbm-dev liblzma-dev libsqlite3-dev libreadline-dev libssl-dev tk-dev
+./configure --with-ssl
+make
+make install
+
+update-alternatives --install /usr/bin/python python /usr/local/bin/python3.6 1
+update-alternatives --install /usr/bin/python python /usr/bin/python3.4 2
+update-alternatives --install /usr/bin/python python /usr/bin/python2.7 3
+update-alternatives --config python
+python --version
+
+update-alternatives --install /usr/bin/pip pip /usr/bin/pip2 2
+update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.6 1
+update-alternatives --config pip
+pip --version
+
+lsb_release -a
 
 
 EOF
