@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:38:47
+#   ModifiedTime: 2020-06-11 00:41:48
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -22,6 +22,11 @@ ${Fred} How to download Ubuntu 14.04 ${AC}
 Open link to https://www.ubuntu.com/download/alternative-downloads
 Download BitTorrent and Open BitTorrent to Download Ubuntu image is very fast
 I recommend that it is performed by firefox on ubuntu 14.04
+
+
+
+${Fseablue} Settings for basic ${AC}
+
 
 
 
