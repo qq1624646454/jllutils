@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:29:28
+#   ModifiedTime: 2020-06-11 00:31:07
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -26,9 +26,7 @@ I recommend that it is performed by firefox on ubuntu 14.04
 
 
 
-----------------------------------------------------------------------------------------------
-  update apt-source
-----------------------------------------------------------------------------------------------
+${Fwhite}${Bgreen}  update apt-source ${AC}
 JLLim@S.#
 JLLim@S.# mv /etc/apt/sources.list /etc/apt/sources.list.orig
 JLLim@S.#
@@ -54,9 +52,9 @@ JLLim@S.#
 JLLim@S.# apt-get install -y aptitude
 JLLim@S.#
 
-----------------------------------------------------------------------------------------------
-  Install development for mdm9x07 
-----------------------------------------------------------------------------------------------
+
+
+${Fwhite}${Bgreen} Install development for mdm9x07 ${AC}
 apt-get update
 
 apt-get install -y openjdk-7-jdk \\
@@ -108,6 +106,13 @@ apt-get install -y openjdk-7-jdk \\
                    wget \\
                    openssh-client \\
                    openssh-server
+
+ git config --global push.default matching 
+ git config --global push.default simple 
+ git config --global user.name "Jielong Lin"
+
+
+
 
 ${Fwhite}${Bgreen} Install ssh tools ${AC} 
  apt-get install openssh-client openssh-server
