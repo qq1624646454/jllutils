@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-07 11:02:26
-#   ModifiedTime: 2020-06-02 18:56:00
+#   ModifiedTime: 2020-06-11 00:47:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -22,11 +22,12 @@ ${Fpink}#Pythod version to be selected to 3.6.2 with pip3 setuptools${AC}
 root@S:/usr/local/src# \
 ${Fseablue}wget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz${AC}
 ...
-root@S:/usr/local/src# ${Fseablue}tar zxvf Python-3.6.2.tgz${AC}
-root@S:/usr/local/src# ${Fseablue}cd Python-3.6.2${AC}
-root@S:/usr/local/src/Python-3.6.2# ${Fseablue}mkdir -pv /usr/local/python3${AC}
-root@S:/usr/local/src/Python-3.6.2# ${Fseablue}chmod 0777 /usr/local/python3${AC}
-root@S:/usr/local/src/Python-3.6.2# ${Fseablue}./configure --prefix=/usr/local/python3${AC}
+root@S:/usr/local/src# 
+${Fseablue}tar zxvf Python-3.6.2.tgz${AC}
+${Fseablue}cd Python-3.6.2${AC}
+${Fseablue}mkdir -pv /usr/local/python3${AC}
+${Fseablue}chmod 0777 /usr/local/python3${AC}
+${Fseablue}./configure --prefix=/usr/local/python3${AC}
 root@S:/usr/local/src/Python-3.6.2# ${Fseablue}make${AC}
 ...
 ${Fred}Python build finished, but the necessary bits to build these modules were not found:${AC}
@@ -72,18 +73,6 @@ Python 3.6.2
 
 subprocess.CalledProcessError: Command 'lsb_release -a' returned non-zero exit status 1.
 cp -rvf /usr/lib/python3/dist-packages/lsb_release.py  /usr/local/python3/lib/python3.6/ 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
