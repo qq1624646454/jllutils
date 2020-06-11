@@ -130,7 +130,8 @@ function Lfn_Sys_GetAllUsers()
     fi
     LvSgauResult="root"
     LvSgauUsers=`cd /home/;find . -maxdepth 1 -a \( -path "./reposity" -o -path "./LogReposity" -o -path "./.*" -o -path "./lost+found" \)  -prune -o -type d -a -print | sed "1d"`
-    LvSgauRegUsers=`cat /etc/passwd | awk -F: '$3>=500' | cut -f 1 -d :`
+    #LvSgauRegUsers=`cat /etc/passwd | awk -F: '$3>=500' | cut -f 1 -d :`
+    LvSgauRegUsers=`cat /etc/passwd | cut -f 1 -d :`
     # Access every user in /home 
     for LvSgauUser in ${LvSgauUsers}; do
         for LvSgauRegUser in ${LvSgauRegUsers}; do

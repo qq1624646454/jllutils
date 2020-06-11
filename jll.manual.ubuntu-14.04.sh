@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 00:56:13
+#   ModifiedTime: 2020-06-11 17:07:04
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -200,6 +200,47 @@ Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
 in /etc/ssh/sshd_config or /etc/ssh/ssh_config
 
 
+${Fred} Samba and wins  ${AC}
+JLLim@S.#
+JLLim@S.# apt-get install -y samba winbind
+
+JLLim@S.#
+JLLim@S.# smbpasswd -a <HasExisted_UserName>
+
+JLLim@S.#
+JLLim@S.# mv -f /etc/samba/smb.conf /etc/samba/smb.conf.orig
+JLLim@S.#
+JLLim@S.# vi /etc/samba/smb.conf
+[homes]
+   comment = Home Directories
+   browseable = no
+
+   read only = no
+
+   create mask = 0700
+
+   valid users = %S
+
+   ;veto files=/.*/
+
+[ws]
+  comment = workspace
+  path = /media/sdb/ws
+  browseable = yes
+  read only = no
+  create mask = 0700
+  directory mask = 0700
+  valid users = root
+  veto files = /.*/
+
+JLLim@S.#
+JLLim@S.# mv -f /etc/nsswitch.conf /etc/nsswitch.conf.orig
+JLLim@S.#
+JLLim@S.# vi /etc/nsswitch.conf 
+hosts:   files mdns4_minimal [NOTFOUND=return] dns wins
+
+
+
 ${Fred}---------------------------------${AC}
 ${Fred} python3.6 for ubuntu-14.04 :    ${AC}
 ${Fred}---------------------------------${AC}
@@ -215,6 +256,8 @@ update-alternatives --install /usr/bin/python python /usr/bin/python2.7 3
 update-alternatives --config python
 python --version
 
+mv -f /usr/bin/pip  /usr/bin/pip.orig
+
 update-alternatives --install /usr/bin/pip pip /usr/bin/pip2 2
 update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.6 1
 update-alternatives --config pip
@@ -223,11 +266,11 @@ pip --version
 lsb_release -a
 
 
-whiptail --yesno "hello by JLLim" 10 50
-
 
 EOF
 
+
+read -p "whiptail --yesno \"$(lsb_release -a)\" 10 50 "
 whiptail --yesno "$(lsb_release -a)" 10 50
 
 
