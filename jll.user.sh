@@ -24,6 +24,7 @@ if [ x"$1" = x"add" ]; then
     echo        "jll: All the exist valid users as above"
     echo        "jll: Now please type an new user as system user and samba user"
     read -p     "     New User = " GvNewUser
+    echo
     if [ x"$GvNewUser" = x ]; then
         echo    "jll: Exit due to the invalid user is specified"
         echo
@@ -36,6 +37,7 @@ if [ x"$1" = x"add" ]; then
     /usr/bin/passwd  $GvNewUser
     if [ -e "/usr/bin/smbpasswd" ]; then
         read -n 1 -p "jll: set samba password if press [y], or skip:  " myC
+        echo
         if [ x"${myC}" = x"y" ]; then
             /usr/bin/smbpasswd -a $GvNewUser
         fi
@@ -65,6 +67,7 @@ if [ x"$1" = x"del" ]; then
     echo        "jll: All the exist valid users as above"
     echo        "jll: Now please type an above user to delete"
     read -p     "     Delete User = " GvDelUser
+    echo
     if [ x"$GvDelUser" = x ]; then
         echo    "jll: Exit due to the invalid user is specified"
         echo
