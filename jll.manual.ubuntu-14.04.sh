@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-11 17:07:04
+#   ModifiedTime: 2020-06-23 11:51:55
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -266,6 +266,21 @@ pip --version
 lsb_release -a
 
 
+
+
+
+${Fred}---------------------------------${AC}
+${Fred} zh_CN environment for ubuntu-14.04 :    ${AC}
+${Fred}---------------------------------${AC}
+
+LANG="zh_CN.UTF-8"
+LANGUAGE="zh_CN:zh:en_US:en"
+
+LANG="en_US.UTF-8"
+LANGUAGE="en_US:en"
+
+
+apt-get install -y language-pack-zh 
 
 EOF
 
