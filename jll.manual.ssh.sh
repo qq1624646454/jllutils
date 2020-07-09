@@ -61,5 +61,11 @@ All-Projects
 All-Users
 root@JllServer:~#
 
+${Fgreen} not source ~/.bashrc during ssh remote login ${AC}
+vi ~/.bash_profile
+if test -f ~/.bashrc; then
+    source ~/.bashrc
+fi
+
 EOF
 
