@@ -144,5 +144,12 @@ ${Fpink}如果在安装过程中python的安装环境不正确，可能就会导
 ${Fpink}例如在make的时候会输出丢失的模块。${AC}
 
 
+
+#
+# for python3.7
+#
+# issue: ModuleNotFoundError: No module named ‘_ctypes’
+apt-get install libffi-dev
+
 EOF
 
