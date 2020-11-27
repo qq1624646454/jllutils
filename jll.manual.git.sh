@@ -7,6 +7,15 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+#
+# File Name is renamed about case sensitive
+# but git can not recognize its change.
+#
+# It is solved by the follows:
+#
+git config core.ignorecase false
+
+
 ######################
 ### git push usage ###
 ######################
