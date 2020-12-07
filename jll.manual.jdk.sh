@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-17 09:36:32
-#   ModifiedTime: 2017-11-03 19:34:58
+#   ModifiedTime: 2020-12-07 12:00:28
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,20 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 cat >&1 <<EOF
+
+${Bgreen}${Fblack}                                               ${AC}
+${Bgreen}${Fblack}  openJDK 1.8 is installed on Ubuntu-14.04     ${AC}
+${Bgreen}${Fblack}                                               ${AC}
+add-apt-repository ppa:openjdk-r/ppa
+apt-get update
+aptitude search jdk
+apt-get install -y openjdk-8-jdk
+
+java -version
+
+update-alternatives --config java
+update-alternatives --config javac
+
 
 ${Bgreen}${Fblack}                               ${AC}
 ${Bgreen}${Fblack}  jdk is installed on Win7     ${AC}
