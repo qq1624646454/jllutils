@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-17 09:36:32
-#   ModifiedTime: 2020-12-07 12:00:28
+#   ModifiedTime: 2020-12-16 17:22:14
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,31 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 cat >&1 <<EOF
+
+${Bgreen}${Fblack}                                               ${AC}
+${Bgreen}${Fblack}  openJDK 11+ is installed on Ubuntu-14.04     ${AC}
+${Bgreen}${Fblack}                                               ${AC}
+you should first download the jdk-11.0.9_linux-x64_bin.tar.gz from baiduyun
+then do the follows:
+
+#
+# Install Java Environment
+#
+tar -zvxf jdk-11.0.9_linux-x64_bin.tar.gz -C /usr/share/java/
+#auto generate jre folder
+/usr/share/java/jdk-11.0.9/bin/jlink --module-path jmods --add-modules java.desktop --output /usr/share/java/jdk-11.0.9/jre
+
+#
+# JAVA Runtime Environment
+#
+JAVA_HOME=/usr/share/java/jdk-11.0.9/bin/java
+JRE_HOME=\${JAVA_HOME}/jre
+PATH=\${JAVA_HOME}/bin:\${PATH}
+
+
+
+
+
 
 ${Bgreen}${Fblack}                                               ${AC}
 ${Bgreen}${Fblack}  openJDK 1.8 is installed on Ubuntu-14.04     ${AC}

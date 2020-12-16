@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-07 12:43:03
-#   ModifiedTime: 2020-12-07 12:58:55
+#   ModifiedTime: 2020-12-16 17:17:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -50,6 +50,26 @@ service tomcat8 stop
 
 #Testing
 web-browser open: 127.0.0.1:8080
+
+
+
+#-----------------------------------------------
+# issue:  shutdown the tomcat8 but the associated process is still running
+#-----------------------------------------------
+# 1.insert the below code in apache-tomcat-8.5.60/bin/catalina.sh
+  ...
+  151 # Get standard environment variables
+  152 PRGDIR=`dirname "$PRG"`
++ 153 if [ -z "CATALINA_PID" ]; then
++ 154     CATALINA_PID=$PRGDIR/CATALINA_PID
++ 155 fi
+  ...
+
+# 2.modify the below code in apache-tomcat-8.5.60/bin/shutdown.sh
+- 69 exec "$PRGDIR"/"$EXECUTABLE" stop        "$@"
++ 69 exec "$PRGDIR"/"$EXECUTABLE" stop -force "$@"
+
+
 
 
 
