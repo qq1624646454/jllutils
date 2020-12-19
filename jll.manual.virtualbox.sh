@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2018-08-25 17:46:14
-#   ModifiedTime: 2020-02-16 23:43:47
+#   ModifiedTime: 2020-12-19 22:48:49
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -47,6 +47,12 @@ At first, it should be installed from
 https://download.virtualbox.org/virtualbox/5.2.36/Oracle_VM_VirtualBox_Extension_Pack-5.2.36.vbox-extpack
 (https://www.virtualbox.org/wiki/Download_Old_Builds_5_2)
 
+
+##############
+############## VirtualBox Error in SuplibOsInit  Kernel driver not installed (rc=-1908) 
+############## for ubuntu-18.04
+##############
+apt-get --reinstall install virtualbox-dkms
 
 EOF
 
