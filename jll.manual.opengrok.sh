@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-19 22:49:52
-#   ModifiedTime: 2020-12-19 23:42:28
+#   ModifiedTime: 2020-12-20 23:10:07
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -48,6 +48,42 @@ vim /usr/share/apache-tomcat-8.5.60/bin/shutdown.sh
 + TOMCAT_HOME=/usr/share/apache-tomcat-8.5.60
 
   exec "\$PRGDIR"/"\$EXECUTABLE" stop -force "\$@"
+
+vim /etc/init.d/tomcat8
+  DESC="web server"
+  NAME=tomcat8
+
+  case "\$1" in
+    start)
+      #log_daemon_msg "Starting \$DESC" "\$NAME"
+      if [ -e /usr/share/apache-tomcat-8.5.60/bin/startup.sh ]; then
+          /usr/share/apache-tomcat-8.5.60/bin/startup.sh
+      fi
+      ;;
+    stop|graceful-stop)
+      #log_daemon_msg "Stopping \$DESC" "\$NAME"
+      if [ -e /usr/share/apache-tomcat-8.5.60/bin/shutdown.sh ]; then
+        /usr/share/apache-tomcat-8.5.60/bin/shutdown.sh
+      fi
+      ;;
+    status)
+      ;;  
+    reload|force-reload|graceful)
+      ;;  
+    restart)
+      if [ -e /usr/share/apache-tomcat-8.5.60/bin/shutdown.sh ]; then
+        /usr/share/apache-tomcat-8.5.60/bin/shutdown.sh
+      fi
+      if [ -e /usr/share/apache-tomcat-8.5.60/bin/startup.sh ]; then
+        /usr/share/apache-tomcat-8.5.60/bin/startup.sh
+      fi
+      ;;
+  esac
+
+  exit 0
+
+update-rc.d tomcat8 defaults
+
 
 #3.install universal_ctags and opengrok
 wget https://github.com/oracle/opengrok/releases/download/1.5.11/opengrok-1.5.11.tar.gz
