@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2020-12-25 18:43:07
+#   ModifiedTime: 2020-12-28 20:45:18
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -44,6 +44,36 @@ ${Fyellow}cd db-5.1.29.NC/build_unix/ ${AC}
 ${Fyellow}../dist/configure --prefix=/usr/share/BerkeleyDB ${AC}
 ${Fyellow}make & make install ${AC}
 
+
+
+${Bblue}${Fgreen} Starting ${AC}
+${Fyellow}vim env-for-openldap${AC}
+export BERKELEYDB_HOME=/usr/share/BerkeleyDB
+export CPPFLAGS="-I\${BERKELEYDB_HOME}/include"
+export LDFLAGS="-L\${BERKELEYDB_HOME}/lib"
+export LD_LIBRARY_PATH="\${BERKELEYDB_HOME}/lib"
+
+export LDAP_HOME="/usr/share/OpenLDAP"
+export PATH="\${PATH}:\${BERKELEYDB_HOME}/bin:\${LDAP_HOME}/bin:\${LDAP_HOME}/sbin:\${LDAP_HOME}/libexec"
+
+${Fyellow}source env-for-openldap${AC}
+
+modify slapd.conf
+
+${Fyellow}ldapadd -x -D "cn=root,dc=reachxm,dc=com" -W -f test.ldif ${AC}
+Enter LDAP Password:
+adding new entry "dc=reachxm,dc=com"
+
+adding new entry "cn=root,dc=reachxm,dc=com"
+
+adding new entry "ou=itsection,dc=reachxm,dc=com"
+
+adding new entry "cn=sean,ou=itsection,dc=reachxm,dc=com"
+
+
+
+
+
 ${Bblue}${Fgreen} Startup followwing by system startup ${AC}
 ${Fyellow}vim openldap${AC}
 export BERKELEYDB_HOME=/usr/share/BerkeleyDB
@@ -55,6 +85,7 @@ export LDAP_HOME="/usr/share/OpenLDAP"
 export PATH="\${PATH}:\${BERKELEYDB_HOME}/bin:\${LDAP_HOME}/bin:\${LDAP_HOME}/sbin:\${LDAP_HOME}/libexec"
 
 if [ -x "/usr/share/OpenLDAP/libexec/slapd" ]; then
+#    /usr/share/OpenLDAP/libexec/slapd -d 256
     /usr/share/OpenLDAP/libexec/slapd
 fi
 
@@ -62,6 +93,51 @@ ${Fyellow}ln -sv /usr/share/OpenLDAP/libexec/openldap /etc/init.d/${AC}
 ${Fyellow}update-rc.d openldap defaults 27${AC}
 ${Fyellow}service openldap stop${AC}
 ${Fyellow}service openldap start${AC}
+
+
+usage: slapd options
+        -4              IPv4 only
+        -6              IPv6 only
+        -T {acl|add|auth|cat|dn|index|passwd|test}
+                        Run in Tool mode
+        -c cookie       Sync cookie of consumer
+        -d level        Debug level
+        -f filename     Configuration file
+        -F dir  Configuration directory
+        -g group        Group (id or name) to run as
+        -h URLs         List of URLs to serve
+        -l facility     Syslog facility (default: LOCAL4)
+        -n serverName   Service name
+        -o <opt>[=val] generic means to specify options; supported options:
+                slp[={on|off|(attrs)}] enable/disable SLP using (attrs)
+        -r directory    Sandbox directory to chroot to
+        -s level        Syslog level
+        -u user         User (id or name) to run as
+        -V              print version info (-VV exit afterwards, -VVV print
+                        info about static overlays and backends)
+
+${Bblue}${Fgreen} OpenLDAP Logging Configuration ${AC}
+${Fyellow}/usr/share/OpenLDAP/libexec/slapd -d ? ${AC}
+Installed log subsystems:
+
+        Any                            (-1, 0xffffffff)
+        Trace                          (1, 0x1)
+        Packets                        (2, 0x2)
+        Args                           (4, 0x4)
+        Conns                          (8, 0x8)
+        BER                            (16, 0x10)
+        Filter                         (32, 0x20)
+        Config                         (64, 0x40)
+        ACL                            (128, 0x80)
+        Stats                          (256, 0x100)
+        Stats2                         (512, 0x200)
+        Shell                          (1024, 0x400)
+        Parse                          (2048, 0x800)
+        Sync                           (16384, 0x4000)
+        None                           (32768, 0x8000)
+
+NOTE: custom log subsystems may be later installed by specific code
+
 
 
 
@@ -103,6 +179,9 @@ Proto RefCnt Flags       Type       State         I-Node   PID/Program name    P
 unix  2      [ ]         DGRAM                    285590    19656/slapd
 
 
+${Fyellow}netstat -ntplu | grep -i :389${AC}
+tcp        0      0 0.0.0.0:389             0.0.0.0:*               LISTEN      2031/slapd
+tcp6       0      0 :::389                  :::*                    LISTEN      2031/slapd
 
 core.schema:
 
