@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-08-15 11:38:09
-#   ModifiedTime: 2019-08-15 12:00:28
+#   ModifiedTime: 2021-01-06 11:25:43
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -23,6 +23,25 @@ ${Byellow}${Fblack} 解决截屏或录屏软件在截图或录制时，屏幕被
 Camtasia Studio 7, Screenshot
 ----------------------------------
 右击应用选择属性，选择兼容性选项，选择更改高DPI设置，在替代高DPI缩放行为勾选上，缩放执行:应用程序
+
+
+
+
+win10底部任务栏无响应
+--------------------------
+Get-AppXPackage -Name Microsoft.Windows.Cortana | Foreach {Add-AppxPackage -DisableDevelopmentMo
+de -Register "\$(\$_.InstallLocation)\\AppXManifest.xml"}
+
+Get-AppXPackage -AllUsers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "\$(\$_.Ins
+tallLocation)\\AppXManifest.xml"}
+
+
+
+
+
+系统文件检查器
+--------------------------
+sfc /scannow
 
 
 EOF
