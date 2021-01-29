@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2020-06-23 11:51:55
+#   ModifiedTime: 2021-01-29 19:58:09
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -111,13 +111,11 @@ ${Fgreen} Which desktop subsystem ${AC}
 
 ${Fwhite}${Bgreen}  update apt-source ${AC}
 JLLim@S.#
-JLLim@S.# mv /etc/apt/sources.list /etc/apt/sources.list.orig
-JLLim@S.#
 JLLim@S.# apt-get clean 
 clean /var/cache/apt/archives/
  
 JLLim@S.#
-JLLim@S.# vi /etc/apt/sources.list 
+JLLim@S.# vi /etc/apt/sources.list.d/aliyun.list 
 deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
@@ -194,6 +192,9 @@ apt-get install -y openjdk-7-jdk \\
  git config --global push.default simple 
  git config --global user.name "Jielong Lin"
 
+ rm -rf /bin/sh
+ ln -sv /bin/bash /bin/sh
+
 
 ${Fred} Can't signing in by root ${AC}
 Please change "PermitRootLogin without-password" to "PermitRootLogin yes"
@@ -208,7 +209,7 @@ JLLim@S.#
 JLLim@S.# smbpasswd -a <HasExisted_UserName>
 
 JLLim@S.#
-JLLim@S.# mv -f /etc/samba/smb.conf /etc/samba/smb.conf.orig
+JLLim@S.# cp -rvf /etc/samba/smb.conf /etc/samba/smb.conf.orig
 JLLim@S.#
 JLLim@S.# vi /etc/samba/smb.conf
 [homes]
@@ -234,7 +235,7 @@ JLLim@S.# vi /etc/samba/smb.conf
   veto files = /.*/
 
 JLLim@S.#
-JLLim@S.# mv -f /etc/nsswitch.conf /etc/nsswitch.conf.orig
+JLLim@S.# cp -rvf /etc/nsswitch.conf /etc/nsswitch.conf.orig
 JLLim@S.#
 JLLim@S.# vi /etc/nsswitch.conf 
 hosts:   files mdns4_minimal [NOTFOUND=return] dns wins
@@ -282,11 +283,11 @@ LANGUAGE="en_US:en"
 
 apt-get install -y language-pack-zh 
 
+
+
+read -p "whiptail --yesno \"\$(lsb_release -a)\" 10 50 "
+whiptail --yesno "\$(lsb_release -a)" 10 50
+
+
 EOF
-
-
-read -p "whiptail --yesno \"$(lsb_release -a)\" 10 50 "
-whiptail --yesno "$(lsb_release -a)" 10 50
-
-
 
