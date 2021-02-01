@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-11-01 08:48:41
-#   ModifiedTime: 2020-02-21 10:05:36
+#   ModifiedTime: 2021-02-01 16:55:36
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -40,7 +40,7 @@ mkdir -pv NBIOT_CN-M50/master
 cd NBIOT_CN-M50/master
 
 ../../git-repo/repo init -u ssh://gerrit29418.reachxm.com/NBIOT_CN-M50/platform/manifest \\
-                 -m default.xml -b master --config-name --repo-url=\$(pwd)/../../git-repo
+                 -m default.xml -b master --repo-url=\$(pwd)/../../git-repo
 
 ../../git-repo/repo sync
 
@@ -55,7 +55,7 @@ ${Bgreen}${Fblack} lora_endnode ${AC}
    mkdir -pv lora_endnode_dev/master
    cd lora_endnode_dev/master
    ../../git-repo/repo init -u ssh://gerrit29418.reachxm.com/lora_endnode/platform/manifest \\
-                    -m reach.xml -b master --config-name --repo-url=\$(pwd)/../../git-repo
+                    -m reach.xml -b master --repo-url=\$(pwd)/../../git-repo
    ../../git-repo/repo sync
 
    #Switch to ATcmd from remotes/origin/ATcmd
@@ -70,7 +70,7 @@ ${Bgreen}${Fblack} L170H ${AC}
    mkdir -pv L170H/master
    cd L170H/master
    ../../git-repo/repo init -u ssh://gerrit29418.reachxm.com/L170H/platform/manifest \\
-                    -b master --config-name --repo-url=\$(pwd)/../../git-repo
+                    -b master --repo-url=\$(pwd)/../../git-repo
    ../../git-repo/repo sync
 
    #Switch to master from remotes/origin/master
