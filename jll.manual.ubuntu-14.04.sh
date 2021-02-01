@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2021-01-29 19:58:09
+#   ModifiedTime: 2021-02-01 15:04:26
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -187,6 +187,9 @@ apt-get install -y openjdk-7-jdk \\
                    wget \\
                    openssh-client \\
                    openssh-server
+
+#ssh command password is passed automatically from console
+ apt-get  install sshpass -y
 
  git config --global push.default matching 
  git config --global push.default simple 
