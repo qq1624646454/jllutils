@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2021-02-01 15:04:26
+#   ModifiedTime: 2021-02-01 15:05:02
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -194,6 +194,8 @@ apt-get install -y openjdk-7-jdk \\
  git config --global push.default matching 
  git config --global push.default simple 
  git config --global user.name "Jielong Lin"
+
+ git config --global core.quotepath false
 
  rm -rf /bin/sh
  ln -sv /bin/bash /bin/sh
