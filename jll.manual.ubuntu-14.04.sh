@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2021-02-01 15:05:02
+#   ModifiedTime: 2021-02-01 15:06:01
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -199,6 +199,8 @@ apt-get install -y openjdk-7-jdk \\
 
  rm -rf /bin/sh
  ln -sv /bin/bash /bin/sh
+
+#install cross-compilation tools for qualcomm platform
 
 
 ${Fred} Can't signing in by root ${AC}
