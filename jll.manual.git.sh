@@ -7,6 +7,11 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+
+# Chinese test is show normally
+git config --global core.quotepath false
+
+
 #
 # File Name is renamed about case sensitive
 # but git can not recognize its change.
