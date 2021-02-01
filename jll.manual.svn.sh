@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2020-05-26 23:07:04
+#   ModifiedTime: 2021-02-01 15:11:52
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,10 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1 <<EOF
+
+linjielong
+ 852369
+
 
 aptitude install subversion
 
