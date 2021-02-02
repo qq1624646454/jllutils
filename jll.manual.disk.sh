@@ -8,6 +8,26 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+root@RS82:/# ${Bblue}umount /jllim2 ${AC}
+root@RS82:/# ${Bblue}fsck.ext4 /dev/sdb2 ${AC}
+e2fsck 1.42.9 (4-Feb-2014)
+ibbyte1024MB contains a file system with errors, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Inode 6685636 has an invalid extent node (blk 27481116, lblk 0)
+Clear<y>? ${Bblue}yes${AC}
+
+HTREE directory inode 6685636 has an invalid root node.
+Clear HTree index<y>? ${Bblue}yes${AC}
+Inode 6685636 is a zero-length directory.  Clear<y>? ${Bblue}yes${AC}
+HTREE directory inode 6693034 has an invalid root node.
+Clear HTree index<y>? ${Bblue}yes${AC}
+
+
+
+
+
+
+
 root@REACHXM82:/honor# lsblk -a -d -o name,rota
 NAME  ROTA
 sda      1  #HDD
