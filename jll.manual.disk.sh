@@ -8,6 +8,7 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+${Bred}Structure needs cleaning ${AC}
 root@RS82:/# ${Bblue}umount /jllim2 ${AC}
 root@RS82:/# ${Bblue}fsck.ext4 /dev/sdb2 ${AC}
 e2fsck 1.42.9 (4-Feb-2014)
