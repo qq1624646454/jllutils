@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-06-11 00:16:15
-#   ModifiedTime: 2021-02-01 15:09:41
+#   ModifiedTime: 2021-02-03 19:14:21
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -203,6 +203,10 @@ mdm9x07_environment_build.sh
 
  rm -rf /bin/sh
  ln -sv /bin/bash /bin/sh
+
+
+${Fwhite}${Bgreen} Install development for CN-M50 ${AC}
+ apt-get install -y wine
 
 
 ${Fred} Can't signing in by root ${AC}
