@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 17:56:46
+#   ModifiedTime: 2021-02-04 18:02:25
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -66,9 +66,32 @@ ${Fyellow}make install${AC}
 ${Fyellow}cd - >/dev/null ${AC}
 ${Fyellow}cp -rf env-for-openldap \${LDAP_HOME}/libexec/ ${AC}
 
-#Let slapd is started up followwing by system, and it can be controlled by service
+#Let slapd is started followwing by system startup, and it can be controlled by service
 ${Fyellow}cp -rvf /etc/init.d/skeleton  /etc/init.d/slapd_openldap
-${Fyellow}vim /etc/init.d/slapd_openldap${AC}
+${Fyellow}vim /etc/init.d/slapd${AC}
+  ...
+  DESC="slapd is associated with OpenLDAP Server"
+  NAME=slapd
++ EXECPATH=/usr/share/OpenLDAP
+  DAEMON_ARGS=""
+- PIDFILE=/var/run/\$NAME.pid
+  ...
++ [ -x "\${EXECPATH}/libexec/env-for-openldap" ] || exit 0 
++ . \${EXECPATH}/libexec/env-for-openldap
+
+- [ -r /etc/default/\$NAME ] && . /etc/default/\$NAME
+- . /lib/init/vars.sh
+
+  ...
+  #JLLim: Remove "--pidfile \$PIDFILE" from all line of start-stop-daemon
+  ...
+
+${Fyellow}update-rc.d slapd defaults 27${AC} # Install the startup service to rc 1,2,3,4,5
+
+${Fyellow}service slapd start${AC} # Start to run openldap server named slapd
+${Fyellow}service slapd stop${AC}  # Stop to run openldap server  named slapd
+
+
 
 
 
@@ -183,29 +206,8 @@ ${Bblue}${Fgreen} Start to run slapd followwing by system startup ${AC}
 ${Bblue}${Fgreen}     slapd is OpenLDAP Server                    ${AC}
 ${Fyellow}cp -rf /etc/init.d/skeleton /etc/init.d/openldap${AC}
 ${Fyellow}vim /etc/init.d/openldap${AC}
-  ...
-  DESC="slapd is associated with OpenLDAP Server"
-  NAME=slapd
-+ EXECPATH=/usr/share/OpenLDAP
-  DAEMON_ARGS=""
-- PIDFILE=/var/run/\$NAME.pid
-  ...
-+ [ -x "\${EXECPATH}/libexec/env-for-openldap" ] || exit 0 
-+ . \${EXECPATH}/libexec/env-for-openldap
 
-- [ -r /etc/default/\$NAME ] && . /etc/default/\$NAME
-- . /lib/init/vars.sh
 
-  ...
-  #JLLim: Remove "--pidfile \$PIDFILE" from all line of start-stop-daemon
-  ...
-
-${Fyellow}update-rc.d openldap defaults 27${AC} # Install the startup service to rc 1,2,3,4,5
-
-${Fyellow}service openldap start${AC} # Start to run openldap server named slapd
-${Fyellow}service openldap stop${AC}  # Stop to run openldap server  named slapd
-
-${Bblue}${Fgreen} Start to run slapd by manual - OpenLDAP Server ${AC}
 
 ${Fyellow}source /usr/share/OpenLDAP/libexec/env-for-openldap${AC}
 ${Fyellow}/usr/share/OpenLDAP/libexec/slapd -d 256 ${AC} # start slapd with debug log on console
