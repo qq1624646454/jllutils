@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 18:02:27
+#   ModifiedTime: 2021-02-04 20:35:21
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -66,7 +66,10 @@ ${Fyellow}make install${AC}
 ${Fyellow}cd - >/dev/null ${AC}
 ${Fyellow}cp -rf env-for-openldap \${LDAP_HOME}/libexec/ ${AC}
 
-#Let slapd is started followwing by system startup, and it can be controlled by service
+${Fyellow}echo "\${LDAP_HOME}/libexec/env-for-openldap" >> \${HOME}/.bashrc ${AC}
+
+${Fblue}#Let openldap server named slapd is started followwing by system startup, ${AC}
+${Fblue}#and it can be controlled by service ${AC}
 ${Fyellow}cp -rvf /etc/init.d/skeleton  /etc/init.d/slapd_openldap
 ${Fyellow}vim /etc/init.d/slapd${AC}
   ...
@@ -93,20 +96,20 @@ ${Fyellow}service slapd stop${AC}  # Stop to run openldap server  named slapd
 
 
 
+${Bblue}${Fgreen}                                                     ${AC}
+${Bblue}${Fgreen} OpenLDAP Server and Client + BerkeleyDB Deployment  ${AC}
+${Bblue}${Fgreen}                                                     ${AC}
 
-
-
-
-${Bblue}${Fgreen}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
+${Bblue}${Fgreen} /usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
 
 [Server Program]
 ${Fseablue}/usr/share/OpenLDAP/libexec/ ${AC}
-    slapd :  OpenLDAP Server Program
-    env-for-openldap :  Environment Various definition
+    slapd :  OpenLDAP Server Program which it is started up followwing by system startup.
+    env-for-openldap :  Environment Various file which is sourced automatically when login stage.
 
 [Server Program]
 ${Fseablue}/usr/share/OpenLDAP/sbin/ ${AC}
-    *  are linked to /usr/share/OpenLDAP/libexec/slapd
+    * : are linked to /usr/share/OpenLDAP/libexec/slapd
 
 [Server Backend Database Program]
 ${Fseablue}/usr/share/BerkeleyDB/ ${AC}
@@ -151,20 +154,94 @@ ${Bblue}${Fgreen}/usr/share/BerkeleyDB:  OpenLDAP Server Database Programs${AC}
     *
 
 
-${Fred}  ${AC}
+${Bblue}${Fgreen}概述${AC}
+DIT: Directory Information Tree 目录信息树
+Entry: The DIT is made up of one or more Entry, unit of DIT
+       目录信息树中一条记录，称为条目，每个条目有自己唯一的可区别的名称(DN)
+ObjectClass: 对象类，对象类可以继承，用于定义Entry的数据类型，即属性
+Property: 属性，描述Entry的某个类型 
+
+dn(Distinguished Name): 
+    “uid=songtao.xu,ou=oa组,dc=example,dc=com”，一条记录的位置（唯一）
+uid(User Id): 
+    用户ID songtao.xu（一条记录的ID）, 这里的UID不是Linux系统上的UID,这里的UID是用户登录LDAP的账号.
+ou(Organization Unit): 
+    组织单位，组织单位可以包含其他各种对象（包括其他组织单元），如“oa组”（一条记录的所属组织）
+dc(Domain Component):
+    域名的部分，其格式是将完整的域名分成几部分,
+    如域名为example.com变成dc=example,dc=com（一条记录的所属位置）
+
+    为什么会设计成域名形式？
+        因为openldap是支持基于网络访问，即客户端和服务器可以是不同设备.   
+
+cn(Common Name): 
+    公共名称，如“Thomas Johansson”（一条记录的名称）
+sn(Surname): 
+    姓，如“许”, 只能写姓
+giveName: 只能写名字
+rdn(Relative dn): 
+    相对辨别名，类似于文件系统中的相对路径，
+    它是与目录树结构无关的部分，如“uid=tom”或“cn= Thomas Johansson”
 
 
+c(Country):
+    国家，如“CN”或“US”等。
+o(Organization):
+    组织，它更多地代表是子公司.
 
 
 ${Bred}${Fseablue}                                       ${AC}
 ${Bred}${Fseablue} Initialize                            ${AC}
 ${Bred}${Fseablue}                                       ${AC}
+
+
+${Bblue}${Fgreen} 配置说明 ${AC}
+etc/slapd.conf
+    旧版本的默认使用它实现数据库文件的生成，但在2.4版本开始官方就不推荐了，
+    因为通过它来配置LDAP,主要嫌它太繁琐,修改完配置必须重新生成OpenLDAP数据库,
+　　这就意味着,OpenLDAP服务器必须停机. 建议cn=config方式.
+cn=config
+    相对slapd.conf方式而言，修改后立即生效而不需要重启OpenLDAP服务器，属于热部署.
+
+#
+#DB_CONFIG.example会自动生成DB_CONFIG,所以不需要特别处理
+#/usr/share/OpenLDAP/var/openldap-data/DB_CONFIG.example
+#
+
+
+
+${Bblue}${Fgreen} 初始化操作 ${AC}
+
+
+
+
+${Fseablue}Schema${AC}
+core.schema:     OpenLDAP的核心schema.【它是必须加载的】
+inetorgperson.schema : 它仅次于core, 我们添加账号时,很多要使用到它里面定义的objectClass.
+dyngroup.schema : 这是定义组时使用的schema,包括要使用sudo.schema时,也需要它。
+ppolicy.schema:     若需要做密码策略时,需要导入此schema.
+nis.schema: 网络信息服务(FYI),也是一种集中账号管理实现.
+java.schema: 若需要使用Java程序来操作openLDAP时,需要使用它,让OpenLDAP支持Java.
+cosine.schema : Cosine 和 Internet X.500 (比较有用, 不太懂.)
+misc.schema : Assorted (experimental)
+openldap.schema : OpenLDAP Project(experimental)
+sudo.schema: 定义sudo规则
+
+
+
+
+
+
+
+
+
+
+
 ${Bblue}${Fgreen} Prepare${AC}
 
 ${Bblue}${Fgreen} Building OpenLDAP ( gcc 4.7+ ) ${AC}
 ${Fred} ${AC}
 
-${Fred}配置OpenLDAP有两种方法，一种是修改slapd.conf实现配置，一种是修改数据库实现配置${AC}
 ${Fred}配置OpenLDAP有两种方法，一种是修改slapd.conf实现配置，一种是修改数据库实现配置${AC}
 ${Fred}[1]修改slapd.conf完成配置${AC}
 ${Fyellow}vim \${LDAP_HOME}/etc/openldap/slapd.conf${AC}
@@ -350,67 +427,9 @@ slapindex: 创建OpenLDAP目录树索引，提高查询效率
 slapcat: 将数据条目转换为OpenLDAP的LDIF文件
 
 <Command> ? #show the help detail
-
-
 ${Fyellow}ldapadd ?${AC}
 #ldapadd is linked to ldapmodify
 Add or modify entries from an LDAP server
-
-usage: ldapadd [options]
-        The list of desired operations are read from stdin or from the file
-        specified by "-f file".
-Add or modify options:
-  -a         add values (default)
-  -c         continuous operation mode (do not stop on errors)
-  -E [!]ext=extparam    modify extensions (! indicate s criticality)
-  -f file    read operations from 'file'
-  -M         enable Manage DSA IT control (-MM to make critical)
-  -P version protocol version (default: 3)
-  -S file    write skipped modifications to 'file'
-Common options:
-  -d level   set LDAP debugging level to 'level'
-  -D binddn  bind DN
-             ${Fseablue}指定一个DN，代表整个树的唯一识别名称${AC}
-  -e [!]<ext>[=<extparam>] general extensions (! indicates criticality)
-             [!]assert=<filter>     (RFC 4528; a RFC 4515 Filter string)
-             [!]authzid=<authzid>   (RFC 4370; "dn:<dn>" or "u:<user>")
-             [!]chaining[=<resolveBehavior>[/<continuationBehavior>]]
-                     one of "chainingPreferred", "chainingRequired",
-                     "referralsPreferred", "referralsRequired"
-             [!]manageDSAit         (RFC 3296)
-             [!]noop
-             ppolicy
-             [!]postread[=<attrs>]  (RFC 4527; comma-separated attr list)
-             [!]preread[=<attrs>]   (RFC 4527; comma-separated attr list)
-             [!]relax
-             [!]sessiontracking
-             abandon, cancel, ignore (SIGINT sends abandon/cancel,
-             or ignores response; if critical, doesn't wait for SIGINT.
-             not really controls)
-  -h host    LDAP server
-  -H URI     LDAP Uniform Resource Identifier(s)
-  -I         use SASL Interactive mode
-  -n         show what would be done but don't actually do it
-  -N         do not use reverse DNS to canonicalize SASL host name
-  -O props   SASL security properties
-  -o <opt>[=<optparam>] general options
-             nettimeout=<timeout> (in seconds, or "none" or "max")
-             ldif-wrap=<width> (in columns, or "no" for no wrapping)
-  -p port    port on LDAP server
-  -Q         use SASL Quiet mode
-  -R realm   SASL realm
-  -U authcid SASL authentication identity
-  -v         run in verbose mode (diagnostics to standard output)
-  -V         print version info (-VV only)
-  -w passwd  bind password (for simple authentication)
-  -W         prompt for bind password
-             ${Fseablue}查询提示输入密码，也可通过-w password实现自动输入密码${AC}
-  -x         Simple authentication
-             ${Fseablue}简认认证，不使用任何加密算法${AC}
-  -X authzid SASL authorization identity ("dn:<dn>" or "u:<user>")
-  -y file    Read password from file
-  -Y mech    SASL mechanism
-  -Z         Start TLS request (-ZZ to require successful response)
 
 
 
@@ -440,23 +459,29 @@ root@BS-010197:/usr/share/OpenLDAP/bin# ldd ldapwhoami
         libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1d81f4e000)
         libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f1d81d4a000)
         /lib64/ld-linux-x86-64.so.2 (0x00007f1d82b6e000)
+
 ${Fyellow}aptitude install -y libsasl2-dev${AC} #re-build then re-install
+
+root@BS-010197:/usr/share/OpenLDAP/bin# ldd ldapwhoami
+        linux-vdso.so.1 =>  (0x00007ffc727dc000)
+        ${Fred}libsasl2.so.2 => /usr/lib/x86_64-linux-gnu/libsasl2.so.2 (0x00007f7f30d92000)${AC}
+        libssl.so.1.0.0 => /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007f7f30b33000)
+        libcrypto.so.1.0.0 => /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007f7f30756000)
+        libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f7f3053b000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f7f30172000)
+        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f7f2ff6e000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f7f30fad000)
 
 ${Fred}ISSUE is what about ldap_sasl_interactive_bind_s: Can't contact LDAP server (-1) ${AC}
 
 
 
+------------------------------------------------
+https://www.cnblogs.com/wn1m/p/10700236.html
+------------------------------------------------
 
-关键字	英文全称			含义
-dc	    Domain Component	域名的部分，其格式是将完整的域名分成几部分，如域名为example.com变成dc=example,dc=com
-uid		User Id		 用户ID，如“tom”
-ou	Organization Unit	 组织单位，类似于Linux文件系统中的子目录，它是一个容器对象，组织单位可以包含其他各种对象（包括其他组织单元），如“market”
-cn	Common Name		 公共名称，如“Thomas Johansson”
-sn	Surname		 姓，如“Johansson”
-dn	Distinguished Name	 惟一辨别名，类似于Linux文件系统中的绝对路径，每个对象都有一个惟一的名称，如“uid= tom,ou=market,dc=example,dc=com”，在一个目录树中DN总是惟一的
-rdn		Relative dn		相对辨别名，类似于文件系统中的相对路径，它是与目录树结构无关的部分，如“uid=tom”或“cn= Thomas Johansson”
-c	Country		国家，如“CN”或“US”等。
-o	Organization	组织名，如“Example, Inc.”
+
+https://www.it610.com/article/5623624.htm
 
 
 EOF
