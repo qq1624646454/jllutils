@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2020-12-29 18:55:57
+#   ModifiedTime: 2021-02-04 14:57:30
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -67,6 +67,26 @@ ${Fyellow}cd - >/dev/null ${AC}
 ${Fyellow}cp -rf env-for-openldap \${LDAP_HOME}/libexec/ ${AC}
 
 
+${Fred}${Fseablue}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
+/usr/share/OpenLDAP/libexec/
+    slapd :  OpenLDAP Server Program
+    env-for-openldap :  Environment Various definition
+/usr/share/OpenLDAP/sbin/
+    *  are linked to /usr/share/OpenLDAP/libexec/slapd
+
+${Fred}OpenLDAP Database have already been storaged in ${Fseablue}/usr/share/BerkeleyDB${AC}
+${Fred}  ${AC}
+
+
+${Bred}${Fseablue}                                       ${AC}
+${Bred}${Fseablue} Initialize                            ${AC}
+${Bred}${Fseablue}                                       ${AC}
+${Bblue}${Fgreen} Prepare${AC}
+
+${Bblue}${Fgreen} Building OpenLDAP ( gcc 4.7+ ) ${AC}
+${Fred} ${AC}
+
+${Fred}配置OpenLDAP有两种方法，一种是修改slapd.conf实现配置，一种是修改数据库实现配置${AC}
 ${Fred}配置OpenLDAP有两种方法，一种是修改slapd.conf实现配置，一种是修改数据库实现配置${AC}
 ${Fred}[1]修改slapd.conf完成配置${AC}
 ${Fyellow}vim \${LDAP_HOME}/etc/openldap/slapd.conf${AC}
@@ -93,6 +113,12 @@ ${Fred}验证管理员密码,ldapwhoami不带参数时返回为anonymous,-D绑�
 ${Fyellow}ldapwhoami -x -D cn=root,dc=reachxm,dc=com -W ${AC}
 Enter LDAP Password:
 dn:cn=root,dc=reachxm,dc=com
+
+
+${Fred}在另一台ldap客户机上查询${AC}
+${Fyellow}/usr/share/OpenLDAP/bin/ldapwhoami -x -w 123456 -D "cn=root,dc=reachxm,dc=com" -H ldap://172.16.10.197 ${AC}
+
+
 
 ${Fred}[2]修改数据库完成配置${AC}
 
