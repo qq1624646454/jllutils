@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 15:02:59
+#   ModifiedTime: 2021-02-04 15:03:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -70,16 +70,25 @@ ${Fyellow}cp -rf env-for-openldap \${LDAP_HOME}/libexec/ ${AC}
 
 ${Fred}${Fseablue}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
 
-[Server]
+[Server Program]
 /usr/share/OpenLDAP/libexec/
     slapd :  OpenLDAP Server Program
     env-for-openldap :  Environment Various definition
 
-[Server]
+[Server Program]
 /usr/share/OpenLDAP/sbin/
     *  are linked to /usr/share/OpenLDAP/libexec/slapd
 
-[Client]
+[Server Database Data]
+/usr/share/OpenLDAP/var/openldap-data/
+
+
+[Server Configuration]
+/usr/share/OpenLDAP/etc/
+
+
+
+[Client Program]
 /usr/share/OpenLDAP/bin/
     ldapadd : linked to ldapmodify
     ldapmodify :
@@ -92,7 +101,7 @@ ${Fred}${Fseablue}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
     ldappasswd :
     ldapurl :
 
-${Fred}${Fseablue}/usr/share/BerkeleyDB:  OpenLDAP Server Database${AC}
+${Fred}${Fseablue}/usr/share/BerkeleyDB:  OpenLDAP Server Database Programs${AC}
 
 
 ${Fred}  ${AC}
