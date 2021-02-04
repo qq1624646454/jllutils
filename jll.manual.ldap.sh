@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 15:02:58
+#   ModifiedTime: 2021-02-04 15:02:59
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -91,9 +91,10 @@ ${Fred}${Fseablue}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
     ldapmodrdn :
     ldappasswd :
     ldapurl :
-    
 
-${Fred}OpenLDAP Database have already been storaged in ${Fseablue}/usr/share/BerkeleyDB${AC}
+${Fred}${Fseablue}/usr/share/BerkeleyDB:  OpenLDAP Server Database${AC}
+
+
 ${Fred}  ${AC}
 
 
