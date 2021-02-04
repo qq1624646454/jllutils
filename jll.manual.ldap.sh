@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 15:03:34
+#   ModifiedTime: 2021-02-04 17:56:46
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -66,45 +66,71 @@ ${Fyellow}make install${AC}
 ${Fyellow}cd - >/dev/null ${AC}
 ${Fyellow}cp -rf env-for-openldap \${LDAP_HOME}/libexec/ ${AC}
 
+#Let slapd is started up followwing by system, and it can be controlled by service
+${Fyellow}cp -rvf /etc/init.d/skeleton  /etc/init.d/slapd_openldap
+${Fyellow}vim /etc/init.d/slapd_openldap${AC}
 
 
-${Fred}${Fseablue}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
+
+
+
+${Bblue}${Fgreen}/usr/share/OpenLDAP:  OpenLDAP Server and Client Programs${AC}
 
 [Server Program]
-/usr/share/OpenLDAP/libexec/
+${Fseablue}/usr/share/OpenLDAP/libexec/ ${AC}
     slapd :  OpenLDAP Server Program
     env-for-openldap :  Environment Various definition
 
 [Server Program]
-/usr/share/OpenLDAP/sbin/
+${Fseablue}/usr/share/OpenLDAP/sbin/ ${AC}
     *  are linked to /usr/share/OpenLDAP/libexec/slapd
 
-[Server Database Data]
-/usr/share/OpenLDAP/var/openldap-data/
+[Server Backend Database Program]
+${Fseablue}/usr/share/BerkeleyDB/ ${AC}
+    *
+
+[Server Database Data File]
+${Fseablue}/usr/share/OpenLDAP/var/openldap-data/ ${AC}
+    *
+
+[Server Program Configuration]
+${Fseablue}/usr/share/OpenLDAP/etc/ ${AC}
+    * : slapd.conf or OLC(Open Ldap Configuration) namely cn=config is supported started from 2.4
+        ${Fred}Noted: slapd.conf maybe abandoned in the future.${AC}
 
 
-[Server Configuration]
-/usr/share/OpenLDAP/etc/
-
-
-
-[Client Program]
-/usr/share/OpenLDAP/bin/
+[Client Program For CLIs]
+${Fseablue}/usr/share/OpenLDAP/bin/ ${AC}
     ldapadd : linked to ldapmodify
     ldapmodify :
-    ldapsearch :
-    ldapdelete :
-    ldapwhoami :
+        
+    ${Fgreen}ldapsearch${AC} :
+        # -H <ldap://target-ip> : 指定远程ldap服务器主机地址
+        # -x : 简单验证，即使用用户+密码方式验证
+        # -D <RootDN> : 使用某个用户身份在ldap服务器上执行这条指令，用户也是一条DN,通常是RootDN
+        # -w <RootDN-Password> : 使用-D所指定的用户的密码，也可以用-W直接在执行时提示密码输入
+        # [ -b <BaseDN> ] : 可选,目录服务的数据是目录树，指定从某个目录作为基础节点开始执行操作
+        # [ <matching-expression> ] : 可选,规则匹配
+        ldapsearch -H ldap://127.0.0.1 -x -D "cn=root,dc=jllim,dc=com" -w 123456 \\
+                   -b "dc=jllim,dc=com" "uid=*"
+    ${Fgreen}ldapwhoami${AC} :
+        ldapwhoami -H ldap://127.0.0.1 -x -D "cn=root,dc=jllim,dc=com" -w 123456
+    ${Fgreen}ldapdelete${AC} :
+
     ldapcompare :
     ldapexop :
     ldapmodrdn :
     ldappasswd :
     ldapurl :
 
-${Fred}${Fseablue}/usr/share/BerkeleyDB:  OpenLDAP Server Database Programs${AC}
+
+${Bblue}${Fgreen}/usr/share/BerkeleyDB:  OpenLDAP Server Database Programs${AC}
+    *
 
 
 ${Fred}  ${AC}
+
+
 
 
 ${Bred}${Fseablue}                                       ${AC}
