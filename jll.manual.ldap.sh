@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-04 20:35:21
+#   ModifiedTime: 2021-02-05 12:00:05
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,8 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+Lightweight Directory Access Protocol，轻量级是相对于重量级X.500协议而言
 
 ${Bred}${Fseablue}                                       ${AC}
 ${Bred}${Fseablue} Environment                           ${AC}
@@ -155,12 +157,34 @@ ${Bblue}${Fgreen}/usr/share/BerkeleyDB:  OpenLDAP Server Database Programs${AC}
 
 
 ${Bblue}${Fgreen}概述${AC}
-DIT: Directory Information Tree 目录信息树
-Entry: The DIT is made up of one or more Entry, unit of DIT
-       目录信息树中一条记录，称为条目，每个条目有自己唯一的可区别的名称(DN)
-ObjectClass: 对象类，对象类可以继承，用于定义Entry的数据类型，即属性
-Property: 属性，描述Entry的某个类型 
 
+LDAP 轻量级目录访问协议
+
+--------
+LDAP的目录信息的总体组织结构 
+--------
+  DIT: Directory Information Tree 目录信息树
+  Entry: The DIT is made up of one or more Entry, unit of DIT
+         目录信息树中一条记录，称为条目，每个条目有自己唯一的可区别的名称(DN)
+  ObjectClass: 对象类，对象类可以继承，用于定义Entry的数据类型，即属性
+  Property: 属性，描述Entry的某个类型 
+
+--------
+LDAP的目录条目常用字段
+--------
+${Fseablue}Schema${AC} 一个条目中各个字段是由Schema定义的,Schema文件一般位于 etc/openldap/schema/*
+  core.schema : OpenLDAP的核心schema.【它是必须加载的】
+  inetorgperson.schema : 它仅次于core, 我们添加账号时,很多要使用到它里面定义的objectClass.
+  dyngroup.schema : 这是定义组时使用的schema,包括要使用sudo.schema时,也需要它。
+  ppolicy.schema : 若需要做密码策略时,需要导入此schema.
+  nis.schema : 网络信息服务(FYI),也是一种集中账号管理实现.
+  java.schema : 若需要使用Java程序来操作openLDAP时,需要使用它,让OpenLDAP支持Java.
+  cosine.schema : Cosine 和 Internet X.500 (比较有用, 不太懂.)
+  misc.schema : Assorted (experimental)
+  openldap.schema : OpenLDAP Project(experimental)
+  sudo.schema: 定义sudo规则
+
+常用字段:
 dn(Distinguished Name): 
     “uid=songtao.xu,ou=oa组,dc=example,dc=com”，一条记录的位置（唯一）
 uid(User Id): 
@@ -183,25 +207,51 @@ rdn(Relative dn):
     相对辨别名，类似于文件系统中的相对路径，
     它是与目录树结构无关的部分，如“uid=tom”或“cn= Thomas Johansson”
 
-
+传统方式的组织形式，聚焦于国别以及地理信息为上层构成,常用的字段有：
 c(Country):
     国家，如“CN”或“US”等。
+st(State):
+    州/区/省
 o(Organization):
     组织，它更多地代表是子公司.
 
+e.g:
+    cn=Barbara Jenson,ou=Sales,o=Acme,st=California,c=US
+
+互联网域名的组织形式，基于域名，上层构成直接使用域名，能结合DNS相关的技术：
+e.g:
+    uid=babs,ou=People,dc=example,dc=com
+
+
+--------
+
+
+
 
 ${Bred}${Fseablue}                                       ${AC}
-${Bred}${Fseablue} Initialize                            ${AC}
+${Bred}${Fseablue} Initialize and Configuration          ${AC}
 ${Bred}${Fseablue}                                       ${AC}
+配置OpenLDAP服务器是整个方案中最为麻烦的部分，网络上参考几乎都不对（很多教程停留在2008年甚至1998年）
+而正确的配置方法是通过ldapmodify命令执行一系列自己写好的ldif文件，而不是修改任何OpenLDAP预装好的配
+置文件.记住，OpenLDAP预装好的ldif配置是通过schema文件自动生成的，不应该被直接修改
+(e.g: This file was automatically generated from collective.schema)
+
+${Fred}ldif文件，即LDAP Interchange Format${AC}
+LDIF 文件每行的结尾不允许有空格或者制表符
+LDIF 文件允许相关属性可以重复赋值并使用
+LDIF 文件以.ldif结尾命名
+LDIF 文件中以#号开头的一行为注释，可以作为解释使用
+LDIF 文件所有的赋值方式为:    属性:[空格]属性值
 
 
 ${Bblue}${Fgreen} 配置说明 ${AC}
-etc/slapd.conf
+etc/slapd.conf   (Abandon)
     旧版本的默认使用它实现数据库文件的生成，但在2.4版本开始官方就不推荐了，
     因为通过它来配置LDAP,主要嫌它太繁琐,修改完配置必须重新生成OpenLDAP数据库,
 　　这就意味着,OpenLDAP服务器必须停机. 建议cn=config方式.
-cn=config
-    相对slapd.conf方式而言，修改后立即生效而不需要重启OpenLDAP服务器，属于热部署.
+cn=config   (Recommend)
+    相对slapd.conf方式而言，通过ldapmodify修改后立即生效而不需要重启OpenLDAP服务器，属于热部署.
+
 
 #
 #DB_CONFIG.example会自动生成DB_CONFIG,所以不需要特别处理
@@ -214,18 +264,6 @@ ${Bblue}${Fgreen} 初始化操作 ${AC}
 
 
 
-
-${Fseablue}Schema${AC}
-core.schema:     OpenLDAP的核心schema.【它是必须加载的】
-inetorgperson.schema : 它仅次于core, 我们添加账号时,很多要使用到它里面定义的objectClass.
-dyngroup.schema : 这是定义组时使用的schema,包括要使用sudo.schema时,也需要它。
-ppolicy.schema:     若需要做密码策略时,需要导入此schema.
-nis.schema: 网络信息服务(FYI),也是一种集中账号管理实现.
-java.schema: 若需要使用Java程序来操作openLDAP时,需要使用它,让OpenLDAP支持Java.
-cosine.schema : Cosine 和 Internet X.500 (比较有用, 不太懂.)
-misc.schema : Assorted (experimental)
-openldap.schema : OpenLDAP Project(experimental)
-sudo.schema: 定义sudo规则
 
 
 
@@ -482,6 +520,25 @@ https://www.cnblogs.com/wn1m/p/10700236.html
 
 
 https://www.it610.com/article/5623624.htm
+
+
+<<轻型目录访问协议>>
+Lightweight Directory Access Protocol，缩写：LDAP）是一个开放的，中立的，工业标准的应用协议，通过IP协议提供访问控制和维护分布式信息的目录信息.
+
+市面上只要你能够想像得到的所有工具软件，全部都支持LDAP协议。比如说你公司要安装一个项目管理工具，那么这个工具几乎必然支持LDAP协议，你公司要安装一个bug管理工具，这工具必然也支持LDAP协议，你公司要安装一套软件版本管理工具，这工具也必然支持LDAP协议。LDAP协议的好处就是你公司的所有员工在所有这些工具里共享同一套用户名和密码，来人的时候新增一个用户就能自动访问所有系统，走人的时候一键删除就取消了他对所有系统的访问权限，这就是LDAP。
+
+有些领域并不像前端世界那么潮那么性感，但是缺了这个环节又总觉得很别扭。如果深入到运维的世界，你会发现大部分工具还活在上个世纪，产品设计完全反人类，比如cn, dc, dn, ou这样的命名方式，如果不钻研个一天两天，鬼知道它在说什么，比如说dns，dns是什么鬼？域名吗？不是，它只是某个懒惰的工程师起了dn这么一个缩写，再加一个复数，就成了dns，和域名服务器没有任何关系；cn是什么？中国的缩写？你想多了，这和中国没有任何关系。经过一系列这样疯狂的洗脑之后，你才能逐渐明白LDAP到底想干什么。抛弃你所有的认知，把自己当成一个什么都不懂的幼儿园孩子，然后我们从头学起LDAP.
+
+如果你搜索OpenLDAP的安装指南，很不幸地告诉你，网上不管中文的英文的，90%都是错的，它们都还活在上个世纪，它们会告诉你要去修改一个叫做slapd.conf的文件，基本上看到这里，你就不用往下看了，这个文件早就被抛弃，新版的OpenLDAP里根本就没有这个文件！取而代之的是slapd.d的文件夹，然后另一部分教程会告诉你，让你修改这个文件夹下的某一个ldif文件，看到这里，你也不用往下看了，你又看到了伪教程，因为这个文件夹下的所有文件的第一行都明确地写着：『这是一个自动生成的文件，不要修改它！』你修改了它之后，它的md5校验值会匹配不上，造成更多的问题。你应该用ldapmodify来修改这个文件，而关于ldapmodify的教程，可以说几乎就没有！我一开始不知道面临这样荒谬的处境，很多运维人员是怎么活下来的，不过等我自己配通了以后，真的是累到连写教程的精力都没有了，好吧，我已经配通了，你们各人自求多福吧。
+
+谈谈OpenLDAP的架构：
+1.OpenLDAP服务器: 实质上它相当于一台可基于网络访问的数据库，所管理的数据是目录信息，
+                  而目录信息非常适合存储用户账号等，它的访问API默认为命令行；
+2.phpLDAPadmin: 为了解决管理员可以使用图形界面而非使用命令行去访问OpenLDAP服务器,phpLDAPadmin提供了
+                一个奇丑无比的web化的管理操作平台;
+3.PWM: 只装有管理工具也还不够，还需要为用户提供一个修改密码的地方;
+4.客户端：配置各种工具
+
 
 
 EOF
