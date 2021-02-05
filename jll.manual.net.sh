@@ -124,7 +124,7 @@ iface eth0 inet static
 address 192.168.1.11
 netmask 255.255.255.0
 gateway 192.168.1.10
-dns-nameservers 172.20.2.29 172.20.2.30  211.138.156.66  211.138.151.161
+dns-nameservers 172.20.2.29 172.20.2.30  211.138.156.66  211.138.151.161 218.85.152.99 218.85.157.99
 dns-search www.baid.com
 
 
