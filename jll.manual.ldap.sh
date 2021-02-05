@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2020-12-23 19:44:07
-#   ModifiedTime: 2021-02-05 12:01:37
+#   ModifiedTime: 2021-02-05 17:47:34
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -78,23 +78,76 @@ ${Fyellow}vim /etc/init.d/slapd${AC}
   DESC="slapd is associated with OpenLDAP Server"
   NAME=slapd
 + EXECPATH=/usr/share/OpenLDAP
-  DAEMON_ARGS=""
+  DAEMON_ARGS="-F \${EXECPATH}/etc/openldap/slapd.d"
 - PIDFILE=/var/run/\$NAME.pid
   ...
 + [ -x "\${EXECPATH}/libexec/env-for-openldap" ] || exit 0 
 + . \${EXECPATH}/libexec/env-for-openldap
++ [ -d "\${EXECPATH}/etc/openldap/slapd.d" ] || mkdir -p \${EXECPATH}/etc/openldap/slapd.d
++ [ x"$(ls ${EXECPATH}/etc/openldap/slapd.d/* 2>/dev/null)" != x ] || \\\\
++ slapadd -n 0 -F \${EXECPATH}/etc/openldap/slapd.d -l \${EXECPATH}/etc/openldap/slapd.ldif
 
 - [ -r /etc/default/\$NAME ] && . /etc/default/\$NAME
 - . /lib/init/vars.sh
 
-  ...
-  #JLLim: Remove "--pidfile \$PIDFILE" from all line of start-stop-daemon
-  ...
+
+#
+# JLLim: Remove "--pidfile \$PIDFILE" from all line of start-stop-daemon
+# as follows
+
+- start-stop-daemon --start --quiet --pidfile \$PIDFILE --exec \$DAEMON --test > /dev/null \\
++ start-stop-daemon --start --quiet --exec \$DAEMON --test > /dev/null \\
+
+- start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile \$PIDFILE --name \$NAME
++ start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --name \$NAME
+
+- start-stop-daemon --stop --signal 1 --quiet --pidfile \$PIDFILE --name \$NAME
++ start-stop-daemon --stop --signal 1 --quiet --name \$NAME
+
+
 
 ${Fyellow}update-rc.d slapd defaults 27${AC} # Install the startup service to rc 1,2,3,4,5
 
 ${Fyellow}service slapd start${AC} # Start to run openldap server named slapd
 ${Fyellow}service slapd stop${AC}  # Stop to run openldap server  named slapd
+
+${Bblue}${Fgreen}                                                     ${AC}
+${Bblue}${Fgreen} Testing                                             ${AC}
+${Bblue}${Fgreen}                                                     ${AC}
+${Fyellow}service slapd start${AC}
+
+
+${Fyellow}ldapsearch -x -H ldap://127.0.0.1 -D "cn=Manager,dc=my-domain,dc=com" -w secret -b '' -s base '(objectclass=*)' namingContexts -LLL ${AC}
+${Fyellow}ldapsearch -x -H ldap:///         -D "cn=Manager,dc=my-domain,dc=com" -w secret -b '' -s base '(objectclass=*)' namingContexts -LLL ${AC}
+${Fyellow}ldapsearch -x                     -D "cn=Manager,dc=my-domain,dc=com" -w secret -b '' -s base '(objectclass=*)' namingContexts -LLL ${AC}
+dn:
+namingContexts: dc=my-domain,dc=com
+
+
+#
+# add some the new entry into dit
+#
+${Fyellow}vim example.ldif ${AC}
+dn: dc=example,dc=com
+objectclass: dcObject
+objectclass: organization
+o: Example Company
+dc: example
+
+dn: cn=Manager,dc=example,dc=com
+objectclass: organizationalRole
+cn: Manager
+
+${Fyellow}ldapadd -x -H ldap:/// -D "cn=Manager,dc=my-domain,dc=com" -w secret -f example.ldif ${AC}
+adding new entry "dc=example,dc=com"
+ldap_add: Server is unwilling to perform (53)
+        additional info: no global superior knowledge
+
+
+${Fyellow}ldapsearch -x -H ldap://172.16.10.197 -D "cn=Manager,dc=my-domain,dc=com" -w secret -b 'dc=example,dc=com' -s base '(objectclass=*)' namingContexts -LLL ${AC}
+No such object (32)
+
+
 
 
 
@@ -249,7 +302,6 @@ dn: 条目名称
 objectClass(对象类): 属性值
 objectClass(对象类): 属性值
 ...
-
 
 
 ${Bblue}${Fgreen} 配置说明 ${AC}
