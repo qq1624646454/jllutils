@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-09-03 10:42:18
-#   ModifiedTime: 2017-10-16 16:33:08
+#   ModifiedTime: 2020-11-24 11:57:53
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -16,6 +16,61 @@ source ${JLLPATH}/BashShellLibrary
 # echo -e "hello \033[0m\033[31m\033[43mworld\033[0m"
 
 more >&1<<EOF
+
+${Bgreen}${Fblack}                                      ${AC}
+${Bgreen}${Fblack} Apache2 Installed Ubuntu 14.04 LTS   ${AC}
+${Bgreen}${Fblack}           with access authorization  ${AC}
+
+${Bgreen}${Fblack}1.Configurate the authorized directory @/etc/apache2/apache2.conf ${AC}
+<Directory "/usr/local/www">
+   Options Indexes FollowSymLinks
+   AllowOverride AuthConfig
+   Order allow,deny
+   Allow from all
+</Directory>
+${Bgreen}${Fblack}2.Set the authorization rule @/usr/local/www ${AC}
+AuthName "passwd, sir!"
+AuthType Basic
+AuthUserFile /usr/local/share/apache2/.htpasswd
+require valid-user
+
+${Bgreen}${Fblack}3.Generate the authorization password @/usr/local/share/apache2 ${AC}
+${Bgreen}${Fblack}    Install htpasswd    ${AC}
+root@BS# apt search htpasswd
+Sorting... Done
+Full Text Search... Done
+${Fgreen}apache2-utils${AC}/trusty-security,trusty-updates 2.4.7-1ubuntu4.22 amd64
+  Apache HTTP Server (utility programs for web servers)
+
+${Fgreen}libapache-htpasswd-perl${AC}/trusty,now 1.8-1.1 all [installed]
+  Manage Unix crypt-style password file
+
+${Fgreen}lighttpd${AC}/trusty-security,trusty-updates 1.4.33-1+nmu2ubuntu2.1 amd64
+  fast webserver with minimal memory footprint
+
+${Fgreen}nanoweb${AC}/trusty 2.2.9-0ubuntu1 all
+  HTTP server written in PHP
+
+root@BS# apt install apache2-utils -y
+...
+root@BS#
+
+${Bgreen}${Fblack}  htpasswd -c /usr/local/share/apache2/.htpasswd  <UserName> #new accout ${AC}
+
+${Bgreen}${Fblack}  htpasswd -m /usr/local/share/apache2/.htpasswd  <UserName> #modify accout ${AC}
+
+${Bgreen}${Fblack}apache2:Could not reliably determine the server’s fully qualified domain name${AC}
+${Fgreen}vim /etc/apache2/apache2.conf${AC} #append the follows:
+ServerName localhost:80
+
+
+
+
+${Bgreen}${Fblack}                                                                       ${AC}
+${Bgreen}${Fblack} Support zh in html                                                    ${AC}
+${Bgreen}${Fblack} <meta http-equiv="Content-Type" content="text/html; charset=utf-8">   ${AC}
+${Bgreen}${Fblack}                                                                       ${AC}
+
 
 ${Bgreen}${Fblack}                                      ${AC}
 ${Bgreen}${Fblack} Tomcat7 Installed Ubuntu 12.04.5 LTS ${AC}

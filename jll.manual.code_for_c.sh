@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2019-01-09 11:22:20
-#   ModifiedTime: 2019-01-09 11:23:12
+#   ModifiedTime: 2019-12-16 12:37:16
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -27,6 +27,22 @@ more >&1<<EOF
 #include <fcntl.h>
 #include <unistd.h>
 
+//#define xxx 1
+//#define xxx 0
+#define xxx 1
+
+int _xxx_main(int argc, char *argv[])
+{
+
+#if !defined(xxx) || (xxx != 1)
+    printf("xxx\\n");
+#else
+    printf("xxx=1\\n");
+#endif
+    return 0;
+}
+
+
 int main(int argc, char **argv)
 {
     int x,y,z;
@@ -40,6 +56,9 @@ int main(int argc, char **argv)
     printf("\\r\\n");
     (x > y) ? printf("1") : ((y > z) ? printf("2") : printf("3"));
     printf("\\r\\n");
+
+    _xxx_main(argc, argv);
+
     return 0;
 }
 

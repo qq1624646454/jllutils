@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-31 01:02:19
-#   ModifiedTime: 2017-10-31 01:03:20
+#   ModifiedTime: 2019-12-10 00:02:44
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -41,7 +41,8 @@ URL	      git://host/path/to/repos.git	  svn://host/path/to/repos
 添加文件	git add <path>							svn add <path>
 删除文件	git rm <path>							svn rm <path>
 移动文件	git mv <old> <new>						svn mv <old><new>
-清除未跟踪文件	git clean							svn status | sed -e??
+清除未跟踪文件	git clean -df						svn st | grep '^?' | awk '{print \$2}' | xargs rm -rf
+恢复已跟踪文件  git reset --hard HEAD               svn revert --recursive .
 清除工作锁定	_									svn clean
 读取文件历史版本	git show <commit>:<path>><output>	svn cat -r<rev><url/of/file>@<rev>><output>
 反删除文件			git add <path>						svn cp -r

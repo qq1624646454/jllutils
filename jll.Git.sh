@@ -256,20 +256,20 @@ EOF
                 Lfn_PageMenuUtils __result  "Select" 7 4 \
                                   "***** Configure Under \"~/.ssh/\" (q: quit) *****"
                 if [ x"${__result}" = x"${GvPageMenuUtilsContent[___i]}" ]; then
-                    if [ ! -e "${JLLPATH}/.sshconf/qq1624646454@csdn_github" ]; then
+                    if [ ! -e "${JLLPATH}/.sshconf/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6." ]; then
                         [ x"${__result}" != x ] && unset __result
                         [ x"${GvPageUnit}" != x ] && unset GvPageUnit 
                         [ x"${GvPageMenuUtilsContent}" != x ] && unset GvPageMenuUtilsContent
 
 more >&1<<EOF
-JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/qq1624646454@csdn_github\"${AC}
+JLL-Exit: Not exist ${Fred}\"${JLLPATH}/.sshconf/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6.\"${AC}
 EOF
                         Fn_Cleanup_GlobalVariable
                         exit 0 
                     fi
                     [ -e "${__JLLCFG_SshKey_RootPath}" ] && rm -rf ${__JLLCFG_SshKey_RootPath}
                     cp -rf ${JLLPATH}/.sshconf ${__JLLCFG_SshKey_RootPath}
-                    cp -rf ${JLLPATH}/.sshconf/qq1624646454@csdn_github ${HOME}/.ssh
+                    cp -rf ${JLLPATH}/.sshconf/github__NP__U..1624646454@qq.com.__P..X.IL6.Domain6./* ${HOME}/.ssh
                     chmod -R 0500 ${HOME}/.ssh/*
                     if [ -e "${HOME}/.ssh/config" ]; then
                         chmod +w ${HOME}/.ssh/config*
@@ -550,10 +550,12 @@ EOF
     cd - >/dev/null 
     cd ${__GitPath}
     echo "JLL-Doing: trying to use \"git pull origin master\""
-    git pull --rebase origin master
+    #git pull --rebase -u origin master
+    git pull origin master
     if [ x"$?" != x"0" ]; then
-        echo "JLL-Fixxing: trying to use \"git pull -u origin master\""
-        git pull --rebase -u origin master
+        echo "JLL-Fixxing: trying to use \"git pull origin master\""
+        #git pull --rebase origin master
+        git pull origin master
         if [ x"$?" != x"0" ]; then
             echo "JLL-Fixxing: trying to use \"git fetch origin\""
             git fetch origin
@@ -581,7 +583,7 @@ more >&1 <<EOF
 
      # If change is checked by 'git status -s', the follows will be run: 
      # 'git clean -dfx;git reset --hard HEAD' if approve to cleanup all changes
-     # 'git pull -u origin master' is always run
+     # 'git pull origin master' is always run
      ${Fyellow}${__CvScriptName} pull${AC}
 
 EOF

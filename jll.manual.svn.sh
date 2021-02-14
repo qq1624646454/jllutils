@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2016-12-15 13:19:59
-#   ModifiedTime: 2019-01-17 09:17:03
+#   ModifiedTime: 2021-02-01 15:11:52
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,7 +17,18 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 <<EOF
 
+linjielong
+ 852369
+
+
 aptitude install subversion
+
+#subversion默认对静态库和动态库进行忽略，因此直接svn status看不到库文件,状态为I
+${Fseablue}svn status --no-ignore${AC} 
+#提交被忽略的库文件，只需要svn add <指定被忽略的文件> 再svn commit -m "..."就可以了
+${Fseablue}svn status --no-ignore | grep -E '^I ' | awk -F' ' '{print \$1}' | xargs svn add${AC} 
+${Fseablue}svn commit -m "..."${AC} 
+
 
 
 #列出项目所有路径下所有修改过的文件
@@ -28,10 +39,15 @@ ${Fseablue}svn diff -r [开始条件]:HEAD --summarize [代码所在svn路径]${
 
 ${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn diff${AC}
 
-${Fseablue}svn st | grep '^?' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC}
-${Fseablue}svn st | grep '^M' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
-${Fseablue}svn st | grep '^~' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC}
-# git clean -df
+${Fseablue}svn st --no-ignore | grep '^? ' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove added files without tracking
+${Fseablue}svn st --no-ignore | grep '^I ' | awk '{print \$2}' | xargs rm -rvf 2>/dev/null${AC} #Remove ignored files without tracking
+${Fseablue}svn st --no-ignore | grep '^M ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file modify
+${Fseablue}svn st --no-ignore | grep '^~ ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for file new
+${Fseablue}svn st --no-ignore | grep '^! ' | awk '{print \$2}' | xargs svn revert -R 2>/dev/null${AC} #Revert for files deleted
+# git clean -df; git reset --hard HEAD
+
+${Fseablue}svn revert --recursive .${AC}
+# git reset --hard HEAD
 
 ${Fseablue}svn log -l 20${AC}
 ${Fseablue}svn log -r 485 -v  #查看第485条记录提交的文件信息${AC}
@@ -52,6 +68,11 @@ ${Fseablue}svn list https://192.168.0.10:8443/svn/Mangov2${AC}
 
 ${Fseablue}svn import L170LQ_trunk https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk${AC}
 # Import the new project named L170LQ_trunk into  https://192.168.0.10:8443/svn/Mango/branches/L170LQ_trunk
+
+
+${Fseablue}svn st | cut -c 8- > my.txt ${AC}
+...modify my.txt...
+${Fseablue}svn ci -m "commit features" --targets my.txt ${AC}
 
 
 ${Fseablue}svn add YOUR_FILE${AC}
@@ -300,6 +321,20 @@ svn st 各个状态解释：
 ---------------------------------------------------------
 svn relocate https://192.168.0.10:8443/svn/rivpiebase/branches/lora_gateway  https://172.16.11.10:8443/svn/rivpiebase/branches/lora_gateway
 
+
+
+
+======================================================================================================
+ How to commit your work result into svn server
+
+workdir: change some code files , such apps_proc/
+subdir:  latest pure code without any changed which sync with svn server, 
+         such as /ws/https_172.16.11.10_8443_svn/Mangov2/branches/L170HQA2_TianZe.1/apps_proc/ 
+======================================================================================================
+svn status --no-ignore | grep -Ev 'vendor\\/qcom' | grep -Ev '*pyc$' | grep -Ev '*\\.done$' | grep -Ev 'poky\\/bitbake|poky\\/build|filesystem|bootloader' | awk -F' ' '{print \$2}' | xargs -i cp --parents -r {} /ws/https_172.16.11.10_8443_svn/Mangov2/branches/L170HQA2_TianZe.1/apps_proc/
+
+svn status --no-ignore | grep '^? ' | awk -F' ' '{print \$2}' | xargs svn add
+svn commit -m "xxx"
 
 EOF
 

@@ -5,7 +5,7 @@
 #   Author:       jielong.lin
 #   Email:        493164984@qq.com
 #   DateTime:     2017-08-08 16:01:43
-#   ModifiedTime: 2017-08-08 17:03:23
+#   ModifiedTime: 2020-11-27 11:38:21
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -75,9 +75,55 @@ FOR 变量参照的替换已被增强。您现在可以使用下列
 %~dpI - 仅将 %I 扩展到一个驱动器号和路径 
 %~nxI - 仅将 %I 扩展到一个文件名和扩展名 
 %~fsI - 仅将 %I 扩展到一个带有短名的完整路径名 
-%~dp\$PATH:I - 搜索列在路径环境变量的目录，并将 %I 扩展 
+%~dp\\$PATH:I - 搜索列在路径环境变量的目录，并将 %I 扩展 
 到找到的第一个驱动器号和路径。 
 %~ftzaI - 将 %I 扩展到类似输出线路的 DIR 
+
+
+
+
+%WINDIR%                 {系统目录 - C:\\WINDOWS}
+%SYSTEMROOT%             {系统目录 - C:\\WINDOWS}
+%SYSTEMDRIVE%            {系统根目录 - C:}
+%HOMEDRIVE%              {当前用户根目录 - C:}
+%USERPROFILE%            {当前用户目录 - C:\\Documents and Settings\\wy}
+%HOMEPATH%               {当前用户路径 - \\Documents and Settings\\wy}
+%TMP%                    {当前用户临时文件夹 - C:\\DOCUME~1\\wy\\LOCALS~1\\Temp}
+%TEMP%                   {当前用户临时文件夹 - C:\\DOCUME~1\\wy\\LOCALS~1\\Temp}
+%APPDATA%                {当前用户数据文件夹 - C:\\Documents and Settings\\wy\\Application Data}
+%PROGRAMFILES%           {程序默认安装目录 - C:\\Program Files}
+%COMMONPROGRAMFILES%     {文件通用目录 - C:\\Program Files\\Common Files}
+%USERNAME%               {当前用户名 - wy}
+%ALLUSERSPROFILE%        {所有用户文件目录 - C:\\Documents and Settings\\All Users}
+%OS%                     {操作系统名 - Windows_NT}
+%COMPUTERNAME%           {计算机名 - IBM-B63851E95C9}
+%NUMBER_OF_PROCESSORS%   {处理器个数 - 1}
+%PROCESSOR_ARCHITECTURE% {处理器芯片架构 - x86}
+%PROCESSOR_LEVEL%        {处理器型号 - 6}
+%PROCESSOR_REVISION%     {处理器修订号 - 0905}
+%USERDOMAIN%             {包含用户帐号的域 - IBM-B63851E95C9}
+%COMSPEC%                {C:\\WINDOWS\\system32\\cmd.exe}
+
+%PATHEXT% {执行文件类型 - .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.pyo;.pyc;.py;.pyw}
+%PATH%    {搜索路径}
+--------------------------------------------------------------------------------
+另外, 可以利用 .. 到上层目录, 如:
+--------------------------------------------------------------------------------
+ 
+var
+  s: string;
+begin
+  s := GetCurrentDir;
+  ShowMessage(s); {C:\\Documents and Settings\\wy\\My Documents\\RAD Studio\\Projects}
+
+  SetCurrentDir('..');
+  s := GetCurrentDir;
+  ShowMessage(s); {C:\\Documents and Settings\\wy\\My Documents\\RAD Studio}
+  SetCurrentDir('..\\..');
+  s := GetCurrentDir;
+  ShowMessage(s); {C:\\Documents and Settings\\wy}
+end;
+
 
 
 

@@ -8,6 +8,70 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+${Bred}Structure needs cleaning ${AC}
+root@RS82:/# ${Bblue}umount /jllim2 ${AC}
+root@RS82:/# ${Bblue}fsck.ext4 /dev/sdb2 ${AC}
+e2fsck 1.42.9 (4-Feb-2014)
+ibbyte1024MB contains a file system with errors, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Inode 6685636 has an invalid extent node (blk 27481116, lblk 0)
+Clear<y>? ${Bblue}yes${AC}
+
+HTREE directory inode 6685636 has an invalid root node.
+Clear HTree index<y>? ${Bblue}yes${AC}
+Inode 6685636 is a zero-length directory.  Clear<y>? ${Bblue}yes${AC}
+HTREE directory inode 6693034 has an invalid root node.
+Clear HTree index<y>? ${Bblue}yes${AC}
+
+
+
+
+
+
+
+root@REACHXM82:/honor# lsblk -a -d -o name,rota
+NAME  ROTA
+sda      1  #HDD
+sdb      1  #HDD
+sdc      0  #SSD
+sdd      1  #HDD
+sde      1
+loop0    1
+loop1    1
+loop2    1
+loop3    1
+loop4    1
+loop5    1
+loop6    1
+loop7    1
+
+
+root@REACHXM82:/honor# lsblk  -a
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0 298.1G  0 disk
+└─sda1   8:1    0 298.1G  0 part /honor
+sdb      8:16   0   1.8T  0 disk
+├─sdb1   8:17   0   512G  0 part /repository
+└─sdb2   8:18   0     1T  0 part /ws
+sdc      8:32   0 223.6G  0 disk
+├─sdc1   8:33   0   6.4G  0 part [SWAP]
+├─sdc2   8:34   0  96.1G  0 part /
+└─sdc3   8:35   0 121.1G  0 part /VM
+sdd      8:48   0   1.8T  0 disk
+├─sdd1   8:49   0 428.4G  0 part /workspace1
+├─sdd2   8:50   0  37.6G  0 part /miscellaneous
+└─sdd4   8:52   0   1.4T  0 part /workspace2
+sde      8:64   1         0 disk
+loop0    7:0    0         0 loop
+loop1    7:1    0         0 loop
+loop2    7:2    0         0 loop
+loop3    7:3    0         0 loop
+loop4    7:4    0         0 loop
+loop5    7:5    0         0 loop
+loop6    7:6    0         0 loop
+loop7    7:7    0         0 loop
+
+
 
 ------------------------------------------------------
  How to check if the new harddisk is the new or old?

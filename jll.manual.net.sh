@@ -50,18 +50,34 @@ domain
 
 
 
---------------------------------------
- Check if IPv4:Port is valid or not
---------------------------------------
+---------------------------------------------------------------
+ Check if IPv4:Port which based on tcp/udp is valid or not
+
+ nc = netcat 
+ -l : listening mode
+ -p <port>
+ -u : udp mode or tcp mode if not -u
+ -v : more detail
+ -t : use telnet interact
+ -s <addr>: local source address
+ -z : disable io for scaning
+---------------------------------------------------------------
+#Test tcp port 22 on server 10.1.1.110 ,namely ssh port 
 root@debian:~# nc -zv 10.1.1.110 22
 DNS fwd/rev mismatch: fj.10086.cn != www.fj.10086.cn.wscdns.com
 fj.10086.cn [10.1.1.110] 22 (ssh) open
 root@debian:~# 
 
+#Test udp port 470 on server 110.80.142.93 
+root@REACHXM82:~#
+root@REACHXM82:~# nc -zvu 110.80.142.93  470
+
+Connection to 110.80.142.93 470 port [udp/*] succeeded!
+root@REACHXM82:~#
 
 
-
-
+for android:
+busybox nc ip port
 
 
 --------------------------------------
@@ -108,7 +124,7 @@ iface eth0 inet static
 address 192.168.1.11
 netmask 255.255.255.0
 gateway 192.168.1.10
-dns-nameservers 172.20.2.29 172.20.2.30  211.138.156.66  211.138.151.161
+dns-nameservers 172.20.2.29 172.20.2.30  211.138.156.66  211.138.151.161 218.85.152.99 218.85.157.99
 dns-search www.baid.com
 
 

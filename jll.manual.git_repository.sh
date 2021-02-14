@@ -15,6 +15,24 @@ issueID=0
 more >&1 << EOF
 
 ******************************************************************
+** Alway prompt Your Name and Your Email so that it will not be 
+** handled by automatically 
+
+git-repo# grep 'Your Name' -nr -C 3
+ubcmds/init.py-389-    while True:
+subcmds/init.py-390-      if not opt.quiet:
+subcmds/init.py-391-        print()
+subcmds/init.py:392:      name = self._Prompt('Your Name', mp.UserName)
+subcmds/init.py-393-      email = self._Prompt('Your Email', mp.UserEmail)
+subcmds/init.py-394-
+subcmds/init.py-395-      if not opt.quiet:
+******************************************************************
+${Fyellow}repo init without --config-name${AC}
+
+
+
+
+******************************************************************
 ** How to build repo tool 
 **   Linux(Debian,Ubuntu) as git remote repository
 ******************************************************************

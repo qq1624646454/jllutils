@@ -7,6 +7,37 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1 << EOF
 
+
+# Chinese test is show normally
+git config --global core.quotepath false
+
+
+#
+# File Name is renamed about case sensitive
+# but git can not recognize its change.
+#
+# It is solved by the follows:
+#
+git config core.ignorecase false
+
+
+######################
+### git push usage ###
+######################
+git push [<RemoteHostName> [<本地分支名>[:<远程分支名>]]]
+
+<RemoteHostName> is origin by default
+<LocalBranchName> can be found by git branch -l
+<RemoteBranchName> can be found by git branch -r
+
+# To remote host origin namedly ssh://gerrit.reachxm.com:29418/test
+# Push local branch master to remote branch newbr
+git push origin master:refs/for/newbr
+
+#All local branchs are pushed to remote host origin
+git push --all origin
+
+
 ###
 ### folder
 ### |--- 1.file

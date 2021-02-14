@@ -5,7 +5,7 @@
 #   Author:       root
 #   Email:        493164984@qq.com
 #   DateTime:     2017-10-30 15:59:57
-#   ModifiedTime: 2018-08-29 11:31:14
+#   ModifiedTime: 2019-08-08 22:48:42
 
 JLLPATH="$(which $0)"
 JLLPATH="$(dirname ${JLLPATH})"
@@ -17,8 +17,35 @@ source ${JLLPATH}/BashShellLibrary
 
 more >&1<<EOF
 
+${Fseablue}#Append the follows to ~/.bashrc and mkdir -pv ~/.bashrc.d${AC}
+if [ -d ~/.bashrc.d ]; then
+  for i in ~/.bashrc.d/*.sh; do
+    if [ -r \$i ]; then
+      . \$i
+    fi
+  done
+  unset i
+fi
+
+${Fseablue}#Put the file named to_anywhere.sh in ~/.bashrc.d what its content is as follows:${AC}
+function to_ws()
+{
+    cd /repository/corporation/Reachxm
+}
+export -f to_ws
+
+${Fseablue}#Put the file named audio_on.sh in ~/.bashrc.d what its content is as follows:${AC}
+function audio_on()
+{
+    pulseaudio --start --log-target=syslog
+}
+export -f audio_on
 
 
+
+
+
+============================================================================================
 
 ${Fseablue}Ctrl + Alt + T ${AC}: populate a new terminate console window
 ${Fseablue}Ctrl + Shift + T ${AC}: create a new terminate console table in current window
